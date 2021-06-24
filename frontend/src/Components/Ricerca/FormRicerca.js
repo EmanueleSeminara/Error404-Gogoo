@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DateFnsUtils from '@date-io/date-fns';
-import "../ComponentsCss/Pannel.css";
+import "../../ComponentsCss/Pannel.css";
 
 import {
     DatePicker,
@@ -55,11 +55,12 @@ export default class FormRicerca extends Component {
 
 
 
-    handleChangeDateArrivo = (date) => {
+
+    handleChangeDataArrivo = (date) => {
         this.setState({ dataArrivo: date });
     };
 
-    handleChangeDatePartenza = (date) => {
+    handleChangeDataPartenza = (date) => {
         this.setState({ dataPartenza: date });
     };
 
@@ -197,12 +198,12 @@ export default class FormRicerca extends Component {
                                     <div className="row " style={{ paddingBottom: "30px" }}>
                                         <div className="col">
                                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                <TimePicker label="Ritiro" inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.dataPartenza} onChange={this.handleChangeDataPartenza} />
+                                                <DateTimePicker label="Ritiro" inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.dataPartenza} onChange={this.handleChangeDataPartenza} />
                                             </MuiPickersUtilsProvider>
                                         </div>
                                         <div className="col">
                                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                <TimePicker label="Consegna" inputVariant="outlined" value={this.state.dataArrivo} selected={this.state.dataArrivo} onChange={this.handleChangeDataArrivo} />
+                                                <DateTimePicker label="Consegna" inputVariant="outlined" value={this.state.dataArrivo} selected={this.state.dataArrivo} onChange={this.handleChangeDataArrivo} />
                                             </MuiPickersUtilsProvider>
                                         </div>
                                     </div>
