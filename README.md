@@ -38,32 +38,34 @@ Per la realizzazione delle interfacce grafiche, si è scelto di utilizzare il fr
 Per gestire le richieste HTTP POST e GET tra client e server, si è utilizzata la libreria “axios”.
 SQLite, Express, React, NodeJS
 
-## Più informazioni dai documenti
-- RAD (Requirements Analysis Document) 
-- ODD (Object Design Document)
-- SDD (System Design Document)
-
 ## Come avviare Gogoo
+
+Aprire un terminale nella directory in cui si vuole installare Gogoo ed eseguire i seguenti comandi
 ```
-$ git clone https://github.com/EmanueleSeminara/Error404-Gogoo
-$ cd Error404-Gogoo
-$ cd backend
-$ npm install
-$ nano .env
+git clone https://github.com/EmanueleSeminara/Error404-Gogoo
+cd Error404-Gogoo
 ```
---- .env file ---  
+
+Configurazione Backend:
+```
+cd backend
+npm install
+```
+Creare un file chiamato .env e inserirlo nella cartella backend con i seguenti dati
+``` 
 MAIL_USER=yourEmail@gmail.com  
 MAIL_PASSWORD=emailPassword  
 SESSION_SECRET=a secret sentence not to share with anybody and anywhere, used to sign the session ID cookie
+```
+Eseguire il backend con il seguente comando:
+```
+npm start
 
+Configurazione Frontend:
 ```
-Press CTRL + X
-Press Y
-Press ENTER
-$ npm start
-$ cd ..
-$ cd frontend
-$ npm install
-$ npm start
-Alla fine del caricamento andare su http://localhost
+cd .. //se vi trovate nella cartella backend
+cd frontend
+npm install
+npm start
 ```
+Alla fine del caricamento andare su http://localhost/
