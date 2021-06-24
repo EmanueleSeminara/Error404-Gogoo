@@ -60,6 +60,7 @@ SESSION_SECRET=a secret sentence not to share with anybody and anywhere, used to
 Eseguire il backend con il seguente comando:
 ```
 npm start
+```
 
 Configurazione Frontend:
 ```
