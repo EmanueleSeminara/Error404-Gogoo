@@ -36,7 +36,7 @@ passport.use(
   })
 );
 
-// serialize and de-serialize the user (user object <-> session)
+// serialize and de-serialize the user
 // we serialize the user id and we store it in the session: the session is very small in this way
 passport.serializeUser((user, done) => {
   //console.log("serializeUser: user:" + JSON.stringify(user));
@@ -214,7 +214,7 @@ app.post(
         req.body.email,
         hashPassword
       );
-      mail.sendRecoveryPasswordMail(req,user.email, req.user.name, password);
+      mail.sendRecoveryPasswordMail(req, user.email, req.user.name, password);
       res.status(201).end();
     } catch (err) {
 

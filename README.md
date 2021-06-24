@@ -67,4 +67,4 @@ cd frontend
 npm install
 npm start
 ```
-Alla fine del caricamento andare su http://localhost/
+Alla fine del caricamento andare su http://localhost:3000/
