@@ -50,10 +50,12 @@ $ cd Error404-Gogoo
 $ cd backend
 $ npm install
 $ nano .env
-```.env
+```
+--- .env file ---
 MAIL_USER=yourEmail@gmail.com
 MAIL_PASSWORD=emailPassword
 SESSION_SECRET=a secret sentence not to share with anybody and anywhere, used to sign the session ID cookie
+
 ```
 Press CTRL + X
 Press Y
