@@ -44,4 +44,24 @@ SQLite, Express, React, NodeJS
 - SDD (System Design Document)
 
 ## Come avviare Gogoo
-
+```
+$ git clone https://github.com/EmanueleSeminara/Error404-Gogoo
+$ cd Error404-Gogoo
+$ cd backend
+$ npm install
+$ nano .env
+```.env
+MAIL_USER=yourEmail@gmail.com
+MAIL_PASSWORD=emailPassword
+SESSION_SECRET=a secret sentence not to share with anybody and anywhere, used to sign the session ID cookie
+```
+Press CTRL + X
+Press Y
+Press ENTER
+$ npm start
+$ cd ..
+$ cd frontend
+$ npm install
+$ npm start
+Alla fine del caricamento andare su http://localhost
+```
