@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
 
+const mail = require("../models/mail");
 const adminManagement = require("../models/adminManagement");
 const isAdmin = require("../middleware/isAdmin");
 
@@ -74,6 +76,7 @@ router.put(
     check("birthdate").isDate({ format: "YYYY-MM-DD", strictMode: true }),
     check("phone").isMobilePhone(["it-IT"]),
     check("password").isStrongPassword(),
+    check("id").isInt()
   ],
   isAdmin,
   async (req, res) => {
@@ -81,23 +84,21 @@ router.put(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-
     const user = {
       email: req.body.email,
       name: req.body.name,
       surname: req.body.surname,
       birthdate: req.body.birthdate,
       phone: req.body.phone,
-      id: req.session.passport.user,
+      id: req.body.id,
       password: await bcrypt.hash(req.body.password, 10),
     };
-
     try {
       await adminManagement.updateUser(user);
       mail.sendInformationChangedMail(req.body.email, req.body.name);
       res.status(201).end();
     } catch (err) {
-      if (err.errno == 19) {
+      if (err) {
         res.status(513);
       } else {
         res.status(503);

@@ -1,98 +1,97 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import React, { Component } from "react";
+import DateFnsUtils from '@date-io/date-fns';
+import "../../ComponentsCss/Pannel.css";
+import * as moment from 'moment';
 
-function TabPanel(props) {
-	const { children, value, index, ...other } = props;
 
-	return (
-		<div
-			role="tabpanel"
-			hidden={value !== index}
-			id={`full-width-tabpanel-${index}`}
-			aria-labelledby={`full-width-tab-${index}`}
-			{...other}
-		>
-			{value === index && (
-				<Box p={3}>
-					<Typography>{children}</Typography>
-				</Box>
-			)}
-		</div>
-	);
-}
+import {
+	DatePicker,
+	TimePicker,
+	DateTimePicker,
+	MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 
-TabPanel.propTypes = {
-	children: PropTypes.node,
-	index: PropTypes.any.isRequired,
-	value: PropTypes.any.isRequired,
-};
 
-function a11yProps(index) {
-	return {
-		id: `full-width-tab-${index}`,
-		'aria-controls': `full-width-tabpanel-${index}`,
-	};
-}
+import {
+	ListGroup,
+	ListGroupItem,
+	Button,
+	Input,
+	Jumbotron,
+	FormGroup,
+	Label,
+	Col,
+	Form,
+	ButtonGroup,
+} from "reactstrap";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		backgroundColor: theme.palette.background.paper,
-		width: 500,
-	},
-}));
+import RicercaVeicoli from './RicercaVeicoli';
+import RicercaFuoriStallo from './RicercaFuoriStallo';
 
-export default function FullWidthTabs() {
-	const classes = useStyles();
-	const theme = useTheme();
-	const [value, setValue] = React.useState(0);
 
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
+export default class FormRicerca extends Component {
+	state = {
+		rSelected: "1",
 	};
 
-	const handleChangeIndex = (index) => {
-		setValue(index);
-	};
 
-	return (
-		<div className={classes.root}>
-			<AppBar position="static" color="default">
-				<Tabs
-					value={value}
-					onChange={handleChange}
-					indicatorColor="primary"
-					textColor="primary"
-					variant="fullWidth"
-					aria-label="full width tabs example"
 
-				>
-					<Tab label="Item One" {...a11yProps(0)} />
-					<Tab label="Item Two" {...a11yProps(1)} />
-					<Tab label="Item Three" {...a11yProps(2)} />
-				</Tabs>
-			</AppBar>
-			<SwipeableViews
-				axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-				index={value}
-				onChangeIndex={handleChangeIndex}
-			>
-				<TabPanel value={value} index={0} dir={theme.direction}>
-					Item One
-				</TabPanel>
-				<TabPanel value={value} index={1} dir={theme.direction}>
-					Item Two
-				</TabPanel>
-				<TabPanel value={value} index={2} dir={theme.direction}>
-					Item Three
-				</TabPanel>
-			</SwipeableViews>
-		</div>
-	);
+	setRSelected = (num) => {
+		this.setState({ rSelected: num });
+	}
+
+
+	render() {
+		return (
+			<div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "85vh" }}>
+				<div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
+					<div style={{ backgroundColor: "#27394c", padding: "1vh", paddingTop: "1vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+						<center>
+							<ButtonGroup style={{ margin: "10px" }}>
+								<Button
+									color="primary"
+									onClick={() => {
+										this.setRSelected("1");
+										this.setState({ type: "car" });
+									}}
+									active={this.state.rSelected === "1"}
+								>
+									Veicoli nei parcheggi
+								</Button>
+								<Button
+									color="primary"
+									onClick={() => {
+										this.setRSelected("2");
+										this.setState({ type: "car" });
+										this.setState({ refParkingR: "" });
+									}}
+									active={this.state.rSelected === "2"}
+								>
+									Automobili fuori stallo
+								</Button>
+								<Button
+									color="primary"
+									onClick={() => {
+										this.setRSelected("3");
+										this.setState({ type: "car" });
+										this.setState({ refParkingR: "" });
+										this.setState({ refParkingC: "" });
+									}} active={this.state.rSelected === "3"}
+								>
+									Automobile con autista
+								</Button>
+							</ButtonGroup>
+						</center>
+					</div>
+					{this.state.rSelected === "1" &&
+						<RicercaVeicoli/>
+					}
+					{this.state.rSelected === "2" &&
+						<RicercaFuoriStallo/>
+					}
+
+				</div>
+			</div>
+		);
+	}
 }

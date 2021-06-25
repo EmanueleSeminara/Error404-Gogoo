@@ -18,6 +18,11 @@ export default class Login extends Component {
         password: "Samu966&",
         error: false
     };
+    /* state = {
+        username: "super@gmail.com",
+        password: "Super966&",
+        error: false
+    }; */
 
     componentDidMount() {
         if (localStorage.getItem("utente") !== null) {

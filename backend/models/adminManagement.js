@@ -55,9 +55,10 @@ exports.listUsers = (role, name, surname) => {
 };
 
 exports.updateUser = (user) => {
+  console.log("MODIFICHE: " + user);
   return new Promise((resolve, reject) => {
     const sql =
-      "UPDATE users SET name = ?, surname = ?, email=?, phone=?, birthdate = DATE(?), password=? WHERE id=?";
+      "UPDATE users SET name = ?, surname = ?, email=?, phone=?, password = ?, birthdate = DATE(?) WHERE id=?";
     db.run(
       sql,
       [
@@ -65,16 +66,21 @@ exports.updateUser = (user) => {
         user.surname,
         user.email,
         user.phone,
-        user.birthdate,
-        user.id,
         user.password,
+        user.birthdate,
+        user.id
       ],
       function (err) {
         if (err) {
           reject(err);
           return;
         }
-        resolve(this.lastID);
+        else if(this.changes === 0){
+          reject(true);
+        }
+        else{
+          resolve(this.changes);
+        }
       }
     );
   });

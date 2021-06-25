@@ -10,7 +10,8 @@ router.post(
     isLoggedIn,
     async (req, res) => {
         try {
-            res.json(await searchManagement.searchVehicles(req.params.category, req.params.dateR, req.params.dateC, req.params.startParking));
+            console.log("DATI DI REQ: " + req.body.type, req.body.dateR, req.body.dateC, req.body.refParkingR);
+            res.json(await searchManagement.searchVehicles(req.body.type, req.body.dateR, req.body.dateC, req.body.refParkingR));
         } catch (err) {
             res.status(503).json({
                 error: 'Database error during the creation of user - ' + err,

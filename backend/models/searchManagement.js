@@ -1,21 +1,26 @@
 const db = require("../db/db");
 
 //4. RICERCA:
-//  4.1 RICERCA VEICOLI: 
+//  4.1 RICERCA VEICOLI:
 
-// get all available vehicles 
+// get all available vehicles
 exports.searchVehicles = (type, dateR, dateC, startParking) => {
-    return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM vehicles AS v WHERE v.type = 'car' AND v.refParking = ? (posizioneDiPartenza) AND v.state != 'damage' AND v.id NOT IN(SELECT refVehicle FROM reservations WHERE ?(prenotazioneClienteRitiro)< dateC AND ?(prenotazioneClienteConsegna)> dateC)";
-        db.all(sql, [type, startParking, dateR, dateR, dateC, dateC, dateR, dateC], (err, rows) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            const vehicles = rows.map((v) => ({ id: v.id }));
-            resolve(vehicles);
-        });
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT * FROM vehicles AS v WHERE v.type = ? AND v.refParking = ? AND v.state != 'damage' AND v.id NOT IN(SELECT refVehicle FROM reservations WHERE DATE(?)< DATE(dateC) AND DATE(?)> DATE(dateR))";
+    db.all(sql, [type, startParking, dateR, dateC], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const vehicles = rows.map((v) => ({
+        id: v.id,
+        type: v.type,
+        category: v.category,
+      }));
+      resolve(vehicles);
     });
+  });
 };
 
 //  4.2 RICERCA AUTOMOBILI CON AUTISTA:
@@ -37,19 +42,19 @@ exports.searchVehicles = (type, dateR, dateC, startParking) => {
 
 // get all available drivers
 exports.searchDrivers = (dateR, dateC) => {
-    return new Promise((resolve, reject) => {
-        const sql = 'SELECT * FROM users WHERE role = "driver" AND id NOT IN(SELECT reservations.refDriver FROM users JOIN reservations ON users.id = reservations.refDriver WHERE ((? >= dateR AND ? <= dateC) OR (? >= dateR AND ? <= dateC) OR (?<= dateR AND  ? >=dateC)))';
-        db.all(sql, [dateR, dateR, dateC, dateC, dateR, dateC], (err, rows) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            const drivers = rows.map((d) => ({ id: d.id, email: d.email }));
-            resolve(drivers);
-        });
+  return new Promise((resolve, reject) => {
+    const sql =
+      'SELECT * FROM users WHERE role = "driver" AND id NOT IN(SELECT reservations.refDriver FROM users JOIN reservations ON users.id = reservations.refDriver WHERE ((? >= dateR AND ? <= dateC) OR (? >= dateR AND ? <= dateC) OR (?<= dateR AND  ? >=dateC)))';
+    db.all(sql, [dateR, dateR, dateC, dateC, dateR, dateC], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const drivers = rows.map((d) => ({ id: d.id, email: d.email }));
+      resolve(drivers);
     });
+  });
 };
-
 
 //  4.3 RICERCA AUTOMOBILI FUORI STALLO:  - DA RIVEDERE
 

@@ -40,38 +40,15 @@ export default class FormRicerca extends Component {
     state = {
         list: [],
         rSelected: "1",
-        infromatio: [
-            {
-                type: "car",
-                refParkingR: "Via Libertà",
-                refParkingC: "Via Libertà",
-                dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-                dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-                category: "",
-                positionR: "",
-                positionC: "",
-            },
-            {
-                type: "car",
-                refParkingR: "",
-                refParkingC: "Via Libertà",
-                dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-                dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-                category: "",
-                positionR: "",
-                positionC: "",
-            },
-            {
-                type: "car",
-                refParkingR: "",
-                refParkingC: "",
-                dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-                dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-                category: "",
-                positionR: "",
-                positionC: "",
-            },
-        ]
+        type: "car",
+        refParkingR: "Via Libertà",
+        refParkingC: "Via Libertà",
+        dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
+        dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
+        category: "",
+        positionR: "",
+        positionC: "",
+
     };
 
 

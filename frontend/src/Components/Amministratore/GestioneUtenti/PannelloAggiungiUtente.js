@@ -93,7 +93,7 @@ export default class PannelloAggiugiUtente extends Component {
             return;
         }
 
-        if (value.match(/[$@#&!]+/) && value.match(/[a-z]+/) && value.match(/[A-Z]+/) && value.match(/[0-9]+/)) {
+        if (value.match(/[$&+,:;=?@#|'<>.^*()%!-]+/) && value.match(/[a-z]+/) && value.match(/[A-Z]+/) && value.match(/[0-9]+/)) {
             cb(true);
             return;
         } else {

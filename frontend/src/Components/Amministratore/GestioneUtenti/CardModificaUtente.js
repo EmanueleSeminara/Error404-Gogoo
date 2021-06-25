@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, ListGroup, Jumbotron } from 'reactstrap';
 import { AvForm, AvField } from "availity-reactstrap-validation"
 import Alert from '@material-ui/lab/Alert';
+import Axios from 'axios';
 
 export default class CardModificaUtente extends Component {
 
@@ -51,7 +52,7 @@ export default class CardModificaUtente extends Component {
 			return;
 		}
 
-		if (value.match(/[$@#&!]+/) && value.match(/[a-z]+/) && value.match(/[A-Z]+/) && value.match(/[0-9]+/)) {
+		if (value.match(/[$&+,:;=?@#|'<>.^*()%!-]+/) && value.match(/[a-z]+/) && value.match(/[A-Z]+/) && value.match(/[0-9]+/)) {
 			cb(true);
 			return;
 		} else {
@@ -61,7 +62,28 @@ export default class CardModificaUtente extends Component {
 		}
 	}
 
-	modify = () => {}
+	modify = () => {
+		Axios.put("/api/admin/updateuser", this.state)
+		.then((err) => {
+			this.setState({ error: false });
+			this.setState({ success: true });
+		}).catch((err) => {
+			this.setState({ success: false });
+			if (err.response.status === 513) {
+				this.setState({ string: "email già associata ad un account" });
+				this.setState({ error: true });
+			} else if (err.response.status === 422) {
+				this.setState({ string: "errore nell'inserimento dei dati" });
+				this.setState({ error: true });
+			} else if (err.response.status === 503) {
+				console.log("inpossibile regitrarsi al momento")
+				this.setState({ string: "impossibile regitrarsi al momento, riprova più tardi" });
+				this.setState({ error: true });
+			} else {
+				window.location.href = "/serverError"
+			}
+		})
+	}
 
 	onValidSubmit = (event) => {
 		event.preventDefault();
