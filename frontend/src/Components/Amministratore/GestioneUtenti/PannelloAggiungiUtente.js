@@ -128,7 +128,7 @@ export default class PannelloAggiugiUtente extends Component {
                                             this.setState({ success: false });
                                         }}
                                         active={this.state.role === "guest"} 
-                                        size="lg">
+                                        >
                                             Cliente
                                     </Button>
                                     <Button
@@ -139,7 +139,7 @@ export default class PannelloAggiugiUtente extends Component {
                                             this.setState({ success: false });
                                         }}
                                         active={this.state.role === "driver"}
-                                        size="lg">
+                                        >
                                             Autista
                                     </Button>
                                     <Button
@@ -150,7 +150,7 @@ export default class PannelloAggiugiUtente extends Component {
                                             this.setState({ success: false });
                                         }}
                                         active={this.state.role === "valet"}
-                                        size="lg">
+                                        >
                                             Parcheggiatore
                                     </Button>
                                     <Button
@@ -161,7 +161,7 @@ export default class PannelloAggiugiUtente extends Component {
                                             this.setState({ success: false });
                                         }}
                                         active={this.state.role === "admin"}
-                                        size="lg">
+                                        >
                                             Amministratore
                                     </Button>
                                 </ButtonGroup>
@@ -207,7 +207,7 @@ export default class PannelloAggiugiUtente extends Component {
 
 
                                 <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
 
                                 {/* Riga data di nascita */}
                                 <div className="row">
@@ -230,7 +230,7 @@ export default class PannelloAggiugiUtente extends Component {
                                 </div>
 
                                 <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
 
                                 {/*Riga email */}
                                 <div className="row">
@@ -247,7 +247,7 @@ export default class PannelloAggiugiUtente extends Component {
                                 </div>
 
                                 <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
 
                                 {/* Riga password */}
                                 <div className="row">
@@ -271,7 +271,7 @@ export default class PannelloAggiugiUtente extends Component {
                                 </div>
 
                                 <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
 
                                 {/* Riga numero di telefono */}
                                 <div className="row">
@@ -290,34 +290,11 @@ export default class PannelloAggiugiUtente extends Component {
                                         />
                                     </div>
                                 </div>
-
-
-                                {/* {(this.state.role === "Autista") &&
-
-                                <div className="row">
-                                    <div className="col-12 ">
-                                        <AvField
-                                            name="patente"
-                                            label="Patente"
-                                            type="text"
-                                            validate={{
-                                                required: { value: true },
-                                                minLength: { value: 10 },
-                                                maxLength: { value: 10 },
-                                            }}
-                                            errorMessage="la patente deve contenere 10 cifre"
-                                            onChange={this.handleChange("patente")}
-                                        />
-                                    </div>
-                                </div>
-                            } */}
-
-
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
 
                                 {/* Pulsante aggiungi*/}
                                 <center>
-                                    <Button color="outline-success" type="submit" style={{ padding: "8px" }} size="lg">
+                                    <Button color="success" type="submit" style={{ padding: "8px", marginTop: "30px" }} >
                                         aggiungi
                                     </Button>
                                 </center>

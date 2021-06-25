@@ -14,8 +14,8 @@ import Axios from 'axios';
 export default class Login extends Component {
     
     state = {
-        username: "super@gmail.com",
-        password: "Super966&",
+        username: "samu@gmail.com",
+        password: "Samu966&",
         error: false
     };
 

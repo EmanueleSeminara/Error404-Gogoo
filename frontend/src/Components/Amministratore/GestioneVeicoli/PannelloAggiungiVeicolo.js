@@ -98,7 +98,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 												this.setState({ success: false });
 											}}
 											active={this.state.type === "car"} 
-											size="lg">
+											 >
 												Automobile
 										</Button>
 										<Button 
@@ -108,7 +108,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 											 	this.setState({error: false });
 												this.setState({success: false });
 											}}
-											active={this.state.type === "scooter"} size="lg">
+											active={this.state.type === "scooter"}  >
 												Motore
 										</Button>
 										<Button
@@ -118,7 +118,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 												this.setState({ error: false });
 												this.setState({ success: false });
 											}}
-											active={this.state.type === "electric scooter"} size="lg">
+											active={this.state.type === "electric scooter"}  >
 												Monopattino
 										</Button>
 										<Button
@@ -128,7 +128,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 												this.setState({ error: false });
 												this.setState({ success: false });
 											}}
-											active={this.state.type === "bicycle"} size="lg">
+											active={this.state.type === "bicycle"}  >
 												Bicicletta
 										</Button>
 									</ButtonGroup>
@@ -179,7 +179,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 							{/* Pulsante aggiungi*/}
 							<ListGroupItem style={{ padding: "20px" }}>
 								<center>
-									<Button color="outline-success" type="submit" style={{ padding: "8px" }} size="lg">
+									<Button color="outline-success" type="submit" style={{ padding: "8px" }}  >
 										aggiungi
 									</Button>
 								</center>

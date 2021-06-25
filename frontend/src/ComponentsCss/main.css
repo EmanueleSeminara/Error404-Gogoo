@@ -461,11 +461,11 @@ iframe {
   }
 }
 
-.MuiAppBar-colorDefault {
+/* .MuiAppBar-colorDefault {
     color: rgb(255 255 255 / 87%);
     background-color: #3d5a6d !important;
     color: rgb(225, 220, 220) !important;
-}
+} */
 
 /* input:invalid {
   border: red solid 3px;

@@ -81,7 +81,7 @@ export default class CardModificaVeicolo extends Component {
                   {this.state.category !== null ? <h5>Categoria: {this.state.category}</h5> : <> </>}
                   <h5>Parcheggio: {this.state.refParking} </h5>
                   <h5>State: {this.state.state} </h5>
-                  <button className="btn-lg btn-danger" onClick={() => { this.setModifica("modifica") }} style={{ textDecoration: "none" }}>Modifica</button>
+                  <button className="btn-lg btn-warning" onClick={() => { this.setModifica("modifica") }} style={{ textDecoration: "none" }}>Modifica</button>
                 </div>
               </div>
             </div>
@@ -123,8 +123,9 @@ export default class CardModificaVeicolo extends Component {
                       </Col>
                     </Row>
                     <hr style={{ backgroundColor: "#3FD0CB" }} />
+
                     {/* Pulsanti Modifica e Annulla*/}
-                    <Button type="submit" color="outline-success" type="submit" style={{ padding: "8px", margin: "10px" }} size="lg">
+                    <Button type="submit" color="outline-success" type="submit" style={{ padding: "8px", margin: "10px" }}  >
                       Modifica
                     </Button>
                   <Button 
@@ -135,7 +136,7 @@ export default class CardModificaVeicolo extends Component {
                       this.setState({ success: false });
                       this.setting();
                     }} 
-                    style={{ padding: "8px", margin: "10px" }} size="lg">
+                    style={{ padding: "8px", margin: "10px" }}  >
                       Annulla
                     </Button>
 

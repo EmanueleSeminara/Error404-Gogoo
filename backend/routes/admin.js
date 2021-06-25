@@ -1,0 +1,157 @@
+const express = require("express");
+const router = express.Router();
+const { check, validationResult } = require("express-validator");
+
+const adminManagement = require("../models/adminManagement");
+const isAdmin = require("../middleware/isAdmin");
+
+router.get("/listusers/:role", isAdmin, async (req, res) => {
+  try {
+    res.json(await adminManagement.listUsersByRole(req.params.role));
+  } catch (err) {
+    res.status(503).json({
+      error: "Database error during the request of users - " + err,
+    });
+  }
+});
+
+router.delete("/delete/:userId", isAdmin, async (req, res) => {
+  try {
+    await adminManagement.deleteUserById(req.params.userId);
+    res.status(201).end();
+  } catch (err) {
+    res.status(503).json({
+      error: "Database error during the elimination of user - " + err,
+    });
+  }
+});
+
+router.get(
+  "/listusers",
+  [
+    check("role").isIn(["guest", "admin", "valet", "driver"]),
+    check("name").isAlpha("it-IT", { ignore: " " }),
+    check("surname").isAlpha("it-IT", { ignore: " " }),
+  ],
+  isAdmin,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+    console.log(req.query.role, req.query.name, req.query.surname);
+
+    try {
+      res.json(
+        await adminManagement.listUsers(
+          req.query.role,
+          req.query.name,
+          req.query.surname
+        )
+      );
+      // INSERIRE MAIL
+      res.status(201).end();
+    } catch (err) {
+      if (err.errno == 19) {
+        res.status(513);
+      } else {
+        res.status(503);
+      }
+      res.json({
+        error: "Database error during the creation of user - " + err,
+      });
+    }
+  }
+);
+
+router.put(
+  "/updateuser",
+  [
+    check("email").isEmail(),
+    check("name").isAlpha("it-IT", { ignore: " " }),
+    check("surname").isAlpha("it-IT", { ignore: " " }),
+    check("birthdate").isDate({ format: "YYYY-MM-DD", strictMode: true }),
+    check("phone").isMobilePhone(["it-IT"]),
+    check("password").isStrongPassword(),
+  ],
+  isAdmin,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    const user = {
+      email: req.body.email,
+      name: req.body.name,
+      surname: req.body.surname,
+      birthdate: req.body.birthdate,
+      phone: req.body.phone,
+      id: req.session.passport.user,
+      password: await bcrypt.hash(req.body.password, 10),
+    };
+
+    try {
+      await adminManagement.updateUser(user);
+      mail.sendInformationChangedMail(req.body.email, req.body.name);
+      res.status(201).end();
+    } catch (err) {
+      if (err.errno == 19) {
+        res.status(513);
+      } else {
+        res.status(503);
+      }
+      res.json({
+        error: "Database error during the creation of user - " + err,
+      });
+    }
+  }
+);
+
+router.post(
+  "/createuser",
+  [
+    check("email").isEmail(),
+    check("name").isAlpha("it-IT", { ignore: " " }),
+    check("surname").isAlpha("it-IT", { ignore: " " }),
+    check("birthdate").isDate({ format: "YYYY-MM-DD", strictMode: true }),
+    check("phone").isMobilePhone(["it-IT"]),
+    check("password").isStrongPassword(),
+    check("role").isIn(["guest", "admin", "valet", "driver"]),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    const user = {
+      email: req.body.email,
+      name: req.body.name,
+      surname: req.body.surname,
+      birthdate: req.body.birthdate,
+      phone: req.body.phone,
+      password: await bcrypt.hash(req.body.password, 10),
+      role: req.body.role,
+    };
+
+    try {
+      await adminManagement.createUser(user);
+      mail.sendWelcomeMail(user.email, user.name);
+      res.status(201).end();
+    } catch (err) {
+      if (err.errno == 19) {
+        res.status(513);
+      } else {
+        res.status(503);
+      }
+      res.json({
+        error: "Database error during the creation of user - " + err,
+      });
+    }
+  }
+);
+
+module.exports = router;

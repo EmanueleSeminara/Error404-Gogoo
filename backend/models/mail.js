@@ -51,15 +51,14 @@ exports.sendPasswordChangedMail = (email, name) => {
   );
 }
 
-exports.sendRecoveryPasswordMail = (email, name, password) => {
+exports.sendRecoveryPasswordMail = (email, password) => {
   transporter.sendMail(
     {
       from: process.env.MAIL_USER,
       to: email,
       subject: "Gogoo - The password has been changed",
       text:
-        "Dear " +
-        name +
+        "Dear User" +
         ",\n\nThe password associated with your account has been changed in: " +
         password +
         ".\n\nGogoo Team",
@@ -77,11 +76,11 @@ exports.sendInformationChangedMail = (email, name) => {
   transporter.sendMail(
     {
       from: process.env.MAIL_USER,
-      to: user.email,
+      to: email,
       subject: "Gogoo - Information changed",
       text:
         "Dear " +
-        user.name +
+        name +
         ",\n\nWe inform you that your account information has been changed.\n\nGogoo Team",
     },
     function (error, info) {

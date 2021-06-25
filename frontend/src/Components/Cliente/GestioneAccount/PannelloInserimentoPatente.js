@@ -34,7 +34,7 @@ export default class Registrazione extends Component {
 	}
 
 	addCarLicense = () => {
-		Axios.post('/api/account/addcarlicense', this.state)
+		Axios.post('/api/guest/addcarlicense', this.state)
 		.then((res) =>{
 			this.setState({ error: false });
 			this.setState({ success: true });

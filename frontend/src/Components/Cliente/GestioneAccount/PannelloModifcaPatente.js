@@ -24,7 +24,7 @@ export default class Registrazione extends Component {
 	};
 
 	componentDidMount() {
-		Axios.get('/api/account/getdatacarlicense')
+		Axios.get('/api/guest/getdatacarlicense')
 			.then((res) => {
 				this.setState({ number: res.data.number });
 				this.setState({ date: res.data.date });
@@ -51,7 +51,7 @@ export default class Registrazione extends Component {
 	}
 
 	updatecarlicense = () => {
-		Axios.put('/api/account/updatecarlicense', this.state)
+		Axios.put('/api/guest/updatecarlicense', this.state)
 			.then((res) => {
 				this.setState({ error: false });
 				this.setState({ success: true });

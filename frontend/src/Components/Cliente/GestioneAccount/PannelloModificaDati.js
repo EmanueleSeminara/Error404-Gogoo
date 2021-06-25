@@ -5,7 +5,6 @@ import "../../../ComponentsCss/Pannel.css";
 import Axios from 'axios'
 import { Alert, AlertTitle } from '@material-ui/lab';
 
-//const data = { name: "giovanni", surname: "parisi", email: "sdx@libero.it", birthdate: "1994-05-05", phone: "3205318477"}
 export default class Registrazione extends Component {
 
 
@@ -21,7 +20,7 @@ export default class Registrazione extends Component {
 	};
 
 	componentDidMount(){
-			Axios.get('/api/account/mydata')
+			Axios.get('/api/guest/mydata')
 			.then((res) => {
 				console.log(res);
 				this.setState({ name: res.data.name });
@@ -49,7 +48,7 @@ export default class Registrazione extends Component {
 	};
 
 	update = () => {
-		Axios.put("/api/user/update", this.state)
+		Axios.put("/api/guest/update", this.state)
 		.then((res) => {
 			this.setState({ error: false });
 			this.setState({ success: true });

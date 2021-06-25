@@ -28,7 +28,7 @@ export default class Registrazione extends Component {
 	}
 
 	addpaymentmethod = () => {
-		Axios.post('/api/account/addpaymentmethod', this.state)
+		Axios.post('/api/guest/addpaymentmethod', this.state)
 			.then((res) => {
 				this.setState({ error: false });
 				this.setState({ success: true });

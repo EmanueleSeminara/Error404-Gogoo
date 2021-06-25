@@ -65,7 +65,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                             this.search();
                                         }} 
                                         active={this.state.type === "car"} 
-                                        size="lg">
+                                         >
                                             Automobile
                                     </Button>
                                     <Button
@@ -75,7 +75,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                             this.search();
                                         }}
                                         active={this.state.type === "scooter"}
-                                        size="lg">
+                                         >
                                             Motore
                                     </Button>
                                     <Button
@@ -85,7 +85,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                             this.search();
                                         }}
                                         active={this.state.type === "electric scooter"}
-                                        size="lg">
+                                         >
                                             Monopattino
                                     </Button>
                                     <Button
@@ -95,7 +95,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                             this.search();
                                         }}
                                         active={this.state.type === "bicycle"}
-                                        size="lg">
+                                         >
                                             Bicicletta
                                     </Button>
                                 </ButtonGroup>

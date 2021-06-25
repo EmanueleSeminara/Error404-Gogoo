@@ -71,10 +71,10 @@ export default class PannelloAggiugiVeicolo extends Component {
                                     <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
 
                                         <ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-                                            <Button color="primary" onClick={() => this.setRSelected("car")} active={this.state.type === "Automobile"} size="lg">Automobile</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"} size="lg">Motore</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("monoped")} active={this.state.type === "monoped"} size="lg">Monopattino</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"} size="lg">Bicicletta</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("car")} active={this.state.type === "Automobile"}  >Automobile</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"}  >Motore</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("monoped")} active={this.state.type === "monoped"}  >Monopattino</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"}  >Bicicletta</Button>
                                         </ButtonGroup>
                                     </ListGroupItem>
                                 </center>
@@ -148,7 +148,7 @@ export default class PannelloAggiugiVeicolo extends Component {
                                 {/* Pulsante aggiungi*/}
                                 <ListGroupItem style={{ padding: "20px" }}>
                                     <center>
-                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }} size="lg">
+                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }}  >
                                             aggiungi
                                         </Button>
                                     </center>
@@ -172,10 +172,10 @@ export default class PannelloAggiugiVeicolo extends Component {
                                     <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
 
                                         <ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-                                            <Button color="primary" onClick={() => this.setRSelected("Auto")} active={this.state.type === "Automobile"} size="lg">Automobile</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"} size="lg">Motore</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Monopattino")} active={this.state.type === "Monopattino"} size="lg">Monopattino</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"} size="lg">Bicicletta</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Auto")} active={this.state.type === "Automobile"}  >Automobile</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"}  >Motore</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Monopattino")} active={this.state.type === "Monopattino"}  >Monopattino</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"}  >Bicicletta</Button>
                                         </ButtonGroup>
                                     </ListGroupItem>
                                 </center>
@@ -244,7 +244,7 @@ export default class PannelloAggiugiVeicolo extends Component {
                                 {/* Pulsante aggiungi*/}
                                 <ListGroupItem style={{ padding: "20px" }}>
                                     <center>
-                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }} size="lg">
+                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }}  >
                                             aggiungi
                                         </Button>
                                     </center>
@@ -267,10 +267,10 @@ export default class PannelloAggiugiVeicolo extends Component {
                                     <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
 
                                         <ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-                                            <Button color="primary" onClick={() => this.setRSelected("Auto")} active={this.state.type === "Automobile"} size="lg">Automobile</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"} size="lg">Motore</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Monopattino")} active={this.state.type === "Monopattino"} size="lg">Monopattino</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"} size="lg">Bicicletta</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Auto")} active={this.state.type === "Automobile"}  >Automobile</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"}  >Motore</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Monopattino")} active={this.state.type === "Monopattino"}  >Monopattino</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"}  >Bicicletta</Button>
                                         </ButtonGroup>
                                     </ListGroupItem>
                                 </center>
@@ -292,7 +292,7 @@ export default class PannelloAggiugiVeicolo extends Component {
                                 {/* Pulsante aggiungi*/}
                                 <ListGroupItem style={{ padding: "20px" }}>
                                     <center>
-                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }} size="lg">
+                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }}  >
                                             aggiungi
                                         </Button>
                                     </center>
@@ -315,10 +315,10 @@ export default class PannelloAggiugiVeicolo extends Component {
                                     <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
 
                                         <ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-                                            <Button color="primary" onClick={() => this.setRSelected("Auto")} active={this.state.type === "Automobile"} size="lg">Automobile</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"} size="lg">Motore</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Monopattino")} active={this.state.type === "Monopattino"} size="lg">Monopattino</Button>
-                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"} size="lg">Bicicletta</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Auto")} active={this.state.type === "Automobile"}  >Automobile</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Moto")} active={this.state.type === "Moto"}  >Motore</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Monopattino")} active={this.state.type === "Monopattino"}  >Monopattino</Button>
+                                            <Button color="primary" onClick={() => this.setRSelected("Bicicletta")} active={this.state.type === "Bicicletta"}  >Bicicletta</Button>
                                         </ButtonGroup>
                                     </ListGroupItem>
                                 </center>
@@ -340,7 +340,7 @@ export default class PannelloAggiugiVeicolo extends Component {
                                 {/* Pulsante aggiungi*/}
                                 <ListGroupItem style={{ padding: "20px" }}>
                                     <center>
-                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }} size="lg">
+                                        <Button color="outline-success" type="submit" style={{ padding: "8px" }}  >
                                             aggiungi
                                         </Button>
                                     </center>

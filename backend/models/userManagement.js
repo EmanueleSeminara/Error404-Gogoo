@@ -1,121 +1,111 @@
-//1. GESTIONE UTENTI
-
-"use strict";
-
 const db = require("../db/db");
+const bcrypt = require("bcrypt");
 
-//    1.1 RIMUOVI UTENTE:
-
-// get all existing users identified by {role}
-exports.listUsersByRole = (role) => {
-  return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM users WHERE role = ?";
-    db.all(sql, [role], (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      const utenti = rows.map((u) => ({
-        id: u.id,
-        name: u.name,
-        surname: u.surname,
-        email: u.email,
-      }));
-      resolve(utenti);
+exports.getUserById = (id) => {
+    return new Promise((resolve, reject) => {
+      const sql = "SELECT * FROM users WHERE id = ?";
+      db.get(sql, [id], (err, row) => {
+        if (err) reject(err);
+        else if (row === undefined) resolve({ error: "User not found." });
+        else {
+          // by default, the local strategy looks for "username": not to create confusion in server.js, we can create an object with that property
+          const user = {
+            id: row.id,
+            email: row.email,
+            name: row.name,
+            surname: row.surname,
+            phone: row.phone,
+            birthdate: row.birthdate,
+            role: row.role,
+          };
+          resolve(user);
+        }
+      });
     });
-  });
-};
-
-// delete an existing user
-exports.deleteUserById = (id) => {
-  return new Promise((resolve, reject) => {
-    const sql = "DELETE FROM users WHERE id = ?";
-    db.run(sql, [id], (err) => {
-      if (err) {
-        reject(err);
-        return;
-      } else resolve(null);
+  };
+  
+  exports.getUser = (email, password) => {
+    return new Promise((resolve, reject) => {
+      const sql = "SELECT * FROM users WHERE email = ?";
+      db.get(sql, [email], (err, row) => {
+        if (err) reject(err);
+        else if (row === undefined) {
+          resolve(false);
+        } else {
+          const user = {
+            id: row.id,
+            email: row.email,
+            name: row.name,
+            surname: row.surname,
+            phone: row.phone,
+            age: row.age,
+            role: row.role,
+          };
+  
+          // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
+          bcrypt.compare(password, row.password).then((result) => {
+            if (result) resolve(user);
+            else resolve(false);
+          });
+        }
+      });
     });
-  });
-};
+  };
 
-//    1.2 AGGIUNGI UTENTE:
+  exports.createGuest = (user) => {
+    console.log(user)
+    return new Promise((resolve, reject) => {
+      const sql =
+        "INSERT INTO users(name, surname, email, password, phone, birthdate) VALUES(?, ?, ?, ?, ?, DATE(?))";
+      db.run(
+        sql,
+        [
+          user.name,
+          user.surname,
+          user.email,
+          user.password,
+          user.phone,
+          user.birthdate
+        ],
+        function (err) {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(this.lastID);
+        }
+      );
+    });
+  };
 
-// add a new user
-exports.createUser = (user) => {
-  console.log(user)
-  return new Promise((resolve, reject) => {
-    const sql =
-      "INSERT INTO users(name, surname, email, password, phone, birthdate, role) VALUES(?, ?, ?, ?, ?, DATE(?), ?)";
-    db.run(
-      sql,
-      [
-        user.name,
-        user.surname,
-        user.email,
-        user.password,
-        user.phone,
-        user.birthdate,
-        user.role ? user.role : "guest",
-      ],
-      function (err) {
+  exports.updatePassword = (userId, newPassword) => {
+    return new Promise((resolve, reject) => {
+      const sql = "UPDATE users SET password = ? WHERE id=?";
+      db.run(sql, [newPassword, userId], function (err, row) {
         if (err) {
           reject(err);
           return;
         }
-        resolve(this.lastID);
-      }
-    );
-  });
-};
-
-//    1.3 MODIFICA DATI UTENTE:
-
-// get all users identified by {role, name, surname}
-exports.listUsers = (role, name, surname) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      "SELECT * FROM users WHERE role = ? AND name = ? AND surname = ?";
-    db.all(sql, [role, name, surname], (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      const utenti = rows.map((u) => ({
-        id: u.id,
-        name: u.name,
-        surname: u.surname,
-        email: u.email,
-        phone: u.phone,
-        birthdate: u.birthdate,
-      }));
-      resolve(utenti);
+        resolve(row);
+      });
     });
-  });
-};
+  };
 
-// update an existing user
-exports.updateUser = (user) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      "UPDATE users SET name = ?, surname = ?, email=?, phone=?, birthdate = DATE(?) WHERE id=?";
-    db.run(
-      sql,
-      [
-        user.name,
-        user.surname,
-        user.email,
-        user.phone,
-        user.birthdate,
-        user.id,
-      ],
-      function (err) {
+  exports.forgotPassword = (email, randomPassword) => {
+    return new Promise((resolve, reject) => {
+      const sql =
+        "UPDATE users SET password = ? WHERE email = ? AND EXISTS( SELECT 1 FROM users WHERE email = ?)";
+      db.run(sql, [randomPassword, email, email], function (err) {
         if (err) {
           reject(err);
           return;
         }
-        resolve(this.lastID);
-      }
-    );
-  });
-};
+        else if(this.changes === 0){
+          reject(true);
+        }
+        else{
+          resolve(this.changes);
+        }
+      });
+    });
+  };

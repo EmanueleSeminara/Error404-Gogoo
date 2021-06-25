@@ -107,10 +107,10 @@ export default class CardPrenotazione extends Component {
                                 </div>
                             </div>
                             <center>
-                                <Button type="button" color="outline-success" onClick={() => this.setModifica(true)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg">
+                                <Button type="button" color="outline-success" onClick={() => this.setModifica(true)} style={{ marginRight: "10px", marginTop: "20px" }}  >
                                     Modifica
                                 </Button>
-                                <Button type="button" color="outline-danger" style={{ marginRight: "10px", marginTop: "20px" }} size="lg">
+                                <Button type="button" color="outline-danger" style={{ marginRight: "10px", marginTop: "20px" }}  >
                                     Elimina
                                 </Button>
                             </center>
@@ -196,7 +196,7 @@ export default class CardPrenotazione extends Component {
 
                                     {/* Pulsante modifica*/}
 
-                                    <Button type="submit" color="outline-success" onClick={() => this.setModifica(false)} style={{ padding: "8px", margin: "10px" }} size="lg">
+                                    <Button type="submit" color="outline-success" onClick={() => this.setModifica(false)} style={{ padding: "8px", margin: "10px" }}  >
                                         Modifica
                                     </Button>
 

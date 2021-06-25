@@ -84,7 +84,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
                                     <br />
                                 </AvForm>
                                 <center>
-                                    <Button color="outline-success" onClick={() => { this.setModifica(true) }} style={{ padding: "8px" }} size="lg" type="submit">
+                                    <Button color="outline-success" onClick={() => { this.setModifica(true) }} style={{ padding: "8px" }}   type="submit">
                                         cerca
                                     </Button>
                                 </center>

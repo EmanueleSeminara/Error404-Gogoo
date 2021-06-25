@@ -15,7 +15,7 @@ export default class PannelloRimuoviUtente extends Component {
 	};
 
 	componentDidMount() {
-		Axios.get('api/user/listusers/guest')
+		Axios.get('api/admin/listusers/guest')
 			.then((res) => {
 				this.setState({ listusers: res.data });
 			}).catch((err) => {
@@ -26,7 +26,7 @@ export default class PannelloRimuoviUtente extends Component {
 	search = () => {
 		console.log("SONO DENTRO SEARCH")
 		console.log(this.state.role);
-		Axios.get('api/user/listusers/' + this.state.role)
+		Axios.get('api/admin/listusers/' + this.state.role)
 		.then((res) => {
 			this.setState({ listusers: res.data });
 			console.log(this.state.listusers);
@@ -41,7 +41,7 @@ export default class PannelloRimuoviUtente extends Component {
 	}
 
 	remove = (userID) => {
-		Axios.delete('/api/user/delete/' + userID)
+		Axios.delete('/api/admin/delete/' + userID)
 			.then((res) => {
 				this.setState({ listusers: this.state.listusers.filter(user => user.id !== userID) });
 			}).catch((err) => {
@@ -63,9 +63,9 @@ export default class PannelloRimuoviUtente extends Component {
 							<ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
 
 								<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-									<Button color="primary" onClick={async () => { await this.setRSelected("guest"); this.search()}} active={this.state.role === "guest"} size="lg">Cliente</Button>
-									<Button color="primary" onClick={async () => { await this.setRSelected("driver"); this.search() }} active={this.state.role === "driver"} size="lg">Autista</Button>
-									<Button color="primary" onClick={async () => { await this.setRSelected("valet"); this.search() }} active={this.state.role === "valet"} size="lg">Parcheggiatore</Button>
+									<Button color="primary" onClick={async () => { await this.setRSelected("guest"); this.search()}} active={this.state.role === "guest"}  >Cliente</Button>
+									<Button color="primary" onClick={async () => { await this.setRSelected("driver"); this.search() }} active={this.state.role === "driver"}  >Autista</Button>
+									<Button color="primary" onClick={async () => { await this.setRSelected("valet"); this.search() }} active={this.state.role === "valet"}  >Parcheggiatore</Button>
 									<Button color="primary" onClick={async () => { await this.setRSelected("admin"); this.search() }} active={this.state.role === "admin"} size="lg">Amministratore</Button>
 								</ButtonGroup>
 							</ListGroupItem>

@@ -15,21 +15,21 @@ export default class Registrazione extends Component {
 	}
 
 	componentDidMount(){
-		Axios.get('/api/account/listpayments')
+		Axios.get('/api/guest/listpayments')
 		.then((res) => {
 			this.setState({ listpayments: res.data });
 			console.log(this.state.listpayments);
 		}).catch((err) => {
-			window.location.href = '/errorServer';
+			//window.location.href = '/errorServer';
 		});
 	}
 	
 	remove = (cardID) => {
-		Axios.delete('/api/account/deletepayment/' + cardID)
+		Axios.delete('/api/guest/deletepayment/' + cardID)
 		.then((res) => {
 			this.setState({ listpayments: this.state.listpayments.filter(card => card.id !== cardID) });
 		}).catch((err) => {
-			window.location.href = '/errorServer';
+			//window.location.href = '/errorServer';
 		});
 	};
 
