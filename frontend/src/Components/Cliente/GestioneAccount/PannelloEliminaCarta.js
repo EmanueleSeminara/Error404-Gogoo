@@ -20,7 +20,7 @@ export default class Registrazione extends Component {
 			this.setState({ listpayments: res.data });
 			console.log(this.state.listpayments);
 		}).catch((err) => {
-			//window.location.href = '/errorServer';
+			window.location.href = '/errorServer';
 		});
 	}
 	
@@ -29,7 +29,7 @@ export default class Registrazione extends Component {
 		.then((res) => {
 			this.setState({ listpayments: this.state.listpayments.filter(card => card.id !== cardID) });
 		}).catch((err) => {
-			//window.location.href = '/errorServer';
+			window.location.href = '/errorServer';
 		});
 	};
 

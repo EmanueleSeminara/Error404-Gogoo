@@ -1,4 +1,7 @@
 const db = require("../db/db");
+var distance = require("google-distance");
+distance.apiKey = process.env.GOOGLE_KEY;
+
 
 //4. RICERCA:
 //  4.1 RICERCA VEICOLI:
@@ -58,18 +61,43 @@ exports.searchDrivers = (dateR, dateC) => {
 
 //  4.3 RICERCA AUTOMOBILI FUORI STALLO:  - DA RIVEDERE
 
-// // get all vehicles (in inglese) fuori stallo
-// exports.searchDrivers = (dateR, dateC) => {
-//     return new Promise((resolve, reject) => {
-//         const sql =
-//             'SELECT * FROM vehicles WHERE state = "fuori stallo" AND type = "car" id NOT IN( SELECT reservations.refVehicles FROM vehicles JOIN reservations ON vehicles.id = reservations.refVehicles WHERE ((? >= dateR AND ? <= dateC) OR (? >= dateR AND ? <= dateC) OR (? <= dateR AND  ? >=dateC)))';
-//         db.all(sql, [dateR, dateR, dateC, dateC, dateR, dateC], (err, rows) => {
-//             if (err) {
-//                 reject(err);
-//                 return;
-//             }
-//             const vehicles = rows.map((v) => ({ id: v.id, category: v.category, position: v.position }));
-//             resolve(vehicles);
-//         });
-//     });
-// };
+// get all vehicles (in inglese) fuori stallo
+exports.searchVehiclesOutOfStall = (dateR, dateC) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT * FROM vehicles AS v WHERE v.type = 'car' AND v.position != 'NULL' AND v.state != 'damage' AND v.id NOT IN(SELECT refVehicle FROM reservations WHERE DATE(?)< DATE(dateC) AND DATE(?)> DATE(dateR))";
+    db.all(sql, [dateR, dateC], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const vehicles = rows.map((v) => ({
+        id: v.id,
+        type: v.type,
+        category: v.category,
+        position: v.position,
+      }));
+      resolve(vehicles);
+    });
+  });
+};
+
+
+exports.prova = (start, end) => {
+  return new Promise((resolve, reject) => {
+    distance.get(
+      {
+        origin: start + ", Palermo Italy",
+        destination: end + ", Palermo Italy",
+        mode: "walking",
+      },
+      function (err, data) {
+        return err ? reject(err) : resolve(data);
+        //if (err) return reject(err);
+        //resolve(data);
+        // console.log(vehicle);
+        //return vehicle;
+      // }
+      });
+  });
+};

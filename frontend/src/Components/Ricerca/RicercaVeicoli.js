@@ -32,6 +32,8 @@ import {
 	AvRadio,
 	AvRadioGroup,
 } from "availity-reactstrap-validation";
+import Alert from '@material-ui/lab/Alert';
+
 import CardPrenotaVeicolo from './CardPrenotaVeicolo';
 import Axios from 'axios';
 
@@ -44,7 +46,21 @@ export default class FormRicerca extends Component {
 		dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		category: "",
+		payment: false,
 	};
+
+	componentDidMount(){
+		Axios.get('/api/guest/listpayments')
+			.then((res) => {
+				console.log(res.data.length);
+				if (res.data.length !== 0){
+					console.log("sono dentro")
+					this.setState({ payment: true });
+				}
+			}).catch((err) => {
+				window.location.href = '/errorServer';
+			});
+	}
 
 
 	handleChange = (input) => (e) => {
@@ -70,32 +86,60 @@ export default class FormRicerca extends Component {
 			})
 	}
 
+	validPayament = new Promise((resolve, reject) => {
+		Axios.get('/api/guest/listpayments')
+			.then((res) => {
+				console.log(res.data.length);
+				if (res.data.length !== 0){
+					resolve(true)
+				} else {
+					resolve(false);
+				}
+			}).catch((err) => {
+				window.location.href = '/errorServer';
+			});
+	})
 
-	g = () => {
-		const reservation = JSON.parse(localStorage.getItem("reservation"))
-		reservation.id = 1
-		window.localStorage.setItem("reservation", JSON.stringify(reservation));
+	validLicense = () => {
+		Axios.get('/api/guest/getdatacarlicense')
+			.then((res) => {
+				if(this.state.type === "car"){
+					console.log("hai la patente per la macchina");
+					this.setState({ license: res.data.b})
+				} else if(this.state.type === "scooter"){
+					console.log("hai la patente per il motore");
+					this.setState({ license: (res.data.b || res.data.a2 || res.data.a1 || res.data.am || res.data.a) })
+				}
+				return true
+			}).catch((err) => {
+				window.location.href = "/serverError"
+			});
 	}
 
+	onValidSubmit = async (event) => {
+		console.log("sono dentro onValid");
+		const g = await this.validPayament();
+		if (g){
+			console.log("sono dentro VERO")
 
-	onValidSubmit = (event) => {
-		event.preventDefault();
-		this.search();
-		const reservation = {
-			refVehicle: "",
-			type: this.state.type,
-			refParkingR: this.state.refParkingR,
-			refParkingC: this.state.refParkingC,
-			dateR: this.state.dateR,
-			dateC: this.state.dateC,
-			category: "",
-			positionR: "",
-			positionC: "",
-		};
-		window.localStorage.setItem("reservation", JSON.stringify(reservation));
-		console.log(JSON.parse(localStorage.getItem("reservation")));
-		this.g();
-		console.log(JSON.parse(localStorage.getItem("reservation")));
+			this.search();
+			const reservation = {
+				refVehicle: "",
+				type: this.state.type,
+				refParkingR: this.state.refParkingR,
+				refParkingC: this.state.refParkingC,
+				dateR: this.state.dateR,
+				dateC: this.state.dateC,
+				category: "",
+				positionR: "",
+				positionC: "",
+			};
+			window.localStorage.setItem("reservation", JSON.stringify(reservation));
+		} else {
+			return (
+			<Alert severity="error">Non possiedi una patente valida per noleggiare il veicolo</Alert>
+			)
+		}
 	};
 
 	render() {

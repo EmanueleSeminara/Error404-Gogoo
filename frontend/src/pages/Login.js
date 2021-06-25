@@ -85,6 +85,7 @@ export default class Login extends Component {
                 >
                     <div className="col-sm-12 col-md-8 col-lg-6 my-auto">
                         <Jumbotron style={{ backgroundColor: "#27394c", color: "beige" }}>
+                        
                             <Container fluid>
                                 <center>
                                     <img
@@ -121,7 +122,7 @@ export default class Login extends Component {
                                     <br />
 
                                     <center>
-                                        <Button type="submit" color="primary" size="lg">
+                                        <Button type="submit" color="primary">
                                             Login
                                         </Button>
                                     </center>
@@ -146,6 +147,7 @@ export default class Login extends Component {
                             
                             {this.state.error && <Alert severity="error">Email o password non validi</Alert>}
                         </Jumbotron>
+                    
                     </div>
                 </div>
 

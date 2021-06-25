@@ -60,18 +60,13 @@ export default class FormRicerca extends Component {
 	};
 
 	search = () => {
-		Axios.post('/api/search/searchvehicles')
+		Axios.get('/api/search/searchvehiclesoutofstall?dateR=' + this.state.dateR + '&dateC=' + this.state.dateC)
 			.then((res) => {
 				this.setState({ list: res.data });
 			}).catch((err) => {
 				console.log(err);
 			})
 	}
-
-	setRSelected = (num) => {
-		this.setState({ rSelected: num });
-	}
-
 
 	onValidSubmit = (event) => {
 		event.preventDefault();
@@ -89,7 +84,6 @@ export default class FormRicerca extends Component {
 			positionC: "",
 		};
 		window.localStorage.setItem("reservation", JSON.stringify(reservation));
-		console.log(JSON.parse(localStorage.getItem("reservation")));
 	};
 
 	render() {

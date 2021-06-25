@@ -27,6 +27,7 @@ import {
 
 import RicercaVeicoli from './RicercaVeicoli';
 import RicercaFuoriStallo from './RicercaFuoriStallo';
+import RicercaConAutista from './RicercaConAutista';
 
 
 export default class FormRicerca extends Component {
@@ -88,6 +89,9 @@ export default class FormRicerca extends Component {
 					}
 					{this.state.rSelected === "2" &&
 						<RicercaFuoriStallo/>
+					}
+					{this.state.rSelected === "3" &&
+						<RicercaConAutista/>
 					}
 
 				</div>
