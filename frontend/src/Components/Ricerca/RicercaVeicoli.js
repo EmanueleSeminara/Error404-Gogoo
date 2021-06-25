@@ -50,16 +50,21 @@ export default class FormRicerca extends Component {
 	};
 
 	componentDidMount(){
-		Axios.get('/api/guest/listpayments')
-			.then((res) => {
-				console.log(res.data.length);
-				if (res.data.length !== 0){
-					console.log("sono dentro")
-					this.setState({ payment: true });
-				}
-			}).catch((err) => {
-				window.location.href = '/errorServer';
-			});
+		if (localStorage.getItem("utente") === null) {
+			window.location.href = '/login';
+		} else {
+			Axios.get('/api/guest/listpayments')
+				.then((res) => {
+					console.log(res.data.length);
+					if (res.data.length !== 0){
+						console.log("sono dentro")
+						this.setState({ payment: true });
+					}
+				}).catch((err) => {
+					console.log(err);
+					//window.location.href = '/errorServer';
+				});
+		}
 	}
 
 
@@ -86,40 +91,9 @@ export default class FormRicerca extends Component {
 			})
 	}
 
-	validPayament = new Promise((resolve, reject) => {
-		Axios.get('/api/guest/listpayments')
-			.then((res) => {
-				console.log(res.data.length);
-				if (res.data.length !== 0){
-					resolve(true)
-				} else {
-					resolve(false);
-				}
-			}).catch((err) => {
-				window.location.href = '/errorServer';
-			});
-	})
-
-	validLicense = () => {
-		Axios.get('/api/guest/getdatacarlicense')
-			.then((res) => {
-				if(this.state.type === "car"){
-					console.log("hai la patente per la macchina");
-					this.setState({ license: res.data.b})
-				} else if(this.state.type === "scooter"){
-					console.log("hai la patente per il motore");
-					this.setState({ license: (res.data.b || res.data.a2 || res.data.a1 || res.data.am || res.data.a) })
-				}
-				return true
-			}).catch((err) => {
-				window.location.href = "/serverError"
-			});
-	}
-
 	onValidSubmit = async (event) => {
 		console.log("sono dentro onValid");
-		const g = await this.validPayament();
-		if (g){
+		if (this.state.payment){
 			console.log("sono dentro VERO")
 
 			this.search();
@@ -136,9 +110,7 @@ export default class FormRicerca extends Component {
 			};
 			window.localStorage.setItem("reservation", JSON.stringify(reservation));
 		} else {
-			return (
-			<Alert severity="error">Non possiedi una patente valida per noleggiare il veicolo</Alert>
-			)
+			//fare spuntare messaggio di errore 
 		}
 	};
 

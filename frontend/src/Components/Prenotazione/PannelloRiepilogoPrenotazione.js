@@ -30,10 +30,11 @@ import {
 
 
 
-export default class CardRiepilogoPrenotazione extends Component {
+export default class PannelloRiepilogoPrenotazione extends Component {
 	state = {
 		reservation: {}
 	}
+
 	componentDidMount() {
 		if (localStorage.getItem("reservation") !== null) {
 			this.setState({ reservation: JSON.parse(localStorage.getItem("reservation")) });
@@ -81,10 +82,10 @@ export default class CardRiepilogoPrenotazione extends Component {
 										</div>
 										<div className="col-md-6">
 											<p><strong>Autista:</strong> {this.state.reservation.autista}</p>       {/* TODO ########### */}
-											{this.state.reservation.refParkingR !== "" &&
+											{this.state.reservation.refParkingC !== "" &&
 												<p><strong>Parcheggio consegna:</strong>   {this.state.reservation.refParkingC}</p>
 											}
-											{this.state.reservation.positionR !== "" &&
+											{this.state.reservation.positionC !== "" &&
 												<p><strong>Posizione di consegna:</strong>   {this.state.reservation.positionC}</p>
 											}
 											<p><strong>Data consegna:</strong>   {this.state.reservation.dateC}</p>

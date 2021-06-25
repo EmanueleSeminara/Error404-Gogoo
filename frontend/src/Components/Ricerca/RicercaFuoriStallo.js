@@ -42,6 +42,7 @@ export default class FormRicerca extends Component {
 		refParkingC: "Via Libertà",
 		dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
+		start: ""
 	};
 
 
@@ -60,7 +61,7 @@ export default class FormRicerca extends Component {
 	};
 
 	search = () => {
-		Axios.get('/api/search/searchvehiclesoutofstall?dateR=' + this.state.dateR + '&dateC=' + this.state.dateC)
+		Axios.get('/api/search/vehiclesoutofstall?dateR=' + this.state.dateR + '&dateC=' + this.state.dateC + '&start=' + this.state.start)
 			.then((res) => {
 				this.setState({ list: res.data });
 			}).catch((err) => {
@@ -80,8 +81,9 @@ export default class FormRicerca extends Component {
 			dateR: this.state.dateR,
 			dateC: this.state.dateC,
 			category: "",
-			positionR: "",
+			positionR: this.state.start,
 			positionC: "",
+			start: "",
 		};
 		window.localStorage.setItem("reservation", JSON.stringify(reservation));
 	};
@@ -90,51 +92,69 @@ export default class FormRicerca extends Component {
 		return (
 			<div>
 
-					<AvForm onValidSubmit={this.onValidSubmit} >
-						<ListGroup>
-							<ListGroupItem >
+				<AvForm onValidSubmit={this.onValidSubmit} >
+					<ListGroup>
+						<ListGroupItem >
 
-									<div style={{ paddingBottom: "30px" }}>
-										<AvField type="select" name="select" label="Consegna" onClick={this.handleChange("refParkingC")}>
-											<option>Via Libertà</option>
-											<option>Via Roma</option>
-											<option>Via Ernesto Basile</option>
-											<option>Viale Regione</option>
-											<option>Via Tersicore</option>
-										</AvField>
+							<div style={{ paddingBottom: "20px" }}>
+								<AvField
+									name="ViaRiferimento"
+									type="text"
+									label="Dove ti trovi?"
+									placeholder="inserisci la via in cui ti trovi"
+									onChange={this.handleChange("start")}
+									errorMessage="Non sembra tu abbia inserito una via"
+									validate={{
+										required: {
+											value: true,
+											errorMessage: "Il campo è richiesto",
+										},
+									}}
+									required
+								/>
+							</div>
+
+							<div style={{ paddingBottom: "30px" }}>
+								<AvField type="select" name="select" label="Consegna" onClick={this.handleChange("refParkingC")}>
+									<option>Via Libertà</option>
+									<option>Via Roma</option>
+									<option>Via Ernesto Basile</option>
+									<option>Viale Regione</option>
+									<option>Via Tersicore</option>
+								</AvField>
+							</div>
+
+							<center>
+								<div className="row " style={{ paddingBottom: "30px" }}>
+									<div className="col">
+										<MuiPickersUtilsProvider utils={DateFnsUtils}>
+											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} label="Ritiro" inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+										</MuiPickersUtilsProvider>
 									</div>
-
-								<center>
-									<div className="row " style={{ paddingBottom: "30px" }}>
-										<div className="col">
-											<MuiPickersUtilsProvider utils={DateFnsUtils}>
-												<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} label="Ritiro" inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
-											</MuiPickersUtilsProvider>
-										</div>
-										<div className="col">
-											<MuiPickersUtilsProvider utils={DateFnsUtils}>
-												<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} label="Consegna" inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
-											</MuiPickersUtilsProvider>
-										</div>
+									<div className="col">
+										<MuiPickersUtilsProvider utils={DateFnsUtils}>
+											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} label="Consegna" inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+										</MuiPickersUtilsProvider>
 									</div>
+								</div>
 
-									<div style={{ paddingBottom: "30px" }}>
-										<Button color="primary" type="submit" size="lg"  >
-											CERCA
-										</Button>
-									</div>
+								<div style={{ paddingBottom: "30px" }}>
+									<Button color="primary" type="submit" size="lg"  >
+										CERCA
+									</Button>
+								</div>
 
-								</center>
-							</ListGroupItem>
-						</ListGroup>
-					</AvForm>
+							</center>
+						</ListGroupItem>
+					</ListGroup>
+				</AvForm>
 
-					{<div>
+				{<div>
 
-						{this.state.list.map(((item) => (
-							<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} positionR={item.positionR} state={item.state} />
-						)))}
-					</div>}
+					{this.state.list.map(((item) => (
+						<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} positionR={item.positionR} distance={item.distance} duration={item.duration} position={item.position} />
+					)))}
+				</div>}
 			</div>
 		);
 	}

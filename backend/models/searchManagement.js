@@ -81,23 +81,3 @@ exports.searchVehiclesOutOfStall = (dateR, dateC) => {
     });
   });
 };
-
-
-exports.prova = (start, end) => {
-  return new Promise((resolve, reject) => {
-    distance.get(
-      {
-        origin: start + ", Palermo Italy",
-        destination: end + ", Palermo Italy",
-        mode: "walking",
-      },
-      function (err, data) {
-        return err ? reject(err) : resolve(data);
-        //if (err) return reject(err);
-        //resolve(data);
-        // console.log(vehicle);
-        //return vehicle;
-      // }
-      });
-  });
-};
