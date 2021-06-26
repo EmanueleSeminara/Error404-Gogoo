@@ -92,6 +92,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
                                 <hr style={{ backgroundColor: "#3FD0CB" }} />
                                 <br />
                             </Jumbotron>
+
                             {this.state.modifica &&
                                 <div>
                                     {data.map(((item) => (
@@ -100,7 +101,6 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
 
                                     )))}
                                 </div>}
-
                         </ListGroup>
                     </div>
                 </div>

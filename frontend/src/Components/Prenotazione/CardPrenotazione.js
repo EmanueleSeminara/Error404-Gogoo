@@ -4,7 +4,7 @@ tipo
 data 
 ora
 parcheggi
-autista
+driver
  */
 
 import React, { Component } from 'react';
@@ -12,6 +12,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from '@material-ui/core/Switch';
+import NavbarCliente from '../NavbarCliente';
 import Alert from '@material-ui/lab/Alert';
 
 import {
@@ -39,14 +40,14 @@ import {
 
 export default class CardPrenotazione extends Component {
     state = {
-        tipologiaMezzo: this.props.tipo,
-        parcRitiro: this.props.parcRitiro,
-        parcConsegna: this.props.parcConsegna,
-        dataPartenza: this.props.dataPartenza,
-        dataArrivo: this.props.dataArrivo,
-        autista: this.props.autista,
+        type: this.props.tipo,
+        refParkingR: this.props.refParkingR,
+        refParkingC: this.props.refParkingC,
+        dateR: this.props.dateR,
+        dateC: this.props.dateC,
+        driver: this.props.driver,
         modifica: false,
-        id: this.props.id,
+        refVehicle: this.props.refVehicle,
         errore: false,
 
     };
@@ -68,11 +69,11 @@ export default class CardPrenotazione extends Component {
         console.log(this.state);
     };
     handleChangeDateArrivo = (date) => {
-        this.setState({ dataArrivo: date });
+        this.setState({ dateC: date });
     };
 
     handleChangeDatePartenza = (date) => {
-        this.setState({ dataPartenza: date });
+        this.setState({ dateR: date });
     };
 
 
@@ -88,7 +89,9 @@ export default class CardPrenotazione extends Component {
 
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-                                    <h3 >Id veicolo:  {this.props.id}{/* {props.idVeicolo} */}</h3>
+
+                                    <center><h5 style={{ marginBottom: "50px" }}>Riepilogo prenotazione</h5></center>
+                                    <p ><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
 
@@ -96,16 +99,27 @@ export default class CardPrenotazione extends Component {
                             </div>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
-                                    <p><strong>Tipo:</strong> {this.props.tipo}</p>
-                                    <p><strong>parcheggio ritiro:</strong>   {this.props.parcRitiro}</p>
-                                    <p><strong>data ritiro:</strong>   {this.props.dataRitiro}</p>
+                                    <p><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
+                                    {this.state.refParkingR !== "" &&
+                                        <p><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
+                                    }
+                                    {this.state.positionR !== "" &&
+                                        <p><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
+                                    }
+                                    <p><strong>Data ritiro:</strong>   {this.state.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p><strong>Autista:</strong> {this.props.autista}</p>
-                                    <p><strong>parcheggio consegna:</strong>   {this.props.parcConsegna}</p>
-                                    <p><strong>data consegna:</strong>   {this.props.dataConsegna}</p>
+                                    <p><strong>Autista:</strong> {this.state.autista}</p>       {/* TODO ########### */}
+                                    {this.state.refParkingC !== "" &&
+                                        <p><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
+                                    }
+                                    {this.state.positionC !== "" &&
+                                        <p><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
+                                    }
+                                    <p><strong>Data consegna:</strong>   {this.state.dateC}</p>
                                 </div>
                             </div>
+                            
                             <center>
                                 <Button type="button" color="outline-success" onClick={() => this.setModifica(true)} style={{ marginRight: "10px", marginTop: "20px" }}  >
                                     Modifica
@@ -210,4 +224,9 @@ export default class CardPrenotazione extends Component {
         );
     }
 
+
 }
+
+
+
+

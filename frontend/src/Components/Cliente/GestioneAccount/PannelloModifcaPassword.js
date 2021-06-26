@@ -155,8 +155,7 @@ export default class Registrazione extends Component {
 									<div className="col-12 ">
 										<AvField
 											name="password1"
-											label="
-											Re-enter Password"
+											label="Re-enter Password"
 											type="password"
 											validate={{
 												required: { value: true, errorMessage: "Il campo è richiesto" },

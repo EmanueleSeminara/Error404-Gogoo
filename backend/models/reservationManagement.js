@@ -147,7 +147,7 @@ exports.getmyreservation = (userId) => {
         id: r.id,
         refVehicles: r.refVehicles,
       }));
-      resolve(vehicles);
+      resolve(reservations);
     });
   });
 };
