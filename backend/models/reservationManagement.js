@@ -109,7 +109,7 @@ exports.retireVehicle = (id) => {
 exports.updateReservation = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "UPDATE reservations as R SET dateR = ?, dateC= ?, refParkingR = ?, refParkingC = ? WHERE id = ? AND NOT EXISTS (SELECT 1 FROM reservations AS R1 WHERE R1.refVehicles =? AND id != ?)";
+      "UPDATE reservations as R SET dateR = ?, dateC= ?, refParkingR = ?, refParkingC = ? WHERE id = ? AND NOT EXISTS (SELECT 1 FROM reservations AS R1 WHERE R1.refVehicle =? AND id != ?)";
     db.run(
       sql,
       [
@@ -224,7 +224,7 @@ exports.updateVehicleInReservations = (idV, newIdV) => {
 exports.addReservation = (reservation, userId) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "INSERT INTO reservations(refGuest, refVehicle, dateR, dateC, refParkingR, refParkingC) VALUES(?,?,?,?,?,?)";
+      "INSERT INTO reservations(refGuest, refVehicle, dateR, dateC, refParkingR, refParkingC, positionR, positionC) VALUES(?,?,?,?,?,?,?,?)";
     db.run(
       sql,
       [
@@ -234,6 +234,8 @@ exports.addReservation = (reservation, userId) => {
         reservation.dateC,
         reservation.refParkingR,
         reservation.refParkingC,
+        reservation.positionR,
+        reservation.positionC
       ],
       (err, rows) => {
         if (err) {

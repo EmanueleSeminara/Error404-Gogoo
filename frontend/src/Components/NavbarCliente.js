@@ -58,22 +58,22 @@ export default class NavbarCliente extends Component {
 								</DropdownToggle>
 								<DropdownMenu left>
 									<DropdownItem>
-										<a href="/modificaPassword" style={{ textDecoration: "none" }}>Modifica password</a>
+										<a href="/modificaPassword" style={{ textDecoration: "none" }}>Modifica Password</a>
 									</DropdownItem>
 									<DropdownItem>
-										<a href="/modificaDatiPersonali" style={{ textDecoration: "none" }}>Modifica dati personali</a>
+										<a href="/modificaDatiPersonali" style={{ textDecoration: "none" }}>Modifica Dati Personali</a>
 									</DropdownItem>
 									<DropdownItem>
-										<a href="/inserimentoPatente" style={{ textDecoration: "none" }}>Inserimento patente</a>
+										<a href="/inserimentoPatente" style={{ textDecoration: "none" }}>Inserisci Patente</a>
 									</DropdownItem>
 									<DropdownItem>
-										<a href="/aggiornaPatente" style={{ textDecoration: "none" }}>Aggiorna patente</a>
+										<a href="/aggiornaPatente" style={{ textDecoration: "none" }}>Aggiorna Patente</a>
 									</DropdownItem>
 									<DropdownItem>
-										<a href="/inserimentoMetodoPagamento" style={{ textDecoration: "none" }}>Inserimento metodo pagamento</a>
+										<a href="/inserimentoMetodoPagamento" style={{ textDecoration: "none" }}>Aggiungi Metodo Pagamento</a>
 									</DropdownItem>
 									<DropdownItem>
-										<a href="/eliminazioneMetodoPagamento" style={{ textDecoration: "none" }}>Eliminazione metodo pagamento</a>
+										<a href="/eliminazioneMetodoPagamento" style={{ textDecoration: "none" }}>Elimina Metodi Pagamento</a>
 									</DropdownItem>
 
 								</DropdownMenu>

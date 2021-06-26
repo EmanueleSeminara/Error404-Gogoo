@@ -65,7 +65,7 @@ exports.searchDrivers = (dateR, dateC) => {
 exports.searchVehiclesOutOfStall = (dateR, dateC) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT * FROM vehicles AS v WHERE v.type = 'car' AND v.position != 'NULL' AND v.state != 'damage' AND v.id NOT IN(SELECT refVehicle AS r FROM reservations WHERE DATE(?)< DATE(r.dateC) AND DATE(?)> DATE(r.dateR))";
+      "SELECT * FROM vehicles AS v WHERE v.type = 'car' AND v.position != 'NULL' AND v.state != 'damage' AND v.id NOT IN(SELECT refVehicle FROM reservations AS r WHERE DATE(?)< DATE(r.dateC) AND DATE(?)> DATE(r.dateR))";
     db.all(sql, [dateR, dateC], (err, rows) => {
       if (err) {
         reject(err);

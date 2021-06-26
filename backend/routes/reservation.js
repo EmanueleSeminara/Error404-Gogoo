@@ -37,7 +37,9 @@ router.post(
             dateR: req.body.dateR,
             dateC: req.body.dateC,
             refParkingR: req.body.refParkingR,
-            refParkingC: req.body.refParkingC
+            refParkingC: req.body.refParkingC,
+            positionR: req.body.positionR,
+            positionC: req.body.positionC
         };
 
         console.log(reservation);

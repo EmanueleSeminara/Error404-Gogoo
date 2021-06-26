@@ -82,7 +82,7 @@ export default class Registrazione extends Component {
 									className="title"
 
 								>
-									Inserisci Carta
+									Dati Metodo di Pagamento
 								</div>
 								{/* Riga nome e cognome */}
 								<div className="row">
