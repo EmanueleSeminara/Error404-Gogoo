@@ -76,7 +76,7 @@ export default class Registrazione extends Component {
 				{this.state.success && <Alert severity="success">Patente inserita correttamente</Alert>}
 
 				<AvForm onValidSubmit={this.onValidSubmit}	>
-					<div className="row h-100 justify-content-md-center  boxpannel ">
+					<div className="row h-100 justify-content-md-center boxpannel ">
 						
 						<div className="col-9 bg-pannell">
 							<div >

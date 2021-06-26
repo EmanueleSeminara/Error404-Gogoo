@@ -6,6 +6,7 @@ import "../../../ComponentsCss/Pannel.css";
 import faker from 'faker';
 import CardEliminaCarta from "./CardEliminaCarta";
 import Axios from 'axios';
+import NavbarCliente from "../../NavbarCliente";
 
 
 
@@ -14,7 +15,7 @@ export default class Registrazione extends Component {
 		listpayments: []
 	}
 
-	componentDidMount(){
+/* 	componentDidMount(){
 		Axios.get('/api/guest/listpayments')
 		.then((res) => {
 			this.setState({ listpayments: res.data });
@@ -22,7 +23,7 @@ export default class Registrazione extends Component {
 		}).catch((err) => {
 			window.location.href = '/errorServer';
 		});
-	}
+	} */
 	
 	remove = (cardID) => {
 		Axios.delete('/api/guest/deletepayment/' + cardID)
@@ -36,25 +37,25 @@ export default class Registrazione extends Component {
 	render() {
 		return (
 			<div className="ez">
+				<NavbarCliente />
 				<div
-					className="row h-100 justify-content-md-center"
-					style={{ margin: "5%" }}
+					className="row h-100 justify-content-md-center boxpannel sfondo"
 				>
-					<div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-						<Jumbotron style={{ backgroundColor: "#27394c", color: "beige" }} >
-							<center>
-								<a href="/" style={{ textDecoration: "none" }}>
-									<p
-										className="glacialReg"
-										style={{ fontSize: "40px", color: "white" }}
+					<div className="col-9 bg-pannell">
+						<div >
+					
+						<center>
+									<div
+										className="title"
 									>
 									Rimuovi Carta
-									</p>
-								</a>
-							</center>
+									</div>
+									</center>
+						
+				
 
-							<br />
-							<hr style={{ backgroundColor: "white" }} />
+							
+						
 
 							{<div>
 								{this.state.listpayments.map(((item) => (
@@ -64,7 +65,7 @@ export default class Registrazione extends Component {
 								)))}
 							</div>}
 
-						</Jumbotron>
+						</div>
 					</div>
 				</div>
 			</div >
