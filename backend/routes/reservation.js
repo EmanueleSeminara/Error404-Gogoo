@@ -81,14 +81,14 @@ router.put("/damagedvehicle", isGuest, [check("position").isAlpha('it-IT', { ign
     }
 })
 
-router.put("/retirevehicle:idVehicle", isGuest, async (req, res) => {
-    try{
-        await reservationManagement.retireVehicle(req.params.idVehicle);
-        res.status(201).end();
-    }catch(err){
-        res.status(503).json({error: 'Database error when requesting vehicle collection - ' + err});
-    }
-})
+// router.put("/retirevehicle:idVehicle", isGuest, async (req, res) => {
+//     try{
+//         await reservationManagement.retireVehicle(req.params.idVehicle);
+//         res.status(201).end();
+//     }catch(err){
+//         res.status(503).json({error: 'Database error when requesting vehicle collection - ' + err});
+//     }
+// })
 
 router.delete("/delete/:id", isGuest, async (req, res) => {
     try{

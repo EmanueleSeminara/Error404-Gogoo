@@ -189,7 +189,7 @@ exports.damagedVehicle = (id, posizione) => {
 exports.getVehicleWithoutReservation = (type, category, position) => {
   return new Promise((resolve, reject) => {
     const sql =
-      'SELECT * FROM vehicles WHERE type = ? AND category = ? AND position = ? AND state = "disponibile" AND id NOT IN(SELECT refVehicles FROM reservations)';
+      'SELECT * FROM vehicles WHERE type = ? AND category = ? AND position = ? AND state = "avalaible" AND id NOT IN(SELECT refVehicles FROM reservations)';
     db.all(sql, [type, category, position], (err, rows) => {
       if (err) {
         reject(err);
