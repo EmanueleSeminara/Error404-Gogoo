@@ -1,0 +1,34 @@
+.bg-pannell{
+    width: 590px;
+   /*  padding-top: 60px;
+    padding-bottom: 60px; */
+    padding: 60px;
+    background: #1d192b !important;
+    box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
+    border-radius: 60px;
+/*     display: flex;
+    justify-content: center; */
+    transform: scale(0.7); 
+   /*  display: flex;
+    align-items: start; */
+}
+
+#number, #dataScadenza{
+  height: 55px;
+
+  background: #39304d;
+  border-radius: 10px;
+  border: none;
+  color:lavender;
+}
+
+
+
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+box-shadow: 0 0 0 1000px #39304d inset !important;
+-webkit-text-fill-color: rgb(255, 255, 255) !important;
+-webkit-box-border: none!important;
+}
