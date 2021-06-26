@@ -8,7 +8,7 @@ export default class Navbar extends Component {
     return (
       <nav
         className="navbar navbar-expand-sm navbar-dark justify-content-end"
-        style={{ backgroundColor: "#39304D" }}
+        style={{ backgroundColor: "#39304d" }}
       >
         <a
           className="navbar-brand glacialReg"
