@@ -122,7 +122,7 @@ export default class Login extends Component {
                                         alt="Errore"
                                     />
                                 </center> */}
-                                <div className="title">Login</div>
+                                <div className="titleLogin">Login</div>
                                 <p>Please sign in to continue</p>
 
                                 <AvForm className="formEmail" onValidSubmit={this.onValidSubmit}>

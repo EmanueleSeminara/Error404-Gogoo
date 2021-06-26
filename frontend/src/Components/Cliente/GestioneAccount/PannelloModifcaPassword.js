@@ -115,7 +115,7 @@ export default class Registrazione extends Component {
 						style={{ margin: "5%" }}
 					>
 
-						<div className="row pannellModPassword">
+						<div className="row pannell">
 							<div className="col-9">
 
 								<div className="title" style={{ marginBottom: "40px", marginTop: "20px!important" }}>
