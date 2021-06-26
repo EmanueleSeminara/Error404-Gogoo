@@ -109,7 +109,7 @@ exports.retireVehicle = (id) => {
 exports.updateReservation = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "UPDATE reservations as R SET dateR = ?, dateC= ?, refParkingR = ?, refParkingC = ? WHERE id = ? AND NOT EXISTS (SELECT 1 FROM reservations AS R1 WHERE R1.refVehicles =? AND id != ?)";
+      "UPDATE reservations as R SET dateR = ?, dateC= ?, refParkingR = ?, refParkingC = ? WHERE id = ? AND NOT EXISTS (SELECT 1 FROM reservations AS R1 WHERE R1.refVehicle =? AND id != ?)";
     db.run(
       sql,
       [
