@@ -3,21 +3,17 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 const reservationManagement = require("../models/reservationManagement");
-const searchnManagement = require("../models/searchManagement");
 const isGuest = require("../middleware/isGuest");
 
+// visualizza prenotazioni - segnala guasto - ritiro e consegna - ritardo consegna - consegna fuori stallo
 
 
+// Aggiunge prenotazione con autista
 router.post("/addreservationwithdriver", async (req, res) => {
-    console.log("CIAO");
-    const drivers = await searchnManagement.searchDrivers(req.body.dateC, req.body.dateR);
-    while(drivers.length > 0){
-        console.log(drivers.shift());
-        await getCalled(req, res)
-
-    }
+    
 })
 
+// Aggiunge una prenotazione normale
 router.post(
     "/add",
     [
@@ -62,6 +58,37 @@ router.post(
         }
     }
 );
+
+router.get("/myreservations/", isGuest, async (req, res) => {
+    try{
+        res.json(await reservationManagement.getmyreservation(req.user.id));
+    } catch(err){
+        res.status(503).json({error: 'Database error during the request of reservations - ' + err});
+    }
+})
+
+router.put("/damagedvehicle", isGuest, [check("position").isAlpha('it-IT', { ignore: ' ' })], async (req, res) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log(errors.array());
+            return res.status(422).json({ errors: errors.array() });
+        }
+    try{
+        await reservationManagement.damagedVehicle(req.body.id, req.body.position);
+        res.status(201).end();
+    }catch(err){
+        res.status(503).json({error: 'Database error when requesting vehicle status update - ' + err});
+    }
+})
+
+router.put("/retirevehicle:idVehicle", isGuest, async (req, res) => {
+    try{
+        await reservationManagement.retireVehicle(req.params.idVehicle);
+        res.status(201).end();
+    }catch(err){
+        res.status(503).json({error: 'Database error when requesting vehicle collection - ' + err});
+    }
+})
 
 // router.get(
 //     BASEURL + "/reservation/getreservationdata/:id",

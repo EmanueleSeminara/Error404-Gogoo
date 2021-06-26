@@ -88,6 +88,8 @@ exports.getReservationDataById = (idP) => {
   });
 };
 
+
+
 exports.retireVehicle = (id) => {
   return new Promise((resolve, reject) => {
     const sql = 'UPDATE vehicles SET state = "in use" WHERE id = ?';
@@ -133,7 +135,7 @@ exports.updateReservation = (reservation) => {
 //  5.4 VISUALIZZA MIE PRENOTAZIONI: (GUEST)
 
 // get reservations by userId
-exports.reservationList = (userId) => {
+exports.getmyreservation = (userId) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM reservations WHERE refGuest = ?";
     db.all(sql, [userId], (err, rows) => {
@@ -163,7 +165,7 @@ exports.deliveryVehicle = (id) => {
   });
 };
 
-exports.vehicleBreakdown = (id, posizione) => {
+exports.damagedVehicle = (id, posizione) => {
   return new Promise((resolve, reject) => {
     const sql =
       'UPDATE vehicles SET state = "damage", position = ? WHERE id = ?';
@@ -234,5 +236,18 @@ exports.addReservation = (reservation, userId) => {
         resolve(this.lastID);
       }
     );
+  });
+};
+
+exports.retireVehicle = (id) => {
+  return new Promise((resolve, reject) => {
+      const sql = "UPDATE vehicles SET state = 'in use' WHERE id = ?";
+      db.run(sql, [id], function (err) {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(this.lastID);
+      });
   });
 };
