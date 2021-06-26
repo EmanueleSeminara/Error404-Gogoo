@@ -118,7 +118,7 @@ exports.updateReservation = (reservation) => {
         reservation.refParkingR,
         reservation.refParkingC,
         reservation.id,
-        reservation.refVehicles,
+        reservation.refVehicle,
         reservation.id,
       ],
       function (err) {
