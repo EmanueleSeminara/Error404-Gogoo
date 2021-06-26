@@ -24,7 +24,7 @@ import VisualizzaMiePrenotazioni from "../src/Components/Cliente/GestionePrenota
 import PannelloPagamento from '../src/Components/Pagamento/PannelloPagamento'
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+/* ciao come stai */
 
 
 class App extends Component {
