@@ -145,7 +145,14 @@ exports.getmyreservation = (userId) => {
       }
       const reservations = rows.map((r) => ({
         id: r.id,
-        refVehicles: r.refVehicles,
+        refVehicle: r.refVehicle,
+        dateR: r.dateR,
+        dateC: r.dateC,
+        refParkingR: r.refParkingR,
+        refParkingC: r.refParkingC,
+        refDriver: r.refDriver,
+        positionR: r.positionR,
+        positionC: r.positionC
       }));
       resolve(reservations);
     });
