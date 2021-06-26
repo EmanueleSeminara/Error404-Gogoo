@@ -5,6 +5,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
 import Axios from 'axios';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import NavbarCliente from "../../NavbarCliente";
 
 export default class Registrazione extends Component {
 
@@ -63,31 +64,26 @@ export default class Registrazione extends Component {
 		today = today.toJSON().split("T")[0];
 
 		return (
-			<div className="ez">
-
+			<div className="ez sfondo">
+				<NavbarCliente />
+				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+				{this.state.success && <Alert severity="success">Metodo di pagamento inserito correttamente</Alert>}
 				<AvForm
-					style={{ minHeight: "90vh" }}
+
 					onValidSubmit={this.onValidSubmit}
 				>
 					<div
-						className="row h-100 justify-content-md-center"
-						style={{ margin: "5%" }}
-					>
-						<div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-							<Jumbotron style={{ backgroundColor: "#27394c", color: "beige" }} >
-								<center>
-									<a href="/" style={{ textDecoration: "none" }}>
-										<p
-											className="glacialReg"
-											style={{ fontSize: "40px", color: "white" }}
-										>
-											Inserisci Carta
-										</p>
-									</a>
-								</center>
+						className="row h-100 justify-content-md-center  boxpannel"
 
-								<br />
-								<hr style={{ backgroundColor: "white" }} />
+					>
+						<div className="col-9 bg-pannell">
+							<div>
+								<div
+									className="title"
+
+								>
+									Inserisci Carta
+								</div>
 								{/* Riga nome e cognome */}
 								<div className="row">
 									<div className="col-12 col-md-6">
@@ -106,7 +102,6 @@ export default class Registrazione extends Component {
 											}}
 										/>
 									</div>
-
 									<div className="col-12 col-md-6">
 										<AvField
 											name="cognome"
@@ -123,10 +118,6 @@ export default class Registrazione extends Component {
 										/>
 									</div>
 								</div>
-
-								<br />
-								<hr style={{ backgroundColor: "#3FD0CB" }} />
-
 								{/* Riga numero carta */}
 								<center>
 									<div className="row">
@@ -137,7 +128,6 @@ export default class Registrazione extends Component {
 												label="Numero Carta"
 												onChange={this.handleChange("number")}
 												style={{ label: { color: "white" } }}
-
 												validate={{
 													required: { value: true, errorMessage: "Il campo è richiesto",},
 													minLength: { value: 16 },
@@ -147,13 +137,7 @@ export default class Registrazione extends Component {
 											/>
 										</div>
 									</div>
-
 								</center>
-
-
-
-								<hr style={{ backgroundColor: "#3FD0CB" }} />
-
 								{/* Riga cvv e scadenza */}
 								<div className="row">
 									<div className="col-12 col-md-6">
@@ -163,16 +147,14 @@ export default class Registrazione extends Component {
 											label="cvv"
 											onChange={this.handleChange("cvv")}
 											style={{ label: { color: "white" } }}
-
 											validate={{
-												required: {value: true, errorMessage: "Il campo è richiesto"},
+												required: { value: true, errorMessage: "Il campo è richiesto"},
 												minLength: { value: 3 },
 												maxLength: { value: 3 },
 											}}
 											errorMessage="il cvv deve contenere 3 cifre"
 										/>
 									</div>
-
 									<div className="col-12 col-md-6">
 										<AvField
 											name="dataScadenza"
@@ -189,25 +171,15 @@ export default class Registrazione extends Component {
 										/>
 									</div>
 								</div>
-
-								<br />
-								<hr style={{ backgroundColor: "#3FD0CB" }} />
-								
-
 								<div className="text-center" style={{ paddingTop: "2%" }}>
-									<Button color="primary" type="submit" size="lg" >
+									<Button className="buttonCyano" type="submit" >
 										Inserisci
 									</Button>
 								</div>
-
-								<br />
-								{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
-								{this.state.success && <Alert severity="success">Metodo di pagamento inserito correttamente</Alert>}
-							</Jumbotron>
+							</div>
 						</div>
 					</div>
 				</AvForm>
-
 			</div>
 		);
 	}
