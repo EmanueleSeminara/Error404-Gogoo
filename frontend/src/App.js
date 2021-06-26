@@ -25,7 +25,7 @@ import PannelloPagamento from '../src/Components/Pagamento/PannelloPagamento'
 import PannelloParcheggiatore from '../src/Components/Parcheggiatore/PannelloParcheggiatore'
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+/* ciao come stai */
 
 
 class App extends Component {
