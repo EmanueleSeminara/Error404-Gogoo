@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { ListGroup, ListGroupItem, } from "reactstrap";
 
 
-import CardPrenotazione from "../../Amministratore/GestionePrenotazioni/CardPrenotazione";
+import CardPrenotazione from "../../Prenotazione/CardPrenotazione";
+import Axios from 'axios';
 import faker from 'faker';
 
 const data = new Array(2).fill().map((value, index) => ({ id: index, tipo: faker.lorem.words(1), dataRitiro: faker.lorem.words(1), dataConsegna: faker.lorem.words(1), parcRitiro: faker.lorem.words(1), parcConsegna: faker.lorem.words(1), autista: true }))
@@ -11,11 +12,19 @@ const data = new Array(2).fill().map((value, index) => ({ id: index, tipo: faker
 
 export default class ViasualizzaMiePrenotazioni extends Component {
     state = {
-        rSelected: "Auto",
-        nome: "",
-        cognome: "",
+        listReservation: [],
         modifica: "",
     };
+
+    componentDidMount(){
+        Axios.get('/api/reservation/myreservations')
+        .then((res) => {
+            this.setState({listReservation: res.data})
+        }).catch((err) => {
+            console.log(err);
+            //window.location.href = '/errorServer'
+        })
+    }
 
     setRSelected = (num) => {
         this.setState({ rSelected: num });
@@ -47,8 +56,6 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                                     <div>
                                         {data.map(((item) => (
                                             <CardPrenotazione tipo={item.tipo} dataRitiro={item.dataRitiro} dataConsegna={item.dataConsegna} parcRitiro={item.parcRitiro} parcConsegna={item.parcConsegna} autista={item.autista} id={item.id} />
-                                            /*  <CardModificaUtente nome={item.nome} cognome={item.cognome} email={item.email} telefono={item.telefono} eta={item.eta} password={item.password}/> */
-
                                         )))}
                                     </div>}
                             </ListGroup>

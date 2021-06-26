@@ -3,7 +3,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import { Button, ListGroup, ListGroupItem, Card, Jumbotron, Table, ButtonGroup } from "reactstrap";
 
 
-import CardPrenotazione from "./CardPrenotazione";
+import CardPrenotazione from "../../Prenotazione/CardPrenotazione";
 import faker from 'faker';
 
 

@@ -96,87 +96,90 @@ export default class Registrazione extends Component {
 
 	render() {
 		return (
-			<div className="ez" style={{ backgroundColor: "#00151f", height: "100%" }}>
+			<div className="ez sfondo" style={{ height: "100%" }}>
 				{this.state.role === "guest" &&
 					<NavbarCliente />
 				}
 				{this.state.role !== "guest" &&
 					<NavbarDipendente />
 				}
+				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+				{this.state.success && <Alert severity="success">Password Modificata Correttamente</Alert>}
 
 				<AvForm
-					style={{ minHeight: "90vh" }}
+
 					onValidSubmit={this.onValidSubmit}
 				>
 					<div
-						className="row h-100 justify-content-md-center"
+						className="row boxpannel recoveryPannel"
 						style={{ margin: "5%" }}
 					>
 
-						<div className="pannellModPassword">
+						<div className="row pannellModPassword">
+							<div className="col-9">
 
-							<h1 className=" row title">
-								Modifica Password
-							</h1>
-
-
-
-
-
-							{/* Riga password */}
-							<div className="row">
-								<div className="col-12 ">
-									<AvField
-										name="password"
-										label="Password"
-										type="password"
-										validate={{
-											required: {
-												value: true,
-												errorMessage: "Il campo è richiesto"
-											},
-											minLength: { value: 8, errorMessage: "La password deve contenere almeno 8 caratteri" },
-											isStrong: this.isStrongPassword
-										}}
-										errorMessage="La password deve contenere almeno una lettera minuscola, una lettere maiuscola, un numero e un carattere speciale"
-										onChange={this.handleChange("password")}
-									/>
+								<div className="title" style={{ marginBottom: "40px", marginTop: "20px!important" }}>
+									Change Password
 								</div>
-							</div>
 
 
 
 
-							{/* Riga password */}
-							<div className="row">
-								<div className="col-12 ">
-									<AvField
-										name="password1"
-										label="Reinserisci Password"
-										type="password"
-										validate={{
-											required: { value: true, errorMessage: "Il campo è richiesto" },
-										}}
-										onChange={this.handleChange("password1")}
-									/>
+
+								{/* Riga password */}
+								<div className="row">
+									<div className="col-12 ">
+										<AvField
+											name="password"
+											label="Password"
+											type="password"
+											validate={{
+												required: {
+													value: true,
+													errorMessage: "Il campo è richiesto"
+												},
+												minLength: { value: 8, errorMessage: "La password deve contenere almeno 8 caratteri" },
+												isStrong: this.isStrongPassword
+											}}
+											errorMessage="La password deve contenere almeno una lettera minuscola, una lettere maiuscola, un numero e un carattere speciale"
+											onChange={this.handleChange("password")}
+										/>
+									</div>
 								</div>
+
+
+
+
+								{/* Riga password */}
+								<div className="row">
+									<div className="col-12 ">
+										<AvField
+											name="password1"
+											label="
+											Re-enter Password"
+											type="password"
+											validate={{
+												required: { value: true, errorMessage: "Il campo è richiesto" },
+											}}
+											onChange={this.handleChange("password1")}
+										/>
+									</div>
+								</div>
+
+
+
+
+
+								<div className="text-center">
+									<Button className="buttonCyano" type="submit" >
+										Change
+									</Button>
+								</div>
+
+
+
+
 							</div>
-
-
-
-
-
-							<div className="text-center" style={{ paddingTop: "2%" }}>
-								<Button className="buttonCyano" type="submit" >
-									Modifica
-								</Button>
-							</div>
-
-
-
-							{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
-							{this.state.success && <Alert severity="success">Password Modificata Correttamente</Alert>}
-
 						</div>
 
 					</div>
