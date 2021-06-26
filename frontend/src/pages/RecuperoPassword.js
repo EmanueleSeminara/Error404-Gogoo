@@ -55,6 +55,8 @@ export default class recuperoPassword extends Component {
         return (
             <div className="ez">
                 <Navbar />
+                {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+                {this.state.success && <Alert severity="success">Nuova password inviata per email</Alert>}
 
                 <div
                     className="row sfondo"
@@ -90,8 +92,7 @@ export default class recuperoPassword extends Component {
                                     </center>
 
 
-                                    {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
-                                    {this.state.success && <Alert severity="success">Nuova password inviata per email</Alert>}
+
                                 </AvForm>
 
                             </div>

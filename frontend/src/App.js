@@ -22,6 +22,7 @@ import PannelloRitiraConsegna from "../src/Components/Cliente/GestionePrenotazio
 import PannelloSegnalaGuasto from "../src/Components/Cliente/GestionePrenotazione/PannelloSegnalaGuasto";
 import VisualizzaMiePrenotazioni from "../src/Components/Cliente/GestionePrenotazione/VisualizzaMiePrenotazioni";
 import PannelloPagamento from '../src/Components/Pagamento/PannelloPagamento'
+import PannelloParcheggiatore from '../src/Components/Parcheggiatore/PannelloParcheggiatore'
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -52,8 +53,11 @@ class App extends Component {
           <Route exact path="/ritiroConsegna" component={PannelloRitiraConsegna} />
           <Route exact path="/prenotazioniEffettuate" component={VisualizzaMiePrenotazioni} />
           <Route exact path="/segnalaGuasto" component={PannelloSegnalaGuasto} />
-          <Route exact path="/consegnaFuoriStallonto" component={PannelloConsegnaFuoriStallo} />
+          <Route exact path="/consegnaFuoriStallo" component={PannelloConsegnaFuoriStallo} />
           <Route exact path="/ritardoConsegna" component={PannelloRitardoConsegna} />
+          {/* Pannello Parcheggiatore */}
+          <Route exact path="/pannelloParcheggiatore" component={PannelloParcheggiatore} />
+
           {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */}
           <Route exact path="/pannelloAmministratore" component={PannelloAmministratore} />
           <Route exact path="/pannelloGestioneAccount" component={PannelloGestioneAccount} />

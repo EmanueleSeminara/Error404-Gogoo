@@ -54,6 +54,7 @@ Creare un file chiamato .env e inserirlo nella cartella backend con i seguenti d
 MAIL_USER=yourEmail@gmail.com  
 MAIL_PASSWORD=emailPassword  
 SESSION_SECRET=a secret sentence not to share with anybody and anywhere, used to sign the session ID cookie
+GOOGLE_KEY=your API key for Distance Matrix API (Google)
 ```
 Eseguire il backend con il seguente comando:
 ```

@@ -29,30 +29,30 @@ export default class Registrazione extends Component {
         this.setState({ [input]: e.target.value });
     };
 
-    stampa = () =>{
+    stampa = () => {
         console.log(this.state);
     }
 
     register = () => {
         Axios.post('/api/user/register', this.state)
-        .then((res) =>{
-            this.setState({ error: false });
-            window.location.href = "/login";
-        }).catch((err) =>{
-            if(err.response.status === 513){
-                this.setState({ string: "email già associata ad un account" });
-                this.setState({ error: true });
-            } else if (err.response.status === 422) {
-                this.setState({ string: "errore nell'inserimento dei dati" });
-                this.setState({ error: true });
-            } else if (err.response.status === 503){
-                console.log("inpossibile regitrarsi al momento")
-                this.setState({ string: "impossibile regitrarsi al momento, riprova più tardi" });
-                this.setState({ error: true });
-            } else {
-                window.location.href="/serverError"
-            }
-        });
+            .then((res) => {
+                this.setState({ error: false });
+                window.location.href = "/login";
+            }).catch((err) => {
+                if (err.response.status === 513) {
+                    this.setState({ string: "email già associata ad un account" });
+                    this.setState({ error: true });
+                } else if (err.response.status === 422) {
+                    this.setState({ string: "errore nell'inserimento dei dati" });
+                    this.setState({ error: true });
+                } else if (err.response.status === 503) {
+                    console.log("inpossibile regitrarsi al momento")
+                    this.setState({ string: "impossibile regitrarsi al momento, riprova più tardi" });
+                    this.setState({ error: true });
+                } else {
+                    window.location.href = "/serverError"
+                }
+            });
     }
 
     onValidSubmit = (event) => {
@@ -65,11 +65,11 @@ export default class Registrazione extends Component {
     isStrongPassword(value, ctx, input, cb) {
 
         if (!value || value === '') {
-          cb(false);
-          return;
+            cb(false);
+            return;
         }
-        if(value.match(/[$&+,:;=?@#|'<>.^*()%!-]+/) && value.match(/[a-z]+/) && value.match(/[A-Z]+/) && value.match(/[0-9]+/)){
-            
+        if (value.match(/[$&+,:;=?@#|'<>.^*()%!-]+/) && value.match(/[a-z]+/) && value.match(/[A-Z]+/) && value.match(/[0-9]+/)) {
+
             cb(true);
             return;
         } else {
@@ -89,22 +89,23 @@ export default class Registrazione extends Component {
         return (
             <div className="ez">
                 <Navbar />
+                {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 
                 <AvForm
-               
+
                     onValidSubmit={this.onValidSubmit}
                 >
-                    
+
                     <div
                         className="row sfondo h-100 justify-content-md-center"
-                       
-                    >   
-                       
-                            
-                            <div className="pannell" style={{backgroundColor: "#27394c", color: "beige"}} >
-                                <div className="col-10">
-                                
-                                
+
+                    >
+
+
+                        <div className="pannell" style={{ backgroundColor: "#27394c", color: "beige" }} >
+                            <div className="col-10">
+
+
 
                                 {/* Riga nome e cognome */}
                                 <div className="row">
@@ -114,8 +115,8 @@ export default class Registrazione extends Component {
                                             type="text"
                                             label="Nome"
                                             onChange={this.handleChange("name")}
-                                            style={{label: {color: "white"}}}
-                                            
+                                            style={{ label: { color: "white" } }}
+
                                             validate={{
                                                 required: {
                                                     value: true,
@@ -142,8 +143,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                
-                               
+
+
 
                                 {/* Riga data di nascita */}
                                 <div className="row">
@@ -165,8 +166,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                
-                               
+
+
 
                                 {/*Riga email */}
                                 <div className="row">
@@ -182,8 +183,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                
-                               
+
+
 
                                 {/* Riga password */}
                                 <div className="row">
@@ -195,8 +196,9 @@ export default class Registrazione extends Component {
                                             validate={{
                                                 required: {
                                                     value: true,
-                                                    errorMessage: "Il campo è richiesto" },
-                                                minLength: { value: 8,  errorMessage: "La password deve contenere almeno 8 caratteri"},
+                                                    errorMessage: "Il campo è richiesto"
+                                                },
+                                                minLength: { value: 8, errorMessage: "La password deve contenere almeno 8 caratteri" },
                                                 isStrong: this.isStrongPassword
                                             }}
                                             errorMessage="La password deve contenere almeno una lettera minuscola, una lettere maiuscola, un numero e un carattere speciale"
@@ -205,8 +207,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                
-                               
+
+
 
                                 {/* Riga numero di telefono */}
                                 <div className="row">
@@ -216,7 +218,7 @@ export default class Registrazione extends Component {
                                             label="Numero di telefono"
                                             type="tel"
                                             validate={{
-                                                required: { value: true, errorMessage: "Il campo è richiesto"  },
+                                                required: { value: true, errorMessage: "Il campo è richiesto" },
                                                 minLength: { value: 10 },
                                                 maxLength: { value: 10 },
                                             }}
@@ -226,22 +228,22 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                               
+
 
                                 <div className="text-center" style={{ paddingTop: "2%" }}>
-                                    <Button  className="buttonCyano" color="primary" type="submit">
+                                    <Button className="buttonCyano" color="primary" type="submit">
                                         Registrati
                                     </Button>
                                 </div>
 
-                                
-                                
-                                {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
-                                </div>
+
+
+
                             </div>
                         </div>
-               
-                </AvForm> 
+                    </div>
+
+                </AvForm>
 
                 <Footer />
             </div>

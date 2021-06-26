@@ -126,6 +126,7 @@
   }
   .navMobile {
     display: inherit!important;
+    position: fixed!important;
   }
   .boxpannel{
     display: flex;
