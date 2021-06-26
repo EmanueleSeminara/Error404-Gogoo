@@ -1,10 +1,18 @@
 footer {
   text-align: center;
-  padding: 3px;
-  color: #455565;
-  padding: 2%;
+  color: #39304D;
+  height: 25px;
   right: 0;
   left: 0;
   bottom: 0;
-  position: relative;
+  position: fixed;
+  padding: 1.8%;
+  display: flex!important;
+  justify-content:center;
+  align-items: center;
 }
+
+.copyRight{
+  color: #9A9A9A;
+}
+

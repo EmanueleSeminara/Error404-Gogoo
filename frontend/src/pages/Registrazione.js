@@ -98,7 +98,8 @@ export default class Registrazione extends Component {
                         style={{ margin: "5%" }}
                     >
                         <div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-                            <Jumbotron style={{backgroundColor: "#27394c", color: "beige"}} >
+                            <div className="pannell" style={{backgroundColor: "#27394c", color: "beige"}} >
+                                <div className="col-10">
                                 <center>
                                     <a href="/" style={{ textDecoration: "none" }}>
                                         <p
@@ -116,8 +117,8 @@ export default class Registrazione extends Component {
                                     </a>
                                 </center>
 
-                                <br />
-                                <hr style={{ backgroundColor: "white" }} />
+                                
+                                
 
                                 {/* Riga nome e cognome */}
                                 <div className="row">
@@ -155,8 +156,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
+                               
 
                                 {/* Riga data di nascita */}
                                 <div className="row">
@@ -178,8 +179,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
+                               
 
                                 {/*Riga email */}
                                 <div className="row">
@@ -195,8 +196,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
+                               
 
                                 {/* Riga password */}
                                 <div className="row">
@@ -218,8 +219,8 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                <br />
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                                
+                               
 
                                 {/* Riga numero di telefono */}
                                 <div className="row">
@@ -239,7 +240,7 @@ export default class Registrazione extends Component {
                                     </div>
                                 </div>
 
-                                <hr style={{ backgroundColor: "#3FD0CB" }} />
+                               
 
                                 <div className="text-center" style={{ paddingTop: "2%" }}>
                                     <Button color="primary" type="submit" size="lg" >
@@ -247,10 +248,11 @@ export default class Registrazione extends Component {
                                     </Button>
                                 </div>
 
-                                <br />
-                                <br />
+                                
+                                
                                 {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
-                            </Jumbotron>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </AvForm> 
