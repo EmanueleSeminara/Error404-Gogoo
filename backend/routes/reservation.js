@@ -21,8 +21,8 @@ router.post(
         //check("id").isInt(),
         //check("dateR").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
         //check("dateC").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
-        check("refParkingR").isAlpha('it-IT', { ignore: ' ' }),
-        check("refParkingC").isAlpha('it-IT', { allow_spaces: true, ignore: '' }),
+        //check("refParkingR").isAlpha('it-IT', { ignore: ' ' }),
+        check("refParkingC").isAlpha('it-IT', { ignore: ' ' }),
     ],
     isGuest,
     async (req, res) => {
