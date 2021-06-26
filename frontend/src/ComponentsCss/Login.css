@@ -6,7 +6,7 @@
   height: 620px;
   left: 800px;
   top: 153px;
-
+  
   background: #1d192b;
   box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
   border-radius: 60px;
@@ -85,7 +85,8 @@
 }
 
 .title {
-  margin-top: 60px!important;
+  margin-top: 10px!important;
+  margin-bottom: 30px!important;
   font-family: "Futura Md BT" !important;
   font-style: normal;
   font-weight: normal;
@@ -95,6 +96,18 @@
   color: #ffffff;
 }
 
+
+.titleLogin {
+  margin-top: 35px!important;
+  margin-bottom: 30px!important;
+  font-family: "Futura Md BT" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 38px;
+  line-height: 58px;
+
+  color: #ffffff;
+}
 
 
 .sfondo{
