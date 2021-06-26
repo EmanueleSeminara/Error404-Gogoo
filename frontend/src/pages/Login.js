@@ -32,6 +32,11 @@ export default class Login extends Component {
                 window.location.href = "/ricerca";
             } else if (c.role === "admin") {
                 window.location.href = "/pannelloAmministratore";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            } else {
+                window.location.href = "/pannelloAutista";
+
             }
         }
     }
@@ -56,6 +61,14 @@ export default class Login extends Component {
                     console.log(JSON.stringify(res.data));
                     window.localStorage.setItem("utente", JSON.stringify(res.data));
                     window.location.href = "/pannelloAmministratore";
+                } else if (res.data.role === "valet") {
+                    console.log(JSON.stringify(res.data));
+                    window.localStorage.setItem("utente", JSON.stringify(res.data));
+                    window.location.href = "/pannelloParcheggiatore";
+                } else  {
+                    console.log(JSON.stringify(res.data));
+                    window.localStorage.setItem("utente", JSON.stringify(res.data));
+                    window.location.href = "/pannelloAutista";
                 }
             }).catch((err) => {
                 if (err.response.status === 401) {
