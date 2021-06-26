@@ -44,7 +44,10 @@ export default class ViasualizzaMiePrenotazioni extends Component {
     remove = (reservationID) => {
         Axios.delete('/api/reservation/delete/' + reservationID)
             .then((res) => {
-                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => {
+                    console.log(reservation.id + " " + reservationID);
+                    return reservation.id !== reservationID }) });
+                console.log(this.state.listReservation)
             }).catch((err) => {
                 window.location.href = '/errorServer';
             });
