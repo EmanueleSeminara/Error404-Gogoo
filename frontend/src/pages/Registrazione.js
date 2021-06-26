@@ -9,6 +9,7 @@ import imageLogo from "../images/logo.svg";
 import "../ComponentsCss/Pannel.css";
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Axios from 'axios'
+import "../ComponentsCss/Registrazione.css";
 
 
 export default class Registrazione extends Component {
@@ -90,39 +91,24 @@ export default class Registrazione extends Component {
                 <Navbar />
 
                 <AvForm
-                    style={{ minHeight: "90vh" }}
+               
                     onValidSubmit={this.onValidSubmit}
                 >
+                    
                     <div
-                        className="row h-100 justify-content-md-center"
-                        style={{ margin: "5%" }}
-                    >
-                        <div className="col-sm-12 col-md-8 col-lg-6 my-auto">
+                        className="row sfondo h-100 justify-content-md-center"
+                       
+                    >   
+                       
+                            
                             <div className="pannell" style={{backgroundColor: "#27394c", color: "beige"}} >
                                 <div className="col-10">
-                                <center>
-                                    <a href="/" style={{ textDecoration: "none" }}>
-                                        <p
-                                            className="glacialReg"
-                                            style={{ fontSize: "40px", color: "white" }}
-                                        >
-                                            <img
-                                                src={imageLogo}
-                                                alt="Errore"
-                                                width="90px"
-                                                height="90px"
-                                            />
-
-                                        </p>
-                                    </a>
-                                </center>
-
                                 
                                 
 
                                 {/* Riga nome e cognome */}
                                 <div className="row">
-                                    <div className="col-12 col-md-6">
+                                    <div className="col">
                                         <AvField
                                             name="nome"
                                             type="text"
@@ -139,7 +125,7 @@ export default class Registrazione extends Component {
                                         />
                                     </div>
 
-                                    <div className="col-12 col-md-6">
+                                    <div className="col">
                                         <AvField
                                             name="cognome"
                                             type="text"
@@ -161,7 +147,7 @@ export default class Registrazione extends Component {
 
                                 {/* Riga data di nascita */}
                                 <div className="row">
-                                    <div className="col-12">
+                                    <div className="col">
                                         <AvField
                                             name="dataNascita"
                                             label="Data di nascita"
@@ -184,7 +170,7 @@ export default class Registrazione extends Component {
 
                                 {/*Riga email */}
                                 <div className="row">
-                                    <div className="col-12">
+                                    <div className="col">
                                         <AvField
                                             name="email"
                                             label="Email"
@@ -201,7 +187,7 @@ export default class Registrazione extends Component {
 
                                 {/* Riga password */}
                                 <div className="row">
-                                    <div className="col-12 ">
+                                    <div className="col">
                                         <AvField
                                             name="password"
                                             label="Password"
@@ -224,7 +210,7 @@ export default class Registrazione extends Component {
 
                                 {/* Riga numero di telefono */}
                                 <div className="row">
-                                    <div className="col-12 ">
+                                    <div className="col">
                                         <AvField
                                             name="telefono"
                                             label="Numero di telefono"
@@ -243,7 +229,7 @@ export default class Registrazione extends Component {
                                
 
                                 <div className="text-center" style={{ paddingTop: "2%" }}>
-                                    <Button color="primary" type="submit" size="lg" >
+                                    <Button  className="buttonCyano" color="primary" type="submit">
                                         Registrati
                                     </Button>
                                 </div>
@@ -254,7 +240,7 @@ export default class Registrazione extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+               
                 </AvForm> 
 
                 <Footer />

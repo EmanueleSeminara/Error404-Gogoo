@@ -79,10 +79,13 @@ export default class Login extends Component {
 
             <div className="ez" >
                 {/* <Navbar /> */}
+                <div className="navMobile" style={{ display: "none" }}>
+                    <Navbar />
+                </div>
                 {this.state.error &&
-                                
-                                    <Alert severity="error">Email o password non validi</Alert>
-                                }
+
+                    <Alert severity="error">Email o password non validi</Alert>
+                }
 
                 <div
                     className="row sfondo"
@@ -153,7 +156,7 @@ export default class Login extends Component {
                                         Forgot password?
                                     </a>
                                 </center>
-                                
+
                                 <center style={{ color: '#554774', marginTop: "80px" }}>
                                     Don't have an account? {" "}
                                     <a href="/registrazione" style={{ color: "#9dffe8", textDecoration: "none" }}>
@@ -166,9 +169,9 @@ export default class Login extends Component {
 
 
                             {/* </Jumbotron> */}
-                            
+
                         </div>
-                      
+
                     </div>
 
 

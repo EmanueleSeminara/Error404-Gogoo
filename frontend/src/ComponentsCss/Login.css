@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://db.onlinewebfonts.com/c/e55e9079ee863276569c8a68d776ef04?family=Futura+Md+BT");
 
 .pannelLogin {
   width: 490px;
@@ -14,14 +15,17 @@
   transform: scale(0.7);
 }
 .pannell {
- 
-
-  background: #1d192b;
+  width: 590px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background: #1d192b !important;
   box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
   border-radius: 60px;
   display: flex;
   justify-content: center;
   transform: scale(0.7); 
+  display: flex;
+  align-items: start;
 }
 
 #emailLogin,
@@ -120,6 +124,9 @@
     justify-content: center;
     transform: scale(0.7);
   }
+  .navMobile {
+    display: inherit!important;
+  }
   .boxpannel{
     display: flex;
     justify-content: center;
@@ -131,6 +138,11 @@
 #root {
   overflow-x: hidden;
   height: 100%;
+}
+
+label{
+  font-family: 'Poppins-Regular';
+  font-size: initial;
 }
 
 
