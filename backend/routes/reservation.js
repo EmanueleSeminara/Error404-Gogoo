@@ -21,7 +21,7 @@ router.post(
         //check("id").isInt(),
         //check("dateR").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
         //check("dateC").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
-        check("refParkingR").isAlpha('it-IT', { ignore: ' ' }),
+        check("refParkingR").isAlpha('it-IT', { ignore: ' ' }).optional({checkFalsy: true}),
         check("refParkingC").isAlpha('it-IT', { ignore: ' ' }),
     ],
     isGuest,
@@ -81,20 +81,37 @@ router.put("/damagedvehicle", isGuest, [check("position").isAlpha('it-IT', { ign
     }
 })
 
-router.put("/retirevehicle:idVehicle", isGuest, async (req, res) => {
-    try{
-        await reservationManagement.retireVehicle(req.params.idVehicle);
-        res.status(201).end();
-    }catch(err){
-        res.status(503).json({error: 'Database error when requesting vehicle collection - ' + err});
-    }
-})
+// router.put("/retirevehicle:idVehicle", isGuest, async (req, res) => {
+//     try{
+//         await reservationManagement.retireVehicle(req.params.idVehicle);
+//         res.status(201).end();
+//     }catch(err){
+//         res.status(503).json({error: 'Database error when requesting vehicle collection - ' + err});
+//     }
+// })
 
 router.delete("/delete/:id", isGuest, async (req, res) => {
     try{
         await reservationManagement.deleteReservationById(req.params.id);
         res.status(201).end();
     } catch(err){
+        res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+    }
+})
+
+// data ora parcheggi
+router.put("/edit", isGuest, async (req, res) => {
+    const reservation = {
+        dateR: req.body.dateR,
+        dateC: req.body.dateC,
+        refParkingR: req.body.refParkingR,
+        refParkingC: req.body.refParkingC,
+        id: req.body.id,
+        refVehicle: req.body.refVehicle
+    }
+    try{
+        await reservationManagement.updateReservation(reservation);
+    }catch(err){
         res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
     }
 })

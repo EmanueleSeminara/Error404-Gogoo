@@ -178,3 +178,19 @@ exports.listPayments = (userId) => {
       });
     });
   };
+
+exports.retireVehicle = (reservation) => {
+    return new Promise((resolve, reject) => {
+        date = new Date();
+        const dateNow = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate() + " " + date.getHours() + ":" + date.getMinutes() // Da scrivere
+        console.log("Data e ora attuale: " + dateNow)
+        const sql = "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservation AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)";
+        db.run(sql, [reservation.refVehicle, reservation.refVehicle, dateNow, reservation.refGuest], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(this.lastID);
+        });
+    });
+  };

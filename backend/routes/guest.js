@@ -232,4 +232,17 @@ router.post(
     }
 );
 
+router.put("/retirevehicle", isGuest, async (req, res) => {
+    const reservation = {
+        refGuest: req.user.id,
+        refVehicle: req.body.refVehicle
+    }
+    try{
+        await guestManagement.retireVehicle(reservation);
+        res.status(201).end();
+    }catch(err){
+        res.status(503).json({error: 'Database error when requesting vehicle collection - ' + err});
+    }
+})
+
 module.exports = router;

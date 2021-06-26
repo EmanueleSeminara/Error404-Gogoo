@@ -118,7 +118,7 @@ exports.updateReservation = (reservation) => {
         reservation.refParkingR,
         reservation.refParkingC,
         reservation.id,
-        reservation.refVehicles,
+        reservation.refVehicle,
         reservation.id,
       ],
       function (err) {
@@ -145,7 +145,14 @@ exports.getmyreservation = (userId) => {
       }
       const reservations = rows.map((r) => ({
         id: r.id,
-        refVehicles: r.refVehicles,
+        refVehicle: r.refVehicle,
+        dateR: r.dateR,
+        dateC: r.dateC,
+        refParkingR: r.refParkingR,
+        refParkingC: r.refParkingC,
+        refDriver: r.refDriver,
+        positionR: r.positionR,
+        positionC: r.positionC
       }));
       resolve(reservations);
     });
@@ -182,7 +189,7 @@ exports.damagedVehicle = (id, posizione) => {
 exports.getVehicleWithoutReservation = (type, category, position) => {
   return new Promise((resolve, reject) => {
     const sql =
-      'SELECT * FROM vehicles WHERE type = ? AND category = ? AND position = ? AND state = "disponibile" AND id NOT IN(SELECT refVehicles FROM reservations)';
+      'SELECT * FROM vehicles WHERE type = ? AND category = ? AND position = ? AND state = "avalaible" AND id NOT IN(SELECT refVehicles FROM reservations)';
     db.all(sql, [type, category, position], (err, rows) => {
       if (err) {
         reject(err);
