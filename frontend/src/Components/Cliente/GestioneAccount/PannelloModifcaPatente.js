@@ -6,6 +6,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Axios from 'axios'
+import NavbarCliente from "../../NavbarCliente";
 
 
 export default class Registrazione extends Component {
@@ -23,20 +24,20 @@ export default class Registrazione extends Component {
 		string: ""
 	};
 
-	componentDidMount() {
-		Axios.get('/api/guest/getdatacarlicense')
-			.then((res) => {
-				this.setState({ number: res.data.number });
-				this.setState({ date: res.data.date });
-				this.setState({ a: res.data.a });
-				this.setState({ am: res.data.am });
-				this.setState({ a1: res.data.a1 });
-				this.setState({ a2: res.data.a2 });
-				this.setState({ b: res.data.b });
-			}).catch((err) => {
-				window.location.href = "/serverError"
-			});
-	}
+		componentDidMount() {
+			Axios.get('/api/guest/getdatacarlicense')
+				.then((res) => {
+					this.setState({ number: res.data.number });
+					this.setState({ date: res.data.date });
+					this.setState({ a: res.data.a });
+					this.setState({ am: res.data.am });
+					this.setState({ a1: res.data.a1 });
+					this.setState({ a2: res.data.a2 });
+					this.setState({ b: res.data.b });
+				}).catch((err) => {
+					window.location.href = "/serverError"
+				});
+		}
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -83,32 +84,18 @@ export default class Registrazione extends Component {
 		today = today.toJSON().split("T")[0];
 
 		return (
-			<div className="ez">
+			<div className="ez sfondo">
+				<NavbarCliente />
+				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+				{this.state.success && <Alert severity="success">Patente aggiornata correttamente</Alert>}
 
-				<AvForm
-					style={{ minHeight: "90vh" }}
-					onValidSubmit={this.onValidSubmit}
-				>
+				<AvForm onValidSubmit={this.onValidSubmit}>
 					<div
-						className="row h-100 justify-content-md-center"
-						style={{ margin: "5%" }}
+						className="row h-100 justify-content-md-center  boxpannel"
 					>
-						<div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-							<Jumbotron style={{ backgroundColor: "#27394c", color: "beige" }} >
-								<center>
-									<a href="/" style={{ textDecoration: "none" }}>
-										<p
-											className="glacialReg"
-											style={{ fontSize: "40px", color: "white" }}
-										>
-											Aggiorna Patente
-										</p>
-									</a>
-								</center>
-
-								<br />
-								<hr style={{ backgroundColor: "white" }} />
-
+						<div className="col-9 bg-pannell">
+							<div >
+								<div className="title">Aggiorna Patente</div>
 								{/* Riga numero e scadenza */}
 								<div className="row">
 									<div className="col-12 col-md-6">
@@ -139,9 +126,6 @@ export default class Registrazione extends Component {
 										/>
 									</div>
 								</div>
-
-								<br />
-								<hr style={{ backgroundColor: "#3FD0CB" }} />
 								<center>
 									<Form>
 										<FormGroup check inline>
@@ -166,7 +150,6 @@ export default class Registrazione extends Component {
 												<Input type="checkbox"
 													onChange={this.change("a1")}
 													checked={this.state.a1}
-													
 												/>
 												A1
 											</Label>
@@ -191,21 +174,12 @@ export default class Registrazione extends Component {
 										</FormGroup>
 									</Form>
 								</center>
-
-
-
-								<hr style={{ backgroundColor: "#3FD0CB" }} />
-
 								<div className="text-center" style={{ paddingTop: "2%" }}>
-									<Button color="primary" type="submit" size="lg" >
-										Inserisci
+									<Button type="submit" className="buttonCyano">
+										Update
 									</Button>
 								</div>
-								
-								<br />
-								{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
-								{this.state.success && <Alert severity="success">Patente aggiornata correttamente</Alert>}
-							</Jumbotron>
+							</div>
 						</div>
 					</div>
 				</AvForm>

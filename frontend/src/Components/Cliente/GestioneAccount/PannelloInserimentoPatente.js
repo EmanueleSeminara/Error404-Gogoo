@@ -5,6 +5,8 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
 import Axios from 'axios';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import "../../../ComponentsCss/PannelloInserimentoPatente.css"
+import NavbarCliente from "../../NavbarCliente";
 
 export default class Registrazione extends Component {
 
@@ -35,23 +37,23 @@ export default class Registrazione extends Component {
 
 	addCarLicense = () => {
 		Axios.post('/api/guest/addcarlicense', this.state)
-		.then((res) =>{
-			this.setState({ error: false });
-			this.setState({ success: true });
-		}).catch((err) => {
-			if (err.response.status === 513) {
-				this.setState({ string: "hai già inserito una patente" });
-				this.setState({ error: true });
-			} else if (err.response.status === 422) {
-				this.setState({ string: "errore nell'inserimento dei dati" });
-				this.setState({ error: true });
-			} else if (err.response.status === 503) {
-				this.setState({ string: "impossibile inserie la patente al momento, riprova più tardi" });
-				this.setState({ error: true });
-			} else {
-				window.location.href = "/serverError"
-			}
-		});
+			.then((res) =>{
+				this.setState({ error: false });
+				this.setState({ success: true });
+			}).catch((err) => {
+				if (err.response.status === 513) {
+					this.setState({ string: "hai già inserito una patente" });
+					this.setState({ error: true });
+				} else if (err.response.status === 422) {
+					this.setState({ string: "errore nell'inserimento dei dati" });
+					this.setState({ error: true });
+				} else if (err.response.status === 503) {
+					this.setState({ string: "impossibile inserie la patente al momento, riprova più tardi" });
+					this.setState({ error: true });
+				} else {
+					window.location.href = "/serverError"
+				}
+			});
 	}
 
 	onValidSubmit = (event) => {
@@ -68,32 +70,17 @@ export default class Registrazione extends Component {
 		today = today.toJSON().split("T")[0];
 
 		return (
-			<div className="ez">
+			<div className="ez sfondo">
+				<NavbarCliente/>
+				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+				{this.state.success && <Alert severity="success">Patente inserita correttamente</Alert>}
 
-				<AvForm
-					style={{ minHeight: "90vh" }}
-					onValidSubmit={this.onValidSubmit}
-				>
-					<div
-						className="row h-100 justify-content-md-center"
-						style={{ margin: "5%" }}
-					>
-						<div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-							<Jumbotron style={{ backgroundColor: "#27394c", color: "beige" }} >
-								<center>
-									<a href="/" style={{ textDecoration: "none" }}>
-										<p
-											className="glacialReg"
-											style={{ fontSize: "40px", color: "white" }}
-										>
-											Inserisci Patente
-										</p>
-									</a>
-								</center>
-
-								<br />
-								<hr style={{ backgroundColor: "white" }} />
-
+				<AvForm onValidSubmit={this.onValidSubmit}	>
+					<div className="row h-100 justify-content-md-center  boxpannel ">
+						
+						<div className="col-9 bg-pannell">
+							<div >
+								<div className="title">Inserisci Patente</div>
 								{/* Riga numero e scadenza */}
 								<div className="row">
 									<div className="col-12 col-md-6">
@@ -129,66 +116,66 @@ export default class Registrazione extends Component {
 									</div>
 								</div>
 
-								<br />
-								<hr style={{ backgroundColor: "#3FD0CB" }} />
+
+
 								<center>
-								<Form>
-									<FormGroup check inline>
-										<Label check>
-											<Input type="checkbox" 
+									<Form>
+										<FormGroup check inline>
+											<Label check>
+												<Input type="checkbox"
 													onChange={this.change("a")}
-											/> A
-										</Label>
-									</FormGroup>
-									<FormGroup check inline>
-										<Label check>
-											<Input type="checkbox" 
+												/> A
+											</Label>
+										</FormGroup>
+										<FormGroup check inline>
+											<Label check>
+												<Input type="checkbox"
 													onChange={this.change("am")}
-											/> 
-											AM
-										</Label>
-									</FormGroup>
-									<FormGroup check inline>
-										<Label check>
-											<Input type="checkbox" 
+												/>
+												AM
+											</Label>
+										</FormGroup>
+										<FormGroup check inline>
+											<Label check>
+												<Input type="checkbox"
 													onChange={this.change("a1")}
-											/> 
-											A1
-										</Label>
-									</FormGroup>
-									<FormGroup check inline>
-										<Label check>
-											<Input type="checkbox" 
+												/>
+												A1
+											</Label>
+										</FormGroup>
+										<FormGroup check inline>
+											<Label check>
+												<Input type="checkbox"
 													onChange={this.change("a2")}
-											/> A2
-										</Label>
-									</FormGroup>
-									<FormGroup check inline>
-										<Label check>
-											<Input type="checkbox" 
+												/> A2
+											</Label>
+										</FormGroup>
+										<FormGroup check inline>
+											<Label check>
+												<Input type="checkbox"
 													onChange={this.change("b")}
-											/>
-											B
-										</Label>
-									</FormGroup>
-								</Form>
+												/>
+												B
+											</Label>
+										</FormGroup>
+									</Form>
 								</center>
 
 
 
-								<hr style={{ backgroundColor: "#3FD0CB" }} />
+
 
 								<div className="text-center" style={{ paddingTop: "2%" }}>
-									<Button color="primary" type="submit" size="lg" >
-										Inserisci
+									<Button className="buttonCyano" type="submit" >
+										Insert
 									</Button>
 								</div>
 
-								<br />
-								{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
-								{this.state.success && <Alert severity="success">Patente inserita correttamente</Alert>}
-							</Jumbotron>
+
+
+							</div>
 						</div>
+						
 					</div>
 				</AvForm>
 
