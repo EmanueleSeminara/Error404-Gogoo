@@ -4,6 +4,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
 import Axios from 'axios'
 import { Alert, AlertTitle } from '@material-ui/lab';
+import NavbarCliente from "../../NavbarCliente";
 
 export default class Registrazione extends Component {
 
@@ -19,7 +20,7 @@ export default class Registrazione extends Component {
 		string: ""
 	};
 
-	componentDidMount() {
+/* 	componentDidMount() {
 		Axios.get('/api/guest/mydata')
 			.then((res) => {
 				console.log(res);
@@ -31,7 +32,7 @@ export default class Registrazione extends Component {
 			}).catch((err) => {
 				window.location.href = "/serverError"
 			});
-	}
+	} */
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -80,6 +81,7 @@ export default class Registrazione extends Component {
 
 		return (
 			<div className="ez ">
+				<NavbarCliente/>
 
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 				{this.state.success && <Alert severity="success">Dati modificati correttamente</Alert>}
