@@ -4,7 +4,7 @@ tipo
 data 
 ora
 parcheggi
-driver
+refDriver
  */
 
 import React, { Component } from 'react';
@@ -34,30 +34,45 @@ import {
     DateTimePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+import Axios from 'axios';
+import * as moment from 'moment';
 
 
 
 
 export default class CardPrenotazione extends Component {
     state = {
+        id: this.props.id,
         type: this.props.tipo,
         refParkingR: this.props.refParkingR,
         refParkingC: this.props.refParkingC,
         dateR: this.props.dateR,
         dateC: this.props.dateC,
-        driver: this.props.driver,
-        modifica: false,
+        refDriver: this.props.refDriver,
         refVehicle: this.props.refVehicle,
+        category: this.props.category,
+        positionR: this.props.positionR,
+        positionC: this.props.positionC,
+        modifica: false,
         errore: false,
-
     };
 
-    stampa = (state) => {
-        console.log(state);
+    setting = () => {
+        this.setState({ id: this.props.id });
+        this.setState({ type: this.props.tipo });
+        this.setState({ refParkingR: this.props.refParkingR });
+        this.setState({ refParkingC: this.props.refParkingC });
+        this.setState({ dateR: this.props.dateR });
+        this.setState({ dateC: this.props.dateC });
+        this.setState({ refDriver: this.props.refDriver });
+        this.setState({ refVehicle: this.props.refVehicle });
+        this.setState({ category: this.props.category });
+        this.setState({ positionR: this.props.positionR });
+        this.setState({ positionC: this.props.positionC });
     };
 
-    setModifica = (bool) => {
-        this.setState({ modifica: bool });
+    setModifica = (input) => {
+        this.setState({ modifica: !this.state[input] });
     }
 
     handleChange = (input) => (e) => {
@@ -68,13 +83,20 @@ export default class CardPrenotazione extends Component {
         event.preventDefault();
         console.log(this.state);
     };
-    handleChangeDateArrivo = (date) => {
-        this.setState({ dateC: date });
+
+    handleChangeDataArrivo = (date) => {
+        const d = (moment(date).format('YYYY-MM-DD HH:mm'));
+        this.setState({ dateC: d });
     };
 
-    handleChangeDatePartenza = (date) => {
-        this.setState({ dateR: date });
+    handleChangeDataPartenza = (date) => {
+        const d = (moment(date).format('YYYY-MM-DD HH:mm'));
+        this.setState({ dateR: d });
     };
+
+    modify = () => {
+        Axios.put('')
+    }
 
 
 
@@ -89,8 +111,6 @@ export default class CardPrenotazione extends Component {
 
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-
-                                    <center><h5 style={{ marginBottom: "50px" }}>Riepilogo prenotazione</h5></center>
                                     <p ><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
@@ -100,31 +120,31 @@ export default class CardPrenotazione extends Component {
                             <div className="row no-gutters">
                                 <div className="col-md-6">
                                     <p><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
-                                    {this.state.refParkingR !== "" &&
+                                    {this.state.refParkingR != null &&
                                         <p><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
                                     }
-                                    {this.state.positionR !== "" &&
+                                    {this.state.positionR != null &&
                                         <p><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
                                     }
                                     <p><strong>Data ritiro:</strong>   {this.state.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p><strong>Autista:</strong> {this.state.autista}</p>       {/* TODO ########### */}
-                                    {this.state.refParkingC !== "" &&
+                                    <p><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
+                                    {this.state.refParkingC != null &&
                                         <p><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
                                     }
-                                    {this.state.positionC !== "" &&
+                                    {this.state.positionC != null &&
                                         <p><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
                                     }
                                     <p><strong>Data consegna:</strong>   {this.state.dateC}</p>
                                 </div>
                             </div>
-                            
+
                             <center>
-                                <Button type="button" color="outline-success" onClick={() => this.setModifica(true)} style={{ marginRight: "10px", marginTop: "20px" }}  >
+                                <Button type="button" color="outline-success" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
                                     Modifica
                                 </Button>
-                                <Button type="button" color="outline-danger" style={{ marginRight: "10px", marginTop: "20px" }}  >
+                                <Button type="button" color="outline-danger" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
                                     Elimina
                                 </Button>
                             </center>
@@ -135,47 +155,41 @@ export default class CardPrenotazione extends Component {
                     <center>
                         <ListGroup>
                             <ListGroupItem>
-                                <AvForm onValidSubmit={this.onValidSubmit}>
-                                    <Row>
-                                        <Col>
-                                            <FormGroup>
-                                                <Label for="exampleSelect">Tipo veicolo</Label>
-                                                <Input type="select" name="select" id="exampleSelect" onClick={this.handleChange("tipologiaMezzo")}>
-                                                    <option>Auto</option>
-                                                    <option>Moto</option>
-                                                    <option>Monopattino</option>
-                                                    <option>Bicicletta</option>
-                                                </Input>
-                                            </FormGroup>
-                                        </Col>
-
-                                        <Col>
-                                            <Label >Autista</Label>
-                                            <AvRadioGroup inline name="autista" required errorMessage="il campo è richiesto" style={{ boxShadow: "none" }} onClick={this.handleChange("autista")}>
-                                                <AvRadio label="Si" value="true" />
-                                                <AvRadio label="No" value="false" />
-                                            </AvRadioGroup>
-                                        </Col>
-                                    </Row>
+                                <AvForm>
+                                    {this.state.positionR != null &&
+                                        <Row>
+                                            <Col>
+                                                <FormGroup>
+                                                    <Label for="exampleSelect">Tipo veicolo</Label>
+                                                    <Input type="select" name="select" id="exampleSelect" onClick={this.handleChange("type")}>
+                                                        <option>Auto</option>
+                                                        <option>Moto</option>
+                                                        <option>Monopattino</option>
+                                                        <option>Bicicletta</option>
+                                                    </Input>
+                                                </FormGroup>
+                                            </Col>
+                                        </Row>
+                                    }
                                     <Row>
                                         <Col >
                                             <Label sm={12}>Partenza</Label>
-                                            <Input type="select" name="selectRitiro" id="parcheggioRitiro" onClick={this.handleChange("parcRitiro")} >
-                                                <option>Parcheggio A</option>
-                                                <option>Parcheggio B</option>
-                                                <option>Parcheggio C</option>
-                                                <option>Parcheggio D</option>
-                                                <option>Parcheggio E</option>
+                                            <Input type="select" name="selectRitiro" id="parcheggioRitiro" onClick={this.handleChange("refParkingR")} >
+                                                <option>Via Libertà</option>
+                                                <option>Via Roma</option>
+                                                <option>Via Ernesto Basile</option>
+                                                <option>Viale Regione</option>
+                                                <option>Via Tersicore</option>
                                             </Input>
                                         </Col>
                                         <Col>
                                             <Label sm={12}>Destinazione</Label>
-                                            <Input type="select" name="selectConsegna" id="parcheggioConsegna" onClick={this.handleChange("parcConsegna")} >
-                                                <option>Parcheggio A</option>
-                                                <option>Parcheggio B</option>
-                                                <option>Parcheggio C</option>
-                                                <option>Parcheggio D</option>
-                                                <option>Parcheggio E</option>
+                                            <Input type="select" name="selectConsegna" id="parcheggioConsegna" onClick={this.handleChange("refParkingC")} >
+                                                <option>Via Libertà</option>
+                                                <option>Via Roma</option>
+                                                <option>Via Ernesto Basile</option>
+                                                <option>Viale Regione</option>
+                                                <option>Via Tersicore</option>
                                             </Input>
                                         </Col>
                                     </Row>
@@ -185,9 +199,9 @@ export default class CardPrenotazione extends Component {
                                                 <center>
                                                     <div className="row ">
                                                         <div className="col">
-                                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                                <DateTimePicker label="Ritiro" inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.DataPartenza} onChange={this.handleChangeDatePartenza} />
-                                                            </MuiPickersUtilsProvider>
+                                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                            <DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} label="Ritiro" inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+                                                        </MuiPickersUtilsProvider>
                                                         </div>
                                                     </div>
                                                 </center>
@@ -198,9 +212,9 @@ export default class CardPrenotazione extends Component {
                                                 <center>
                                                     <div className="row ">
                                                         <div className="col">
-                                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                                <DateTimePicker label="Consegna" inputVariant="outlined" value={this.state.dataConsegna} selected={this.state.DataConsegna} onChange={this.handleChangeDateArrivo} />
-                                                            </MuiPickersUtilsProvider>
+                                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                            <DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} label="Consegna" inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+                                                        </MuiPickersUtilsProvider>
                                                         </div>
                                                     </div>
                                                 </center>
@@ -210,8 +224,12 @@ export default class CardPrenotazione extends Component {
 
                                     {/* Pulsante modifica*/}
 
-                                    <Button type="submit" color="outline-success" onClick={() => this.setModifica(false)} style={{ padding: "8px", margin: "10px" }}  >
+                                    <Button type="submit" color="outline-success" onClick={() => this.setModifica()} style={{ padding: "8px", margin: "10px" }}  >
                                         Modifica
+                                    </Button>
+
+                                <Button type="submit" color="outline-error" onClick={() => { this.setting(); this.setModifica("modifica")}} style={{ padding: "8px", margin: "10px" }}  >
+                                        Annulla
                                     </Button>
 
                                 </AvForm>

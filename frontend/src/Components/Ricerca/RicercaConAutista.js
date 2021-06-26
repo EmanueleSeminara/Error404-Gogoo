@@ -78,15 +78,16 @@ export default class FormRicerca extends Component {
 		event.preventDefault();
 		this.search();
 		const reservation = {
-			id: "",
+			id: null,
 			type: this.state.type,
-			refParkingR: "",
-			refParkingC: "",
+			refParkingR: null,
+			refParkingC: null,
 			dateR: this.state.dateR,
 			dateC: this.state.dateC,
 			category: this.state.category,
 			positionR: this.state.positionR,
 			positionC: this.state.positionC,
+			refDriver: null
 		};
 		window.localStorage.setItem("reservation", JSON.stringify(reservation));
 		console.log(JSON.parse(localStorage.getItem("reservation")));
