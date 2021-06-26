@@ -3,6 +3,65 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 const reservationManagement = require("../models/reservationManagement");
+const searchnManagement = require("../models/searchManagement");
+const isGuest = require("../middleware/isGuest");
+
+
+
+router.post("/addreservationwithdriver", async (req, res) => {
+    console.log("CIAO");
+    const drivers = await searchnManagement.searchDrivers(req.body.dateC, req.body.dateR);
+    while(drivers.length > 0){
+        console.log(drivers.shift());
+        await getCalled(req, res)
+
+    }
+})
+
+router.post(
+    "/add",
+    [
+        check("refVehicle").isInt(),
+        //check("id").isInt(),
+        //check("dateR").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
+        //check("dateC").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
+        check("refParkingR").isAlpha('it-IT', { ignore: ' ' }),
+        check("refParkingC").isAlpha('it-IT', { ignore: ' ' }),
+    ],
+    isGuest,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log(errors.array());
+            return res.status(422).json({ errors: errors.array() });
+        }
+
+        const reservation = {
+            refVehicle: req.body.refVehicle,
+            dateR: req.body.dateR,
+            dateC: req.body.dateC,
+            refParkingR: req.body.refParkingR,
+            refParkingC: req.body.refParkingC
+        };
+
+        console.log(reservation);
+
+        try {
+            await reservationManagement.addReservation(reservation, req.user.id);
+            //EMAIL MANCANTE
+            res.status(201).end();
+        } catch (err) {
+            if (err.errno == 19) {
+                res.status(513);
+            } else {
+                res.status(503);
+            }
+            res.json({
+                error: 'Database error during the creation of user - ' + err,
+            });
+        }
+    }
+);
 
 // router.get(
 //     BASEURL + "/reservation/getreservationdata/:id",

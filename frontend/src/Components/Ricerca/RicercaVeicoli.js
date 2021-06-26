@@ -52,18 +52,6 @@ export default class FormRicerca extends Component {
 	componentDidMount(){
 		if (localStorage.getItem("utente") === null) {
 			window.location.href = '/login';
-		} else {
-			Axios.get('/api/guest/listpayments')
-				.then((res) => {
-					console.log(res.data.length);
-					if (res.data.length !== 0){
-						console.log("sono dentro")
-						this.setState({ payment: true });
-					}
-				}).catch((err) => {
-					console.log(err);
-					//window.location.href = '/errorServer';
-				});
 		}
 	}
 
@@ -92,26 +80,37 @@ export default class FormRicerca extends Component {
 	}
 
 	onValidSubmit = async (event) => {
-		console.log("sono dentro onValid");
-		if (this.state.payment){
-			console.log("sono dentro VERO")
+		let payment = false;
+		Axios.get('/api/guest/listpayments')
+			.then((res) => {
 
-			this.search();
-			const reservation = {
-				refVehicle: "",
-				type: this.state.type,
-				refParkingR: this.state.refParkingR,
-				refParkingC: this.state.refParkingC,
-				dateR: this.state.dateR,
-				dateC: this.state.dateC,
-				category: "",
-				positionR: "",
-				positionC: "",
-			};
-			window.localStorage.setItem("reservation", JSON.stringify(reservation));
-		} else {
-			//fare spuntare messaggio di errore 
-		}
+				if (res.data.length !== 0) {
+					payment= true;
+				}
+
+				if (payment){
+					console.log("sono dentro VERO")
+					this.search();
+					const reservation = {
+						refVehicle: "",
+						type: this.state.type,
+						refParkingR: this.state.refParkingR,
+						refParkingC: this.state.refParkingC,
+						dateR: this.state.dateR,
+						dateC: this.state.dateC,
+						category: "",
+						positionR: "",
+						positionC: "",
+					};
+					window.localStorage.setItem("reservation", JSON.stringify(reservation));
+				} else {
+					//fare spuntare messaggio di errore 
+				}
+				
+			}).catch((err) => {
+				console.log(err);
+				//window.location.href = '/errorServer';
+			});
 	};
 
 	render() {

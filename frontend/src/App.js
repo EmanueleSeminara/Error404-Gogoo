@@ -10,6 +10,7 @@ import PannelloAmministratore from "../src/pages/PannelloAmministratore";
 import PannelloGestioneAccount from "../src/pages/PannelloGestioneAccount";
 import PannelloGestionePrenotazione from '../src/pages/PannelloGestionePrenotazione';
 import PannelloRiepilogoPrenotazione from '../src/Components/Prenotazione/PannelloRiepilogoPrenotazione'
+import PannelloPagamento from '../src/Components/Pagamento/PannelloPagamento'
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -29,6 +30,7 @@ class App extends Component {
           <Route exact path="/pannelloGestioneAccount" component={PannelloGestioneAccount} />
           <Route exact path="/pannelloGestionePrenotazione" component={PannelloGestionePrenotazione} />
           <Route exact path="/riepilogoPrenotazione" component={PannelloRiepilogoPrenotazione} />
+          <Route exact path="/pagamento" component={PannelloPagamento} />
           {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */} 
         </Switch>
       </Router>

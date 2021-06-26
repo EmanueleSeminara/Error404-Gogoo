@@ -18,6 +18,7 @@ const adminsRoutes = require("./routes/admin");
 const guestsRoutes = require("./routes/guest");
 const vehiclesRoutes = require("./routes/vehicle");
 const searchRoutes = require("./routes/search");
+const reservationRoutes = require("./routes/reservation");
 
 
 // init express
@@ -51,6 +52,7 @@ app.use(BASEURL + "/admin/", adminsRoutes);
 app.use(BASEURL + "/guest/", guestsRoutes);
 app.use(BASEURL + "/vehicle/", vehiclesRoutes);
 app.use(BASEURL + "/search/", searchRoutes);
+app.use(BASEURL + "/reservation/", reservationRoutes);
 
 
 

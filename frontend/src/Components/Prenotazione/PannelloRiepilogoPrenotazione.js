@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from '@material-ui/core/Switch';
 import Alert from '@material-ui/lab/Alert';
 import NavbarCliente from '../NavbarCliente';
+import Axios from 'axios' 
+import * as moment from 'moment';
 
 import {
 	Card, CardImg, CardText, CardBody,
@@ -42,10 +44,45 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 			window.location.href = '/ricerca';
 		}
 	}
-	onValidSubmit = (event) => {
-		event.preventDefault();
-		console.log(this.state);
-	};
+
+	cancel = () => {
+		localStorage.removeItem("reservatiom");
+		window.location.href = '/ricerca'
+	}
+
+	confirmation = () => {
+		Axios.post('/api/reservation/add', this.state.reservation)
+		.then((res) => {
+			this.setPrice();
+			window.location.href='/pagamento'
+		})
+		.catch((err) => {
+			console.log(err);
+		})
+	}
+
+	setPrice = () => {
+		let dateC = moment(this.state.reservation.dateC)
+		let dateR = moment(this.state.reservation.dateR)
+		let price = ((dateC - dateR ) / 1000000);
+		if(this.state.reservation.type === "car"){
+			if (this.state.reservation.category === "suv"){
+				price *= 1.8;
+			} else if (this.state.reservation.category === "berline"){
+				price *= 1.9;
+			} else {
+				price *= 1.7;
+			}
+		} else if (this.state.reservation.type === "scooter"){
+			price *= 1.4
+		} else if (this.state.reservation.type === "bicycle"){
+			price *= 0.9;
+		} else {
+			price *= 1.1;
+		}
+		window.localStorage.setItem("price", price);
+		console.log(localStorage.getItem("price"));
+	}
 
 
 	render() {
@@ -95,12 +132,12 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 									<div className="row no-gutters" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 
 										<div style={{ padding: "20px" }}>
-											<Button type="danger" color="danger" style={{ marginTop: "20px" }} >
+											<Button type="danger" color="danger" onClick={() => { this.cancel() }} style={{ marginTop: "20px" }} >
 												Annulla
 											</Button>
 										</div>
 										<div style={{ padding: "20px" }}>
-											<Button type="button" color="success" style={{ marginTop: "20px" }} >
+											<Button type="button" color="success" onClick={() => {this.confirmation()}} style={{ marginTop: "20px" }} >
 												Continua
 											</Button>
 										</div>

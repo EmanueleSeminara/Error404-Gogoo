@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Axios from 'axios'
 
 import {
 	Collapse,
@@ -21,9 +22,22 @@ import {
 export default class NavbarCliente extends Component {
 
 	state = {
-		isOpen: false,
-
+		isOpen: false
 	}
+
+	logout = () => {
+		window.localStorage.clear();
+		Axios.post('/api/user/logout')
+			.then((res) => {
+				window.location.href = '/login';
+			}).catch((err) => {
+				if (err.response.status === 401) {
+					window.location.href = '/login';
+				} else {
+					window.location.href = '/errorServer';
+				}
+			});
+	};
 
 	toggle = () => {
 		this.setState({ isOpen: !this.state.isOpen })
@@ -88,7 +102,7 @@ export default class NavbarCliente extends Component {
 								</DropdownMenu>
 							</UncontrolledDropdown>
 						</Nav>
-						<Button href="/" style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Logout</Button>
+						<Button onClick={() => {this.logout()}} style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Logout</Button>
 					</Collapse>
 				</Navbar>
 			</div>

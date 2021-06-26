@@ -3,7 +3,7 @@ import "../ComponentsCss/util.css";
 import "../ComponentsCss/main.css";
 
 
-import NavbarRicerca from "../Components/Ricerca/NavbarRicerca";
+import NavbarRicerca from "../Components/NavbarCliente";
 import FormRicerca from "../Components/Ricerca/FormRicerca";
 
 
