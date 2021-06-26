@@ -20,10 +20,10 @@ export default class Registrazione extends Component {
 		role: ""
 	};
 
-	componentDidMount() {
+/* 	componentDidMount() {
 		if (localStorage.getItem("utente") !== null) {
 			let c = JSON.parse(localStorage.getItem("utente"));
-			this.setState({ role: c.role })
+			this.setState({ role: c.role }) */
 			/*if (c.role === "guest") {
 				window.location.href = "/ricerca";
 			} else if (c.role === "admin") {
@@ -33,10 +33,10 @@ export default class Registrazione extends Component {
 			} else {
 				window.location.href = "/pannelloAutista";
 			}*/
-		} else {
+/* 		} else {
 			window.location.href = "/";
 		}
-	}
+	} */
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -155,8 +155,7 @@ export default class Registrazione extends Component {
 									<div className="col-12 ">
 										<AvField
 											name="password1"
-											label="
-											Re-enter Password"
+											label="Re-enter Password"
 											type="password"
 											validate={{
 												required: { value: true, errorMessage: "Il campo è richiesto" },
