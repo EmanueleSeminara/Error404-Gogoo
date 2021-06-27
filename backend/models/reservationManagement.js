@@ -136,7 +136,7 @@ exports.updateReservation = (reservation) => {
 exports.getmyreservation = (userId) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT (r.id,r.refVehicle, v.type, v.category, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refDriver, r.positionR, r.positionC, r.state) FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE refGuest = ?";
+      "SELECT r.id,r.refVehicle, v.type, v.category, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refDriver, r.positionR, r.positionC, r.state FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE r.refGuest = ?";
     db.all(sql, [userId], (err, rows) => {
       if (err) {
         reject(err);
