@@ -25,12 +25,14 @@ import PannelloAutista from '../src/Components/Autista/PannelloAutista';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 class App extends Component {
   render(){
     return (
       <Router>
         <Switch>
           {/* Gestione accesso */}
+
           <Route exact path="/" component={Login} />
           <Route exact path="/ricerca" component={Ricerca} />
           <Route exact path="/registrazione" component={Registrazione} />
