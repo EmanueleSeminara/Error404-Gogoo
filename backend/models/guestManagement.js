@@ -202,7 +202,7 @@ exports.retireVehicle = (reservation) => {
       " " +
       date.getHours() +
       ":" +
-      date.getMinutes(); // Da scrivere
+      date.getMinutes();
     console.log("Data e ora attuale: " + dateNow);
     const sql =
       "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)";
