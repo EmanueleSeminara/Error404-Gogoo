@@ -5,7 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import Axios from 'axios';
 
 import {
-    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup, 
+    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup,
 } from 'reactstrap';
 
 import {
@@ -28,7 +28,7 @@ export default class CardConsegnaFuoriStallo extends Component {
 
     setting = () => {
         // verificare che il velico prenotato non abbia altre prenotazioni refVehicle id
-        if(this.state.possibile){
+        if (this.state.possibile) {
             this.setState({ viaRiferimento: "" })
             this.setState({ mostra: false })
             this.setState({ price: 0 })
@@ -61,7 +61,7 @@ export default class CardConsegnaFuoriStallo extends Component {
 
     setPrice = () => {
         if (this.props.category === "suv") {
-            this.setState({price: 17})
+            this.setState({ price: 17 })
         } else if (this.props.category === "berline") {
             this.setState({ price: 20 })
         } else {
@@ -71,11 +71,9 @@ export default class CardConsegnaFuoriStallo extends Component {
 
     onValidSubmit = (event) => {
         event.preventDefault();
-
-
+        window.localStorage.setItem("price", this.state.price);
+        this.props.remove(this.props.id);
     };
-
-
 
 
 
@@ -119,11 +117,11 @@ export default class CardConsegnaFuoriStallo extends Component {
                             </div>
 
                             {this.state.possibile &&
-                            <center>
-                                <Button type="button" color="primary" onClick={() => {this.setMostra("mostra"); this.setPrice()}} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
-                                    Consegna fuori stallo
-                                </Button>
-                            </center>
+                                <center>
+                                    <Button type="button" color="primary" onClick={() => { this.setMostra("mostra"); this.setPrice() }} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
+                                        Consegna fuori stallo
+                                    </Button>
+                                </center>
                             }
                             {!this.state.possibile &&
                                 <h3>non puoi effettuare la consegna fuori stallo per questo veicolo</h3>
@@ -156,7 +154,7 @@ export default class CardConsegnaFuoriStallo extends Component {
                                             </div>
                                         </div>
                                     </center>
-                                    <Label for="exampleText">Motivo della consegna fuori stallo (opzionale))</Label>
+                                    <Label for="exampleText">Motivo della consegna fuori stallo (opzionale)</Label>
                                     <FormGroup row>
                                         <Col >
                                             <Input type="textarea" name="text" id="exampleText" />
@@ -164,15 +162,18 @@ export default class CardConsegnaFuoriStallo extends Component {
                                     </FormGroup>
 
                                     {/* scrivile meglio mimmo*/}
-                                    <h2>
-                                        prezzo per la consegna fuori stallo : {this.state.price}
-                                    </h2>
+                                    <h6>
+                                        prezzo per la consegna fuori stallo : {this.state.price}€
+                                    </h6>
 
 
                                     {/* Pulsante Conferma*/}
 
                                     <Button type="submit" color="primary" style={{ padding: "8px", margin: "10px" }} size="lg">
                                         Conferma
+                                    </Button>
+                                    <Button type="submit" color="error" onClick={() => this.setMostra("mostra")} style={{ padding: "8px", margin: "10px" }} size="lg">
+                                        Annulla
                                     </Button>
                                 </AvForm>
                             </ListGroupItem>

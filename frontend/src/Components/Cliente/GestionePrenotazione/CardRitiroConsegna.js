@@ -12,7 +12,7 @@ import {
     AvField,
 } from "availity-reactstrap-validation";
 import * as moment from 'moment';
-import axios from 'axios';
+import Axios from 'axios';
 
 
 
@@ -54,10 +54,18 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
 
     ritira = () => {
         // cambiare lo stato della prenotazione
-        //Axios.put('')
+        const data = {
+            id: this.props.id,
+            refVehicle: this.props.refVehicle
+        }
+        Axios.put('/api/guest/retirevehicle', data)
+        .then((res) => {
+            this.setState({ ritiro: false })
+            this.setState({ consegna: true })
+        }).catch((err) => {
+            console.log(err)
+        })
 
-        this.setState({ ritiro: false })
-        this.setState({ consegna: true })
     }
 
 
