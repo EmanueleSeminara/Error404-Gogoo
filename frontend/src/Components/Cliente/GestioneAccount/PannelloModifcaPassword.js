@@ -36,11 +36,7 @@ export default class Registrazione extends Component {
 		} else {
 			window.location.href = "/";
 		}
-<<<<<<< HEAD
 	}
-=======
-	} 
->>>>>>> b08a708402965f35fb8e27712711d39026ff32ae
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
