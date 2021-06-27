@@ -88,8 +88,6 @@ exports.getReservationDataById = (idP) => {
   });
 };
 
-
-
 exports.retireVehicle = (id) => {
   return new Promise((resolve, reject) => {
     const sql = 'UPDATE vehicles SET state = "in use" WHERE id = ?';
@@ -137,7 +135,8 @@ exports.updateReservation = (reservation) => {
 // get reservations by userId
 exports.getmyreservation = (userId) => {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE refGuest = ?";
+    const sql =
+      "SELECT (r.id,r.refVehicle, v.type, v.category, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refDriver, r.positionR, r.positionC, r.state) FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE refGuest = ?";
     db.all(sql, [userId], (err, rows) => {
       if (err) {
         reject(err);
@@ -155,7 +154,7 @@ exports.getmyreservation = (userId) => {
         refDriver: r.refDriver,
         positionR: r.positionR,
         positionC: r.positionC,
-        state: r.state
+        state: r.state,
       }));
       resolve(reservations);
     });
@@ -238,7 +237,7 @@ exports.addReservation = (reservation, userId) => {
         reservation.refParkingR,
         reservation.refParkingC,
         reservation.positionR,
-        reservation.positionC
+        reservation.positionC,
       ],
       (err, rows) => {
         if (err) {
@@ -253,13 +252,13 @@ exports.addReservation = (reservation, userId) => {
 
 exports.retireVehicle = (id) => {
   return new Promise((resolve, reject) => {
-      const sql = "UPDATE vehicles SET state = 'in use' WHERE id = ?";
-      db.run(sql, [id], function (err) {
-          if (err) {
-              reject(err);
-              return;
-          }
-          resolve(this.lastID);
-      });
+    const sql = "UPDATE vehicles SET state = 'in use' WHERE id = ?";
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
   });
 };
