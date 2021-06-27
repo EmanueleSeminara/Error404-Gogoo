@@ -155,4 +155,12 @@ router.post(
   }
 );
 
+router.get("/reservations", isAdmin, (req, res) => {
+  try{
+    return await adminManagement.getReservations(req.query.name, req.query.surname);
+  } catch(err){
+    res.status(503).json({error: "Database error when requesting reservations - " + err});
+  }
+})
+
 module.exports = router;

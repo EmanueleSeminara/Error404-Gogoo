@@ -68,17 +68,15 @@ exports.updateUser = (user) => {
         user.phone,
         user.password,
         user.birthdate,
-        user.id
+        user.id,
       ],
       function (err) {
         if (err) {
           reject(err);
           return;
-        }
-        else if(this.changes === 0){
+        } else if (this.changes === 0) {
           reject(true);
-        }
-        else{
+        } else {
           resolve(this.changes);
         }
       }
@@ -110,5 +108,26 @@ exports.createUser = (user) => {
         resolve(this.lastID);
       }
     );
+  });
+};
+
+exports.getReservations = (name, surname) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT users.name, users.surname, reservations.id, reservations.dateR, reservations.dateC FROM users JOIN reservations ON users.id = reservations.refGuest JOIN vehicles ON reservations.refVehicles = vehicles.id WHERE users.name = ? AND users.surname= ? )";
+    db.all(sql, [name, surname], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const res = rows.map((r) => ({
+        name: r.name,
+        surname: r.surname,
+        id: r.id,
+        dateR: r.dateR,
+        dateC: r.dateC,
+      }));
+      resolve(res);
+    });
   });
 };
