@@ -39,12 +39,13 @@ export default class Registrazione extends Component {
 
 	render() {
 		return (
-			<div className="ez ">
+			
+			<div className="ez sfondo-card">
 				<NavbarCliente />
 				<div
-					className="row justify-content-md-center boxpannel"
+					className="row justify-content-md-center boxpannel "
 				>
-					<div className="col-9 bg-pannell-card">
+					<div className="col-10 bg-pannell-card">
 						<div >
 					
 						<center>
@@ -72,6 +73,7 @@ export default class Registrazione extends Component {
 					</div>
 				</div>
 			</div >
+			
 		);
 	}
 }

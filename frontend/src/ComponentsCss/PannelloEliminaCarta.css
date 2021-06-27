@@ -2,7 +2,7 @@
     width: 590px;
    /*  padding-top: 60px;
     padding-bottom: 60px; */
-    padding: 40px;
+    padding: 35px;
     background: #1d192b !important;
     box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
     border-radius: 60px;
@@ -13,3 +13,20 @@
    /*  display: flex;
     align-items: start; */
 }
+
+.sfondo-card{
+    /*  margin-right: 0px!important; 
+     margin-left: 0px!important;
+     background-image: url(../images/sfondoLogin.svg);
+     width: 100%;
+     height:100vh;
+     bottom: 0;
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover; */
+     background-image: url(../images/sfondoLogin.svg);
+     /* background-size: cover; */
+     height: 100%;
+     overflow: inherit;
+   }
+   
