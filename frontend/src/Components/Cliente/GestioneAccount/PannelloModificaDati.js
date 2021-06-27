@@ -20,7 +20,7 @@ export default class Registrazione extends Component {
 		string: ""
 	};
 
-/* 	componentDidMount() {
+	componentDidMount() {
 		Axios.get('/api/guest/mydata')
 			.then((res) => {
 				console.log(res);
@@ -32,7 +32,7 @@ export default class Registrazione extends Component {
 			}).catch((err) => {
 				window.location.href = "/serverError"
 			});
-	} */
+	}
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
