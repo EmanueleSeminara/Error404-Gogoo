@@ -47,10 +47,11 @@ export default class NavbarCliente extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar expand="md" style={{ backgroundColor: "#39304d" }} >
+				<Navbar light expand="md" style={{ backgroundColor: "#39304d" }} >
 					<NavbarBrand href="/" style={{ color: "white" }}>GoGoo!</NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.state.isOpen} navbar>
+						<Button href='/ricerca' style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Home</Button>
 						<Nav className="ml-auto" navbar>
 							<UncontrolledDropdown nav inNavbar>
 								<DropdownToggle nav style={{ color: "white" }}>
