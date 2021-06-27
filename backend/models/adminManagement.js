@@ -111,21 +111,27 @@ exports.createUser = (user) => {
   });
 };
 
-exports.getReservations = (name, surname) => {
+exports.getReservations = (email) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT users.name, users.surname, reservations.id, reservations.dateR, reservations.dateC FROM users JOIN reservations ON users.id = reservations.refGuest JOIN vehicles ON reservations.refVehicles = vehicles.id WHERE users.name = ? AND users.surname= ? )";
-    db.all(sql, [name, surname], (err, rows) => {
+      "SELECT reservations.id, reservations.dateR, reservations.dateC, reservation.refVehicle, vehicles.type, vehicles.category, reservations.refParkingR, reservations.refParkingR, reservations.positionC, reservations.positionC FROM users JOIN reservations ON users.id = reservations.refGuest JOIN vehicles ON reservations.refVehicles = vehicles.id WHERE users.email = ?)";
+    db.all(sql, [email], (err, rows) => {
       if (err) {
         reject(err);
         return;
       }
       const res = rows.map((r) => ({
-        name: r.name,
-        surname: r.surname,
         id: r.id,
+        refVehicle: r.refVehicle,
+        type: r.type,
+        category: r.category,
         dateR: r.dateR,
         dateC: r.dateC,
+        refParkingR: r.refParkingR,
+        refParkingC: r.refParkingC,
+        refDriver: r.refDriver,
+        positionR: r.positionR,
+        positionC: r.positionC
       }));
       resolve(res);
     });
