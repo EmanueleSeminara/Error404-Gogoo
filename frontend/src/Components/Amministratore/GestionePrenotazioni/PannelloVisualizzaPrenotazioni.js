@@ -24,7 +24,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
     onValidSubmit = (event) => {
         console.log("premuto")
         event.preventDefault();
-        Axios.get('/api/admin/reservations?name=' + this.state.email )
+        Axios.get('/api/admin/reservations?email=' + this.state.email )
             .then((res) => {
                 this.setState({ listReservation: res.data })
             }).catch((err) => {
