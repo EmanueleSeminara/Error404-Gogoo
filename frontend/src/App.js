@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "../src/pages/Login";
 import Registrazione from "../src/pages/Registrazione";
 import RecuperoPassword from "../src/pages/RecuperoPassword";
-import Ricerca from "../src/pages/Ricerca";
+import Ricerca from "../src/Components/Ricerca/FormRicerca";
 import PannelloAmministratore from "../src/Components/Amministratore/PannelloAmministratore";
 import PannelloRiepilogoPrenotazione from '../src/Components/Prenotazione/PannelloRiepilogoPrenotazione'
 import PannelloEliminaCarta from "../src/Components/Cliente/GestioneAccount/PannelloEliminaCarta";

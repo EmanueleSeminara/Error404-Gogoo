@@ -19,13 +19,16 @@ import Footer from "../Footer";
 export default class PannelloAmministratore extends Component {
 
     logout = () => {
-        console.log("cliccato");
         window.localStorage.clear();
         Axios.post('/api/user/logout')
             .then((res) => {
                 window.location.href = '/login';
             }).catch((err) => {
-                window.location.href = '/errorServer';
+                if (err.response.status === 401) {
+                    window.location.href = '/login';
+                } else {
+                    window.location.href = '/errorServer';
+                }
             });
     };
 
