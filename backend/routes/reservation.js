@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator");
 
 const reservationManagement = require("../models/reservationManagement");
 const isGuest = require("../middleware/isGuest");
+const mail = require("../models/mail");
 
 // visualizza prenotazioni - segnala guasto - ritiro e consegna - ritardo consegna - consegna fuori stallo
 
@@ -46,7 +47,7 @@ router.post(
 
         try {
             await reservationManagement.addReservation(reservation, req.user.id);
-            //EMAIL MANCANTE
+            mail.sendNewReservationMail(req.user.email, req.user.name);
             res.status(201).end();
         } catch (err) {
             if (err.errno == 19) {
@@ -95,6 +96,7 @@ router.put("/damagedvehicle", isGuest, [check("position").isAlpha('it-IT', { ign
 router.delete("/delete/:id", isGuest, async (req, res) => {
     try{
         await reservationManagement.deleteReservationById(req.params.id);
+        mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
         res.status(201).end();
     } catch(err){
         res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
@@ -103,7 +105,6 @@ router.delete("/delete/:id", isGuest, async (req, res) => {
 
 // data ora parcheggi
 router.put("/edit", isGuest, async (req, res) => {
-    console.log("Sei dentro edit");
     const reservation = {
         dateR: req.body.dateR,
         dateC: req.body.dateC,
@@ -112,8 +113,11 @@ router.put("/edit", isGuest, async (req, res) => {
         id: req.body.id,
         refVehicle: req.body.refVehicle
     }
+    console.log(reservation);
     try{
         await reservationManagement.updateReservation(reservation);
+        mail.sendReservationEditedMail(req.user.email, req.user.name, req.body.id);
+        res.status(201).end();
     }catch(err){
         res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
     }

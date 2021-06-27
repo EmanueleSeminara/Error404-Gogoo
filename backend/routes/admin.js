@@ -76,7 +76,7 @@ router.put(
     check("birthdate").isDate({ format: "YYYY-MM-DD", strictMode: true }),
     check("phone").isMobilePhone(["it-IT"]),
     check("password").isStrongPassword(),
-    check("id").isInt()
+    check("id").isInt(),
   ],
   isAdmin,
   async (req, res) => {
@@ -154,5 +154,46 @@ router.post(
     }
   }
 );
+
+router.get("/reservations", isAdmin, async (req, res) => {
+  try {
+    res.json(
+      await adminManagement.getReservations(req.query.email)
+    );
+  } catch (err) {
+    res
+      .status(503)
+      .json({ error: "Database error when requesting reservations - " + err });
+  }
+});
+
+router.delete("/deletereservation/:id", isAdmin, async (req, res) => {
+  try{
+      await adminManagement.deleteReservationById(req.params.id);
+      mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
+      res.status(201).end();
+  } catch(err){
+      res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+  }
+})
+
+router.put("/editreservation", isAdmin, async (req, res) => {
+  const reservation = {
+      dateR: req.body.dateR,
+      dateC: req.body.dateC,
+      refParkingR: req.body.refParkingR,
+      refParkingC: req.body.refParkingC,
+      id: req.body.id,
+      refVehicle: req.body.refVehicle
+  }
+  console.log(reservation);
+  try{
+      await adminManagement.updateReservation(reservation);
+      mail.sendReservationEditedMail(req.user.email, req.user.name, req.body.id);
+      res.status(201).end();
+  }catch(err){
+      res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+  }
+})
 
 module.exports = router;

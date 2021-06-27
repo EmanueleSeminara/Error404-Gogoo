@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, } from "reactstrap";
 
 import CardPrenotazione from "../../Prenotazione/CardPrenotazione";
 import Axios from 'axios';
-import faker from 'faker';
+
 
 
 export default class ViasualizzaMiePrenotazioni extends Component {
@@ -23,14 +23,6 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                 //window.location.href = '/errorServer'
             })
     }
-
-    setRSelected = (num) => {
-        this.setState({ rSelected: num });
-    }
-
-    handleChange = (input) => (e) => {
-        this.setState({ [input]: e.target.value });
-    };
 
     setModifica = (bool) => {
         this.setState({ modifica: bool });

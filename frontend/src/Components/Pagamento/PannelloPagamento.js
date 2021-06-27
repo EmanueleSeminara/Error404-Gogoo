@@ -5,7 +5,6 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
-import faker from 'faker';
 import CardPagamento from "./CardPagamento";
 import Axios from 'axios';
 
@@ -15,7 +14,8 @@ export default class PannelloPagamento extends Component {
 		listpayments: [],
 		cardID: "",
 		selezionePagamento: true,
-		success: false
+		success: false,
+		price: localStorage.getItem("price")
 	}
 
 	componentDidMount() {
@@ -56,6 +56,9 @@ export default class PannelloPagamento extends Component {
 							>
 								Pagamento
 							</p>
+
+							<h6 style={{ color: "white" }}>importo da pagare: {this.state.price}€</h6>
+
 						</center>
 					</div>
 					<AvForm onValidSubmit={this.onValidSubmit}>

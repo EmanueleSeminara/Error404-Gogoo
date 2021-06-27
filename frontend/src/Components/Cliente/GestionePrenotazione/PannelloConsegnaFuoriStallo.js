@@ -3,15 +3,25 @@ import {ListGroup, ListGroupItem } from "reactstrap";
 
 
 import faker from 'faker';
+import Axios from "axios";
 import CardConsegnaFuoriStallo from "./CardConsegnaFuoriStallo";
 
 
-const data = new Array(2).fill().map((value, index) => ({ id: index, tipo: faker.lorem.words(1), dataRitiro: faker.lorem.words(1), dataConsegna: faker.lorem.words(1), parcRitiro: faker.lorem.words(1), parcConsegna: faker.lorem.words(1) }))
-
-
-
 export default class PannelloRitiroConsegna extends Component {
+    state = {
+        listReservation: [],
+    };
 
+    componentDidMount() {
+        Axios.get('/api/reservation/myreservations')
+            .then((res) => {
+                this.setState({ listReservation: res.data })
+                console.log(this.state.listReservation)
+            }).catch((err) => {
+                console.log(err);
+                //window.location.href = '/errorServer'
+            })
+    }
 
     setRSelected = (num) => {
         this.setState({ rSelected: num });
@@ -30,6 +40,16 @@ export default class PannelloRitiroConsegna extends Component {
         console.log(this.state);
     };
 
+    remove = (reservationID) => {
+        Axios.delete('/api/reservation/delete/' + reservationID)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+                window.location.href = '/pagamento';
+            }).catch((err) => {
+                window.location.href = '/errorServer';
+            });
+    };
+
 
 
     render() {
@@ -40,9 +60,8 @@ export default class PannelloRitiroConsegna extends Component {
                         <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}></ListGroupItem>
 
                         {<div>
-                                {data.map(((item) => (
-                                    <CardConsegnaFuoriStallo tipo={item.tipo} dataRitiro={item.dataRitiro} dataConsegna={item.dataConsegna} parcRitiro={item.parcRitiro} parcConsegna={item.parcConsegna} autista={true} id={item.id} />
-                                    /*  <CardModificaUtente nome={item.nome} cognome={item.cognome} email={item.email} telefono={item.telefono} eta={item.eta} password={item.password}/> */
+                                {this.state.listReservation.map(((item) => (
+                                    <CardConsegnaFuoriStallo id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={"withdrawn"} remove={this.remove} />
                                 )))}
                             </div>}
                     </ListGroup>

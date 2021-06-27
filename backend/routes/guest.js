@@ -235,7 +235,8 @@ router.post(
 router.put("/retirevehicle", isGuest, async (req, res) => {
     const reservation = {
         refGuest: req.user.id,
-        refVehicle: req.body.refVehicle
+        refVehicle: req.body.refVehicle,
+        id: req.body.id
     }
     try{
         await guestManagement.retireVehicle(reservation);

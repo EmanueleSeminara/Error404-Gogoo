@@ -34,12 +34,14 @@ import {
 
 export default class PannelloRiepilogoPrenotazione extends Component {
 	state = {
-		reservation: {}
+		reservation: {},
+		price: 0
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		if (localStorage.getItem("reservation") !== null) {
-			this.setState({ reservation: JSON.parse(localStorage.getItem("reservation")) });
+			await this.setState({ reservation: JSON.parse(localStorage.getItem("reservation")) });
+			this.setPrice()
 		} else {
 			window.location.href = '/ricerca';
 		}
@@ -53,7 +55,6 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 	confirmation = () => {
 		Axios.post('/api/reservation/add', this.state.reservation)
 		.then((res) => {
-			this.setPrice();
 			window.location.href='/pagamento'
 		})
 		.catch((err) => {
@@ -62,6 +63,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 	}
 
 	setPrice = () => {
+		console.log(this.state.reservation)
 		let dateC = moment(this.state.reservation.dateC)
 		let dateR = moment(this.state.reservation.dateR)
 		let price = ((dateC - dateR ) / 1000000);
@@ -80,8 +82,9 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 		} else {
 			price *= 1.1;
 		}
-		window.localStorage.setItem("price", price);
-		console.log(localStorage.getItem("price"));
+		console.log(price);
+		this.setState({price: price})
+		window.localStorage.setItem("price", this.state.price);
 	}
 
 
@@ -127,6 +130,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 											}
 											<p><strong>Data consegna:</strong>   {this.state.reservation.dateC}</p>
 										</div>
+										<p><strong>price:</strong>   {this.state.price}</p>
 
 									</div>
 									<div className="row no-gutters" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

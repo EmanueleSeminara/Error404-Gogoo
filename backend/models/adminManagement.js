@@ -68,17 +68,15 @@ exports.updateUser = (user) => {
         user.phone,
         user.password,
         user.birthdate,
-        user.id
+        user.id,
       ],
       function (err) {
         if (err) {
           reject(err);
           return;
-        }
-        else if(this.changes === 0){
+        } else if (this.changes === 0) {
           reject(true);
-        }
-        else{
+        } else {
           resolve(this.changes);
         }
       }
@@ -101,6 +99,71 @@ exports.createUser = (user) => {
         user.phone,
         user.birthdate,
         user.role,
+      ],
+      function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(this.lastID);
+      }
+    );
+  });
+};
+
+exports.getReservations = (email) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT reservations.id, reservations.dateR, reservations.dateC, reservations.refVehicle, vehicles.type, vehicles.category, reservations.refParkingR, reservations.refParkingR, reservations.positionC, reservations.positionC FROM users JOIN reservations ON users.id = reservations.refGuest JOIN vehicles ON reservations.refVehicle = vehicles.id WHERE users.email = ?";
+    db.all(sql, [email], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const res = rows.map((r) => ({
+        id: r.id,
+        refVehicle: r.refVehicle,
+        type: r.type,
+        category: r.category,
+        dateR: r.dateR,
+        dateC: r.dateC,
+        refParkingR: r.refParkingR,
+        refParkingC: r.refParkingC,
+        refDriver: r.refDriver,
+        positionR: r.positionR,
+        positionC: r.positionC,
+      }));
+      resolve(res);
+    });
+  });
+};
+
+exports.deleteReservationById = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "DELETE FROM reservations WHERE id = ?";
+    db.run(sql, [id], (err) => {
+      if (err) {
+        reject(err);
+        return;
+      } else resolve(null);
+    });
+  });
+};
+
+exports.updateReservation = (reservation) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "UPDATE reservations as R SET dateR = ?, dateC= ?, refParkingR = ?, refParkingC = ? WHERE id = ? AND NOT EXISTS (SELECT 1 FROM reservations AS R1 WHERE R1.refVehicle =? AND id != ?)";
+    db.run(
+      sql,
+      [
+        reservation.dateR,
+        reservation.dateC,
+        reservation.refParkingR,
+        reservation.refParkingC,
+        reservation.id,
+        reservation.refVehicle,
+        reservation.id,
       ],
       function (err) {
         if (err) {

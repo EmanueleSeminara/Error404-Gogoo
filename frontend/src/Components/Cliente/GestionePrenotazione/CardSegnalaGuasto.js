@@ -26,6 +26,8 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ mostra: false })
         if (this.props.state === "withdrawn") {
             this.setState({ guasto: true })
+        } else {
+            this.setState({ guasto: false })
         }
     }
 
