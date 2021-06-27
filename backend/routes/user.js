@@ -26,6 +26,7 @@ router.post("/sessions", function (req, res, next) {
 
             // req.user contains the authenticated user, we send all the user info back
             // this is coming from userDao.getUser()
+            console.log(req.session);
             return res.json(req.user);
         });
     })(req, res, next);
@@ -33,6 +34,7 @@ router.post("/sessions", function (req, res, next) {
 
 // LOGOUT
 router.post("/logout", isLoggedIn, (req, res) => {
+    console.log(req.session);
     req.logout();
     res.end();
 });
