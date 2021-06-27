@@ -1,3 +1,5 @@
+// Sistemare tutte le vie e vedere se mettere alphanumeric
+
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
@@ -257,7 +259,7 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
 router.put(
   "/damagedvehicle",
   isGuest,
-  [check("position").isAlpha("it-IT", { ignore: " " })],
+  [check("position").isAlphanumeric("it-IT", { ignore: " " })],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -280,5 +282,7 @@ router.put(
     }
   }
 );
+
+// Consegna fuori stallo
 
 module.exports = router;
