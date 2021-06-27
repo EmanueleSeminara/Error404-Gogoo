@@ -13,15 +13,15 @@ export default class ViasualizzaMiePrenotazioni extends Component {
         modifica: "",
     };
 
-    componentDidMount(){
+    componentDidMount() {
         Axios.get('/api/reservation/myreservations')
-        .then((res) => {
-            this.setState({listReservation: res.data})
-            console.log(this.state.listReservation)
-        }).catch((err) => {
-            console.log(err);
-            //window.location.href = '/errorServer'
-        })
+            .then((res) => {
+                this.setState({ listReservation: res.data })
+                console.log(this.state.listReservation)
+            }).catch((err) => {
+                console.log(err);
+                //window.location.href = '/errorServer'
+            })
     }
 
     setRSelected = (num) => {
@@ -44,10 +44,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
     remove = (reservationID) => {
         Axios.delete('/api/reservation/delete/' + reservationID)
             .then((res) => {
-                this.setState({ listReservation: this.state.listReservation.filter(reservation => {
-                    console.log(reservation.id + " " + reservationID);
-                    return reservation.id !== reservationID }) });
-                console.log(this.state.listReservation)
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
             }).catch((err) => {
                 window.location.href = '/errorServer';
             });
@@ -66,7 +63,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                                 {
                                     <div>
                                         {this.state.listReservation.map(((item) => (
-                                            <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove}/>
+                                            <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
                                         )))}
                                     </div>}
                             </ListGroup>

@@ -7,8 +7,6 @@ import Registrazione from "../src/pages/Registrazione";
 import RecuperoPassword from "../src/pages/RecuperoPassword";
 import Ricerca from "../src/pages/Ricerca";
 import PannelloAmministratore from "../src/pages/PannelloAmministratore";
-import PannelloGestioneAccount from "../src/pages/PannelloGestioneAccount";
-import PannelloGestionePrenotazione from '../src/pages/PannelloGestionePrenotazione';
 import PannelloRiepilogoPrenotazione from '../src/Components/Prenotazione/PannelloRiepilogoPrenotazione'
 import PannelloEliminaCarta from "../src/Components/Cliente/GestioneAccount/PannelloEliminaCarta";
 import PannelloModifcaPassword from "../src/Components/Cliente/GestioneAccount/PannelloModifcaPassword";
@@ -21,11 +19,11 @@ import PannelloRitardoConsegna from "../src/Components/Cliente/GestionePrenotazi
 import PannelloRitiraConsegna from "../src/Components/Cliente/GestionePrenotazione/PannelloRitiraConsegna";
 import PannelloSegnalaGuasto from "../src/Components/Cliente/GestionePrenotazione/PannelloSegnalaGuasto";
 import VisualizzaMiePrenotazioni from "../src/Components/Cliente/GestionePrenotazione/VisualizzaMiePrenotazioni";
-import PannelloPagamento from '../src/Components/Pagamento/PannelloPagamento'
-import PannelloParcheggiatore from '../src/Components/Parcheggiatore/PannelloParcheggiatore'
+import PannelloPagamento from '../src/Components/Pagamento/PannelloPagamento';
+import PannelloParcheggiatore from '../src/Components/Parcheggiatore/PannelloParcheggiatore';
+import PannelloAutista from '../src/Components/Autista/PannelloAutista';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-//iuhuiuibibuibih
 
 class App extends Component {
   render(){
@@ -56,11 +54,11 @@ class App extends Component {
           <Route exact path="/ritardoConsegna" component={PannelloRitardoConsegna} />
           {/* Pannello Parcheggiatore */}
           <Route exact path="/pannelloParcheggiatore" component={PannelloParcheggiatore} />
+          {/* Pannello Autista */}
+          <Route exact path="/pannelloAutista" component={PannelloAutista} />
 
           {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */}
           <Route exact path="/pannelloAmministratore" component={PannelloAmministratore} />
-          <Route exact path="/pannelloGestioneAccount" component={PannelloGestioneAccount} />
-          <Route exact path="/pannelloGestionePrenotazione" component={PannelloGestionePrenotazione} />
         </Switch>
       </Router>
     );
