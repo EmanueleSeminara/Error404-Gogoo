@@ -133,6 +133,7 @@ exports.getReservations = (email) => {
         positionR: r.positionR,
         positionC: r.positionC,
       }));
+      console.log(res);
       resolve(res);
     });
   });
