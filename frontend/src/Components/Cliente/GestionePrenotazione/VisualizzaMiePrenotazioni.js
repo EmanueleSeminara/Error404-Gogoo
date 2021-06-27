@@ -6,9 +6,6 @@ import CardPrenotazione from "../../Prenotazione/CardPrenotazione";
 import Axios from 'axios';
 import faker from 'faker';
 
-const data = new Array(2).fill().map((value, index) => ({ id: index, tipo: faker.lorem.words(1), dataRitiro: faker.lorem.words(1), dataConsegna: faker.lorem.words(1), parcRitiro: faker.lorem.words(1), parcConsegna: faker.lorem.words(1), autista: true }))
-
-
 
 export default class ViasualizzaMiePrenotazioni extends Component {
     state = {
@@ -20,6 +17,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
         Axios.get('/api/reservation/myreservations')
         .then((res) => {
             this.setState({listReservation: res.data})
+            console.log(this.state.listReservation)
         }).catch((err) => {
             console.log(err);
             //window.location.href = '/errorServer'
@@ -43,6 +41,16 @@ export default class ViasualizzaMiePrenotazioni extends Component {
         console.log(this.state);
     };
 
+    remove = (reservationID) => {
+        Axios.delete('/api/reservation/delete/' + reservationID)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+            }).catch((err) => {
+                window.location.href = '/errorServer';
+            });
+    };
+
+
     render() {
         return (
             <div>
@@ -54,8 +62,8 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                                 <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}></ListGroupItem>
                                 {
                                     <div>
-                                        {data.map(((item) => (
-                                            <CardPrenotazione tipo={item.tipo} dataRitiro={item.dataRitiro} dataConsegna={item.dataConsegna} parcRitiro={item.parcRitiro} parcConsegna={item.parcConsegna} autista={item.autista} id={item.id} />
+                                        {this.state.listReservation.map(((item) => (
+                                            <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove}/>
                                         )))}
                                     </div>}
                             </ListGroup>

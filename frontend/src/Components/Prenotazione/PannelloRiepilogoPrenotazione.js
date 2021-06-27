@@ -109,20 +109,20 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 									<div className="row no-gutters">
 										<div className="col-md-6">
 											<p><strong>Tipo:</strong> {this.state.reservation.type} {this.state.reservation.type === "car" ? <> {this.state.reservation.category}</> : <></>}</p>
-											{this.state.reservation.refParkingR !== "" &&
+											{this.state.reservation.refParkingR != null &&
 												<p><strong>Parcheggio ritiro:</strong>   {this.state.reservation.refParkingR}</p>
 											}
-											{this.state.reservation.positionR !== "" &&
+											{this.state.reservation.positionR != null &&
 												<p><strong>Posizione di ritiro:</strong>   {this.state.reservation.positionR}</p>
 											}
 											<p><strong>Data ritiro:</strong>   {this.state.reservation.dateR}</p>
 										</div>
 										<div className="col-md-6">
 											<p><strong>Autista:</strong> {this.state.reservation.autista}</p>       {/* TODO ########### */}
-											{this.state.reservation.refParkingC !== "" &&
+											{this.state.reservation.refParkingC != null &&
 												<p><strong>Parcheggio consegna:</strong>   {this.state.reservation.refParkingC}</p>
 											}
-											{this.state.reservation.positionC !== "" &&
+											{this.state.reservation.positionC != null &&
 												<p><strong>Posizione di consegna:</strong>   {this.state.reservation.positionC}</p>
 											}
 											<p><strong>Data consegna:</strong>   {this.state.reservation.dateC}</p>

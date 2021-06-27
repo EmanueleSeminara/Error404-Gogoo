@@ -42,7 +42,8 @@ export default class FormRicerca extends Component {
 		refParkingC: "Via Libertà",
 		dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-		start: ""
+		start: "",
+		cerca: false
 	};
 
 
@@ -63,7 +64,10 @@ export default class FormRicerca extends Component {
 	search = () => {
 		Axios.get('/api/search/vehiclesoutofstall?dateR=' + this.state.dateR + '&dateC=' + this.state.dateC + '&start=' + this.state.start)
 			.then((res) => {
-				this.setState({ list: res.data });
+				if(res.data.length !== 0){
+					this.setState({ list: res.data });
+					this.setState({ cerca: true });
+				}
 			}).catch((err) => {
 				console.log(err);
 			})
@@ -74,16 +78,16 @@ export default class FormRicerca extends Component {
 		this.search();
 		console.log(this.state)
 		const reservation = {
-			refVehicle: "",
+			refVehicle: null,
 			type: "car",
-			refParkingR: "",
+			refParkingR: null,
 			refParkingC: this.state.refParkingC,
 			dateR: this.state.dateR,
 			dateC: this.state.dateC,
-			category: "",
+			category: null,
 			positionR: this.state.start,
-			positionC: "",
-			start: "",
+			positionC: null,
+			refDriver: null
 		};
 		window.localStorage.setItem("reservation", JSON.stringify(reservation));
 	};
@@ -151,7 +155,7 @@ export default class FormRicerca extends Component {
 
 				{<div>
 
-					{this.state.list.map(((item) => (
+					{this.state.cerca && this.state.list.map(((item) => (
 						<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} positionR={item.positionR} distance={item.distance} duration={item.duration} position={item.position} />
 					)))}
 				</div>}

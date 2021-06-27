@@ -92,15 +92,16 @@ export default class FormRicerca extends Component {
 					console.log("sono dentro VERO")
 					this.search();
 					const reservation = {
-						refVehicle: "",
+						refVehicle: null,
 						type: this.state.type,
 						refParkingR: this.state.refParkingR,
 						refParkingC: this.state.refParkingC,
 						dateR: this.state.dateR,
 						dateC: this.state.dateC,
-						category: "",
-						positionR: "",
-						positionC: "",
+						category: null,
+						positionR: null,
+						positionC: null,
+						refDriver: null
 					};
 					window.localStorage.setItem("reservation", JSON.stringify(reservation));
 				} else {
