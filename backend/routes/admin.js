@@ -76,7 +76,7 @@ router.put(
     check("birthdate").isDate({ format: "YYYY-MM-DD", strictMode: true }),
     check("phone").isMobilePhone(["it-IT"]),
     check("password").isStrongPassword(),
-    check("id").isInt()
+    check("id").isInt(),
   ],
   isAdmin,
   async (req, res) => {
@@ -156,11 +156,15 @@ router.post(
 );
 
 router.get("/reservations", isAdmin, (req, res) => {
-  try{
-    return await adminManagement.getReservations(req.query.name, req.query.surname);
-  } catch(err){
-    res.status(503).json({error: "Database error when requesting reservations - " + err});
+  try {
+    res.json(
+      await adminManagement.getReservations(req.query.name, req.query.surname)
+    );
+  } catch (err) {
+    res
+      .status(503)
+      .json({ error: "Database error when requesting reservations - " + err });
   }
-})
+});
 
 module.exports = router;
