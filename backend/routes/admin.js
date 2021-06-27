@@ -167,12 +167,31 @@ router.get("/reservations", isAdmin, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", isAdmin, async (req, res) => {
+router.delete("/deletereservation/:id", isAdmin, async (req, res) => {
   try{
       await reservationManagement.deleteReservationById(req.params.id);
       mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
       res.status(201).end();
   } catch(err){
+      res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+  }
+})
+
+router.put("/editreservation", isAdmin, async (req, res) => {
+  const reservation = {
+      dateR: req.body.dateR,
+      dateC: req.body.dateC,
+      refParkingR: req.body.refParkingR,
+      refParkingC: req.body.refParkingC,
+      id: req.body.id,
+      refVehicle: req.body.refVehicle
+  }
+  console.log(reservation);
+  try{
+      await reservationManagement.updateReservation(reservation);
+      mail.sendReservationEditedMail(req.user.email, req.user.name, req.body.id);
+      res.status(201).end();
+  }catch(err){
       res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
   }
 })
