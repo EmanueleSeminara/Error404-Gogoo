@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ListGroup, ListGroupItem, } from "reactstrap";
 
 
-import CardPrenotazione from "../../Prenotazione/CardPrenotazione";
+import CardPrenotazione from "./CardPrenotazione";
 import Axios from 'axios';
 
 

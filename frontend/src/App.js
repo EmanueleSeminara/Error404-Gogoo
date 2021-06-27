@@ -6,7 +6,7 @@ import Login from "../src/pages/Login";
 import Registrazione from "../src/pages/Registrazione";
 import RecuperoPassword from "../src/pages/RecuperoPassword";
 import Ricerca from "../src/pages/Ricerca";
-import PannelloAmministratore from "../src/pages/PannelloAmministratore";
+import PannelloAmministratore from "../src/Components/Amministratore/PannelloAmministratore";
 import PannelloRiepilogoPrenotazione from '../src/Components/Prenotazione/PannelloRiepilogoPrenotazione'
 import PannelloEliminaCarta from "../src/Components/Cliente/GestioneAccount/PannelloEliminaCarta";
 import PannelloModifcaPassword from "../src/Components/Cliente/GestioneAccount/PannelloModifcaPassword";
@@ -22,6 +22,14 @@ import VisualizzaMiePrenotazioni from "../src/Components/Cliente/GestionePrenota
 import PannelloPagamento from '../src/Components/Pagamento/PannelloPagamento';
 import PannelloParcheggiatore from '../src/Components/Parcheggiatore/PannelloParcheggiatore';
 import PannelloAutista from '../src/Components/Autista/PannelloAutista';
+import PannelloVisualizzaPrenotazioni from '../src/Components/Amministratore/GestionePrenotazioni/PannelloVisualizzaPrenotazioni';
+import PannelloAggiungiUtente from '../src/Components/Amministratore/GestioneUtenti/PannelloAggiungiUtente';
+import PannelloModificaUtente from '../src/Components/Amministratore/GestioneUtenti/PannelloModificaUtente';
+import PannelloRimuoviUtente from '../src/Components/Amministratore/GestioneUtenti/PannelloRimuoviUtente';
+import PannelloRimuoviVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloRimuoviVeicolo';
+import PannelloAggiungiVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloAggiungiVeicolo';
+import PannelloModificaVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloModificaVeicolo';
+
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -34,7 +42,6 @@ class App extends Component {
           {/* Gestione accesso */}
 
           <Route exact path="/" component={Login} />
-          <Route exact path="/ricerca" component={Ricerca} />
           <Route exact path="/registrazione" component={Registrazione} />
           <Route exact path="/recuperoPassword" component={RecuperoPassword} />
           <Route exact path="/login" component={Login} />
@@ -42,6 +49,7 @@ class App extends Component {
           <Route exact path="/riepilogoPrenotazione" component={PannelloRiepilogoPrenotazione} />
           <Route exact path="/pagamento" component={PannelloPagamento} />
           {/* Gestione account cliente */}
+          <Route exact path="/ricerca" component={Ricerca} />
           <Route exact path="/modificaPassword" component={PannelloModifcaPassword} />
           <Route exact path="/modificaDatiPersonali" component={PannelloModificaDati} />
           <Route exact path="/inserimentoPatente" component={PannelloInserimentoPatente} />
@@ -58,9 +66,16 @@ class App extends Component {
           <Route exact path="/pannelloParcheggiatore" component={PannelloParcheggiatore} />
           {/* Pannello Autista */}
           <Route exact path="/pannelloAutista" component={PannelloAutista} />
-
-          {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */}
+          {/* Pannello Amministratore */}
           <Route exact path="/pannelloAmministratore" component={PannelloAmministratore} />
+          <Route exact path="/visualizzaPrenotazioni" component={PannelloVisualizzaPrenotazioni} />
+          <Route exact path="/aggiungiUtente" component={PannelloAggiungiUtente} />
+          <Route exact path="/rimuoviUtente" component={PannelloRimuoviUtente} />
+          <Route exact path="/modificaUtente" component={PannelloModificaUtente} />
+          <Route exact path="/aggiungiVeicolo" component={PannelloAggiungiVeicolo} />
+          <Route exact path="/rimuoviVeicolo" component={PannelloRimuoviVeicolo} />
+          <Route exact path="/modificaVeicolo" component={PannelloModificaVeicolo} />
+          {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */}
         </Switch>
       </Router>
     );
