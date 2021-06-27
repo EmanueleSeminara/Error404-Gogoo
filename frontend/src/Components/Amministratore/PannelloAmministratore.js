@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../ComponentsCss/PannelloAmministratore.css"
-import AggiungiUtente from "../images/svgAmministratore/AggiungiUtente.svg"
-import AggiungiVeicolo from "../images/svgAmministratore/AggiungiVeicolo.svg"
-import Logout from "../images/svgAmministratore/Logout.svg"
-import ModificaDatiUtente from "../images/svgAmministratore/ModificaDatiUtente.svg"
-import RimuoviVeicolo from "../images/svgAmministratore/RimuoviVeicolo.svg"
-import ModificaStatoVeicolo from "../images/svgAmministratore/ModificaStatoVeicolo.svg"
-import PrenotazioniEffettuate from "../images/svgAmministratore/PrenotazioniEffettuate.svg"
-import RimuoviUtente from "../images/svgAmministratore/RimuoviUtente.svg"
+import AggiungiUtente from "../../images/svgAmministratore/AggiungiUtente.svg"
+import AggiungiVeicolo from "../../images/svgAmministratore/AggiungiVeicolo.svg"
+import Logout from "../../images/svgAmministratore/Logout.svg"
+import ModificaDatiUtente from "../../images/svgAmministratore/ModificaDatiUtente.svg"
+import RimuoviVeicolo from "../../images/svgAmministratore/RimuoviVeicolo.svg"
+import ModificaStatoVeicolo from "../../images/svgAmministratore/ModificaStatoVeicolo.svg"
+import PrenotazioniEffettuate from "../../images/svgAmministratore/PrenotazioniEffettuate.svg"
+import RimuoviUtente from "../../images/svgAmministratore/RimuoviUtente.svg"
 import { Button } from "reactstrap";
 import Axios from 'axios';
 
