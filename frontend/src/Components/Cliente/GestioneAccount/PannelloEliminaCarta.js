@@ -11,14 +11,14 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import "../../../ComponentsCss/PannelloEliminaCarta.css"
 
 
-const data = new Array(10).fill().map((value, index) => ({ id: index, name: faker.lorem.words(1), surname: faker.lorem.word(1), number: faker.lorem.word(2)}));
+
 
 export default class Registrazione extends Component {
 	state = {
 		listpayments: []
 	}
 
-/* 	componentDidMount(){
+ 	componentDidMount(){
 		Axios.get('/api/guest/listpayments')
 		.then((res) => {
 			this.setState({ listpayments: res.data });
@@ -26,7 +26,7 @@ export default class Registrazione extends Component {
 		}).catch((err) => {
 			window.location.href = '/errorServer';
 		});
-	} */
+	}
 	
 	remove = (cardID) => {
 		Axios.delete('/api/guest/deletepayment/' + cardID)
@@ -39,12 +39,13 @@ export default class Registrazione extends Component {
 
 	render() {
 		return (
-			<div className="ez ">
+			
+			<div className="ez sfondo-card">
 				<NavbarCliente />
 				<div
-					className="row justify-content-md-center boxpannel"
+					className="row justify-content-md-center boxpannel "
 				>
-					<div className="col-9 bg-pannell-card">
+					<div className="col-10 bg-pannell-card">
 						<div >
 					
 						<center>
@@ -61,9 +62,11 @@ export default class Registrazione extends Component {
 							{this.state.listpayments.length == 0 && <Alert severity="error">Non hai nessun metodo di pagamento</Alert>}
 
 							{<div>
-								{/* this.state.listpayments */data.map(((item) => (
+								{ this.state.listpayments.map(((item) => (
+									<div className="col">
 
 									<CardEliminaCarta name={item.name} surname={item.surname} number={item.number} id={item.id} remove={this.remove}/>
+									</div>
 
 								)))}
 							</div>}
@@ -72,6 +75,7 @@ export default class Registrazione extends Component {
 					</div>
 				</div>
 			</div >
+			
 		);
 	}
 }

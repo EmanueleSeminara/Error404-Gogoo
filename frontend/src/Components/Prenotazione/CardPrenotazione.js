@@ -42,17 +42,17 @@ import * as moment from 'moment';
 
 export default class CardPrenotazione extends Component {
     state = {
-        id: this.props.id,
-        type: this.props.tipo,
-        refParkingR: this.props.refParkingR,
-        refParkingC: this.props.refParkingC,
-        dateR: this.props.dateR,
-        dateC: this.props.dateC,
-        refDriver: this.props.refDriver,
-        refVehicle: this.props.refVehicle,
-        category: this.props.category,
-        positionR: this.props.positionR,
-        positionC: this.props.positionC,
+        id: "",
+        type: "",
+        refParkingR: "",
+        refParkingC: "",
+        dateR: "",
+        dateC: "",
+        refDriver: "",
+        refVehicle: "",
+        category: "",
+        positionR: "",
+        positionC: "",
         modifica: false,
         errore: false,
     };
@@ -70,6 +70,16 @@ export default class CardPrenotazione extends Component {
         this.setState({ positionR: this.props.positionR });
         this.setState({ positionC: this.props.positionC });
     };
+
+    componentDidMount(){
+        this.setting();
+    }
+
+    componentDidUpdate(propsPrecedenti) {
+        if (this.props !== propsPrecedenti) {
+            this.setting();
+        }
+    }
 
     setModifica = (input) => {
         this.setState({ modifica: !this.state[input] });
@@ -95,7 +105,12 @@ export default class CardPrenotazione extends Component {
     };
 
     modify = () => {
-        Axios.put('')
+        Axios.put('/api/reservation/edit', this.state)
+        .then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
 
@@ -156,7 +171,7 @@ export default class CardPrenotazione extends Component {
                         <ListGroup>
                             <ListGroupItem>
                                 <AvForm>
-                                    {this.state.positionR != null &&
+                                    {this.state.positionR == null &&
                                         <Row>
                                             <Col>
                                                 <FormGroup>
@@ -172,7 +187,7 @@ export default class CardPrenotazione extends Component {
                                         </Row>
                                     }
                                     <Row>
-                                        <Col >
+                                        {/*<Col >
                                             <Label sm={12}>Partenza</Label>
                                             <Input type="select" name="selectRitiro" id="parcheggioRitiro" onClick={this.handleChange("refParkingR")} >
                                                 <option>Via Libertà</option>
@@ -181,7 +196,7 @@ export default class CardPrenotazione extends Component {
                                                 <option>Viale Regione</option>
                                                 <option>Via Tersicore</option>
                                             </Input>
-                                        </Col>
+                                        </Col>*/}
                                         <Col>
                                             <Label sm={12}>Destinazione</Label>
                                             <Input type="select" name="selectConsegna" id="parcheggioConsegna" onClick={this.handleChange("refParkingC")} >
@@ -224,7 +239,7 @@ export default class CardPrenotazione extends Component {
 
                                     {/* Pulsante modifica*/}
 
-                                    <Button type="submit" color="outline-success" onClick={() => this.setModifica()} style={{ padding: "8px", margin: "10px" }}  >
+                                    <Button type="submit" color="outline-success" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px" }}  >
                                         Modifica
                                     </Button>
 
