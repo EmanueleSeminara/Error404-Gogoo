@@ -28,7 +28,7 @@ export default class Registrazione extends Component {
 				window.location.href = "/ricerca";
 			} else if (c.role === "admin") {
 				window.location.href = "/pannelloAmministratore";
-			} else if (c.role === "valet"){
+			} else if (c.role === "valet") {
 				window.location.href = "/pannelloParcheggiatore";
 			} else {
 				window.location.href = "/pannelloAutista";
@@ -36,7 +36,11 @@ export default class Registrazione extends Component {
 		} else {
 			window.location.href = "/";
 		}
+<<<<<<< HEAD
+	}
+=======
 	} 
+>>>>>>> b08a708402965f35fb8e27712711d39026ff32ae
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -112,7 +116,7 @@ export default class Registrazione extends Component {
 				>
 					<div
 						className="row h-100 justify-content-md-center  boxpannel "
-						
+
 					>
 
 						<div className="row pannell">

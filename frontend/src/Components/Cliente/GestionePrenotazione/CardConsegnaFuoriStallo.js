@@ -1,16 +1,8 @@
-/* email Cliente
-id veicolo
-tipo
-data 
-ora
-parcheggi
-autista
- */
-
 import React, { Component } from 'react';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
+import Axios from 'axios';
 
 import {
     Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup, 
@@ -27,32 +19,39 @@ import {
 
 export default class CardConsegnaFuoriStallo extends Component {
     state = {
-        ritiro: false,
         consegna: false,
-        id: this.props.id,
-        errore: false,
         mostra: false,
-        disabled: true,
         viaRiferimento: "",
-
+        possibile: true,
     };
 
-    stampa = (state) => {
-        console.log(state);
-    };
-
-    setRitiro = (bool) => {
-        this.setState({ ritiro: bool });
+    setting = () => {
+        // verificare che il velico prenotato non abbia altre prenotazioni refVehicle id
+        if(this.state.possibile){
+            this.setState({ viaRiferimento: "" })
+            this.setState({ mostra: false })
+            if (this.props.state === "withdrawn") {
+                this.setState({ consegna: true })
+            }
+        } else {
+            this.setState({ consegna: false })
+        }
     }
 
-    setMostra = (bool) => {
-        this.setState({ mostra: bool });
-        this.setState({ disabled: true });
+    componentDidMount() {
+        this.setting();
     }
 
-    setConsegna = (bool) => {
-        this.setState({ consegna: bool });
+    componentDidUpdate(propsPrecedenti) {
+        if (this.props !== propsPrecedenti) {
+            this.setting();
+        }
     }
+
+    setMostra = (input) => {
+        this.setState({ mostra: !this.state[input] });
+    }
+
 
     handleChange = (input) => (e) => {
         this.setState({ [input]: e.target.value });
@@ -64,13 +63,6 @@ export default class CardConsegnaFuoriStallo extends Component {
 
     };
 
-    handleChangeDateArrivo = (date) => {
-        this.setState({ dataArrivo: date });
-    };
-
-    handleChangeDatePartenza = (date) => {
-        this.setState({ dataPartenza: date });
-    };
 
 
 
@@ -85,7 +77,7 @@ export default class CardConsegnaFuoriStallo extends Component {
 
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-                                    <h3 >Id veicolo:  {this.props.id}</h3>
+                                    <p ><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
 
@@ -93,21 +85,37 @@ export default class CardConsegnaFuoriStallo extends Component {
                             </div>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
-                                    <p><strong>Tipo:</strong> {this.props.tipo}</p>
-                                    <p><strong>parcheggio ritiro:</strong>   {this.props.parcRitiro}</p>
-                                    <p><strong>data ritiro:</strong>   {this.props.dataRitiro}</p>
+                                    <p><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+                                    {this.props.refParkingR != null &&
+                                        <p><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
+                                    }
+                                    {this.props.positionR != null &&
+                                        <p><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+                                    }
+                                    <p><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p><strong>Autista:</strong> {this.props.autista}</p>
-                                    <p><strong>parcheggio consegna:</strong>   {this.props.parcConsegna}</p>
-                                    <p><strong>data consegna:</strong>   {this.props.dataConsegna}</p>
+                                    <p><strong>Autista:</strong> x{this.props.refDriver}</p>       {/* TODO ########### */}
+                                    {this.props.refParkingC != null &&
+                                        <p><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
+                                    }
+                                    {this.props.positionC != null &&
+                                        <p><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
+                                    }
+                                    <p><strong>Data consegna:</strong>   {this.props.dateC}</p>
                                 </div>
                             </div>
+
+                            {this.state.possibile &&
                             <center>
-                                <Button type="button" color="primary" onClick={() => this.setMostra(true)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={this.state.ritiro}>
+                                <Button type="button" color="primary" onClick={() => this.setMostra("mostra")} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
                                     Consegna fuori stallo
                                 </Button>
                             </center>
+                            }
+                            {!this.state.possibile &&
+                                <h3>non puoi effettuare la consegna fuori stallo per questo veicolo</h3>
+                            }
                         </div>
                     </div>
                 </div>
@@ -151,7 +159,6 @@ export default class CardConsegnaFuoriStallo extends Component {
                                 </AvForm>
                             </ListGroupItem>
                         </ListGroup>
-                        {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                     </center>}
 
             </div>

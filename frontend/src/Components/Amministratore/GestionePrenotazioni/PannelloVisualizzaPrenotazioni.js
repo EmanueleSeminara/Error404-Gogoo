@@ -108,13 +108,3 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
     }
 }
 
-
-
-/* email Cliente
-id veicolo
-tipo
-data
-ora
-parcheggi
-autista
- */
