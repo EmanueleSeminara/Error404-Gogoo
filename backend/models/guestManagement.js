@@ -184,7 +184,7 @@ exports.retireVehicle = (reservation) => {
         date = new Date();
         const dateNow = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate() + " " + date.getHours() + ":" + date.getMinutes() // Da scrivere
         console.log("Data e ora attuale: " + dateNow)
-        const sql = "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservation AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)";
+        const sql = "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)";
         db.run(sql, [reservation.refVehicle, reservation.refVehicle, dateNow, reservation.refGuest], function (err) {
             if (err) {
                 reject(err);
@@ -192,7 +192,7 @@ exports.retireVehicle = (reservation) => {
             }
             //resolve(this.lastID);
         });
-        const sql2 = "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS ( SELECT 1 FROM reservation AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)"
+        const sql2 = "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)"
         db.run(sql2, [reservation.id, reservation.refVehicle, dateNow, reservation.refGuest], function (err) {
             if (err) {
                 reject(err);
