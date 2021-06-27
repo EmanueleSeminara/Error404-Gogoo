@@ -22,15 +22,17 @@ export default class CardConsegnaFuoriStallo extends Component {
         consegna: false,
         mostra: false,
         viaRiferimento: "",
-        nonPermesso: false,
+        possibile: true,
     };
 
     setting = () => {
-        // verificare che il velico preno
-        this.setState({ viaRiferimento: "" })
-        this.setState({ mostra: false })
-        if (this.props.state === "withdrawn") {
-            this.setState({ consegna: true })
+        // verificare che il velico prenotato non abbia altre prenotazioni refVehicle id
+        if(this.state.possibile){
+            this.setState({ viaRiferimento: "" })
+            this.setState({ mostra: false })
+            if (this.props.state === "withdrawn") {
+                this.setState({ consegna: true })
+            }
         } else {
             this.setState({ consegna: false })
         }
@@ -104,12 +106,16 @@ export default class CardConsegnaFuoriStallo extends Component {
                                 </div>
                             </div>
 
-
+                            {this.state.possibile &&
                             <center>
                                 <Button type="button" color="primary" onClick={() => this.setMostra("mostra")} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
                                     Consegna fuori stallo
                                 </Button>
                             </center>
+                            }
+                            {!this.state.possibile &&
+                                <h3>non puoi effettuare la consegna fuori stallo per questo veicolo</h3>
+                            }
                         </div>
                     </div>
                 </div>

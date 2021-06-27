@@ -20,23 +20,23 @@ export default class Registrazione extends Component {
 		role: ""
 	};
 
-/* 	componentDidMount() {
+	componentDidMount() {
 		if (localStorage.getItem("utente") !== null) {
 			let c = JSON.parse(localStorage.getItem("utente"));
 			this.setState({ role: c.role })
-			if (c.role === "guest") {
+			/* if (c.role === "guest") {
 				window.location.href = "/ricerca";
 			} else if (c.role === "admin") {
 				window.location.href = "/pannelloAmministratore";
-			} else if (c.role === "valet"){
+			} else if (c.role === "valet") {
 				window.location.href = "/pannelloParcheggiatore";
 			} else {
 				window.location.href = "/pannelloAutista";
-			}
+			} */
 		} else {
 			window.location.href = "/";
 		}
-	}  */
+	}
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -112,7 +112,7 @@ export default class Registrazione extends Component {
 				>
 					<div
 						className="row h-100 justify-content-md-center  boxpannel "
-						
+
 					>
 
 						<div className="row pannell">
