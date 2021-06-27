@@ -152,7 +152,8 @@ exports.getmyreservation = (userId) => {
         refParkingC: r.refParkingC,
         refDriver: r.refDriver,
         positionR: r.positionR,
-        positionC: r.positionC
+        positionC: r.positionC,
+        state: r.state
       }));
       resolve(reservations);
     });
