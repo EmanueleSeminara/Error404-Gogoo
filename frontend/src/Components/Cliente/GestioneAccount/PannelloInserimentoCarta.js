@@ -64,7 +64,7 @@ export default class Registrazione extends Component {
 		today = today.toJSON().split("T")[0];
 
 		return (
-			<div className="ez " style={{ height: "100%" }}>
+			<div className="ez" style={{ height: "100%" }}>
 				<NavbarCliente />
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 				{this.state.success && <Alert severity="success">Metodo di pagamento inserito correttamente</Alert>}
@@ -76,7 +76,7 @@ export default class Registrazione extends Component {
 						className="row h-100 justify-content-md-center  boxpannel sfondo"
 
 					>
-						<div className="col-9 bg-pannell">
+						<div className="pannell">
 							<div>
 								<div
 									className="title"
@@ -140,7 +140,7 @@ export default class Registrazione extends Component {
 								</center>
 								{/* Riga cvv e scadenza */}
 								<div className="row">
-									<div className="col-12 col-md-6">
+									<div className="col-12">
 										<AvField
 											name="cvv"
 											type="int"
@@ -155,7 +155,7 @@ export default class Registrazione extends Component {
 											errorMessage="il cvv deve contenere 3 cifre"
 										/>
 									</div>
-									<div className="col-12 col-md-6">
+									<div className="col-12">
 										<AvField
 											name="dataScadenza"
 											label="Data di Scadenza"

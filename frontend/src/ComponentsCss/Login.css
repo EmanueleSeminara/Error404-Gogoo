@@ -110,7 +110,7 @@
 
 
 .sfondo{
-  margin-right: 0px!important; 
+ /*  margin-right: 0px!important; 
   margin-left: 0px!important;
   background-image: url(../images/sfondoLogin.svg);
   width: 100%;
@@ -118,7 +118,11 @@
   bottom: 0;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover; */
+  background-image: url(../images/sfondoLogin.svg);
   background-size: cover;
+  height: 100%;
+  overflow: hidden;
 }
 
 .imageLogo{
