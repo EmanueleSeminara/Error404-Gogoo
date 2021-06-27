@@ -24,7 +24,7 @@ export default class Registrazione extends Component {
 		if (localStorage.getItem("utente") !== null) {
 			let c = JSON.parse(localStorage.getItem("utente"));
 			this.setState({ role: c.role })
-		/* 	if (c.role === "guest") {
+			/* if (c.role === "guest") {
 				window.location.href = "/ricerca";
 			} else if (c.role === "admin") {
 				window.location.href = "/pannelloAmministratore";
@@ -36,7 +36,7 @@ export default class Registrazione extends Component {
 		} else {
 			window.location.href = "/";
 		}
-	}
+	} 
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });

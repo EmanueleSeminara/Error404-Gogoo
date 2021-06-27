@@ -70,7 +70,7 @@ export default class Registrazione extends Component {
 		today = today.toJSON().split("T")[0];
 
 		return (
-			<div className="ez sfondo">
+			<div className="ez sfondo" style={{ height: "100%" }}>
 				<NavbarCliente/>
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 				{this.state.success && <Alert severity="success">Patente inserita correttamente</Alert>}
@@ -78,7 +78,7 @@ export default class Registrazione extends Component {
 				<AvForm onValidSubmit={this.onValidSubmit}	>
 					<div className="row h-100 justify-content-md-center boxpannel ">
 						
-						<div className="col-9 bg-pannell">
+						<div className="pannell">
 							<div >
 								<div className="title">Inserisci Patente</div>
 								{/* Riga numero e scadenza */}
