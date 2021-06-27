@@ -18,11 +18,11 @@ export default class CardSegnalaGuasto extends Component {
     state = {
         guasto: false,
         mostra: false,
-        viaRiferimento: "",
+        position: "",
     };
 
     setting = () => {
-        this.setState({ viaRiferimento: "" })
+        this.setState({ position: "" })
         this.setState({ mostra: false })
         if (this.props.state === "withdrawn") {
             this.setState({ guasto: true })
@@ -51,7 +51,7 @@ export default class CardSegnalaGuasto extends Component {
 
     onValidSubmit = (event) => {
         event.preventDefault();
-        this.props.segnaleGuasto(this.props.id); //posizione nuova
+        this.props.segnaleGuasto(this.props.id, this.state.position);
         //MOSTRARE MESSAGGIO DI CORRETTO FUNZIONAMENTO***********************************************************************************************************
     };
 
@@ -115,8 +115,8 @@ export default class CardSegnalaGuasto extends Component {
                                                     name="id"
                                                     type="text"
                                                     label="Via di riferimento"
-                                                    placeholder={this.state.viaRiferimento}
-                                                    onChange={this.handleChange("viaRiferimento")}
+                                                    placeholder={this.state.position}
+                                                    onChange={this.handleChange("position")}
                                                     style={{ label: { color: "white" } }}
                                                     validate={{
                                                         required: {
