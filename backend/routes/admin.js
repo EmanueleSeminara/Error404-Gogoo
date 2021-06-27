@@ -167,7 +167,7 @@ router.get("/reservations", isAdmin, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", isAdmin, async (req, res) => {
+router.delete("/deletereservation/:id", isAdmin, async (req, res) => {
   try{
       await reservationManagement.deleteReservationById(req.params.id);
       mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
@@ -177,7 +177,7 @@ router.delete("/delete/:id", isAdmin, async (req, res) => {
   }
 })
 
-router.put("/edit", isAdmin, async (req, res) => {
+router.put("/editreservation", isAdmin, async (req, res) => {
   const reservation = {
       dateR: req.body.dateR,
       dateC: req.body.dateC,
