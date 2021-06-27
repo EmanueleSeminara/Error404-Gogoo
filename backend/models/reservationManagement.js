@@ -137,7 +137,7 @@ exports.updateReservation = (reservation) => {
 // get reservations by userId
 exports.getmyreservation = (userId) => {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM reservations WHERE refGuest = ?";
+    const sql = "SELECT * FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE refGuest = ?";
     db.all(sql, [userId], (err, rows) => {
       if (err) {
         reject(err);
@@ -146,13 +146,16 @@ exports.getmyreservation = (userId) => {
       const reservations = rows.map((r) => ({
         id: r.id,
         refVehicle: r.refVehicle,
+        type: r.type,
+        category: r.category,
         dateR: r.dateR,
         dateC: r.dateC,
         refParkingR: r.refParkingR,
         refParkingC: r.refParkingC,
         refDriver: r.refDriver,
         positionR: r.positionR,
-        positionC: r.positionC
+        positionC: r.positionC,
+        state: r.state
       }));
       resolve(reservations);
     });
