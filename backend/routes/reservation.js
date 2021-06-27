@@ -115,6 +115,7 @@ router.put("/edit", isGuest, async (req, res) => {
     console.log(reservation);
     try{
         await reservationManagement.updateReservation(reservation);
+        res.status(201).end();
     }catch(err){
         res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
     }
