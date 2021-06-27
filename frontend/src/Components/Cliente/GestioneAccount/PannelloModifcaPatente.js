@@ -25,7 +25,7 @@ export default class Registrazione extends Component {
 		string: ""
 	};
 
-	/* 	componentDidMount() {
+		componentDidMount() {
 			Axios.get('/api/guest/getdatacarlicense')
 				.then((res) => {
 					this.setState({ number: res.data.number });
@@ -38,7 +38,7 @@ export default class Registrazione extends Component {
 				}).catch((err) => {
 					window.location.href = "/serverError"
 				});
-		} */
+		}
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });

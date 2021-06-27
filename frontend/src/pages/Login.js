@@ -90,7 +90,7 @@ export default class Login extends Component {
         return (
 
 
-            <div className="ez" >
+            <div className="ez sfondo" >
                 {/* <Navbar /> */}
                 <div className="navMobile" style={{ display: "none" }}>
                     <Navbar />
@@ -101,7 +101,7 @@ export default class Login extends Component {
                 }
 
                 <div
-                    className="row sfondo"
+                    className="row"
 
                 >
                     <div className="col-6 imageLogo">

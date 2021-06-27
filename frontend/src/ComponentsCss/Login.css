@@ -119,12 +119,23 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; */
-  background-image: url(../images/sfondoLogin.svg);
+ /*  background-image: url(../images/sfondoLogin.svg);
   background-size: cover;
   height: 100%;
   overflow: hidden;
   height:100vh;
   bottom: 0;
+  background-repeat: no-repeat; */
+  background-image: url(../images/sfondoLogin.svg);
+  /* background-size: cover; */
+  height: 100%;
+  overflow: inherit;
+  background-position: center;
+  width: 100%;
+  margin-right: 0px!important; 
+  margin-left: 0px!important;
+  background-size: cover;
+ 
   background-repeat: no-repeat;
 }
 
