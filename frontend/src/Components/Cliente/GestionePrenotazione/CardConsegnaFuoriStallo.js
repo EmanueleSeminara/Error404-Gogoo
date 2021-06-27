@@ -23,6 +23,7 @@ export default class CardConsegnaFuoriStallo extends Component {
         mostra: false,
         viaRiferimento: "",
         possibile: true,
+        price: 0,
     };
 
     setting = () => {
@@ -30,6 +31,7 @@ export default class CardConsegnaFuoriStallo extends Component {
         if(this.state.possibile){
             this.setState({ viaRiferimento: "" })
             this.setState({ mostra: false })
+            this.setState({ price: 0 })
             if (this.props.state === "withdrawn") {
                 this.setState({ consegna: true })
             }
@@ -57,9 +59,19 @@ export default class CardConsegnaFuoriStallo extends Component {
         this.setState({ [input]: e.target.value });
     }
 
+    setPrice = () => {
+        if (this.props.category === "suv") {
+            this.setState({price: 17})
+        } else if (this.props.category === "berline") {
+            this.setState({ price: 20 })
+        } else {
+            this.setState({ price: 15 });
+        }
+    }
+
     onValidSubmit = (event) => {
         event.preventDefault();
-        this.setState({ mostra: false });
+
 
     };
 
@@ -77,7 +89,7 @@ export default class CardConsegnaFuoriStallo extends Component {
 
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-                                    <p ><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
+                                    <p ><strong>ID veicolo:  {this.props.refVehicle} ---  state : {this.props.state}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
 
@@ -108,7 +120,7 @@ export default class CardConsegnaFuoriStallo extends Component {
 
                             {this.state.possibile &&
                             <center>
-                                <Button type="button" color="primary" onClick={() => this.setMostra("mostra")} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
+                                <Button type="button" color="primary" onClick={() => {this.setMostra("mostra"); this.setPrice()}} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
                                     Consegna fuori stallo
                                 </Button>
                             </center>
@@ -150,6 +162,12 @@ export default class CardConsegnaFuoriStallo extends Component {
                                             <Input type="textarea" name="text" id="exampleText" />
                                         </Col>
                                     </FormGroup>
+
+                                    {/* scrivile meglio mimmo*/}
+                                    <h2>
+                                        prezzo per la consegna fuori stallo : {this.state.price}
+                                    </h2>
+
 
                                     {/* Pulsante Conferma*/}
 
