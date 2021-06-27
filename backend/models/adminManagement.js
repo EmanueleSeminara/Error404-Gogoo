@@ -114,7 +114,7 @@ exports.createUser = (user) => {
 exports.getReservations = (email) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT reservations.id, reservations.dateR, reservations.dateC, reservation.refVehicle, vehicles.type, vehicles.category, reservations.refParkingR, reservations.refParkingR, reservations.positionC, reservations.positionC FROM users JOIN reservations ON users.id = reservations.refGuest JOIN vehicles ON reservations.refVehicles = vehicles.id WHERE users.email = ?)";
+      "SELECT reservations.id, reservations.dateR, reservations.dateC, reservations.refVehicle, vehicles.type, vehicles.category, reservations.refParkingR, reservations.refParkingR, reservations.positionC, reservations.positionC FROM users JOIN reservations ON users.id = reservations.refGuest JOIN vehicles ON reservations.refVehicle = vehicles.id WHERE users.email = ?";
     db.all(sql, [email], (err, rows) => {
       if (err) {
         reject(err);
