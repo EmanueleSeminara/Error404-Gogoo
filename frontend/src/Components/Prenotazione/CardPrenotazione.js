@@ -59,7 +59,7 @@ export default class CardPrenotazione extends Component {
 
     setting = () => {
         this.setState({ id: this.props.id });
-        this.setState({ type: this.props.tipo });
+        this.setState({ type: this.props.type });
         this.setState({ refParkingR: this.props.refParkingR });
         this.setState({ refParkingC: this.props.refParkingC });
         this.setState({ dateR: this.props.dateR });
