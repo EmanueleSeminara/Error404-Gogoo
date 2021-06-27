@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, } from "reactstrap";
 
 import CardPrenotazione from "../../Prenotazione/CardPrenotazione";
 import Axios from 'axios';
-import faker from 'faker';
+
 
 
 export default class ViasualizzaMiePrenotazioni extends Component {
