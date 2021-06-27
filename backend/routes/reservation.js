@@ -112,6 +112,7 @@ router.put("/edit", isGuest, async (req, res) => {
         id: req.body.id,
         refVehicle: req.body.refVehicle
     }
+    console.log(reservation);
     try{
         await reservationManagement.updateReservation(reservation);
     }catch(err){
