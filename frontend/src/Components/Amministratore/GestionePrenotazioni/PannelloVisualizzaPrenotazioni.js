@@ -11,8 +11,7 @@ import Axios from "axios";
 export default class PannelloViasualizzaPrenotazioni extends Component {
     state = {
         listReservation: [],
-        nome: "",
-        cognome: "",
+        email: ""
     };
 
 
@@ -25,7 +24,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
     onValidSubmit = (event) => {
         console.log("premuto")
         event.preventDefault();
-        Axios.get('/api/admin/reservations?name=' + this.state.nome + '&sarname=' + this.state.cognome)
+        Axios.get('/api/admin/reservations?name=' + this.state.email )
             .then((res) => {
                 this.setState({ listReservation: res.data })
             }).catch((err) => {
@@ -55,7 +54,20 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
                             <AvForm onValidSubmit={this.onValidSubmit}>
                                 {/* Riga nome e cognome */}
                                 <div className="row">
-                                    <div className="col-12 col-md-6">
+                                    {/*Riga email */}
+                                    <div className="row">
+                                        
+                                            <AvField
+                                                name="email"
+                                                label="Email"
+                                                type="email"
+                                                onChange={this.handleChange("email")}
+                                                errorMessage="Campo non valido."
+                                                required
+                                            />
+                                        
+                                    </div>
+                                    {/* <div className="col-12 col-md-6">
                                         <AvField
                                             name="nome"
                                             type="text"
@@ -84,7 +96,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
                                                 },
                                             }}
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <br />
                             <center>
