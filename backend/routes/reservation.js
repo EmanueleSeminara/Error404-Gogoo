@@ -103,7 +103,6 @@ router.delete("/delete/:id", isGuest, async (req, res) => {
 
 // data ora parcheggi
 router.put("/edit", isGuest, async (req, res) => {
-    console.log("Sei dentro edit");
     const reservation = {
         dateR: req.body.dateR,
         dateC: req.body.dateC,
