@@ -155,7 +155,7 @@ router.post(
   }
 );
 
-router.get("/reservations", isAdmin, (req, res) => {
+router.get("/reservations", isAdmin, async (req, res) => {
   try {
     res.json(
       await adminManagement.getReservations(req.query.name, req.query.surname)
