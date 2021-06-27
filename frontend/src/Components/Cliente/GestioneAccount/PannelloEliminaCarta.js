@@ -7,8 +7,11 @@ import faker from 'faker';
 import CardEliminaCarta from "./CardEliminaCarta";
 import Axios from 'axios';
 import NavbarCliente from "../../NavbarCliente";
+import { Alert, AlertTitle } from '@material-ui/lab';
+import "../../../ComponentsCss/PannelloEliminaCarta.css"
 
 
+const data = new Array(10).fill().map((value, index) => ({ id: index, name: faker.lorem.words(1), surname: faker.lorem.word(1), number: faker.lorem.word(2)}));
 
 export default class Registrazione extends Component {
 	state = {
@@ -36,12 +39,12 @@ export default class Registrazione extends Component {
 
 	render() {
 		return (
-			<div className="ez">
+			<div className="ez ">
 				<NavbarCliente />
 				<div
-					className="row h-100 justify-content-md-center boxpannel sfondo"
+					className="row justify-content-md-center boxpannel"
 				>
-					<div className="col-9 bg-pannell">
+					<div className="col-9 bg-pannell-card">
 						<div >
 					
 						<center>
@@ -55,10 +58,10 @@ export default class Registrazione extends Component {
 				
 
 							
-						
+							{this.state.listpayments.length == 0 && <Alert severity="error">Non hai nessun metodo di pagamento</Alert>}
 
 							{<div>
-								{this.state.listpayments.map(((item) => (
+								{/* this.state.listpayments */data.map(((item) => (
 
 									<CardEliminaCarta name={item.name} surname={item.surname} number={item.number} id={item.id} remove={this.remove}/>
 

@@ -53,19 +53,19 @@ export default class recuperoPassword extends Component {
 
     render() {
         return (
-            <div className="ez">
+            <div className="ez sfondo">
                 <Navbar />
                 {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
                 {this.state.success && <Alert severity="success">Nuova password inviata per email</Alert>}
 
                 <div
-                    className="row sfondo"
+                    className="row "
 
                 >
                     <div className="col boxpannel recoveryPannel">
                         <div className="row pannelRecuperoPassword">
                             <div className="col-9">
-                                <div className="title">Recovery password</div>
+                                <div className="title-password">Recovery password</div>
 
 
 
