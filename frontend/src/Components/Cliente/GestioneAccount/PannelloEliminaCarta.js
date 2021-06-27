@@ -18,7 +18,7 @@ export default class Registrazione extends Component {
 		listpayments: []
 	}
 
-/* 	componentDidMount(){
+ 	componentDidMount(){
 		Axios.get('/api/guest/listpayments')
 		.then((res) => {
 			this.setState({ listpayments: res.data });
@@ -26,7 +26,7 @@ export default class Registrazione extends Component {
 		}).catch((err) => {
 			window.location.href = '/errorServer';
 		});
-	} */
+	}
 	
 	remove = (cardID) => {
 		Axios.delete('/api/guest/deletepayment/' + cardID)

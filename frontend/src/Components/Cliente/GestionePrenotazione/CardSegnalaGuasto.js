@@ -16,30 +16,31 @@ import {
 
 export default class CardSegnalaGuasto extends Component {
     state = {
-        ritiro: false,
-        consegna: false,
-        id: this.props.id,
-        errore: false,
+        guasto: false,
         mostra: false,
-        disabled: true,
         viaRiferimento: "",
     };
 
-    stampa = (state) => {
-        console.log(state);
-    };
-
-    setRitiro = (bool) => {
-        this.setState({ ritiro: bool });
+    setting = () => {
+        this.setState({ viaRiferimento: "" })
+        this.setState({ mostra: false })
+        if (this.props.state === "withdrawn") {
+            this.setState({ guasto: true })
+        }
     }
 
-    setMostra = (bool) => {
-        this.setState({ mostra: bool });
-        this.setState({ disabled: true });
+    componentDidMount() {
+        this.setting();
     }
 
-    setConsegna = (bool) => {
-        this.setState({ consegna: bool });
+    componentDidUpdate(propsPrecedenti) {
+        if (this.props !== propsPrecedenti) {
+            this.setting();
+        }
+    }
+
+    setMostra = (input) => {
+        this.setState({ mostra: !this.state[input] });
     }
 
     handleChange = (input) => (e) => {
@@ -48,17 +49,11 @@ export default class CardSegnalaGuasto extends Component {
 
     onValidSubmit = (event) => {
         event.preventDefault();
-        this.setState({ mostra: false });
-
+        this.props.segnaleGuasto(this.props.id);
+        //MOSTRARE MESSAGGIO DI CORRETTO FUNZIONAMENTO***********************************************************************************************************
     };
 
-    handleChangeDateArrivo = (date) => {
-        this.setState({ dataArrivo: date });
-    };
 
-    handleChangeDatePartenza = (date) => {
-        this.setState({ dataPartenza: date });
-    };
 
     render() {
         return (
@@ -66,26 +61,40 @@ export default class CardSegnalaGuasto extends Component {
                 <div className="row no-gutters">
                     <div className="col-md-12">
                         <div className="card-body">
+
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-                                    <h3 >Id veicolo:  {this.props.id}</h3>
+                                    <p ><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
+
+
                             </div>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
-                                    <p><strong>Tipo:</strong> {this.props.tipo}</p>
-                                    <p><strong>parcheggio ritiro:</strong>   {this.props.parcRitiro}</p>
-                                    <p><strong>data ritiro:</strong>   {this.props.dataRitiro}</p>
+                                    <p><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+                                    {this.props.refParkingR != null &&
+                                        <p><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
+                                    }
+                                    {this.props.positionR != null &&
+                                        <p><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+                                    }
+                                    <p><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p><strong>Autista:</strong> {this.props.autista}</p>
-                                    <p><strong>parcheggio consegna:</strong>   {this.props.parcConsegna}</p>
-                                    <p><strong>data consegna:</strong>   {this.props.dataConsegna}</p>
+                                    <p><strong>Autista:</strong> x{this.props.refDriver}</p>       {/* TODO ########### */}
+                                    {this.props.refParkingC != null &&
+                                        <p><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
+                                    }
+                                    {this.props.positionC != null &&
+                                        <p><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
+                                    }
+                                    <p><strong>Data consegna:</strong>   {this.props.dateC}</p>
                                 </div>
                             </div>
+
                             <center>
-                                <Button type="button" color="danger" onClick={() => this.setMostra(true)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={this.state.ritiro}>
+                                <Button type="button" color="danger" onClick={() => this.setMostra("mostra")} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.guasto}>
                                     Segnala Guasto
                                 </Button>
                             </center>
@@ -128,6 +137,9 @@ export default class CardSegnalaGuasto extends Component {
 
                                     <Button type="submit" color="primary" style={{ padding: "8px", margin: "10px" }} size="lg">
                                         Conferma
+                                    </Button>
+                                    <Button type="submit" color="error" onClick={() => this.setMostra("mostra")}style={{ padding: "8px", margin: "10px" }} size="lg">
+                                        Annulla
                                     </Button>
                                 </AvForm>
                             </ListGroupItem>

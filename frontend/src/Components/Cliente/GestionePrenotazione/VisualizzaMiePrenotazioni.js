@@ -13,15 +13,15 @@ export default class ViasualizzaMiePrenotazioni extends Component {
         modifica: "",
     };
 
-    componentDidMount(){
+    componentDidMount() {
         Axios.get('/api/reservation/myreservations')
-        .then((res) => {
-            this.setState({listReservation: res.data})
-            console.log(this.state.listReservation)
-        }).catch((err) => {
-            console.log(err);
-            //window.location.href = '/errorServer'
-        })
+            .then((res) => {
+                this.setState({ listReservation: res.data })
+                console.log(this.state.listReservation)
+            }).catch((err) => {
+                console.log(err);
+                //window.location.href = '/errorServer'
+            })
     }
 
     setRSelected = (num) => {
@@ -63,7 +63,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                                 {
                                     <div>
                                         {this.state.listReservation.map(((item) => (
-                                            <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove}/>
+                                            <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
                                         )))}
                                     </div>}
                             </ListGroup>
