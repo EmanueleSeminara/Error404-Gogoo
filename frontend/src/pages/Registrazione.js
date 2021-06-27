@@ -102,8 +102,9 @@ export default class Registrazione extends Component {
                     >
 
 
-                        <div className="pannell" style={{ backgroundColor: "#27394c", color: "beige" }} >
+                        <div className="pannell-registrazione" style={{ backgroundColor: "#27394c", color: "beige" }} >
                             <div className="col-10">
+                                <div className="title">Registrazione</div>
 
 
 

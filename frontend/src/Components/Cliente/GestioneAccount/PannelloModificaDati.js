@@ -80,7 +80,7 @@ export default class Registrazione extends Component {
 		eighteenYearsAgo = eighteenYearsAgo.toJSON().split("T")[0];
 
 		return (
-			<div className="ez ">
+			<div className="ez " style={{ height: "100%" }}>
 				<NavbarCliente/>
 
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
@@ -91,7 +91,7 @@ export default class Registrazione extends Component {
 					onValidSubmit={this.onValidSubmit}
 				>
 					<div
-						className="row h-100 justify-content-md-center  boxpannel sfondo "
+						className="row h-100 justify-content-md-center  boxpannel  sfondo"
 
 					>
 						<div className="pannell">

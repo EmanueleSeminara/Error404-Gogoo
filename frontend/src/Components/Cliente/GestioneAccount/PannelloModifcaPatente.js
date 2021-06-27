@@ -7,6 +7,7 @@ import "../../../ComponentsCss/Pannel.css";
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Axios from 'axios'
 import NavbarCliente from "../../NavbarCliente";
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 export default class Registrazione extends Component {
@@ -24,7 +25,7 @@ export default class Registrazione extends Component {
 		string: ""
 	};
 
-		componentDidMount() {
+	/* 	componentDidMount() {
 			Axios.get('/api/guest/getdatacarlicense')
 				.then((res) => {
 					this.setState({ number: res.data.number });
@@ -37,7 +38,7 @@ export default class Registrazione extends Component {
 				}).catch((err) => {
 					window.location.href = "/serverError"
 				});
-		}
+		} */
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -84,14 +85,14 @@ export default class Registrazione extends Component {
 		today = today.toJSON().split("T")[0];
 
 		return (
-			<div className="ez sfondo">
+			<div className="ez sfondo" style={{ height: "100%" }}>
 				<NavbarCliente />
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 				{this.state.success && <Alert severity="success">Patente aggiornata correttamente</Alert>}
 
 				<AvForm onValidSubmit={this.onValidSubmit}>
 					<div
-						className="row h-100 justify-content-md-center  boxpannel"
+						className="row h-100 justify-content-md-center  boxpannel "
 					>
 						<div className="col-9 bg-pannell">
 							<div >
@@ -130,7 +131,7 @@ export default class Registrazione extends Component {
 									<Form>
 										<FormGroup check inline>
 											<Label check>
-												<Input type="checkbox"
+												<Checkbox
 													onChange={this.change("a")}
 													checked={this.state.a}
 												/> A
@@ -138,7 +139,7 @@ export default class Registrazione extends Component {
 										</FormGroup>
 										<FormGroup check inline>
 											<Label check>
-												<Input type="checkbox"
+												<Checkbox
 													onChange={this.change("am")}
 													checked={this.state.am}
 												/>
@@ -147,7 +148,7 @@ export default class Registrazione extends Component {
 										</FormGroup>
 										<FormGroup check inline>
 											<Label check>
-												<Input type="checkbox"
+												<Checkbox
 													onChange={this.change("a1")}
 													checked={this.state.a1}
 												/>
@@ -156,7 +157,7 @@ export default class Registrazione extends Component {
 										</FormGroup>
 										<FormGroup check inline>
 											<Label check>
-												<Input type="checkbox"
+												<Checkbox
 													onChange={this.change("a2")}
 													checked={this.state.a2}
 												/> A2
@@ -164,7 +165,7 @@ export default class Registrazione extends Component {
 										</FormGroup>
 										<FormGroup check inline>
 											<Label check>
-												<Input type="checkbox"
+												<Checkbox
 													onChange={this.change("b")}
 													checked={this.state.b}
 
