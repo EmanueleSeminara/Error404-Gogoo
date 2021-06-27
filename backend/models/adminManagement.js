@@ -137,3 +137,15 @@ exports.getReservations = (email) => {
     });
   });
 };
+
+exports.deleteReservationById = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "DELETE FROM reservations WHERE id = ?";
+    db.run(sql, [id], (err) => {
+      if (err) {
+        reject(err);
+        return;
+      } else resolve(null);
+    });
+  });
+};

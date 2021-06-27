@@ -167,4 +167,14 @@ router.get("/reservations", isAdmin, async (req, res) => {
   }
 });
 
+router.delete("/delete/:id", isGuest, async (req, res) => {
+  try{
+      await reservationManagement.deleteReservationById(req.params.id);
+      mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
+      res.status(201).end();
+  } catch(err){
+      res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+  }
+})
+
 module.exports = router;
