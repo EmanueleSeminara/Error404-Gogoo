@@ -177,4 +177,23 @@ router.delete("/delete/:id", isAdmin, async (req, res) => {
   }
 })
 
+router.put("/edit", isAdmin, async (req, res) => {
+  const reservation = {
+      dateR: req.body.dateR,
+      dateC: req.body.dateC,
+      refParkingR: req.body.refParkingR,
+      refParkingC: req.body.refParkingC,
+      id: req.body.id,
+      refVehicle: req.body.refVehicle
+  }
+  console.log(reservation);
+  try{
+      await reservationManagement.updateReservation(reservation);
+      mail.sendReservationEditedMail(req.user.email, req.user.name, req.body.id);
+      res.status(201).end();
+  }catch(err){
+      res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+  }
+})
+
 module.exports = router;
