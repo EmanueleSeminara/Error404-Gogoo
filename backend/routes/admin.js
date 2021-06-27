@@ -167,7 +167,7 @@ router.get("/reservations", isAdmin, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", isGuest, async (req, res) => {
+router.delete("/delete/:id", isAdmin, async (req, res) => {
   try{
       await reservationManagement.deleteReservationById(req.params.id);
       mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
