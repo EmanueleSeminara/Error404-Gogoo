@@ -20,7 +20,7 @@ export default class Registrazione extends Component {
 		string: ""
 	};
 
-/* 	componentDidMount() {
+	componentDidMount() {
 		Axios.get('/api/guest/mydata')
 			.then((res) => {
 				console.log(res);
@@ -32,7 +32,7 @@ export default class Registrazione extends Component {
 			}).catch((err) => {
 				window.location.href = "/serverError"
 			});
-	} */
+	}
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -80,7 +80,7 @@ export default class Registrazione extends Component {
 		eighteenYearsAgo = eighteenYearsAgo.toJSON().split("T")[0];
 
 		return (
-			<div className="ez " style={{ height: "100%" }}>
+			<div className="ez sfondo" style={{ height: "100%" }}>
 				<NavbarCliente/>
 
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
@@ -91,7 +91,7 @@ export default class Registrazione extends Component {
 					onValidSubmit={this.onValidSubmit}
 				>
 					<div
-						className="row h-100 justify-content-md-center  boxpannel  sfondo"
+						className="row h-100 justify-content-md-center  boxpannel"
 
 					>
 						<div className="pannell">

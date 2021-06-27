@@ -112,8 +112,10 @@ router.put("/edit", isGuest, async (req, res) => {
         id: req.body.id,
         refVehicle: req.body.refVehicle
     }
+    console.log(reservation);
     try{
         await reservationManagement.updateReservation(reservation);
+        res.status(201).end();
     }catch(err){
         res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
     }
