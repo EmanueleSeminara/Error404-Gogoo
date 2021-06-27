@@ -23,6 +23,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
 
 
     onValidSubmit = (event) => {
+        console.log("premuto")
         event.preventDefault();
         Axios.get('/api/')
             .then((res) => {
@@ -51,7 +52,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
                     <ListGroup>
                         <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}></ListGroupItem>
                         <Jumbotron style={{ paddingBottom: "0px" }}>
-                            <AvForm>
+                            <AvForm onValidSubmit={this.onValidSubmit}>
                                 {/* Riga nome e cognome */}
                                 <div className="row">
                                     <div className="col-12 col-md-6">
@@ -86,15 +87,12 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
                                     </div>
                                 </div>
                                 <br />
-                            </AvForm>
                             <center>
                                 <Button color="outline-success" style={{ padding: "8px" }} type="submit">
                                     cerca
                                 </Button>
                             </center>
-
-                            <hr style={{ backgroundColor: "#3FD0CB" }} />
-                            <br />
+                            </AvForm>
                         </Jumbotron>
 
 
