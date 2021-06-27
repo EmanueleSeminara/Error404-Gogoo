@@ -190,7 +190,15 @@ exports.retireVehicle = (reservation) => {
                 reject(err);
                 return;
             }
-            resolve(this.lastID);
+            //resolve(this.lastID);
         });
+        const sql2 = "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS ( SELECT 1 FROM reservation AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)"
+        db.run(sql2, [reservation.id, reservation.refVehicle, dateNow, reservation.refGuest], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(this.lastID);
+        })
     });
   };
