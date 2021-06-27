@@ -242,3 +242,18 @@ exports.retireVehicle = (reservation) => {
     );
   });
 };
+
+// Da aggiungere il controllo
+exports.damagedVehicle = (id, posizione) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      'UPDATE vehicles SET state = "damage", position = ? WHERE id = ?';
+    db.run(sql, [posizione, id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
