@@ -26,12 +26,7 @@ export default class PannelloConsegna extends Component {
     }
 
     remove = (reservationID, vehicleID) => {
-        const data={
-            id: reservationID,
-            refVehicle : vehicleID
-        }
-        console.log(data)
-        Axios.delete('/api/valet/retirevehicle', data)
+        Axios.delete('/api/valet/retirevehicle?id=' + reservationID + '&refVehicle=' + vehicleID)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
                 // MOSTRA ALLERT SUCCESSO+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
