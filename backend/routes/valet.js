@@ -18,6 +18,7 @@ router.get("/reservationsinmyparking/", isValet, async (req, res) => {
 
 // Prenotazioni che arriveranno nel parcheggio del parcheggiatore che fa la chiamata
 router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
+  console.log("Veicoli che arriveranno nel mio parcheggio");
   try {
     res.json(await valetManagement.listVehiclesByDestination(req.user.id));
   } catch (err) {
