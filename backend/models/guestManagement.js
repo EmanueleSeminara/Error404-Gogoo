@@ -267,7 +267,15 @@ exports.deliveryOutOfStall = (reservation) => {
         reject(err);
         return;
       }
-      resolve(this.lastID);
+      //resolve(this.lastID);
+      const sql2 = "DELETE FROM reservations WHERE id = ? AND  EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
+      db.run(sql2, [reservation.id, reservation.refGuest, reservation.refVehicle, reservation.id], (err) => {
+        if(err) {
+          reject(err);
+          return;
+        }
+        resolve(this.lastID);
+      })
     });
   });
 };

@@ -292,6 +292,7 @@ router.delete("/deliveryoutofstall", isGuest, async (req, res) => {
   };
   try {
     await guestManagement.deliveryOutOfStall(reservation);
+    res.status(201).end();
   } catch (err) {
     res.status(503).json({
       error: "Database error when requesting vehicle status update - " + err,
