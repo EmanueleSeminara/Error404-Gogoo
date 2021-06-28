@@ -125,7 +125,7 @@ exports.carDelivery = (reservation) => {
       ":" +
       date.getMinutes();
     const sql =
-      "UPDATE vehicles AS v SET state ='avalaible' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR>= ? AND refDriver = ?)";
+      "UPDATE vehicles AS v SET state ='available' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR>= ? AND refDriver = ?)";
     db.run(
       sql,
       [

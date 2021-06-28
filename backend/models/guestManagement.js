@@ -257,3 +257,25 @@ exports.damagedVehicle = (id, posizione) => {
     });
   });
 };
+
+exports.deliveryOutOfStall = (reservation) => {
+  console.log("DENTRO: " + reservation);
+  return new Promise((resolve, reject) => {
+    const sql = "UPDATE vehicles SET position = ?, state = 'available' WHERE id = ? AND EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
+    db.run(sql, [reservation.position, reservation.refVehicle, reservation.refGuest, reservation.refVehicle, reservation.id], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      //resolve(this.lastID);
+      const sql2 = "DELETE FROM reservations WHERE id = ? AND  EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
+      db.run(sql2, [reservation.id, reservation.refGuest, reservation.refVehicle, reservation.id], (err) => {
+        if(err) {
+          reject(err);
+          return;
+        }
+        resolve(this.lastID);
+      })
+    });
+  });
+};

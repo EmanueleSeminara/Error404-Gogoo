@@ -48,9 +48,10 @@ router.put("/deliveryvehicle/", isValet, async (req, res) => {
 
 // Ritiro del mezzo al cliente
 router.delete("/retirevehicle/", isValet, async (req, res) => {
+  console.log("BODY: " + req.body.refVehicle, req.body.id);
   const reservation = {
-    id: req.body.id,
-    refVehicle: req.body.refVehicle,
+    id: req.query.id,
+    refVehicle: req.query.refVehicle,
     idValet: req.user.id,
   };
   try {
