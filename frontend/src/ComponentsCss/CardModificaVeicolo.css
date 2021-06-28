@@ -1,0 +1,88 @@
+.buttonModify{
+    background-color: #89f60d !important;
+    color: #1d182e !important;
+    font-family: "Lato" !important;
+    font-style: normal;
+  
+    text-align: center !important;
+  
+    border: none !important;
+}
+
+.buttonModify:hover{
+    box-shadow: 0px 0.5px 10px 0.5px #89f60d !important;
+ 
+}
+
+.buttonAnnulla{
+    background-color: #ef462c !important;
+    color: #1d182e !important;
+    font-family: "Lato" !important;
+    font-style: normal;
+  
+    text-align: center !important;
+  
+    border: none !important;
+}
+
+.buttonAnnulla:hover{
+    box-shadow: 0px 0.5px 10px 0.5px #ef462c !important;
+ 
+}
+
+.buttonModifyVeicle{
+    background-color: #0df6e3 !important;
+    color: #1d182e !important;
+    font-family: "Lato" !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 28px !important;
+    text-align: center !important;
+    width: 152px;
+    height: 70px;
+    border: none !important;
+    margin-top: 30px;
+    border-radius: 41.5px !important;
+    transform: scale(0.8);
+    margin-bottom: 30px;
+}
+
+.buttonModifyVeicle:hover{
+    box-shadow: 0px 0.5px 10px 0.5px #0df6e3 !important;
+}
+
+.card-css{
+    border-radius: 41.5px !important;
+    background-color: #0e0b15;
+    box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
+    padding: 33px;
+    
+
+}
+
+.infoCard{
+    color: rgb(204, 204, 205);
+}
+
+
+
+.radioStato{
+    transform: scale(0.5);
+}
+
+#parcheggioPartenza{
+    height: 45px;
+    background: #39304d;
+    border-radius: 10px;
+    border: none;
+    color: lavender;
+  
+}
+
+.carta{
+    width: 60vw;
+    max-width: 550px;
+    min-width: 350px;
+}
+
