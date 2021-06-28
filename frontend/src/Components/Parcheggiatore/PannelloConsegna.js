@@ -18,6 +18,7 @@ export default class PannelloConsegna extends Component {
         Axios.get('/api/valet/vehiclesgoingtomyparking')
             .then((res) => {
                 this.setState({ listReservation: res.data });
+                console.log(res.data)
             }).catch((err) => {
                 console.log(err)
                 //window.location.href = '/errorServer';
