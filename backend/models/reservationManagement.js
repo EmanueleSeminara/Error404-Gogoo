@@ -262,3 +262,30 @@ exports.retireVehicle = (id) => {
     });
   });
 };
+
+exports.addReservationWithDriver = (reservation, userId) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "INSERT INTO reservations(refGuest, refVehicle, dateR, dateC, refParkingR, refParkingC, positionR, positionC, state) VALUES(?,?,?,?,?,?,?,?, 'not confirmed')";
+    db.run(
+      sql,
+      [
+        userId,
+        reservation.refVehicle,
+        reservation.dateR,
+        reservation.dateC,
+        reservation.refParkingR,
+        reservation.refParkingC,
+        reservation.positionR,
+        reservation.positionC,
+      ],
+      (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(this.lastID);
+      }
+    );
+  });
+};

@@ -8,81 +8,144 @@ const mail = require("../models/mail");
 
 // visualizza prenotazioni - segnala guasto - ritiro e consegna - ritardo consegna - consegna fuori stallo
 
-
 // Aggiunge prenotazione con autista
-router.post("/addreservationwithdriver", async (req, res) => {
-    
-})
+router.post(
+  "/addreservationwithdriver",
+  [
+    check("refVehicle").isInt(),
+    //check("id").isInt(),
+    //check("dateR").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
+    //check("dateC").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
+    check("refParkingR")
+      .isAlpha("it-IT", { ignore: " " })
+      .optional({ checkFalsy: true }),
+    check("refParkingC").isAlpha("it-IT", { ignore: " " }),
+  ],
+  isGuest,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    const reservation = {
+      refVehicle: req.body.refVehicle,
+      dateR: req.body.dateR,
+      dateC: req.body.dateC,
+      refParkingR: req.body.refParkingR,
+      refParkingC: req.body.refParkingC,
+      positionR: req.body.positionR,
+      positionC: req.body.positionC,
+    };
+
+    console.log(reservation);
+
+    try {
+      await reservationManagement.addReservationWithDriver(reservation, req.user.id);
+      mail.sendNewReservationMail(req.user.email, req.user.name);
+      res.status(201).end();
+    } catch (err) {
+      if (err.errno == 19) {
+        res.status(513);
+      } else {
+        res.status(503);
+      }
+      res.json({
+        error: "Database error during the creation of user - " + err,
+      });
+    }
+  }
+);
 
 // Aggiunge una prenotazione normale
 router.post(
-    "/add",
-    [
-        check("refVehicle").isInt(),
-        //check("id").isInt(),
-        //check("dateR").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
-        //check("dateC").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
-        check("refParkingR").isAlpha('it-IT', { ignore: ' ' }).optional({checkFalsy: true}),
-        check("refParkingC").isAlpha('it-IT', { ignore: ' ' }),
-    ],
-    isGuest,
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            console.log(errors.array());
-            return res.status(422).json({ errors: errors.array() });
-        }
-
-        const reservation = {
-            refVehicle: req.body.refVehicle,
-            dateR: req.body.dateR,
-            dateC: req.body.dateC,
-            refParkingR: req.body.refParkingR,
-            refParkingC: req.body.refParkingC,
-            positionR: req.body.positionR,
-            positionC: req.body.positionC
-        };
-
-        console.log(reservation);
-
-        try {
-            await reservationManagement.addReservation(reservation, req.user.id);
-            mail.sendNewReservationMail(req.user.email, req.user.name);
-            res.status(201).end();
-        } catch (err) {
-            if (err.errno == 19) {
-                res.status(513);
-            } else {
-                res.status(503);
-            }
-            res.json({
-                error: 'Database error during the creation of user - ' + err,
-            });
-        }
+  "/add",
+  [
+    check("refVehicle").isInt(),
+    //check("id").isInt(),
+    //check("dateR").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
+    //check("dateC").isDate({ format: "YYYY-MM-DD HH:MM", strictMode: true }),
+    check("refParkingR")
+      .isAlpha("it-IT", { ignore: " " })
+      .optional({ checkFalsy: true }),
+    check("refParkingC").isAlpha("it-IT", { ignore: " " }),
+  ],
+  isGuest,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
     }
+
+    const reservation = {
+      refVehicle: req.body.refVehicle,
+      dateR: req.body.dateR,
+      dateC: req.body.dateC,
+      refParkingR: req.body.refParkingR,
+      refParkingC: req.body.refParkingC,
+      positionR: req.body.positionR,
+      positionC: req.body.positionC,
+    };
+
+    console.log(reservation);
+
+    try {
+      await reservationManagement.addReservation(reservation, req.user.id);
+      mail.sendNewReservationMail(req.user.email, req.user.name);
+      res.status(201).end();
+    } catch (err) {
+      if (err.errno == 19) {
+        res.status(513);
+      } else {
+        res.status(503);
+      }
+      res.json({
+        error: "Database error during the creation of user - " + err,
+      });
+    }
+  }
 );
 
 router.get("/myreservations/", isGuest, async (req, res) => {
-    try{
-        res.json(await reservationManagement.getmyreservation(req.user.id));
-    } catch(err){
-        res.status(503).json({error: 'Database error during the request of reservations - ' + err});
-    }
-})
+  try {
+    res.json(await reservationManagement.getmyreservation(req.user.id));
+  } catch (err) {
+    res
+      .status(503)
+      .json({
+        error: "Database error during the request of reservations - " + err,
+      });
+  }
+});
 
-router.put("/damagedvehicle", isGuest, [check("position").isAlpha('it-IT', { ignore: ' ' })], async (req, res) => {
+router.put(
+  "/damagedvehicle",
+  isGuest,
+  [check("position").isAlpha("it-IT", { ignore: " " })],
+  async (req, res) => {
     const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            console.log(errors.array());
-            return res.status(422).json({ errors: errors.array() });
-        }
-    try{
-        await reservationManagement.damagedVehicle(req.body.id, req.body.position);
-        res.status(201).end();
-    }catch(err){
-        res.status(503).json({error: 'Database error when requesting vehicle status update - ' + err});
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
     }
-})
+    try {
+      await reservationManagement.damagedVehicle(
+        req.body.id,
+        req.body.position
+      );
+      res.status(201).end();
+    } catch (err) {
+      res
+        .status(503)
+        .json({
+          error:
+            "Database error when requesting vehicle status update - " + err,
+        });
+    }
+  }
+);
 
 // router.put("/retirevehicle:idVehicle", isGuest, async (req, res) => {
 //     try{
@@ -94,34 +157,46 @@ router.put("/damagedvehicle", isGuest, [check("position").isAlpha('it-IT', { ign
 // })
 
 router.delete("/delete/:id", isGuest, async (req, res) => {
-    try{
-        await reservationManagement.deleteReservationById(req.params.id);
-        mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
-        res.status(201).end();
-    } catch(err){
-        res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
-    }
-})
+  try {
+    await reservationManagement.deleteReservationById(req.params.id);
+    mail.sendReservationDeletedMail(
+      req.user.email,
+      req.user.name,
+      req.params.id
+    );
+    res.status(201).end();
+  } catch (err) {
+    res
+      .status(503)
+      .json({
+        error: "Database error while deleting the reservation - " + err,
+      });
+  }
+});
 
 // data ora parcheggi
 router.put("/edit", isGuest, async (req, res) => {
-    const reservation = {
-        dateR: req.body.dateR,
-        dateC: req.body.dateC,
-        refParkingR: req.body.refParkingR,
-        refParkingC: req.body.refParkingC,
-        id: req.body.id,
-        refVehicle: req.body.refVehicle
-    }
-    console.log(reservation);
-    try{
-        await reservationManagement.updateReservation(reservation);
-        mail.sendReservationEditedMail(req.user.email, req.user.name, req.body.id);
-        res.status(201).end();
-    }catch(err){
-        res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
-    }
-})
+  const reservation = {
+    dateR: req.body.dateR,
+    dateC: req.body.dateC,
+    refParkingR: req.body.refParkingR,
+    refParkingC: req.body.refParkingC,
+    id: req.body.id,
+    refVehicle: req.body.refVehicle,
+  };
+  console.log(reservation);
+  try {
+    await reservationManagement.updateReservation(reservation);
+    mail.sendReservationEditedMail(req.user.email, req.user.name, req.body.id);
+    res.status(201).end();
+  } catch (err) {
+    res
+      .status(503)
+      .json({
+        error: "Database error while deleting the reservation - " + err,
+      });
+  }
+});
 
 // router.get(
 //     BASEURL + "/reservation/getreservationdata/:id",
@@ -136,12 +211,12 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-  
+
 //   router.put(
 //     BASEURL + "/reservation/retirevehicle/:id",
 //     isLoggedIn,
 //     async (req, res) => {
-  
+
 //       try {
 //         await postReservationManagement.retireVehicle(req.params.id);
 //         res.status(201).end();
@@ -152,12 +227,12 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-  
+
 //   router.put(
 //     BASEURL + "/reservation/deliveryvehicle/:id",
 //     isLoggedIn,
 //     async (req, res) => {
-  
+
 //       try {
 //         await postReservationManagement.deliveryVehicle(req.params.id);
 //         res.status(201).end();
@@ -168,7 +243,7 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-  
+
 //   router.delete(
 //     BASEURL + "/reservation/deletereservation/:id",
 //     isLoggedIn,
@@ -183,7 +258,7 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-  
+
 //   router.put(
 //     BASEURL + "/reservation/vehicleBreakdown/",
 //     [
@@ -196,7 +271,7 @@ router.put("/edit", isGuest, async (req, res) => {
 //       if (!errors.isEmpty()) {
 //         return res.status(422).json({ errors: errors.array() });
 //       }
-  
+
 //       try {
 //         await postReservationManagement.vehicleBreakdown(req.body.id, req.body.position);
 //         res.status(201).end();
@@ -207,7 +282,7 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-  
+
 //   router.get(
 //     BASEURL + "/reservation/vehiclewithoutreservation/",
 //     isLoggedIn,
@@ -221,7 +296,7 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-  
+
 //   router.put(
 //     BASEURL + "/reservation/updatevehicleinreservations/",
 //     [
@@ -234,7 +309,7 @@ router.put("/edit", isGuest, async (req, res) => {
 //       if (!errors.isEmpty()) {
 //         return res.status(422).json({ errors: errors.array() });
 //       }
-  
+
 //       try {
 //         await postReservationManagement.updateVehicleInReservations(req.body.id, req.body.newId);
 //         res.status(201).end();
@@ -245,7 +320,7 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-  
+
 //   router.put(
 //     BASEURL + "/reservation/updatereservation/",
 //     [
@@ -259,13 +334,13 @@ router.put("/edit", isGuest, async (req, res) => {
 //       if (!errors.isEmpty()) {
 //         return res.status(422).json({ errors: errors.array() });
 //       }
-  
+
 //       const reservation = {
 //         refParkingC: req.body.refParkingC,
 //         id: req.body.id,
 //         refVehicles: req.body.refVehicles
 //       };
-  
+
 //       try {
 //         await reservationManagement.updateReservation(reservation);
 //         res.status(201).end();
@@ -276,6 +351,5 @@ router.put("/edit", isGuest, async (req, res) => {
 //       }
 //     }
 //   );
-
 
 module.exports = router;
