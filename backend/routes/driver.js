@@ -28,7 +28,7 @@ router.get("/reservationsnotconfirmed/", isDriver, async (req, res) => {
 });
 
 // Ritiro macchina
-router.post("/retirecar/", isDriver, async (req, res) => {
+router.put("/retirecar/", isDriver, async (req, res) => {
   const reservation = {
     refDriver: req.user.id,
     refVehicle: req.body.refVehicle,
