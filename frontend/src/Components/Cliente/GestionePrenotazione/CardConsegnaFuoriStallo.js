@@ -21,7 +21,7 @@ export default class CardConsegnaFuoriStallo extends Component {
     state = {
         consegna: false,
         mostra: false,
-        viaRiferimento: "",
+        position: "",
         possibile: true,
         price: 0,
     };
@@ -29,7 +29,7 @@ export default class CardConsegnaFuoriStallo extends Component {
     setting = () => {
         // verificare che il velico prenotato non abbia altre prenotazioni refVehicle id
         if (this.state.possibile) {
-            this.setState({ viaRiferimento: "" })
+            this.setState({ position: "" })
             this.setState({ mostra: false })
             this.setState({ price: 0 })
             if (this.props.state === "withdrawn") {
@@ -72,7 +72,7 @@ export default class CardConsegnaFuoriStallo extends Component {
     onValidSubmit = (event) => {
         event.preventDefault();
         window.localStorage.setItem("price", this.state.price);
-        this.props.remove(this.props.id);
+        this.props.remove(this.props.id, this.props.refVehicle, this.state.position);
     };
 
 
@@ -87,7 +87,7 @@ export default class CardConsegnaFuoriStallo extends Component {
 
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-                                    <p ><strong>ID veicolo:  {this.props.refVehicle} ---  state : {this.props.state}</strong></p>
+                                    <p ><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
 
@@ -141,8 +141,8 @@ export default class CardConsegnaFuoriStallo extends Component {
                                                     name="id"
                                                     type="text"
                                                     label="Via di riferimento"
-                                                    placeholder={this.state.viaRiferimento}
-                                                    onChange={this.handleChange("viaRiferimento")}
+                                                    placeholder={this.state.position}
+                                                    onChange={this.handleChange("position")}
                                                     style={{ label: { color: "white" } }}
                                                     validate={{
                                                         required: {

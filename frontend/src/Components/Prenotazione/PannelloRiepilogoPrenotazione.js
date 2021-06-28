@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from '@material-ui/core/Switch';
 import Alert from '@material-ui/lab/Alert';
 import NavbarCliente from '../NavbarCliente';
-import Axios from 'axios' 
+import Axios from 'axios'
 import * as moment from 'moment';
 
 import {
@@ -35,7 +35,8 @@ import {
 export default class PannelloRiepilogoPrenotazione extends Component {
 	state = {
 		reservation: {},
-		price: 0
+		price: 0,
+		tip: 0
 	}
 
 	async componentDidMount() {
@@ -47,6 +48,10 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 		}
 	}
 
+	handleChange = (input) => (e) => {
+		this.setState({ [input]: e.target.value });
+	};
+
 	cancel = () => {
 		localStorage.removeItem("reservatiom");
 		window.location.href = '/ricerca'
@@ -54,37 +59,38 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 
 	confirmation = () => {
 		Axios.post('/api/reservation/add', this.state.reservation)
-		.then((res) => {
-			window.location.href='/pagamento'
-		})
-		.catch((err) => {
-			console.log(err);
-		})
+			.then( (res) => {
+				let price = Number(this.state.price) + Number(this.state.tip);
+				 window.localStorage.setItem("price", price);
+				window.location.href = '/pagamento'
+			})
+			.catch((err) => {
+				console.log(err);
+			})
 	}
 
 	setPrice = () => {
 		console.log(this.state.reservation)
 		let dateC = moment(this.state.reservation.dateC)
 		let dateR = moment(this.state.reservation.dateR)
-		let price = ((dateC - dateR ) / 1000000);
-		if(this.state.reservation.type === "car"){
-			if (this.state.reservation.category === "suv"){
+		let price = ((dateC - dateR) / 1000000);
+		if (this.state.reservation.type === "car") {
+			if (this.state.reservation.category === "suv") {
 				price *= 1.8;
-			} else if (this.state.reservation.category === "berline"){
+			} else if (this.state.reservation.category === "berline") {
 				price *= 1.9;
 			} else {
 				price *= 1.7;
 			}
-		} else if (this.state.reservation.type === "scooter"){
+		} else if (this.state.reservation.type === "scooter") {
 			price *= 1.4
-		} else if (this.state.reservation.type === "bicycle"){
+		} else if (this.state.reservation.type === "bicycle") {
 			price *= 0.9;
 		} else {
 			price *= 1.1;
 		}
 		console.log(price);
-		this.setState({price: price})
-		window.localStorage.setItem("price", this.state.price);
+		this.setState({ price: price })
 	}
 
 
@@ -121,7 +127,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 											<p><strong>Data ritiro:</strong>   {this.state.reservation.dateR}</p>
 										</div>
 										<div className="col-md-6">
-											<p><strong>Autista:</strong> {this.state.reservation.autista}</p>       {/* TODO ########### */}
+											<p><strong>Autista:</strong> {this.state.reservation.refDriver}</p>       {/* TODO ########### */}
 											{this.state.reservation.refParkingC != null &&
 												<p><strong>Parcheggio consegna:</strong>   {this.state.reservation.refParkingC}</p>
 											}
@@ -131,8 +137,25 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 											<p><strong>Data consegna:</strong>   {this.state.reservation.dateC}</p>
 										</div>
 										<p><strong>price:</strong>   {this.state.price}</p>
-
 									</div>
+
+									<div>
+										{
+											this.state.reservation.refDriver != null &&
+											<AvForm>
+
+												<AvField
+													name="nome"
+													type="number"
+													label="Inserire una mancia per l'autista (opzionale)"
+													onChange={this.handleChange("tip")} 
+													style={{ label: { color: "white" } }}
+													min={0}
+												/>
+											</AvForm>
+										}
+									</div>
+
 									<div className="row no-gutters" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 
 										<div style={{ padding: "20px" }}>
@@ -141,7 +164,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 											</Button>
 										</div>
 										<div style={{ padding: "20px" }}>
-											<Button type="button" color="success" onClick={() => {this.confirmation()}} style={{ marginTop: "20px" }} >
+											<Button type="button" color="success" onClick={() => { this.confirmation() }} style={{ marginTop: "20px" }} >
 												Continua
 											</Button>
 										</div>
