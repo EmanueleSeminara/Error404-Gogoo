@@ -56,7 +56,7 @@ app.use(BASEURL + "/vehicle/", vehiclesRoutes);
 app.use(BASEURL + "/search/", searchRoutes);
 app.use(BASEURL + "/reservation/", reservationRoutes);
 app.use(BASEURL + "/driver/", driverRoutes);
-//app.use(BASEURL + "/valet/", valetRoutes);
+app.use(BASEURL + "/valet/", valetRoutes);
 
 
 
