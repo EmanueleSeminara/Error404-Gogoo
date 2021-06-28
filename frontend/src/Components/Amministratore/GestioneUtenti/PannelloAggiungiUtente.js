@@ -59,7 +59,8 @@ export default class PannelloAggiugiUtente extends Component {
     };
 
     register = () => {
-        Axios.post('/api/user/register', this.state)
+        console.log(this.state)
+        Axios.post('/api/admin/createuser', this.state)
             .then((res) => {
                 this.setState({ error: false });
                 this.setState({ success: true });

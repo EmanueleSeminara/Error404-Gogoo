@@ -25,6 +25,7 @@ import {
 	ButtonGroup,
 } from "reactstrap";
 
+import NavbarCliente from "../NavbarCliente";
 import RicercaVeicoli from './RicercaVeicoli';
 import RicercaFuoriStallo from './RicercaFuoriStallo';
 import RicercaConAutista from './RicercaConAutista';
@@ -35,6 +36,16 @@ export default class FormRicerca extends Component {
 		rSelected: "1",
 	};
 
+	componentDidMount() {
+		if (localStorage.getItem("utente") !== null) {
+			let c = JSON.parse(localStorage.getItem("utente"));
+			if (c.role === "admin") {
+				window.location.href = "/pannelloAmministratore";
+			}
+		} else {
+			window.location.href = "/login";
+		}
+	}
 
 
 	setRSelected = (num) => {
@@ -44,6 +55,8 @@ export default class FormRicerca extends Component {
 
 	render() {
 		return (
+			<div>
+				<NavbarCliente />
 			<div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "85vh" }}>
 				<div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
 					<div style={{ backgroundColor: "#27394c", padding: "1vh", paddingTop: "1vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
@@ -95,6 +108,7 @@ export default class FormRicerca extends Component {
 					}
 
 				</div>
+			</div>
 			</div>
 		);
 	}

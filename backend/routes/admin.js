@@ -127,16 +127,17 @@ router.post(
       console.log(errors.array());
       return res.status(422).json({ errors: errors.array() });
     }
-
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
     const user = {
       email: req.body.email,
       name: req.body.name,
       surname: req.body.surname,
       birthdate: req.body.birthdate,
       phone: req.body.phone,
-      password: await bcrypt.hash(req.body.password, 10),
       role: req.body.role,
+      password: hashPassword
     };
+    console.log("USER: " + user);
 
     try {
       await adminManagement.createUser(user);
