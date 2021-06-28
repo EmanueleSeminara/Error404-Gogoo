@@ -29,6 +29,38 @@ router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
 });
 
 // Consegna del mezzo al cliente
+router.post("/deliveryvehicle/", isValet, async (req, res) => {
+  const reservation = {
+    refDriver: req.user.id,
+    refVehicle: req.body.refVehicle,
+    idValet: req.body.id,
+  };
+  try {
+    await valetManagement.deliveryVehicle(reservation);
+    res.status(201).end();
+  } catch (err) {
+    res.json({
+      error: "Database error when requesting unconfirmed reservations - " + err,
+    });
+  }
+});
+
+// Ritiro del mezzo al cliente
+router.delete("/retirevehicle/", isValet, async (req, res) => {
+  const reservation = {
+    refDriver: req.user.id,
+    refVehicle: req.body.refVehicle,
+    idValet: req.body.id,
+  };
+  try {
+    await valetManagement.retirevehicle(reservation);
+    res.status(201).end();
+  } catch (err) {
+    res.json({
+      error: "Database error while canceling the reservation - " + err,
+    });
+  }
+});
 
 
 module.exports = router;
