@@ -36,7 +36,6 @@ export default class Login extends Component {
                 window.location.href = "/pannelloParcheggiatore";
             } else {
                 window.location.href = "/pannelloAutista";
-
             }
         }
     }
