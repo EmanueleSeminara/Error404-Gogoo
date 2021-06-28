@@ -26,6 +26,7 @@ import {
 import CardModificaUtente from "./CardModificaUtente";
 import faker from 'faker';
 import Axios from 'axios';
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 
 const data = new Array(10).fill().map((value, index) => ({ id: index, name: "samu", surname: "marino", email: "samuele.marino@gmail.com", telfono: "3205318452", birthday: 26, password: "Giovanni33" }));

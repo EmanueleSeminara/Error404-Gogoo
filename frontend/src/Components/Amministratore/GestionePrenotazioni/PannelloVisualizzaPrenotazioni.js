@@ -6,7 +6,7 @@ import { Button, ListGroup, ListGroupItem, Card, Jumbotron, Table, ButtonGroup }
 import CardPrenotazione from "./CardPrenotazione";
 import faker from 'faker';
 import Axios from "axios";
-
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 export default class PannelloViasualizzaPrenotazioni extends Component {
     state = {
