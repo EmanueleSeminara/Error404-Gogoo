@@ -29,7 +29,7 @@ exports.listVehiclesByDestination = (idParcheggiatore) => {
 exports.listVehiclesInParking = (idParcheggiatore) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT r.refVehicle, v.type, v.category, r.refParkingC, r.refParkingR, r.id, r.dateR, r.dateC, u.name, u.surname FROM vehicles as v JOIN reservations as r ON v.id = r.refVehicle JOIN parkings as p ON r.refParkingC = p.position JOIN users AS u ON u.id=r.refGuest WHERE u.id = ? ORDER BY r.dateR";
+      "SELECT r.refVehicle, v.type, v.category, r.refParkingC, r.refParkingR, r.id, r.dateR, r.dateC, u.name, u.surname FROM vehicles as v JOIN reservations as r ON v.id = r.refVehicle JOIN parkings as p ON r.refParkingC = p.position JOIN users AS u ON u.id=r.refGuest WHERE p.refValet = ? ORDER BY r.dateR";
     db.all(sql, [idParcheggiatore], (err, rows) => {
       if (err) {
         reject(err);
