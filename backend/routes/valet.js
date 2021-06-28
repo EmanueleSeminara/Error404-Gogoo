@@ -29,7 +29,7 @@ router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
 });
 
 // Consegna del mezzo al cliente
-router.post("/deliveryvehicle/", isValet, async (req, res) => {
+router.put("/deliveryvehicle/", isValet, async (req, res) => {
   console.log(req.body);
   const reservation = {
     refDriver: req.body.id,
