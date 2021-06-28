@@ -43,13 +43,13 @@ export default class PannelloRitiro extends Component {
                     <div style={{ backgroundColor: "#27394c", padding: "3vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
                     </div>
 
-                   {/*  {<div>
+                    {<div>
                         { this.state.listReservation.map(((item) => (
 
                             <CardRitiro id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} />
 
                         )))}
-                    </div>} */}
+                    </div>}
                 </div>
             </div>
         );
