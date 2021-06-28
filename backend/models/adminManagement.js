@@ -88,7 +88,7 @@ exports.createUser = (user) => {
   console.log(user);
   return new Promise((resolve, reject) => {
     const sql =
-      "INSERT INTO users(name, surname, email, password, phone, birthdate, role) VALUES(?, ?, ?, ?, ?, DATE(?) ?)";
+      "INSERT INTO users(name, surname, email, password, phone, birthdate, role) VALUES(?, ?, ?, ?, ?, DATE(?), ?)";
     db.run(
       sql,
       [
