@@ -249,11 +249,9 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
     await guestManagement.retireVehicle(reservation);
     res.status(201).end();
   } catch (err) {
-    res
-      .status(503)
-      .json({
-        error: "Database error when requesting vehicle collection - " + err,
-      });
+    res.status(503).json({
+      error: "Database error when requesting vehicle collection - " + err,
+    });
   }
 });
 
@@ -268,22 +266,37 @@ router.put(
       return res.status(422).json({ errors: errors.array() });
     }
     try {
-      await guestManagement.damagedVehicle(
-        req.body.id,
-        req.body.position
-      );
+      await guestManagement.damagedVehicle(req.body.id, req.body.position);
       res.status(201).end();
     } catch (err) {
-      res
-        .status(503)
-        .json({
-          error:
-            "Database error when requesting vehicle status update - " + err,
-        });
+      res.status(503).json({
+        error: "Database error when requesting vehicle status update - " + err,
+      });
     }
   }
 );
 
 // Consegna fuori stallo
+router.delete("/deliveryoutofstall", isGuest, async (req, res) => {
+  console.log(
+    req.query.id,
+    req.query.refVehicle,
+    req.user.id,
+    req.query.position
+  );
+  const reservation = {
+    id: req.query.id,
+    refVehicle: req.query.refVehicle,
+    refGuest: req.user.id,
+    position: req.query.position,
+  };
+  try {
+    await guestManagement.deliveryOutOfStall(reservation);
+  } catch (err) {
+    res.status(503).json({
+      error: "Database error when requesting vehicle status update - " + err,
+    });
+  }
+});
 
 module.exports = router;

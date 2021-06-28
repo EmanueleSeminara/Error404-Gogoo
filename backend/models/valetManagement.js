@@ -68,7 +68,7 @@ exports.deliveryvehicle = (reservation) => {
       date.getMinutes();
     console.log("Data e ora attuale: " + dateNow);
     const sql =
-      "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateR<= ? AND p.refValet = ?)";
+      "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateR<= DATE(?) AND p.refValet = ?)";
     db.run(
       sql,
       [
@@ -84,7 +84,7 @@ exports.deliveryvehicle = (reservation) => {
         }
         //resolve(this.lastID);
         const sql2 =
-          "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateR<= ? AND p.refValet = ?)";
+          "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateR<= DATE(?) AND p.refValet = ?)";
         db.run(
           sql2,
           [
@@ -107,7 +107,7 @@ exports.deliveryvehicle = (reservation) => {
 };
 
 exports.retirevehicle = (reservation) => {
-  console.log("RESERVATION: " + reservation);
+  console.log("RESERVATION: " + reservation.id, reservation.refVehicle, reservation.idValet);
   return new Promise((resolve, reject) => {
     date = new Date();
     const dateNow =
@@ -121,11 +121,11 @@ exports.retirevehicle = (reservation) => {
       ":" +
       date.getMinutes();
     const sql =
-      "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingC=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
+      "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingC=p.position WHERE r.refVehicle = ? AND r.dateC>= DATE(?) AND p.refValet = ?)";
     db.run(
       sql,
       [
-        reservation.refVehicle,
+        reservation.id,
         reservation.refVehicle,
         dateNow,
         reservation.idValet,

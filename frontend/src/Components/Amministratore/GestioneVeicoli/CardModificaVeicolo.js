@@ -114,7 +114,7 @@ export default class CardModificaVeicolo extends Component {
                   <RadioGroup row name="radioStato" style={{ backgroundColor: "transparent", justifyContent: "center" }} onClick={this.handleChange("state")}>
                     <FormControlLabel label="Danneggiato" value="damage" control={<Radio />} />
                     <FormControlLabel label="In Uso" value="in use" control={<Radio />} />
-                    <FormControlLabel label="Disponibile" value="avalaible" control={<Radio />} />
+                    <FormControlLabel label="Disponibile" value="available" control={<Radio />} />
                   </RadioGroup>
                   {/* Pulsanti Modifica e Annulla*/}
                   <Button type="submit" className="buttonModify" type="submit" style={{ padding: "8px", margin: "10px", marginBottom: "38px" }}  >
