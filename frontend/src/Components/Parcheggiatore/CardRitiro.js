@@ -38,6 +38,13 @@ export default class CardRitira extends Component {
                         <div className="card-body"  >
 
                             <div className="row no-gutters">
+                                <div className="col-md-12">
+                                    <p ><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
+                                    <hr style={{ backgroundColor: "white" }} />
+                                </div>
+                            </div>
+
+                            <div className="row no-gutters">
                                 <div className="col-md-6">
                                     <p><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
                                     <p><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
