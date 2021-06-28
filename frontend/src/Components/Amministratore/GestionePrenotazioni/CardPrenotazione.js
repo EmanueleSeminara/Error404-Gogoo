@@ -3,6 +3,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
+import "../../../ComponentsCss/visualizzaPrenotazioni.css"
 
 import {
 	Card, CardImg, CardText, CardBody,
@@ -107,15 +108,17 @@ export default class CardPrenotazione extends Component {
 
 	render() {
 		return (
-			<div className="card mb-3" style={{ maxWidth: " 940px", padding: "10px" }}>
-
+			<div>
+			<div className="card card-css">
+			<center>
+			
 				<div className="row no-gutters">
-					<div className="col-md-12">
+					<div className="col">
 						<div className="card-body">
 
 							<div className="row no-gutters">
 								<div className="col-md-12">
-									<p ><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
+									<p className="infoCard"><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
 									<hr style={{ backgroundColor: "white" }} />
 								</div>
 
@@ -123,32 +126,32 @@ export default class CardPrenotazione extends Component {
 							</div>
 							<div className="row no-gutters">
 								<div className="col-md-6">
-									<p><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
+									<p className="infoCard"><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
 									{this.state.refParkingR != null &&
-										<p><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
+										<p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
 									}
 									{this.state.positionR != null &&
-										<p><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
+										<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
 									}
-									<p><strong>Data ritiro:</strong>   {this.state.dateR}</p>
+									<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.dateR}</p>
 								</div>
 								<div className="col-md-6">
-									<p><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
+									<p className="infoCard"><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
 									{this.state.refParkingC != null &&
-										<p><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
+										<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
 									}
 									{this.state.positionC != null &&
-										<p><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
+										<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
 									}
-									<p><strong>Data consegna:</strong>   {this.state.dateC}</p>
+									<p className="infoCard"><strong>Data consegna:</strong>   {this.state.dateC}</p>
 								</div>
 							</div>
 
 							<center>
-								<Button type="button" color="outline-success" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
+								<Button type="button" className="buttonModify" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
 									Modifica
 								</Button>
-								<Button type="button" color="outline-danger" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
+								<Button type="button" className="buttonAnnulla" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
 									Elimina
 								</Button>
 							</center>
@@ -157,15 +160,14 @@ export default class CardPrenotazione extends Component {
 				</div>
 				{this.state.modifica &&
 					<center>
-						<ListGroup>
-							<ListGroupItem>
+						
 								<AvForm>
 									{this.state.positionR == null &&
 										<Row>
 											<Col>
 												<FormGroup>
 													<Label for="exampleSelect">Tipo veicolo</Label>
-													<Input type="select" name="select" id="exampleSelect" onClick={this.handleChange("type")}>
+													<Input type="select" name="select" id="type" onClick={this.handleChange("type")}>
 														<option>Auto</option>
 														<option>Moto</option>
 														<option>Monopattino</option>
@@ -199,49 +201,52 @@ export default class CardPrenotazione extends Component {
 									</Row>
 									<Row>
 										<Col>
-											<ListGroupItem>
+										
 												<center>
 													<div className="row ">
 														<div className="col">
 															<MuiPickersUtilsProvider utils={DateFnsUtils}>
-																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} label="Ritiro" inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+															<Label sm={12} style={{marginTop: "20px"}}>Ritiro</Label>
+																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()}  inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
 															</MuiPickersUtilsProvider>
 														</div>
 													</div>
 												</center>
-											</ListGroupItem>
+										
 										</Col>
 										<Col>
-											<ListGroupItem>
+											
 												<center>
 													<div className="row ">
 														<div className="col">
 															<MuiPickersUtilsProvider utils={DateFnsUtils}>
-																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} label="Consegna" inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+															<Label sm={12} style={{marginTop: "20px"}}>Consegna</Label>
+																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
 															</MuiPickersUtilsProvider>
 														</div>
 													</div>
 												</center>
-											</ListGroupItem>
+										
 										</Col>
 									</Row>
 
 									{/* Pulsante modifica*/}
 
-									<Button type="submit" color="outline-success" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px", marginTop: "30px"}}  >
 										Modifica
 									</Button>
 
-									<Button type="submit" color="outline-error" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonAnnulla" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px", marginTop: "30px" }}  >
 										Annulla
 									</Button>
 
 								</AvForm>
-							</ListGroupItem>
-						</ListGroup>
+						
+					
 						{this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
 					</center>}
-
+					</center>
+			</div>
 			</div>
 		);
 	}

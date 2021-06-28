@@ -4,6 +4,7 @@ import { ListGroup, ListGroupItem, Button, ButtonGroup,} from "reactstrap";
 import faker from 'faker';
 import CardRimuoviUtente from "./CardRimuoviUtente";
 import Axios from 'axios';
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 
 
@@ -53,35 +54,39 @@ export default class PannelloRimuoviUtente extends Component {
 	render() {
 
 		return (
-			<div className="row h-100 justify-content-md-center"
-				style={{ margin: "1%", minHeight: "85vh" }}>
-				<div className="col-sm-12 col-md-8 col-lg-6 my-auto">
+			<div className="ez sfondo" style={{ height: "100%" }}>
+				<NavbarDipendente />
+			<div className="row h-100 justify-content-md-center boxpannel">
+			<div className="d-flex flex-column pannell-amministratore">
+			<div className="title">Rimuovi utente</div>
 
-					<ListGroup>
+			
 						{/*ptipologia veicolo*/}
-						<center>
-							<ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+					
 
 								<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-									<Button color="primary" onClick={async () => { await this.setRSelected("guest"); this.search()}} active={this.state.role === "guest"}  >Cliente</Button>
-									<Button color="primary" onClick={async () => { await this.setRSelected("driver"); this.search() }} active={this.state.role === "driver"}  >Autista</Button>
-									<Button color="primary" onClick={async () => { await this.setRSelected("valet"); this.search() }} active={this.state.role === "valet"}  >Parcheggiatore</Button>
-									<Button color="primary" onClick={async () => { await this.setRSelected("admin"); this.search() }} active={this.state.role === "admin"} size="lg">Amministratore</Button>
+									<Button className="buttonCyanoGruoup " onClick={async () => { await this.setRSelected("guest"); this.search()}} active={this.state.role === "guest"}  >Cliente</Button>
+									<Button className="buttonCyanoGruoup " onClick={async () => { await this.setRSelected("driver"); this.search() }} active={this.state.role === "driver"}  >Autista</Button>
+									<Button className="buttonCyanoGruoup " onClick={async () => { await this.setRSelected("valet"); this.search() }} active={this.state.role === "valet"}  >Parcheggiatore</Button>
+									<Button className="buttonCyanoGruoup " onClick={async () => { await this.setRSelected("admin"); this.search() }} active={this.state.role === "admin"} >Amministratore</Button>
 								</ButtonGroup>
-							</ListGroupItem>
-						</center>
+						
 
-						{<div>
+
+								<div class="d-flex flex-column">
 							{this.state.listusers.map(((item) => (
-
+									 <div className="p-3 carta">
 								<CardRimuoviUtente name={item.name} surname={item.surname} email={item.email} id={item.id} remove={this.remove} />
+								</div>
 
 							)))}
-						</div>}
+							 </div>
+				
 					
-					</ListGroup>
+				
 				</div>
 			</div >
+			</div>
 		);
 
 	}

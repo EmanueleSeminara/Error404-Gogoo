@@ -14,21 +14,21 @@ import "../ComponentsCss/Login.css"
 
 export default class Login extends Component {
 
-    /* state = {
+    state = {
         username: "samu@gmail.com",
         password: "Samu966&",
         error: false
-    }; */
+    };
     /* state = {
         username: "super@gmail.com",
         password: "Super966&",
         error: false
     }; */
-    state = {
+   /*  state = {
         username: "p.liberta@gmail.com",
         password: "Roma966&",
         error: false
-    }
+    } */
 
     componentDidMount() {
         if (localStorage.getItem("utente") !== null) {
@@ -127,7 +127,7 @@ export default class Login extends Component {
                                     />
                                 </center> */}
                                 <div className="titleLogin">Login</div>
-                                <p>Please sign in to continue</p>
+                                <p style={{color: "grey"}}>Please sign in to continue</p>
 
                                 <AvForm className="formEmail" onValidSubmit={this.onValidSubmit}>
                                     <center>

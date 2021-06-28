@@ -6,7 +6,7 @@ import { Button, ListGroup, ListGroupItem, Card, Jumbotron, Table, ButtonGroup }
 import CardPrenotazione from "./CardPrenotazione";
 import faker from 'faker';
 import Axios from "axios";
-
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 export default class PannelloViasualizzaPrenotazioni extends Component {
     state = {
@@ -46,11 +46,13 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
 
     render() {
         return (
-            <div className="row h-100 justify-content-md-center">
-                <div className="col-sm-12 col-md-8 col-lg-6 my-auto" style={{ margin: "1%", minHeight: "100vh" }}>
-                    <ListGroup>
-                        <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}></ListGroupItem>
-                        <Jumbotron style={{ paddingBottom: "0px" }}>
+            <div className="ez sfondo" style={{ height: "100%" }}>
+                <NavbarDipendente />
+             <div className="row h-100 justify-content-md-center boxpannel">
+             <div className="d-flex flex-column pannell-amministratore">
+                  
+             <div className="title">Visualizza Prenotazioni</div>
+                     
                             <AvForm onValidSubmit={this.onValidSubmit}>
                                 {/* Riga nome e cognome */}
                                 <div className="row">
@@ -100,23 +102,26 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
                                 </div>
                                 <br />
                             <center>
-                                <Button color="outline-success" style={{ padding: "8px" }} type="submit">
+                                <Button className="buttonCyano"  type="submit">
                                     cerca
                                 </Button>
                             </center>
                             </AvForm>
-                        </Jumbotron>
+                    
 
 
 
                         {<div>
                             {this.state.listReservation.map(((item) => (
+                                <div className="p-4">
                                 <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
+                                </div>
                             )))}
                         </div>}
 
-                    </ListGroup>
+                 
                 </div>
+            </div>
             </div>
         );
     }

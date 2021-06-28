@@ -26,6 +26,7 @@ import {
 import CardModificaUtente from "./CardModificaUtente";
 import faker from 'faker';
 import Axios from 'axios';
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 
 const data = new Array(10).fill().map((value, index) => ({ id: index, name: "samu", surname: "marino", email: "samuele.marino@gmail.com", telfono: "3205318452", birthday: 26, password: "Giovanni33" }));
@@ -79,13 +80,14 @@ export default class PannelloRimuoviCliente extends Component {
 	render() {
 
 		return (
-			<div className="row h-100 justify-content-md-center"
-				style={{ margin: "1%", minHeight: "85vh" }}>
-				<div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-					<ListGroup>
+			<div className="ez sfondo" style={{ height: "100%" }}> 
+			<NavbarDipendente />
+			<div className="row h-100 justify-content-md-center boxpannel">
+			<div className="d-flex flex-column pannell-amministratore ">
+			<div className="title">Modifica dati utente</div>
 						{/*ptipologia veicolo*/}
-						<center>
-							<ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+					
+							
 
 								<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
 									<Button color="primary" onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
@@ -93,10 +95,10 @@ export default class PannelloRimuoviCliente extends Component {
 									<Button color="primary" onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
 									<Button color="primary" onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
 								</ButtonGroup>
-							</ListGroupItem>
-						</center>
+						
+					
 
-						<Jumbotron>
+					
 							<AvForm onValidSubmit={this.onValidSubmit}>
 								{/* Riga nome e cognome */}
 								<div className="row">
@@ -135,30 +137,31 @@ export default class PannelloRimuoviCliente extends Component {
 								</div>
 
 
-								<br />
+								
 
 								<center>
-									<Button color="outline-success" type="submit" style={{ padding: "8px" }} >
+									<Button className="buttonCyano" type="submit" style={{ padding: "8px", marginBottom: "30px"}} >
 										cerca
 									</Button>
 								</center>
 							</AvForm>
 
-							<hr style={{ backgroundColor: "#3FD0CB" }} />
-							<br />
+							
+							<div className="d-flex flex-row flex-wrap justify-content-center">
 							{this.state.modifica &&
-								<div>
+								<div className="p-3 col-12">
 
 									{this.state.list.map(((item) => (
 										<CardModificaUtente id={item.id} name={item.name} surname={item.surname} email={item.email} phone={item.phone} birthdate={item.birthdate} />
 									)))}
 								</div>}
-						</Jumbotron>
-					</ListGroup>
+								</div>
+					
 
 
 				</div>
 			</div >
+			</div>
 		);
 
 	}
