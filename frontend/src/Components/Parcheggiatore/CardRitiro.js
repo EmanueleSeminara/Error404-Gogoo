@@ -11,15 +11,20 @@ export default class CardRitira extends Component {
                 <div className="row no-gutters">
                     <div className="col" >
                         <div className="card-body"  >
-                            <div className="row" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                <p>Id: {this.props.id}</p>
+
+                            <div className="row no-gutters">
+                                <div className="col-md-6">
+                                    <p><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+                                    <p><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
+                                    <p><strong>Data ritiro:</strong>   {this.props.dateR}</p>
+                                </div>
+                                <div className="col-md-6">
+                                    <p><strong>Cliente:</strong>   {this.props.name} {this.props.surname}</p>
+                                    <p><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
+                                    <p><strong>Data consegna:</strong>   {this.props.dateC}</p>
+                                </div>
                             </div>
-                            <div className="row" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                <p>tipologia: {this.props.type}</p>
-                            </div>
-                            <div className="row" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                {this.props.category !== null ? <p>Categoria: {this.props.category}</p> : <> </>}
-                            </div>
+
                             <div className="row" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                                 <Button color="primary" onClick={() => this.props.ritira(this.props.id)}>Ritira</Button>
                             </div>

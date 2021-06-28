@@ -14,14 +14,14 @@ export default class PannelloRitiro extends Component {
         listvehicles: []
     }
 
-/*     componentDidMount() {
-        Axios.get('/api/vehicle/listvehicle')
+    componentDidMount() {
+        Axios.get('/api/valet/reservationsinmyparking')
             .then((res) => {
                 this.setState({ listvehicles: res.data });
             }).catch((err) => {
                 window.location.href = '/errorServer';
             });
-    } */
+    }
 
     ritiro = (cardID) => {
         console.log(this.state)
@@ -37,7 +37,7 @@ export default class PannelloRitiro extends Component {
                     {<div>
                         {/* this.state.listvehicles */data.map(((item) => (
 
-                            <CardRitiro type={item.type} category={item.category} id={item.id} ritiro={this.ritiro} />
+                            <CardRitiro id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} />
 
                         )))}
                     </div>}
