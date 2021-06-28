@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import "../../../ComponentsCss/Pannel.css";
+import "../../../ComponentsCss/PannelloPrenotazione.css"
+import Checkbox from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 import {
 	DateTimePicker,
@@ -19,6 +26,7 @@ import {
 	Col,
 	Form,
 	ButtonGroup,
+	Row
 } from "reactstrap";
 
 import {
@@ -80,118 +88,95 @@ export default class PannelloAggiugiVeicolo extends Component {
 
 	render() {
 		return (
-			<div className="row h-100 justify-content-md-center"
-				style={{ margin: "1%", minHeight: "100vh" }}>
-				<div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-					<AvForm onValidSubmit={this.onValidSubmit}>
-						<ListGroup>
-							{/*ptipologia veicolo*/}
-							<center>
-								<ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
-
-									<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-										<Button 
-											color="primary" 
-											onClick={() => {
-												this.setRSelected("car"); 
-												this.setState({ error: false });
-												this.setState({ success: false });
-											}}
-											active={this.state.type === "car"} 
-											 >
-												Automobile
-										</Button>
-										<Button 
-											color="primary" 
-											onClick={() => {
-												this.setRSelected("scooter");
-											 	this.setState({error: false });
-												this.setState({success: false });
-											}}
-											active={this.state.type === "scooter"}  >
-												Motore
-										</Button>
-										<Button
-											color="primary"
-											onClick={() => {
-												this.setRSelected("electric scooter");
-												this.setState({ error: false });
-												this.setState({ success: false });
-											}}
-											active={this.state.type === "electric scooter"}  >
-												Monopattino
-										</Button>
-										<Button
-											color="primary"
-											onClick={() => {
-												this.setRSelected("bicycle");
-												this.setState({ error: false });
-												this.setState({ success: false });
-											}}
-											active={this.state.type === "bicycle"}  >
-												Bicicletta
-										</Button>
-									</ButtonGroup>
-								</ListGroupItem>
-							</center>
-
+			<div className="ez sfondo" style={{ height: "100%" }}>
+				<AvForm onValidSubmit={this.onValidSubmit}>
+					<div className="row h-100 justify-content-md-center boxpannel">
+						<div className="d-flex flex-column pannell-prenotazione ">
+							<div className="title">Aggiungi veicolo</div>
+							{/*tipologia veicolo*/}
+							<ButtonGroup style={{ flexWrap: "wrap" }}>
+								<Button
+									className="buttonCyanoGruoup "
+									onClick={() => {
+										this.setRSelected("car");
+										this.setState({ error: false });
+										this.setState({ success: false });
+									}}
+									active={this.state.type === "car"}
+								>
+									Automobile
+								</Button>
+								<Button
+									className="buttonCyanoGruoup"
+									onClick={() => {
+										this.setRSelected("scooter");
+										this.setState({ error: false });
+										this.setState({ success: false });
+									}}
+									active={this.state.type === "scooter"}  >
+									Motore
+								</Button>
+								<Button
+									className="buttonCyanoGruoup"
+									onClick={() => {
+										this.setRSelected("electric scooter");
+										this.setState({ error: false });
+										this.setState({ success: false });
+									}}
+									active={this.state.type === "electric scooter"}  >
+									Monopattino
+								</Button>
+								<Button
+									className="buttonCyanoGruoup"
+									onClick={() => {
+										this.setRSelected("bicycle");
+										this.setState({ error: false });
+										this.setState({ success: false });
+									}}
+									active={this.state.type === "bicycle"}  >
+									Bicicletta
+								</Button>
+							</ButtonGroup>
 							{/* Tipologia di auto */}
 							{this.state.type === "car" &&
-								<ListGroupItem >
-									<AvGroup >
-										<center style={{ marginTop: "10px" }}>
-											<AvRadioGroup
-												inline
-												name="Tipo1"
-												label=""
-												onClick={this.handleChange("category")}
-												validate={{
-													required: {
-														errorMessage: "Il campo è richiesto",
-													},
-												}}
-											>
-												<AvRadio label="suv" value="suv" />
-												<AvRadio label="utilitaria" value="utilitaire" />
-												<AvRadio label="berlina" value="sedan" />
-											</AvRadioGroup>
-										</center>
-									</AvGroup>
-								</ListGroupItem >
+								<center style={{ marginTop: "30px" }}>
+									<RadioGroup
+										row
+										name="Tipo1"
+										label=""
+										onClick={this.handleChange("category")}
+										validate={{
+											required: {
+												errorMessage: "Il campo è richiesto",
+											},
+										}}
+										style={{ backgroundColor: "transparent" }}
+									>
+										<FormControlLabel label="suv" value="suv" control={<Radio />} />
+										<FormControlLabel label="utilitaria" value="utilitaire" control={<Radio />} />
+										<FormControlLabel label="berlina" value="sedan" control={<Radio />} />
+									</RadioGroup>
+								</center>
 							}
-
 							{/* Ubicazione*/}
-							<ListGroupItem>
-								<center>
-									<Col >
-										<Label >Ubicazione</Label>
-										<Input type="select" name="select" id="Ubicazione" onClick={this.handleChange("refParking")} >
-											<option>Via Libertà</option>
-											<option>Via Roma</option>
-											<option>Via Ernesto Basile</option>
-											<option>Viale Regione</option>
-											<option>Via Tersicore</option>
-										</Input>
-									</Col>
-								</center>
-							</ListGroupItem>
-
+							<Label style={{ marginTop: "30px" }}>Ubicazione</Label>
+							<Input type="select" name="select" id="Ubicazione" onClick={this.handleChange("refParking")} >
+								<option>Via Libertà</option>
+								<option>Via Roma</option>
+								<option>Via Ernesto Basile</option>
+								<option>Viale Regione</option>
+								<option>Via Tersicore</option>
+							</Input>
 							{/* Pulsante aggiungi*/}
-							<ListGroupItem style={{ padding: "20px" }}>
-								<center>
-									<Button color="outline-success" type="submit" style={{ padding: "8px" }}  >
-										aggiungi
-									</Button>
-								</center>
-							</ListGroupItem>
-							<br />
+							<Button className="buttonCyanoPrenotazione" type="submit"  >
+								aggiungi
+							</Button>
 							{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 							{this.state.success && <Alert severity="success">Veicolo aggiunto correttamente</Alert>}
-						</ListGroup>
-					</AvForm>
-				</div>
-
-			</div>
+						</div>
+					</div>
+				</AvForm>
+			</div >
 		);
 	}
 }
