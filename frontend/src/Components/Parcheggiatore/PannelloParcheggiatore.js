@@ -80,7 +80,7 @@ export default function FullWidthTabs() {
           
         >
           <Tab label="Veicoli nel parcheggio" {...a11yProps(0)} />
-          <Tab label="Veicoli che arrivernanno al parcheggio" {...a11yProps(1)} />
+          <Tab label="Veicoli che arriveranno al parcheggio" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
