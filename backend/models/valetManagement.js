@@ -9,19 +9,19 @@ exports.listVehiclesByDestination = (idParcheggiatore) => {
         reject(err);
         return;
       }
-      const vehicles = rows.map((v) => ({
-        id: v.refVehicle,
-        type: v.type,
-        category: v.category,
-        refParkingR: v.refParkingR,
-        refParkingC: v.refParkingC,
-        idReservation: v.id,
-        dateR: v.dateR,
-        dateC: v.dateC,
-        name: v.name,
-        surname: v.surname,
+      const reservations = rows.map((reservation) => ({
+        refVehicle: reservation.refVehicle,
+        type: reservation.type,
+        category: reservation.category,
+        refParkingR: reservation.refParkingR,
+        refParkingC: reservation.refParkingC,
+        id: reservation.id,
+        dateR: reservation.dateR,
+        dateC: reservation.dateC,
+        name: reservation.name,
+        surname: reservation.surname,
       }));
-      resolve(vehicles);
+      resolve(reservations);
     });
   });
 };
@@ -35,19 +35,19 @@ exports.listVehiclesInParking = (idParcheggiatore) => {
         reject(err);
         return;
       }
-      const vehicles = rows.map((v) => ({
-        id: v.refVehicle,
-        type: v.type,
-        category: v.category,
-        refParkingR: v.refParkingR,
-        refParkingC: v.refParkingC,
-        idReservation: v.id,
-        dateR: v.dateR,
-        dateC: v.dateC,
-        name: v.name,
-        surname: v.surname,
+      const reservations = rows.map((reservation) => ({
+        refVehicle: reservation.refVehicle,
+        type: reservation.type,
+        category: reservation.category,
+        refParkingR: reservation.refParkingR,
+        refParkingC: reservation.refParkingC,
+        id: reservation.id,
+        dateR: reservation.dateR,
+        dateC: reservation.dateC,
+        name: reservation.name,
+        surname: reservation.surname,
       }));
-      resolve(vehicles);
+      resolve(reservations);
     });
   });
 };
