@@ -107,6 +107,7 @@ exports.deliveryvehicle = (reservation) => {
 };
 
 exports.retirevehicle = (reservation) => {
+  console.log("RESERVATION: " + reservation);
   return new Promise((resolve, reject) => {
     date = new Date();
     const dateNow =
@@ -120,7 +121,7 @@ exports.retirevehicle = (reservation) => {
       ":" +
       date.getMinutes();
     const sql =
-      "UPDATE vehicles AS v SET state ='avalaible' WHERE v.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
+      "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingC=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
     db.run(
       sql,
       [
@@ -134,25 +135,25 @@ exports.retirevehicle = (reservation) => {
           reject(err);
           return;
         }
-        //resolve(this.lastID);
-        const sql2 =
-          "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
-        db.run(
-          sql2,
-          [
-            reservation.id,
-            reservation.refVehicle,
-            dateNow,
-            reservation.idValet,
-          ],
-          function (err) {
-            if (err) {
-              reject(err);
-              return;
-            }
-            resolve(this.lastID);
-          }
-        );
+        resolve(this.lastID);
+        // const sql2 =
+        //   "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
+        // db.run(
+        //   sql2,
+        //   [
+        //     reservation.id,
+        //     reservation.refVehicle,
+        //     dateNow,
+        //     reservation.idValet,
+        //   ],
+        //   function (err) {
+        //     if (err) {
+        //       reject(err);
+        //       return;
+        //     }
+        //     resolve(this.lastID);
+        //   }
+        // );
       }
     );
   });
