@@ -20,10 +20,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
     state = {
         ritiro: false,
         consegna: false,
-        errore: false,
-        mostra: false,
         disabled: true,
-
     };
 
     setting = () => {
@@ -53,7 +50,6 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
     }
 
     ritira = () => {
-        // cambiare lo stato della prenotazione
         const data = {
             id: this.props.id,
             refVehicle: this.props.refVehicle
