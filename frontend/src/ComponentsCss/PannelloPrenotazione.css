@@ -1,0 +1,66 @@
+.pannell-prenotazione {
+  background: #1d192b !important;
+  box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  width: 120vh;
+  display: flex;
+  justify-content: center;
+  /*  transform: scale(0.7);  */
+
+  align-items: center;
+  margin-top: 15vh;
+  flex-wrap: wrap;
+}
+
+fieldset.form-group > div.form-control {
+  background-color: transparent !important;
+}
+
+#Ubicazione {
+  height: 45px;
+
+  background: #39304d;
+  border-radius: 10px;
+  border: none;
+  color: lavender;
+}
+
+.buttonCyanoGruoup {
+  background-color: #0df6e3 !important;
+  color: #1d182e !important;
+  font-family: "Lato" !important;
+  font-style: normal;
+
+  text-align: center !important;
+
+  border: none !important;
+  /* margin-top: 30px; */
+}
+
+.buttonCyanoPrenotazione {
+  background-color: #0df6e3 !important;
+  color: #1d182e !important;
+  font-family: "Lato" !important;
+  font-style: normal;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  line-height: 28px !important;
+  text-align: center !important;
+  width: 152px;
+  height: 50px;
+  border: none !important;
+  margin-top: 30px;
+  border-radius: 41.5px !important;
+  transform: scale(0.8);
+  margin-bottom: 30px;
+}
+
+.buttonCyanoGruoup:hover {
+  box-shadow: 0px 0.5px 10px 0.5px #00f0ff !important;
+}
+.buttonCyanoPrenotazione:hover {
+  box-shadow: 0px 0.5px 10px 0.5px #00f0ff !important;
+}
