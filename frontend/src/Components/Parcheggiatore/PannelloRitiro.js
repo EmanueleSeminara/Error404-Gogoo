@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Jumbotron, Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
-import faker from 'faker';
 import CardRitiro from "./CardRitiro";
 import Axios from 'axios';
 
@@ -23,9 +22,19 @@ export default class PannelloRitiro extends Component {
             });
     }
 
-    ritiro = (cardID) => {
-        console.log(this.state)
-    };
+    ritira = (reservationID, vehicleID) => {
+        const data = {
+            id: reservationID,
+            refVehicle: vehicleID
+        }
+        Axios.put('/api/guest/retirevehicle', data)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+            }).catch((err) => {
+                console.log(err)
+            })
+
+    }
 
     render() {
         return (

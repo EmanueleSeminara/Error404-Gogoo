@@ -66,11 +66,6 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
 
 
 
-
-
-
-
-
     render() {
         return (
             <div className="card mb-3" style={{ maxWidth: " 940px", padding: "10px" }}>
