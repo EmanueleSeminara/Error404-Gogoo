@@ -27,7 +27,7 @@ export default class PannelloRitiro extends Component {
             id: reservationID,
             refVehicle: vehicleID
         }
-        Axios.put('/api/guest/retirevehicle', data)
+        Axios.put('/api/vale/deliveryvehicle', data)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
             }).catch((err) => {
@@ -46,7 +46,7 @@ export default class PannelloRitiro extends Component {
                     {<div>
                         { this.state.listReservation.map(((item) => (
 
-                            <CardRitiro id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} />
+                            <CardRitiro id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} ritira={this.ritira}/>
 
                         )))}
                     </div>}
