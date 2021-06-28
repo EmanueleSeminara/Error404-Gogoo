@@ -14,22 +14,24 @@ export default class PannelloRitiraConsegnaAutista extends Component {
         listvehicles: []
     }
 
-/*     componentDidMount() {
-        Axios.get('/api/vehicle/listvehicle')
+    componentDidMount() {
+        Axios.get('/api/driver/myreservations')
             .then((res) => {
                 this.setState({ listvehicles: res.data });
             }).catch((err) => {
                 window.location.href = '/errorServer';
             });
-    } */
-
-    ritiro = (cardID) => {
-        console.log(this.state)
-    };
-
-    consegna = (cardID) => {
-        console.log(this.state)
     }
+
+    consegna = (reservationID, vehicleID) => {
+        Axios.delete('/api/reservation/delete/?id=' + reservationID + '&refVehicle=' + vehicleID)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+            }).catch((err) => {
+                window.location.href = '/errorServer';
+            });
+    }
+
     render() {
         return (
             <div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "45vh" }}>
@@ -40,7 +42,7 @@ export default class PannelloRitiraConsegnaAutista extends Component {
                     {<div>
                         {/* this.state.listvehicles */data.map(((item) => (
 
-                            <CardRitiraConsegnaAutista type={item.type} category={item.category} id={item.id} ritiro={this.ritiro} consegna={this.consegna} />
+                            <CardRitiraConsegnaAutista type={item.type} category={item.category} id={item.id} dateR={item.dateR} dateC={item.dateC} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} refGuest={item.refGuest} consegna={this.consegna} />
 
                         )))}
                     </div>}

@@ -23,6 +23,24 @@ export default class NavbarDipendente extends Component {
 
   state = {
     isOpen: false,
+    home: ""
+  }
+
+  componentDidMount() {
+    let c = JSON.parse(localStorage.getItem("utente"))
+    switch (c.role) {
+      case "admin":
+        this.setState({ home: "/pannelloAmministratore" });
+        break;
+      case "driver":
+        this.setState({ home: "/pannelloAutista" });
+        break;
+      case "valet":
+        this.setState({ home: "/pannelloParcheggiatore" });
+        break;
+      default:
+      // code block
+    }
   }
 
   logout = () => {
@@ -51,6 +69,7 @@ export default class NavbarDipendente extends Component {
           <NavbarBrand href="/" style={{ color: "white" }}>GoGoo!</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
+            <Button href={this.state.home} style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Home</Button>
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav style={{ color: "white" }}>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import "../../../ComponentsCss/Pannel.css";
-import "../../../ComponentsCss/PannelloPrenotazione.css"
+import "../../../ComponentsCss/PannelloGestioneAdmin.css"
 import Checkbox from '@material-ui/core/Checkbox';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -91,7 +91,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 			<div className="ez sfondo" style={{ height: "100%" }}>
 				<AvForm onValidSubmit={this.onValidSubmit}>
 					<div className="row h-100 justify-content-md-center boxpannel">
-						<div className="d-flex flex-column pannell-prenotazione ">
+						<div className="d-flex flex-column pannell-amministratore ">
 							<div className="title">Aggiungi veicolo</div>
 							{/*tipologia veicolo*/}
 							<ButtonGroup style={{ flexWrap: "wrap" }}>
