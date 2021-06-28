@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PannelloRitiraConsegnaAutista from "./PannelloRitiraConsegnaAutista";
 import NavbarDipendente from "../NavbarDipendente";
-import PannelloConfermaRifiutaPrenotazione from './PannelloConfermaRifiutaPrenotazione';
+import PannelloConfermaPrenotazione from './PannelloConfermaPrenotazione';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -91,7 +91,7 @@ export default function FullWidthTabs() {
           <PannelloRitiraConsegnaAutista/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction} >
-         <PannelloConfermaRifiutaPrenotazione/>
+         <PannelloConfermaPrenotazione/>
         </TabPanel>
       </SwipeableViews>
     </div>
