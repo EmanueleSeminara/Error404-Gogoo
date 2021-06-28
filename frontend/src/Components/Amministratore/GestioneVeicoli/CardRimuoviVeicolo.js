@@ -15,7 +15,7 @@ function CardRimuoviVeicolo(props) {
               {props.category !== null  ? <h5 className="infoCard">Categoria: {props.category}</h5> : <> </>}
               <h5 className="infoCard">Parcheggio: {props.refParking} </h5>
               <h5 className="infoCard">State: {props.state} </h5>
-              <button className="buttonModifyVeicle" onClick={() => { props.remove(props.id) }} style={{ textDecoration: "none" }}>Elimina</button>
+              <button className="buttonRemove" onClick={() => { props.remove(props.id) }} style={{ textDecoration: "none" }}>Elimina</button>
             </div>
           </div>
         </div>

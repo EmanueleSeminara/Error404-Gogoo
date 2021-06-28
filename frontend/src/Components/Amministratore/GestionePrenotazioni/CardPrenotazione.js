@@ -111,7 +111,7 @@ export default class CardPrenotazione extends Component {
 			<div>
 			<div className="card card-css">
 			<center>
-
+			
 				<div className="row no-gutters">
 					<div className="col">
 						<div className="card-body">

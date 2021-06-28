@@ -168,7 +168,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 								<option>Via Tersicore</option>
 							</Input>
 							{/* Pulsante aggiungi*/}
-							<Button className="buttonCyanoPrenotazione" type="submit"  >
+							<Button className="buttonCyano" type="submit"  >
 								aggiungi
 							</Button>
 							{this.state.error && <Alert severity="error">{this.state.string}</Alert>}

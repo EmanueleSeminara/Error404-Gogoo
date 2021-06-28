@@ -38,20 +38,21 @@
     object-fit: fill;
 }
 
-/* .btn-secondary{
+ .buttonAdmin  {
     background-color: transparent!important;
     border: none !important;
     border-color: none!important;
     box-shadow: none!important;
    
 }
-.btn-secondary:focus {
+
+.buttonAdmin:focus {
     box-shadow: none!important; 
     border-color: none!important;
     border: none !important;
     background-color: transparent!important;
     
-} */
+}
 
 @media only screen and (max-width: 1100px) {
     .pannellAdmin {

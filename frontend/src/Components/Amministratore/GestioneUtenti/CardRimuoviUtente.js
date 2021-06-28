@@ -5,15 +5,15 @@ function CardRimuoviUtente(props) {
 
 	
 	return (
-		<div className="card ">
+		<div className="card card-css">
 			<center>
 			<div className="row no-gutters">
-				<div className="col">
+				<div className="col-12">
 					<div className="card-body">
-						<h5>nome: {props.name}</h5>
-						<h5>cognome: {props.surname} </h5>
-						<h5>email: {props.email}</h5>
-							<button className="btn-lg btn-danger" onClick={() => { props.remove(props.id) }} style={{ textDecoration: "none"}}>Elimina</button>
+						<h5 className="infoCard">nome: {props.name}</h5>
+						<h5 className="infoCard">cognome: {props.surname} </h5>
+						<h5 className="infoCard">email: {props.email}</h5>
+							<button className="buttonRemove" onClick={() => { props.remove(props.id) }} style={{ textDecoration: "none"}}>Elimina</button>
 					</div>
 				</div>
 			</div>

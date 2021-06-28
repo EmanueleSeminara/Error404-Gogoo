@@ -56,6 +56,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                 <div className="row h-100 justify-content-md-center boxpannel">
                     <div className="d-flex flex-column pannell-amministratore">
                         <div className="title">Rimuovi veicolo</div>
+                        {this.state.listvehicles.length == 0 && <Alert severity="error">Non ci sono veicoli</Alert>}
                         <ButtonGroup style={{ flexWrap: "wrap" }}>
                             <Button
                                 className="buttonCyanoGruoup "
@@ -98,7 +99,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                 Bicicletta
                             </Button>
                         </ButtonGroup>
-                        {this.state.listvehicles.length == 0 && <Alert severity="error">Non ci sono veicoli</Alert>}
+                        
                         <div class="d-flex flex-column">              
                             {this.state.listvehicles.map(((item) => (
                                 <div className="p-3 carta">
