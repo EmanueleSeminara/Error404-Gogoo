@@ -31,9 +31,9 @@ router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
 // Consegna del mezzo al cliente
 router.post("/deliveryvehicle/", isValet, async (req, res) => {
   const reservation = {
-    refDriver: req.user.id,
+    refDriver: req.body.id,
     refVehicle: req.body.refVehicle,
-    idValet: req.body.id,
+    idValet: req.user.id,
   };
   try {
     await valetManagement.deliveryVehicle(reservation);
@@ -48,9 +48,9 @@ router.post("/deliveryvehicle/", isValet, async (req, res) => {
 // Ritiro del mezzo al cliente
 router.delete("/retirevehicle/", isValet, async (req, res) => {
   const reservation = {
-    refDriver: req.user.id,
+    refDriver: req.body.id,
     refVehicle: req.body.refVehicle,
-    idValet: req.body.id,
+    idValet: req.user.id,
   };
   try {
     await valetManagement.retirevehicle(reservation);
