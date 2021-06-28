@@ -32,7 +32,7 @@ router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
 router.put("/deliveryvehicle/", isValet, async (req, res) => {
   console.log(req.body);
   const reservation = {
-    refDriver: req.body.id,
+    id: req.body.id,
     refVehicle: req.body.refVehicle,
     idValet: req.user.id,
   };
@@ -49,7 +49,7 @@ router.put("/deliveryvehicle/", isValet, async (req, res) => {
 // Ritiro del mezzo al cliente
 router.delete("/retirevehicle/", isValet, async (req, res) => {
   const reservation = {
-    refDriver: req.body.id,
+    id: req.body.id,
     refVehicle: req.body.refVehicle,
     idValet: req.user.id,
   };
