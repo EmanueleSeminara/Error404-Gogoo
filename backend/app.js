@@ -19,6 +19,8 @@ const guestsRoutes = require("./routes/guest");
 const vehiclesRoutes = require("./routes/vehicle");
 const searchRoutes = require("./routes/search");
 const reservationRoutes = require("./routes/reservation");
+const driverRoutes = require("./routes/driver");
+const valetRoutes = require("./routes/valet");
 
 
 // init express
@@ -53,6 +55,8 @@ app.use(BASEURL + "/guest/", guestsRoutes);
 app.use(BASEURL + "/vehicle/", vehiclesRoutes);
 app.use(BASEURL + "/search/", searchRoutes);
 app.use(BASEURL + "/reservation/", reservationRoutes);
+app.use(BASEURL + "/driver/", driverRoutes);
+//app.use(BASEURL + "/valet/", valetRoutes);
 
 
 
