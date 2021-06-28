@@ -80,6 +80,7 @@ export default class PannelloRimuoviCliente extends Component {
 
 		return (
 			<div className="ez sfondo" style={{ height: "100%" }}> 
+			<NavbarDipendente />
 			<div className="row h-100 justify-content-md-center boxpannel">
 			<div className="d-flex flex-column pannell-amministratore ">
 			<div className="title">Modifica dati utente</div>

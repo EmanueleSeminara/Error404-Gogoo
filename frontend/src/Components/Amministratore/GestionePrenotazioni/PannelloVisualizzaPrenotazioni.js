@@ -47,6 +47,7 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
     render() {
         return (
             <div className="ez sfondo" style={{ height: "100%" }}>
+                <NavbarDipendente />
              <div className="row h-100 justify-content-md-center boxpannel">
              <div className="d-flex flex-column pannell-amministratore">
                   
