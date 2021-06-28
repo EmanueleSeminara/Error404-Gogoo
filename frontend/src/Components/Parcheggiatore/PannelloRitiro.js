@@ -7,7 +7,6 @@ import faker from 'faker';
 import CardRitiro from "./CardRitiro";
 import Axios from 'axios';
 
-const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(1) }))
 
 export default class PannelloRitiro extends Component {
     state = {
@@ -19,7 +18,8 @@ export default class PannelloRitiro extends Component {
             .then((res) => {
                 this.setState({ listvehicles: res.data });
             }).catch((err) => {
-                window.location.href = '/errorServer';
+                console.log(err)
+                //window.location.href = '/errorServer';
             });
     }
 
@@ -35,7 +35,7 @@ export default class PannelloRitiro extends Component {
                     </div>
 
                     {<div>
-                        {/* this.state.listvehicles */data.map(((item) => (
+                        { this.state.listvehicles.map(((item) => (
 
                             <CardRitiro id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} />
 

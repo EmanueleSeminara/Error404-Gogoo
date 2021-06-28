@@ -19,7 +19,8 @@ export default class PannelloConsegna extends Component {
             .then((res) => {
                 this.setState({ listReservation: res.data });
             }).catch((err) => {
-                window.location.href = '/errorServer';
+                console.log(err)
+                //window.location.href = '/errorServer';
             });
     }
 
