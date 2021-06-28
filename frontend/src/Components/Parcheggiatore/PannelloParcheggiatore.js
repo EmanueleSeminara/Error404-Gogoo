@@ -79,8 +79,8 @@ export default function FullWidthTabs() {
           centered
           
         >
-          <Tab label="Ritira" {...a11yProps(0)} />
-          <Tab label="Consegna" {...a11yProps(1)} />
+          <Tab label="Veicoli nel parcheggio" {...a11yProps(0)} />
+          <Tab label="Veicoli che arriveranno al parcheggio" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews

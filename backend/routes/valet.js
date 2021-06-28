@@ -18,6 +18,7 @@ router.get("/reservationsinmyparking/", isValet, async (req, res) => {
 
 // Prenotazioni che arriveranno nel parcheggio del parcheggiatore che fa la chiamata
 router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
+  console.log("Veicoli che arriveranno nel mio parcheggio");
   try {
     res.json(await valetManagement.listVehiclesByDestination(req.user.id));
   } catch (err) {
@@ -26,5 +27,41 @@ router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
     });
   }
 });
+
+// Consegna del mezzo al cliente
+router.put("/deliveryvehicle/", isValet, async (req, res) => {
+  console.log(req.body);
+  const reservation = {
+    id: req.body.id,
+    refVehicle: req.body.refVehicle,
+    idValet: req.user.id,
+  };
+  try {
+    await valetManagement.deliveryVehicle(reservation);
+    res.status(201).end();
+  } catch (err) {
+    res.json({
+      error: "Database error when requesting unconfirmed reservations - " + err,
+    });
+  }
+});
+
+// Ritiro del mezzo al cliente
+router.delete("/retirevehicle/", isValet, async (req, res) => {
+  const reservation = {
+    id: req.body.id,
+    refVehicle: req.body.refVehicle,
+    idValet: req.user.id,
+  };
+  try {
+    await valetManagement.retirevehicle(reservation);
+    res.status(201).end();
+  } catch (err) {
+    res.json({
+      error: "Database error while canceling the reservation - " + err,
+    });
+  }
+});
+
 
 module.exports = router;

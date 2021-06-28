@@ -54,11 +54,6 @@ export default class CardRitiraConsegnaAutista extends Component {
 
     }
 
-    consegna = () => {
-        this.props.consegna();
-        //MOSTRARE MESSAGGIO DI SUCCESSO DELLA CONSEGNA +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    }
-
 
 
     render() {
@@ -84,7 +79,7 @@ export default class CardRitiraConsegnaAutista extends Component {
                                     <p><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p><strong>Cliente:</strong> {this.props.refGuest}</p>
+                                    <p><strong>Cliente:</strong> {this.props.name} {this.props.surname}</p>
                                     <p><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
                                     <p><strong>Data consegna:</strong>   {this.props.dateC}</p>
                                 </div>
@@ -94,7 +89,7 @@ export default class CardRitiraConsegnaAutista extends Component {
                                 <Button type="button" color="primary" onClick={() => this.ritira()} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.ritiro}>
                                     Ritiro
                                 </Button>
-                                <Button type="button" color="success" onClick={() => this.consegna(this.props.id, this.props.refVehicle)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
+                                <Button type="button" color="success" onClick={() => this.props.consegna(this.props.id, this.props.refVehicle)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
                                     Consegna
                                 </Button>
                             </center>

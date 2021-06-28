@@ -38,8 +38,8 @@ export default class NavbarDipendente extends Component {
       case "valet":
         this.setState({ home: "/pannelloParcheggiatore" });
         break;
-      default:
-      // code block
+        default:
+        this.setState({ home: "#" });
     }
   }
 

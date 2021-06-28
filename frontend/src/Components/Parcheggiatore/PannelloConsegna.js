@@ -11,20 +11,28 @@ const data = new Array(10).fill().map((value, index) => ({ id: index, type: fake
 
 export default class PannelloConsegna extends Component {
     state = {
-        listvehicles: []
+        listReservation: []
     }
 
-/*     componentDidMount() {
-        Axios.get('/api/vehicle/listvehicle')
+    componentDidMount() {
+        Axios.get('/api/valet/vehiclesgoingtomyparking')
             .then((res) => {
-                this.setState({ listvehicles: res.data });
+                this.setState({ listReservation: res.data });
+                console.log(res.data)
+            }).catch((err) => {
+                console.log(err)
+                //window.location.href = '/errorServer';
+            });
+    }
+
+    remove = (reservationID, vehicleID) => {
+        Axios.delete('/api/valet/retirevehicle?id=' + reservationID + '&refVehicle=' + vehicleID)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+                // MOSTRA ALLERT SUCCESSO+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             }).catch((err) => {
                 window.location.href = '/errorServer';
             });
-    } */
-
-    consegna = (cardID) => {
-        console.log(this.state)
     };
 
     render() {
@@ -35,9 +43,9 @@ export default class PannelloConsegna extends Component {
                     </div>
 
                     {<div>
-                        {/* this.state.listvehicles */data.map(((item) => (
+                        {this.state.listReservation.map(((item) => (
 
-                            <CardConsegna type={item.type} category={item.category} id={item.id} consegna={this.consegna} />
+                            <CardConsegna id={item.id} state={item.state} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} remove={this.remove}  />
 
                         )))}
                     </div>}

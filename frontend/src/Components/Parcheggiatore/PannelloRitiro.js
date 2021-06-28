@@ -3,29 +3,38 @@ import React, { Component } from "react";
 import { Jumbotron, Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
-import faker from 'faker';
 import CardRitiro from "./CardRitiro";
 import Axios from 'axios';
 
-const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(1) }))
 
 export default class PannelloRitiro extends Component {
     state = {
-        listvehicles: []
+        listReservation: []
     }
 
-/*     componentDidMount() {
-        Axios.get('/api/vehicle/listvehicle')
+    componentDidMount() {
+        Axios.get('/api/valet/reservationsinmyparking')
             .then((res) => {
-                this.setState({ listvehicles: res.data });
+                console.log(res.data)
+                this.setState({ listReservation: res.data });
             }).catch((err) => {
                 window.location.href = '/errorServer';
             });
-    } */
+    }
 
-    ritiro = (cardID) => {
-        console.log(this.state)
-    };
+    ritira = (reservationID, vehicleID) => {
+        const data = {
+            id: reservationID,
+            refVehicle: vehicleID
+        }
+        Axios.put('/api/valet/deliveryvehicle', data)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+            }).catch((err) => {
+                console.log(err)
+            })
+
+    }
 
     render() {
         return (
@@ -35,9 +44,9 @@ export default class PannelloRitiro extends Component {
                     </div>
 
                     {<div>
-                        {/* this.state.listvehicles */data.map(((item) => (
+                        { this.state.listReservation.map(((item) => (
 
-                            <CardRitiro type={item.type} category={item.category} id={item.id} ritiro={this.ritiro} />
+                            <CardRitiro id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} ritira={this.ritira}/>
 
                         )))}
                     </div>}

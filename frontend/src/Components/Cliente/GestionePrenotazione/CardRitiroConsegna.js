@@ -66,11 +66,6 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
 
 
 
-
-
-
-
-
     render() {
         return (
             <div>
