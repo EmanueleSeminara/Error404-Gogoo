@@ -5,7 +5,9 @@ import { Button, ListGroup, ListGroupItem, Card, Jumbotron, Table, ButtonGroup }
 import CardRimuoviVeicolo from "./CardRimuoviVeicolo";
 import faker from 'faker';
 import Axios from 'axios';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
+const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(2), refParking: faker.lorem.word(2), state: faker.lorem.word(2) }))
 
 export default class PannelloRimuoviVeicolo extends Component {
     state = {
@@ -13,14 +15,14 @@ export default class PannelloRimuoviVeicolo extends Component {
         type: "car",
     };
 
-    componentDidMount() {
-        Axios.get('/api/vehicle/listvehicle/car')
-            .then((res) => {
-                this.setState({ listvehicles: res.data });
-            }).catch((err) => {
-                window.location.href = '/errorServer';
-            });
-    }
+        componentDidMount() {
+            Axios.get('/api/vehicle/listvehicle/car')
+                .then((res) => {
+                    this.setState({ listvehicles: res.data });
+                }).catch((err) => {
+                    window.location.href = '/errorServer';
+                });
+        }
 
     search = () => {
         console.log("SONO DENTRO SEARCH")
@@ -50,69 +52,61 @@ export default class PannelloRimuoviVeicolo extends Component {
 
     render() {
         return (
-            <div className="row h-100 justify-content-md-center"
-                style={{ margin: "1%", minHeight: "85vh" }}>
-                <div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-                    <center>
-                        
-                            <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px"}}>
-
-                                <ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-                                    <Button 
-                                        color="primary" 
-                                        onClick={ async () => {
-                                            await this.setRSelected("car");
-                                            this.search();
-                                        }} 
-                                        active={this.state.type === "car"} 
-                                         >
-                                            Automobile
-                                    </Button>
-                                    <Button
-                                        color="primary"
-                                        onClick={async () => {
-                                            await this.setRSelected("scooter");
-                                            this.search();
-                                        }}
-                                        active={this.state.type === "scooter"}
-                                         >
-                                            Motore
-                                    </Button>
-                                    <Button
-                                        color="primary"
-                                        onClick={async () => {
-                                            await this.setRSelected("electric scooter");
-                                            this.search();
-                                        }}
-                                        active={this.state.type === "electric scooter"}
-                                         >
-                                            Monopattino
-                                    </Button>
-                                    <Button
-                                        color="primary"
-                                        onClick={async () => {
-                                            await this.setRSelected("bicycle");
-                                            this.search();
-                                        }}
-                                        active={this.state.type === "bicycle"}
-                                         >
-                                            Bicicletta
-                                    </Button>
-                                </ButtonGroup>
-                            </ListGroupItem>
-                        
-                        {<div>
+            <div className="ez sfondo" style={{ height: "100%" }}>
+                <div className="row h-100 justify-content-md-center boxpannel">
+                    <div className="d-flex flex-column pannell-amministratore">
+                        <div className="title">Rimuovi veicolo</div>
+                        <ButtonGroup style={{ flexWrap: "wrap" }}>
+                            <Button
+                                className="buttonCyanoGruoup "
+                                onClick={async () => {
+                                    await this.setRSelected("car");
+                                    this.search();
+                                }}
+                                active={this.state.type === "car"}
+                            >
+                                Automobile
+                            </Button>
+                            <Button
+                                className="buttonCyanoGruoup "
+                                onClick={async () => {
+                                    await this.setRSelected("scooter");
+                                    this.search();
+                                }}
+                                active={this.state.type === "scooter"}
+                            >
+                                Motore
+                            </Button>
+                            <Button
+                                className="buttonCyanoGruoup "
+                                onClick={async () => {
+                                    await this.setRSelected("electric scooter");
+                                    this.search();
+                                }}
+                                active={this.state.type === "electric scooter"}
+                            >
+                                Monopattino
+                            </Button>
+                            <Button
+                                className="buttonCyanoGruoup "
+                                onClick={async () => {
+                                    await this.setRSelected("bicycle");
+                                    this.search();
+                                }}
+                                active={this.state.type === "bicycle"}
+                            >
+                                Bicicletta
+                            </Button>
+                        </ButtonGroup>
+                        {this.state.listvehicles.length == 0 && <Alert severity="error">Non ci sono veicoli</Alert>}
+                        <div class="d-flex flex-column">              
                             {this.state.listvehicles.map(((item) => (
-                                <center>
-
-                                    <CardRimuoviVeicolo id={item.id} type={item.type} category={item.category} refParking={item.refParking} state={item.state} remove={this.remove}/>
-
-                                </center>
-
-
-                            )))}
-                        </div>}
-                    </center>
+                                <div className="p-3 carta">
+                                    <CardRimuoviVeicolo id={item.id} type={item.type} category={item.category} refParking={item.refParking} state={item.state} remove={this.remove} />
+                                </div>
+                            )))}     
+                        </div>
+                    </div>
                 </div>
             </div>
         );
