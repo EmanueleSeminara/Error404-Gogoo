@@ -1,7 +1,7 @@
 .buttonModify{
     background-color: #89f60d !important;
     color: #1d182e !important;
-    font-family: "Lato" !important;
+    font-family: "Futura Md BT" !important;
     font-style: normal;
   
     text-align: center !important;
@@ -17,7 +17,7 @@
 .buttonAnnulla{
     background-color: #ef462c !important;
     color: #1d182e !important;
-    font-family: "Lato" !important;
+    font-family: "Futura Md BT" !important;
     font-style: normal;
   
     text-align: center !important;
@@ -33,7 +33,7 @@
 .buttonModifyVeicle{
     background-color: #0df6e3 !important;
     color: #1d182e !important;
-    font-family: "Lato" !important;
+    font-family: "Futura Md BT" !important;
     font-style: normal;
     font-weight: 700 !important;
     font-size: 20px !important;
@@ -48,7 +48,51 @@
     margin-bottom: 30px;
 }
 
+.buttonModifyUser{
+    background-color: #0df6e3 !important;
+    color: #1d182e !important;
+    font-family: "Futura Md BT" !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 28px !important;
+    text-align: center !important;
+    width: 152px;
+    height: 70px;
+    border: none !important;
+    margin-top: 30px;
+    border-radius: 41.5px !important;
+    transform: scale(0.8);
+    margin-bottom: 30px;
+}
+
+.buttonModifyUser:hover{
+    box-shadow: 0px 0.5px 10px 0.5px #0df6e3 !important;
+}
+
 .buttonModifyVeicle:hover{
+    box-shadow: 0px 0.5px 10px 0.5px #0df6e3 !important;
+}
+
+.buttonRemove{
+    background-color: #0df6e3 !important;
+    color: #1d182e !important;
+    font-family: "Futura Md BT" !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 28px !important;
+    text-align: center !important;
+    width: 152px;
+    height: 70px;
+    border: none !important;
+    margin-top: 30px;
+    border-radius: 41.5px !important;
+    transform: scale(0.8);
+    margin-bottom: 30px;
+}
+
+.buttonRemove:hover{
     box-shadow: 0px 0.5px 10px 0.5px #0df6e3 !important;
 }
 
@@ -56,7 +100,7 @@
     border-radius: 41.5px !important;
     background-color: #0e0b15;
     box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
-    padding: 33px;
+    padding: 13px;
     
 
 }

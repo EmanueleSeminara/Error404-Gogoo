@@ -127,7 +127,7 @@ export default class Login extends Component {
                                     />
                                 </center> */}
                                 <div className="titleLogin">Login</div>
-                                <p>Please sign in to continue</p>
+                                <p style={{color: "grey"}}>Please sign in to continue</p>
 
                                 <AvForm className="formEmail" onValidSubmit={this.onValidSubmit}>
                                     <center>
