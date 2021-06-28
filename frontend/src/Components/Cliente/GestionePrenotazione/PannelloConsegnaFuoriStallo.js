@@ -42,7 +42,7 @@ export default class PannelloRitiroConsegna extends Component {
 
     remove = (reservationID, vehicleID, position) => {
         console.log(reservationID, vehicleID, position)
-        Axios.delete('/api/guest/deliveryoutofstall?id=0' + reservationID + '&refVehicle=' + vehicleID + '&position=' + position)
+        Axios.delete('/api/guest/deliveryoutofstall?id=' + reservationID + '&refVehicle=' + vehicleID + '&position=' + position)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
                 //window.location.href = '/pagamento';
