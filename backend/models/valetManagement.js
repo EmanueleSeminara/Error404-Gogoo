@@ -30,7 +30,7 @@ exports.listVehiclesByDestination = (idParcheggiatore) => {
 exports.listVehiclesInParking = (idParcheggiatore) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT r.refVehicle, v.type, v.category, r.refParkingC, r.refParkingR, r.id, r.dateR, r.dateC, u.name, u.surname FROM vehicles as v JOIN reservations as r ON v.id = r.refVehicle JOIN parkings as p ON r.refParkingC = p.position JOIN users AS u ON u.id=r.refGuest WHERE r.state='confirmed' AND r.refDriver='null' AND p.refValet = ? ORDER BY r.dateR";
+      "SELECT r.refVehicle, v.type, v.category, r.refParkingC, r.refParkingR, r.id, r.dateR, r.dateC, u.name, u.surname FROM vehicles as v JOIN reservations as r ON v.id = r.refVehicle JOIN parkings as p ON r.refParkingC = p.position JOIN users AS u ON u.id=r.refGuest WHERE r.state='confirmed' AND p.refValet = ? ORDER BY r.dateR";
     db.all(sql, [idParcheggiatore], (err, rows) => {
       if (err) {
         reject(err);
@@ -120,7 +120,7 @@ exports.retirevehicle = (reservation) => {
       ":" +
       date.getMinutes();
     const sql =
-      "UPDATE vehicles AS v SET state ='avalaible' WHERE v.id = ? AND EXISTS SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
+      "UPDATE vehicles AS v SET state ='avalaible' WHERE v.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
     db.run(
       sql,
       [
@@ -136,7 +136,7 @@ exports.retirevehicle = (reservation) => {
         }
         //resolve(this.lastID);
         const sql2 =
-          "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
+          "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateC>= ? AND p.refValet = ?)";
         db.run(
           sql2,
           [
