@@ -3,22 +3,25 @@ const db = require("../db/db");
 exports.listVehiclesByDestination = (idParcheggiatore) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT * FROM vehicles as v JOIN reservations as r ON v.id = r.refVehicle JOIN parkings as p ON r.refParkingC = p.position WHERE p.refValet = ? ORDER BY r.dateC";
+      "SELECT r.refVehicle, v.type, v.category, r.refParkingC, r.refParkingR, r.id, r.dateR, r.dateC, u.name, u.surname FROM vehicles as v JOIN reservations as r ON v.id = r.refVehicle JOIN parkings as p ON r.refParkingC = p.position JOIN users AS u ON u.id=r.refGuest WHERE p.refValet = ? ORDER BY r.dateR";
     db.all(sql, [idParcheggiatore], (err, rows) => {
       if (err) {
         reject(err);
         return;
       }
-      const veicoli = rows.map((v) => ({
-        idVehicle: v.id,
+      const vehicles = rows.map((v) => ({
+        id: v.refVehicle,
         type: v.type,
-        categoryr: v.category,
-        refParking: v.refParking,
-        idReservation: r.id,
-        DateR: r.dateR,
-        DateC: r.dateC,
+        category: v.category,
+        refParkingR: v.refParkingR,
+        refParkingC: v.refParkingC,
+        idReservation: v.id,
+        DateR: v.dateR,
+        DateC: v.dateC,
+        guestName: v.name,
+        guestSurname: v.surname,
       }));
-      resolve(veicoli);
+      resolve(vehicles);
     });
   });
 };
@@ -26,21 +29,25 @@ exports.listVehiclesByDestination = (idParcheggiatore) => {
 exports.listVehiclesInParking = (idParcheggiatore) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT * FROM vehicles WHERE refParking IN(SELECT position FROM parkings AS p JOIN users AS u ON p.refValet = u.id WHERE u.id = ?)";
+      "SELECT r.refVehicle, v.type, v.category, r.refParkingC, r.refParkingR, r.id, r.dateR, r.dateC, u.name, u.surname FROM vehicles as v JOIN reservations as r ON v.id = r.refVehicle JOIN parkings as p ON r.refParkingC = p.position JOIN users AS u ON u.id=r.refGuest WHERE u.id = ? ORDER BY r.dateC)";
     db.all(sql, [idParcheggiatore], (err, rows) => {
       if (err) {
         reject(err);
         return;
       }
-      const veicoli = rows.map((v) => ({
-        id: v.id,
+      const vehicles = rows.map((v) => ({
+        id: v.refVehicle,
         type: v.type,
-        categoryr: v.category,
-        refParking: v.refParking,
-        position: v.position,
-        state: v.state,
+        category: v.category,
+        refParkingR: v.refParkingR,
+        refParkingC: v.refParkingC,
+        idReservation: v.id,
+        DateR: v.dateR,
+        DateC: v.dateC,
+        guestName: v.name,
+        guestSurname: v.surname,
       }));
-      resolve(veicoli);
+      resolve(vehicles);
     });
   });
 };
