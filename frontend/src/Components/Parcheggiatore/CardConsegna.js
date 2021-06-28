@@ -56,7 +56,7 @@ export default class CardConsegna extends Component {
 
                             <div className="row" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                 <Button type="button" color="success" onClick={() => this.props.remove(this.props.id)} disabled={!this.state.consegna}>
-                                    Consegna
+                                    Preleva veicolo
                                 </Button>
                             </div>
                         </div>

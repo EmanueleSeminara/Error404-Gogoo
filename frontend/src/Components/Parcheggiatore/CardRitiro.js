@@ -59,7 +59,7 @@ export default class CardRitira extends Component {
 
                             <div className="row" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                 <Button type="button" color="primary" onClick={() => this.props.ritira(this.props.id, this.props.refVehicle)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.ritiro}>
-                                    Ritiro
+                                    Consegna al cliente
                                 </Button>
                             </div>
                         </div>

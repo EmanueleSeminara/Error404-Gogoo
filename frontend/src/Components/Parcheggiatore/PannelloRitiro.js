@@ -27,7 +27,7 @@ export default class PannelloRitiro extends Component {
             id: reservationID,
             refVehicle: vehicleID
         }
-        Axios.put('/api/vale/deliveryvehicle', data)
+        Axios.put('/api/valet/deliveryvehicle', data)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
             }).catch((err) => {
