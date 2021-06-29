@@ -31,38 +31,25 @@ import * as moment from 'moment';
 
 export default class CardPrenotazione extends Component {
 	state = {
-		id: "",
 		type: "",
 		refParkingR: "",
 		refParkingC: "",
 		dateR: "",
 		dateC: "",
-		refDriver: "",
-		refVehicle: "",
-		category: "",
-		positionR: "",
-		positionC: "",
 		modifica: false,
 		errore: false,
 	};
 
 	setting = () => {
-		this.setState({ id: this.props.id });
-		this.setState({ type: this.props.type });
 		this.setState({ refParkingR: this.props.refParkingR });
 		this.setState({ refParkingC: this.props.refParkingC });
 		this.setState({ dateR: this.props.dateR });
 		this.setState({ dateC: this.props.dateC });
-		this.setState({ refDriver: this.props.refDriver });
-		this.setState({ refVehicle: this.props.refVehicle });
-		this.setState({ category: this.props.category });
-		this.setState({ positionR: this.props.positionR });
-		this.setState({ positionC: this.props.positionC });
+		this.setState({ type: this.props.type });
 	};
 
 	componentDidMount() {
 		this.setting();
-		console.log(this.props.id + " sate " + this.props.state)
 	}
 
 	componentDidUpdate(propsPrecedenti) {
@@ -118,7 +105,7 @@ export default class CardPrenotazione extends Component {
 
 							<div className="row no-gutters">
 								<div className="col-md-12">
-									<p className="infoCard"><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
+									<p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
 									
 								</div>
 
@@ -126,22 +113,22 @@ export default class CardPrenotazione extends Component {
 							</div>
 							<div className="row no-gutters">
 								<div className="col-md-6">
-									<p className="infoCard"><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
-									{this.state.refParkingR != null &&
+									<p className="infoCard"><strong>Tipo:</strong> {this.state.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+									{this.props.refParkingR != null &&
 										<p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
 									}
-									{this.state.positionR != null &&
-										<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
+									{this.props.positionR != null &&
+										<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
 									}
 									<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.dateR}</p>
 								</div>
 								<div className="col-md-6">
-									<p className="infoCard"><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
-									{this.state.refParkingC != null &&
+											<p className="infoCard"><strong>Autista:</strong> {this.props.refDriver} </p>
+									{this.props.refParkingC != null &&
 										<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
 									}
-									{this.state.positionC != null &&
-										<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
+									{this.props.positionC != null &&
+										<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
 									}
 									<p className="infoCard"><strong>Data consegna:</strong>   {this.state.dateC}</p>
 								</div>
@@ -151,7 +138,7 @@ export default class CardPrenotazione extends Component {
 								<Button type="button" className="buttonModify" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
 									Modifica
 								</Button>
-								<Button type="button" className="buttonAnnulla" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
+								<Button type="button" className="buttonAnnulla" onClick={() => this.props.remove(this.props.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
 									Elimina
 								</Button>
 							</center>
@@ -163,7 +150,7 @@ export default class CardPrenotazione extends Component {
 					
 						
 								<AvForm>
-									{this.state.positionR == null &&
+									{this.props.positionR == null &&
 										<Row>
 											<Col>
 												<FormGroup>
