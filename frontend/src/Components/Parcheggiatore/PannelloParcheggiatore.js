@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import PannelloRitiro from "./PannelloRitiro"
 import PannelloConsegna from "./PannelloConsegna"
 import NavbarParcheggiatore from "../NavbarDipendente"
+import "../../ComponentsCss/PannellDipendente.css"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,8 +47,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#00151f",
-    /* width: 500, */
+    whidth: 100,
   },
 }));
 
@@ -72,7 +72,7 @@ export default function FullWidthTabs() {
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
+          indicatorColor="secondary"
           textColor="primary"
           variant="fullWidth"
           aria-label="full width tabs example"

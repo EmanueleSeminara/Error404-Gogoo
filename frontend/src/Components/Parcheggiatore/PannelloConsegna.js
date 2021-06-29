@@ -53,7 +53,7 @@ export default class PannelloConsegna extends Component {
         return (
             <div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "45vh" }}>
                 <div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
-                    <div style={{ backgroundColor: "#27394c", padding: "3vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+                    <div style={{ padding: "3vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
                     </div>
 
                     {<div>
