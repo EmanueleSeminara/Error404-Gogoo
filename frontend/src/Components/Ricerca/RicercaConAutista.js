@@ -82,8 +82,8 @@ export default class FormRicerca extends Component {
 		const reservation = {
 			id: null,
 			type: this.state.type,
-			refParkingR: null,
-			refParkingC: null,
+			refParkingR: 'Via Liibertà',
+			refParkingC: 'Via Liibertà',
 			dateR: this.state.dateR,
 			dateC: this.state.dateC,
 			category: this.state.category,
