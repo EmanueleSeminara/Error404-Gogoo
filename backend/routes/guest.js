@@ -291,8 +291,22 @@ router.delete("/deliveryoutofstall", isGuest, async (req, res) => {
     position: req.query.position,
   };
   try {
-    await guestManagement.deliveryOutOfStall(reservation);
+    const resp = await guestManagement.deliveryOutOfStall(reservation);
     res.status(201).end();
+  } catch (err) {
+    res.status(503).json({
+      error: "Database error when requesting vehicle status update - " + err,
+    });
+  }
+});
+
+router.get("/candeliveroutofstall", isGuest, async (res, req) => {
+  const reservation = {
+    refVehicle: req.query.refVehicle,
+    id: req.query.id,
+  };
+  try {
+    res.json(await guestManagement.canDeliverOutOfStall(reservation));
   } catch (err) {
     res.status(503).json({
       error: "Database error when requesting vehicle status update - " + err,

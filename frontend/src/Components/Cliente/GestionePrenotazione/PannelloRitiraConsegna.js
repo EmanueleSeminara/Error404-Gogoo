@@ -41,7 +41,7 @@ export default class PannelloRitiroConsegna extends Component {
                 <div className="row justify-content-md-center boxpannel ">
                 <div className="d-flex flex-column pannell-User ">
                     <center><div className="title">Ritiro e Consegna</div></center>
-                    {this.state.listReservation.length == 0 && <Alert severity="error">Non hai nessun metodo di pagamento</Alert>}
+                    {this.state.listReservation.length == 0 && <Alert severity="error">Non hai prenotazioni</Alert>}
                     <div className="d-flex flex-row flex-wrap justify-content-center">
 
                         {this.state.listReservation.map(((item) => (
