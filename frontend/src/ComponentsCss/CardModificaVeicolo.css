@@ -9,6 +9,8 @@
     border: none !important;
 }
 
+
+
 .buttonSeleziona:focus{
     box-shadow: 0px 0.5px 10px 0.5px #f6e30d !important;
     background-color: #f6e30d !important;

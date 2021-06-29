@@ -31,6 +31,7 @@ export default class PannelloRitiraConsegnaAutista extends Component {
                         this.setState({ listReservationDriver: res.data });
                     }).catch((err) => {
                         window.location.href = '/errorServer';
+                      
                     });
             }
         }
@@ -51,16 +52,15 @@ export default class PannelloRitiraConsegnaAutista extends Component {
         return (
             <div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "45vh" }}>
                 <div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
-                    <div style={{ backgroundColor: "#27394c", padding: "3vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
-                    </div>
+                   
 
-                    {<div>
+            
                         {/* this.state.listReservationDriver */data.map(((item) => (
-
+                            <div className="p-3">
                             <CardRitiraConsegnaAutista type={item.type} category={item.category} id={item.id} dateR={item.dateR} dateC={item.dateC} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} name={item.name} surname={item.surname} consegna={this.consegna} />
-
+                            </div>
                         )))}
-                    </div>}
+                    
                 </div>
             </div>
         );
