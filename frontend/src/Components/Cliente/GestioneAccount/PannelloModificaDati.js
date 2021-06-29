@@ -93,7 +93,7 @@ export default class Registrazione extends Component {
 		eighteenYearsAgo = eighteenYearsAgo.toJSON().split("T")[0];
 
 		return (
-			<div className="ez sfondo" style={{ height: "100%" }}>
+			<div className="ez sfondo no-scrollable" style={{ height: "100%" }}>
 				<NavbarCliente/>
 
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
