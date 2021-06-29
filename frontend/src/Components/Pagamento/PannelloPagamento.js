@@ -19,13 +19,31 @@ export default class PannelloPagamento extends Component {
 	}
 
 	componentDidMount() {
-		Axios.get('/api/guest/listpayments')
-			.then((res) => {
-				this.setState({ listpayments: res.data });
-				console.log(this.state.listpayments);
-			}).catch((err) => {
-				window.location.href = '/errorServer';
-			});
+		if (localStorage.getItem("utente") === null) {
+			window.location.href = '/'
+		} else {
+			let c = JSON.parse(localStorage.getItem("utente"));
+			if (c.role === "driver") {
+				window.location.href = "/pannelloAutista";
+			} else if (c.role === "valet") {
+				window.location.href = "/pannelloParcheggiatore";
+			} else if (c.role === "admin") {
+				window.location.href = "/pannelloAmministratore";
+			} else {
+				if (localStorage.getItem("price") !== null) {
+					Axios.get('/api/guest/listpayments')
+						.then((res) => {
+							this.setState({ listpayments: res.data });
+							console.log(this.state.listpayments);
+						}).catch((err) => {
+							window.location.href = '/errorServer';
+						});
+				} else {
+					window.location.href = '/ricerca';
+				}
+				
+			}
+		}
 	}
 
 	seleziona = (ID) => {

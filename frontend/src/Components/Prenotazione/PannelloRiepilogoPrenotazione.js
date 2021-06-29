@@ -40,13 +40,27 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 	}
 
 	async componentDidMount() {
-		if (localStorage.getItem("reservation") !== null) {
-			await this.setState({ reservation: JSON.parse(localStorage.getItem("reservation")) });
-			this.setPrice()
+		if (localStorage.getItem("utente") === null) {
+			window.location.href = '/'
 		} else {
-			window.location.href = '/ricerca';
+			let c = JSON.parse(localStorage.getItem("utente"));
+			if (c.role === "driver") {
+				window.location.href = "/pannelloAutista";
+			} else if (c.role === "valet") {
+				window.location.href = "/pannelloParcheggiatore";
+			} else if (c.role === "admin") {
+				window.location.href = "/pannelloAmministratore";
+			} else {
+				if (localStorage.getItem("reservation") !== null) {
+					await this.setState({ reservation: JSON.parse(localStorage.getItem("reservation")) });
+					this.setPrice()
+				} else {
+					window.location.href = '/ricerca';
+				}
+			}
 		}
 	}
+
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
