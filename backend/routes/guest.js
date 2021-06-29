@@ -271,7 +271,7 @@ router.put(
       id: req.body.id,
       refVehicle: req.body.refVehicle,
       position: req.body.position,
-      refParking: req.body.refParking,
+      refParkingC: req.body.refParkingC,
       type: req.body.type,
       category: req.body.category,
     };
@@ -281,7 +281,7 @@ router.put(
         reservation.position
       );
       const vehicle = await vehicleManagement.getSimilarVehicle(
-        reservation.refParking,
+        reservation.refParkingC,
         reservation.type,
         reservation.category
       );
