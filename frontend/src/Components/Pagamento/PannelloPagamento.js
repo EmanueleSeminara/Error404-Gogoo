@@ -74,10 +74,10 @@ export default class PannelloPagamento extends Component {
 						
 							{!this.state.selezionePagamento && <Alert severity="error" style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>Scegliere almeno un metodo di pagamento</Alert>}
 							<center>
-								<div class="col-12" style={{ marginTop: "30px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", backgroundColor: "#181521" }}>
+								<div class="col-12" style={{ marginTop: "30px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
 									<Label size="lg" style={{ fontSize: "1.85rem", color: "aliceblue" }}>Seleziona metodo di pagamento</Label>
 								</div>
-								<div class="col-12" style={{ backgroundColor: "#181521", paddingBottom: "20px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
+								<div class="col-12" style={{  paddingBottom: "20px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
 
 									{this.state.listpayments.map(((item) => (
 
