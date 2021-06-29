@@ -13,14 +13,28 @@ export default class PannelloRitiro extends Component {
     }
 
     componentDidMount() {
-        Axios.get('/api/valet/reservationsinmyparking')
-            .then((res) => {
-                console.log(res.data)
-                this.setState({ listReservation: res.data });
-            }).catch((err) => {
-                window.location.href = '/errorServer';
-            });
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "driver") {
+                window.location.href = "/pannelloAutista";
+            } else if (c.role === "guest") {
+                window.location.href = "/ricerca";
+            } else if (c.role === "admin") {
+                window.location.href = "/pannelloAmministratore";
+            } else {
+                Axios.get('/api/valet/reservationsinmyparking')
+                    .then((res) => {
+                        console.log(res.data)
+                        this.setState({ listReservation: res.data });
+                    }).catch((err) => {
+                        window.location.href = '/errorServer';
+                    });
+            }
+        }
     }
+
 
     ritira = (reservationID, vehicleID) => {
         const data = {
