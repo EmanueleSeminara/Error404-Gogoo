@@ -87,7 +87,7 @@ export default class Registrazione extends Component {
         sixteenYearsAgo = sixteenYearsAgo.toJSON().split("T")[0];
 
         return (
-            <div className="ez sfondo">
+            <div className="ez sfondo no-scrollable">
                 <Navbar />
                 {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 
@@ -97,7 +97,7 @@ export default class Registrazione extends Component {
                 >
 
                     <div
-                        className="row h-100 justify-content-md-center boxpannell"
+                        className="row justify-content-md-center boxpannell"
 
                     >
 
