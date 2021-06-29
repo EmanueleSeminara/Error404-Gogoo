@@ -97,7 +97,7 @@ export default class Registrazione extends Component {
                 >
 
                     <div
-                        className="row h-100 justify-content-md-center"
+                        className="row h-100 justify-content-md-center boxpannell"
 
                     >
 
