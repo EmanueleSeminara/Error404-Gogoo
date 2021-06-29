@@ -300,10 +300,21 @@ router.delete("/deliveryoutofstall", isGuest, async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 router.get("/candeliveroutofstall", isGuest, async (res, req) => {
   const reservation = {
     refVehicle: req.query.refVehicle,
     id: req.query.id,
+=======
+router.get("/candeliveroutofstall", isGuest, async (req, res) => {
+  console.log(
+    req.query.id,
+    req.query.refVehicle,
+  );
+  const reservation = {
+    id: req.query.id,
+    refVehicle: req.query.refVehicle
+>>>>>>> 3fcef8fc7b06d16b5b9128ffb2eadad8c40fb948
   };
   try {
     res.json(await guestManagement.canDeliverOutOfStall(reservation));
