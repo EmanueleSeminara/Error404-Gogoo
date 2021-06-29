@@ -58,6 +58,7 @@ export default class PannelloPagamento extends Component {
 		}
 		else {
 			//generazione pdf
+			window.localStorage.removeItem("price")
 			this.setState({ success: true });
 			this.setState({ selezionePagamento: true });
 
