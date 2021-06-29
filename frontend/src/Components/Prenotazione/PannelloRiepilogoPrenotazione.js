@@ -67,16 +67,17 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 	};
 
 	cancel = () => {
-		localStorage.removeItem("reservatiom");
+		window.localStorage.removeItem("reservation");
 		window.location.href = '/ricerca'
 	}
 
 	confirmation = () => {
 		Axios.post('/api/reservation/add', this.state.reservation)
-			.then( (res) => {
+			.then((res) => {
 				let price = Number(this.state.price) + Number(this.state.tip);
-				 window.localStorage.setItem("price", price);
+				window.localStorage.setItem("price", price);
 				window.location.href = '/pagamento'
+				window.localStorage.removeItem("reservation")
 			})
 			.catch((err) => {
 				console.log(err);
@@ -123,7 +124,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 										<div className="col-md-12">
 
 											<center><h5 style={{ marginBottom: "50px" }} className="title">Riepilogo prenotazione</h5></center>
-											 <p className="infoCard"><strong>ID veicolo:  {this.state.reservation.refVehicle}</strong></p>
+											<p className="infoCard"><strong>ID veicolo:  {this.state.reservation.refVehicle}</strong></p>
 											<hr style={{ backgroundColor: "white" }} />
 										</div>
 
@@ -131,26 +132,26 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 									</div>
 									<div className="row no-gutters">
 										<div className="col-md-6">
-											 <p className="infoCard"><strong>Tipo:</strong> {this.state.reservation.type} {this.state.reservation.type === "car" ? <> {this.state.reservation.category}</> : <></>}</p>
+											<p className="infoCard"><strong>Tipo:</strong> {this.state.reservation.type} {this.state.reservation.type === "car" ? <> {this.state.reservation.category}</> : <></>}</p>
 											{this.state.reservation.refParkingR != null &&
-												 <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.reservation.refParkingR}</p>
+												<p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.reservation.refParkingR}</p>
 											}
 											{this.state.reservation.positionR != null &&
-												 <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.state.reservation.positionR}</p>
+												<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.state.reservation.positionR}</p>
 											}
-											 <p className="infoCard"><strong>Data ritiro:</strong>   {this.state.reservation.dateR}</p>
+											<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.reservation.dateR}</p>
 										</div>
 										<div className="col-md-6">
-											 <p className="infoCard"><strong>Autista:</strong> {this.state.reservation.refDriver}</p>       {/* TODO ########### */}
+											<p className="infoCard"><strong>Autista:</strong> {this.state.reservation.refDriver}</p>       {/* TODO ########### */}
 											{this.state.reservation.refParkingC != null &&
-												 <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.reservation.refParkingC}</p>
+												<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.reservation.refParkingC}</p>
 											}
 											{this.state.reservation.positionC != null &&
-												 <p className="infoCard"><strong>Posizione di consegna:</strong>   {this.state.reservation.positionC}</p>
+												<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.state.reservation.positionC}</p>
 											}
-											 <p className="infoCard"><strong>Data consegna:</strong>   {this.state.reservation.dateC}</p>
+											<p className="infoCard"><strong>Data consegna:</strong>   {this.state.reservation.dateC}</p>
 										</div>
-										 <p className="infoCard"><strong>price:</strong>   {this.state.price}</p>
+										<p className="infoCard"><strong>price:</strong>   {this.state.price}</p>
 									</div>
 
 									<div>
@@ -162,7 +163,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 													name="nome"
 													type="number"
 													label="Inserire una mancia per l'autista (opzionale)"
-													onChange={this.handleChange("tip")} 
+													onChange={this.handleChange("tip")}
 													style={{ label: { color: "white" } }}
 													min={0}
 												/>

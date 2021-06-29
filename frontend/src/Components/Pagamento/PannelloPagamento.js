@@ -58,6 +58,7 @@ export default class PannelloPagamento extends Component {
 		}
 		else {
 			//generazione pdf
+			window.localStorage.removeItem("price")
 			this.setState({ success: true });
 			this.setState({ selezionePagamento: true });
 
@@ -86,7 +87,7 @@ export default class PannelloPagamento extends Component {
 										<CardPagamento name={item.name} surname={item.surname} number={item.number} id={item.id} seleziona={this.seleziona} />
 
 									)))}
-									<h6>Prezzo da pagare: {this.state.price}€</h6>
+									<h6>Prezzo da pagare: {this.state.price}€ </h6>
 								</div>
 								<Button className="buttonCyano" type="submit" style={{ marginTop: "30px", marginBottom: "30px" }}>  Paga  </Button>
 							</center>
