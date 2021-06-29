@@ -116,7 +116,16 @@
     transform: scale(0.5);
 }
 
-#parcheggioPartenza{
+#parcheggioPartenza, #Partenza, #Arrivo{
+    height: 45px;
+    background: #39304d;
+    border-radius: 10px;
+    border: none;
+    color: lavender;
+  
+}
+
+#parcheggioArrivo{
     height: 45px;
     background: #39304d;
     border-radius: 10px;

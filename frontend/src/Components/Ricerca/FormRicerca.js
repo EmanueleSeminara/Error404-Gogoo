@@ -55,48 +55,51 @@ export default class FormRicerca extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="ez sfondo" style={{ height: "100%" }}>
 				<NavbarCliente />
-			<div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "85vh" }}>
-				<div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
-					<div style={{ backgroundColor: "#27394c", padding: "1vh", paddingTop: "1vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+				<div className="row h-100 justify-content-md-center boxpannel">
+				<div className="d-flex flex-column pannell-User boxRicerca ">
+				
 						<center>
-							<ButtonGroup style={{ margin: "10px" }}>
+						<ButtonGroup style={{ marginBottom:"20px", flexWrap: "wrap" ,  marginTop:"20px"}}>
 								<Button
-									color="primary"
+									className="buttonCyanoGruoup "
 									onClick={() => {
 										this.setRSelected("1");
 										this.setState({ type: "car" });
 									}}
 									active={this.state.rSelected === "1"}
+									size="lg"
 								>
 									Veicoli nei parcheggi
 								</Button>
 								<Button
-									color="primary"
+									className="buttonCyanoGruoup "
 									onClick={() => {
 										this.setRSelected("2");
 										this.setState({ type: "car" });
 										this.setState({ refParkingR: "" });
 									}}
 									active={this.state.rSelected === "2"}
+									size="lg"
 								>
-									Automobili fuori stallo
+									Automobili vicino a te
 								</Button>
 								<Button
-									color="primary"
+									className="buttonCyanoGruoup "
 									onClick={() => {
 										this.setRSelected("3");
 										this.setState({ type: "car" });
 										this.setState({ refParkingR: "" });
 										this.setState({ refParkingC: "" });
 									}} active={this.state.rSelected === "3"}
+									size="lg"
 								>
 									Automobile con autista
 								</Button>
 							</ButtonGroup>
 						</center>
-					</div>
+					
 					{this.state.rSelected === "1" &&
 						<RicercaVeicoli/>
 					}
