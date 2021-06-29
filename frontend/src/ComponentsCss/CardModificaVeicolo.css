@@ -10,7 +10,15 @@
 }
 
 .buttonSeleziona:focus{
-    box-shadow: 0px 0.5px 10px 0.5px #89f60d !important;
+    box-shadow: 0px 0.5px 10px 0.5px #f6e30d !important;
+    background-color: #f6e30d !important;
+    color: #1d182e !important;
+    font-family: "Futura Md BT" !important;
+    font-style: normal;
+  
+    text-align: center !important;
+  
+    border: none !important;
 }
 
 .buttonModify:hover, .buttonSeleziona:hover{
