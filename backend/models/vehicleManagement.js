@@ -81,10 +81,10 @@ exports.updateVehicle = (vehicle) => {
 };
 
 
-exports.getSimilarVehicle = (vehicle) => {
+exports.getSimilarVehicle = (refParking, type, category) => {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT v.id FROM vehicles AS v WHERE v.position = ? AND v.state != 'damage' AND v.type = ? AND v.category = ? AND v.id NOT IN(SELECT refVehicle FROM reservations) LIMIT 1";
-    db.get(sql, [vehicle.position, vehicle.type, vehicle.category], (err, row) => {
+    const sql = "SELECT v.id FROM vehicles AS v WHERE v.refParking = ? AND v.state != 'damage' AND v.type = ? AND v.category = ? AND v.id NOT IN(SELECT refVehicle FROM reservations) LIMIT 1";
+    db.get(sql, [refParking, type, category], (err, row) => {
       if (err) {
         reject(err);
         return;

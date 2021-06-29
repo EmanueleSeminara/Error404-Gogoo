@@ -267,10 +267,29 @@ router.put(
       console.log(errors.array());
       return res.status(422).json({ errors: errors.array() });
     }
+    const reservation = {
+      id: req.body.id,
+      refVehicle: req.body.refVehicle,
+      position: req.body.position,
+      refParking: req.body.refParking,
+      type: req.body.type,
+      category: req.body.category,
+    };
     try {
-      await guestManagement.damagedVehicle(req.body.id, req.body.position);
-      const vehicle = await vehicleManagement.getSimilarVehicle;
-      await reservationManagement.updateVehicleInReservation(vehicle);
+      await guestManagement.damagedVehicle(
+        reservation.refVehicle,
+        reservation.position
+      );
+      const vehicle = await vehicleManagement.getSimilarVehicle(
+        reservation.refParking,
+        reservation.type,
+        reservation.category
+      );
+      await reservationManagement.updateVehicleInReservation(
+        reservation.refVehicle,
+        vehicle
+      );
+      await reservationManagement.deleteReservationById(reservation.id);
       res.status(201).end();
     } catch (err) {
       res.status(503).json({
