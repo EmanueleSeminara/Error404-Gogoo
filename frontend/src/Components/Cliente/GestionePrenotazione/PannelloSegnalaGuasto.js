@@ -30,7 +30,7 @@ export default class PannelloSegnalaGuasto extends Component {
             id: reservationID,
             position: position,
             refVehicle: vehicleID,
-            refParkingc: refParkingC,
+            refParkingC: refParkingC,
             type: type,
             category: category,
         }
