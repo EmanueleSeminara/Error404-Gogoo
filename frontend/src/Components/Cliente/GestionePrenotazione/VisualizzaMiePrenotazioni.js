@@ -27,7 +27,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
             } else if (c.role === "valet") {
                 window.location.href = "/pannelloParcheggiatore";
             } else {
-                Axios.get('/api/reservation/myreservations')
+                Axios.get('/api/resevation/myreservationsnotwithdrawn')
                     .then((res) => {
                         this.setState({ listReservation: res.data })
                         console.log(this.state.listReservation)
