@@ -178,16 +178,6 @@ export default class CardPrenotazione extends Component {
 										</Row>
 									}
 									<Row>
-										{/*<Col >
-                                            <Label sm={12}>Partenza</Label>
-                                            <Input type="select" name="selectRitiro" id="parcheggioRitiro" onClick={this.handleChange("refParkingR")} >
-                                                <option>Via Libertà</option>
-                                                <option>Via Roma</option>
-                                                <option>Via Ernesto Basile</option>
-                                                <option>Viale Regione</option>
-                                                <option>Via Tersicore</option>
-                                            </Input>
-                                        </Col>*/}
 										<Col>
 											<Label sm={12}>Destinazione</Label>
 											<Input type="select" name="selectConsegna" id="parcheggioConsegna" onClick={this.handleChange("refParkingC")} >
