@@ -37,13 +37,17 @@ export default class FormRicerca extends Component {
 	};
 
 	componentDidMount() {
-		if (localStorage.getItem("utente") !== null) {
+		if (localStorage.getItem("utente") === null) {
+			window.location.href = '/'
+		} else {
 			let c = JSON.parse(localStorage.getItem("utente"));
-			if (c.role === "admin") {
+			if (c.role === "driver") {
+				window.location.href = "/pannelloAutista";
+			} else if (c.role === "valet") {
+				window.location.href = "/pannelloParcheggiatore";
+			} else if (c.role === "admin") {
 				window.location.href = "/pannelloAmministratore";
 			}
-		} else {
-			window.location.href = "/login";
 		}
 	}
 
@@ -58,10 +62,10 @@ export default class FormRicerca extends Component {
 			<div className="ez sfondo" style={{ height: "100%" }}>
 				<NavbarCliente />
 				<div className="row h-100 justify-content-md-center boxpannel">
-				<div className="d-flex flex-column pannell-User boxRicerca ">
-				
+					<div className="d-flex flex-column pannell-User boxRicerca ">
+
 						<center>
-						<ButtonGroup style={{ marginBottom:"20px", flexWrap: "wrap" ,  marginTop:"20px"}}>
+							<ButtonGroup style={{ marginBottom: "20px", flexWrap: "wrap", marginTop: "20px" }}>
 								<Button
 									className="buttonCyanoGruoup "
 									onClick={() => {
@@ -83,7 +87,7 @@ export default class FormRicerca extends Component {
 									active={this.state.rSelected === "2"}
 									size="lg"
 								>
-									Automobili vicino a te
+									Automobili fuori stallo
 								</Button>
 								<Button
 									className="buttonCyanoGruoup "
@@ -99,19 +103,19 @@ export default class FormRicerca extends Component {
 								</Button>
 							</ButtonGroup>
 						</center>
-					
-					{this.state.rSelected === "1" &&
-						<RicercaVeicoli/>
-					}
-					{this.state.rSelected === "2" &&
-						<RicercaFuoriStallo/>
-					}
-					{this.state.rSelected === "3" &&
-						<RicercaConAutista/>
-					}
 
+						{this.state.rSelected === "1" &&
+							<RicercaVeicoli />
+						}
+						{this.state.rSelected === "2" &&
+							<RicercaFuoriStallo />
+						}
+						{this.state.rSelected === "3" &&
+							<RicercaConAutista />
+						}
+
+					</div>
 				</div>
-			</div>
 			</div>
 		);
 	}

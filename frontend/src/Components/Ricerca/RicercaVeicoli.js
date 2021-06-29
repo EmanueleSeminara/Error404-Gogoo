@@ -190,9 +190,13 @@ export default class FormRicerca extends Component {
 
 			
 				</AvForm>
+				<div class="d-flex flex-column">
 				{this.state.list.map(((item) => (
+					<div className="p-3 ">
 					<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} />
+					</div>
 				)))}
+			</div>
 			</div>
 		);
 	}

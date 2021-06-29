@@ -15,14 +15,27 @@ export default class PannelloRimuoviVeicolo extends Component {
         type: "car",
     };
 
-        componentDidMount() {
-            Axios.get('/api/vehicle/listvehicle/car')
-                .then((res) => {
-                    this.setState({ listvehicles: res.data });
-                }).catch((err) => {
-                    window.location.href = '/errorServer';
-                });
+    componentDidMount() {
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "driver") {
+                window.location.href = "/pannelloAutista";
+            } else if (c.role === "guest") {
+                window.location.href = "/ricerca";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            } else {
+                Axios.get('/api/vehicle/listvehicle/car')
+                    .then((res) => {
+                        this.setState({ listvehicles: res.data });
+                    }).catch((err) => {
+                        window.location.href = '/errorServer';
+                    });
+            }
         }
+    }
 
     search = () => {
         console.log("SONO DENTRO SEARCH")
@@ -99,13 +112,13 @@ export default class PannelloRimuoviVeicolo extends Component {
                                 Bicicletta
                             </Button>
                         </ButtonGroup>
-                        
-                        <div class="d-flex flex-column">              
+
+                        <div class="d-flex flex-column">
                             {this.state.listvehicles.map(((item) => (
                                 <div className="p-3 carta">
                                     <CardRimuoviVeicolo id={item.id} type={item.type} category={item.category} refParking={item.refParking} state={item.state} remove={this.remove} />
                                 </div>
-                            )))}     
+                            )))}
                         </div>
                     </div>
                 </div>

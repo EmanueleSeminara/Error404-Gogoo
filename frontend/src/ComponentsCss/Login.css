@@ -84,12 +84,12 @@
 }
 
 .title {
-  margin-top: 10px!important;
+ 
   margin-bottom: 30px!important;
   font-family: "Futura Md BT" !important;
   font-style: normal;
   font-weight: normal;
-  font-size: 38px;
+  font-size: 30px;
   line-height: 58px;
 
   color: #ffffff;
@@ -166,6 +166,9 @@
     align-items: center;
   
   }
+  .MuiAlert-root {
+    margin-top: 60px;
+}
 }
 
 #root {

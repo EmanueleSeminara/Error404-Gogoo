@@ -41,6 +41,21 @@ export default class PannelloRimuoviCliente extends Component {
 		modifica: false,
 	};
 
+	componentDidMount() {
+		if (localStorage.getItem("utente") === null) {
+			window.location.href = '/'
+		} else {
+			let c = JSON.parse(localStorage.getItem("utente"));
+			if (c.role === "driver") {
+				window.location.href = "/pannelloAutista";
+			} else if (c.role === "guest") {
+				window.location.href = "/ricerca";
+			} else if (c.role === "valet") {
+				window.location.href = "/pannelloParcheggiatore";
+			}
+		}
+	}
+
 
 	setRSelected = (type) => {
 		this.setState({ role: type });
@@ -90,10 +105,10 @@ export default class PannelloRimuoviCliente extends Component {
 							
 
 								<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-									<Button color="primary" onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
-									<Button color="primary" onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
-									<Button color="primary" onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
-									<Button color="primary" onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
+									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
+									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
+									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
+									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
 								</ButtonGroup>
 						
 					

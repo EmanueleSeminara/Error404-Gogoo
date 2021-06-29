@@ -1,4 +1,4 @@
-.buttonModify{
+.buttonModify, .buttonSeleziona, .buttonVerde{
     background-color: #89f60d !important;
     color: #1d182e !important;
     font-family: "Futura Md BT" !important;
@@ -9,7 +9,21 @@
     border: none !important;
 }
 
-.buttonModify:hover{
+
+
+.buttonSeleziona:focus{
+    box-shadow: 0px 0.5px 10px 0.5px #f6e30d !important;
+    background-color: #f6e30d !important;
+    color: #1d182e !important;
+    font-family: "Futura Md BT" !important;
+    font-style: normal;
+  
+    text-align: center !important;
+  
+    border: none !important;
+}
+
+.buttonModify:hover, .buttonSeleziona:hover, .buttonVerde:hover{
     box-shadow: 0px 0.5px 10px 0.5px #89f60d !important;
  
 }
@@ -98,6 +112,26 @@
 
 .card-css{
     border-radius: 41.5px !important;
+    background-color: #14101e;
+    box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
+    padding: 13px;
+ 
+    
+
+}
+
+.card-css-RC{
+    border-radius: 41.5px !important;
+    background-color: #14101e;
+    box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
+    padding: 13px;
+    
+    
+
+}
+
+.card-css-pagamento{
+    border-radius: 11.5px !important;
     background-color: #14101e;
     box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
     padding: 13px;

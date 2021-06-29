@@ -26,18 +26,31 @@ export default class Registrazione extends Component {
 	};
 
 		componentDidMount() {
-			Axios.get('/api/guest/getdatacarlicense')
-				.then((res) => {
-					this.setState({ number: res.data.number });
-					this.setState({ date: res.data.date });
-					this.setState({ a: res.data.a });
-					this.setState({ am: res.data.am });
-					this.setState({ a1: res.data.a1 });
-					this.setState({ a2: res.data.a2 });
-					this.setState({ b: res.data.b });
-				}).catch((err) => {
-					window.location.href = "/serverError"
-				});
+			if (localStorage.getItem("utente") === null) {
+				window.location.href = '/'
+			} else {
+				let c = JSON.parse(localStorage.getItem("utente"));
+				if (c.role === "driver") {
+					window.location.href = "/pannelloAutista";
+				} else if (c.role === "admin") {
+					window.location.href = "/pannelloAmministratore";
+				} else if (c.role === "valet") {
+					window.location.href = "/pannelloParcheggiatore";
+				} else {
+					Axios.get('/api/guest/getdatacarlicense')
+						.then((res) => {
+							this.setState({ number: res.data.number });
+							this.setState({ date: res.data.date });
+							this.setState({ a: res.data.a });
+							this.setState({ am: res.data.am });
+							this.setState({ a1: res.data.a1 });
+							this.setState({ a2: res.data.a2 });
+							this.setState({ b: res.data.b });
+						}).catch((err) => {
+							window.location.href = "/serverError"
+						});
+				}
+			}
 		}
 
 	handleChange = (input) => (e) => {
@@ -94,7 +107,7 @@ export default class Registrazione extends Component {
 					<div
 						className="row h-100 justify-content-md-center  boxpannel "
 					>
-						<div className="col-9 bg-pannell">
+						<div className="bg-pannell">
 							<div >
 								<div className="title">Aggiorna Patente</div>
 								{/* Riga numero e scadenza */}

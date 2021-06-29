@@ -21,17 +21,30 @@ export default class Registrazione extends Component {
 	};
 
 	componentDidMount() {
-		Axios.get('/api/guest/mydata')
-			.then((res) => {
-				console.log(res);
-				this.setState({ name: res.data.name });
-				this.setState({ surname: res.data.surname });
-				this.setState({ email: res.data.email });
-				this.setState({ birthdate: res.data.birthdate });
-				this.setState({ phone: res.data.phone });
-			}).catch((err) => {
-				window.location.href = "/serverError"
-			});
+		if(localStorage.getItem("utente") === null){
+			window.location.href = '/'
+		} else {
+			let c = JSON.parse(localStorage.getItem("utente"));
+			if (c.role === "driver") {
+				window.location.href = "/pannelloAutista";
+			} else if (c.role === "admin") {
+				window.location.href = "/pannelloAmministratore";
+			} else if (c.role === "valet") {
+				window.location.href = "/pannelloParcheggiatore";
+			} else {
+				Axios.get('/api/guest/mydata')
+					.then((res) => {
+						console.log(res);
+						this.setState({ name: res.data.name });
+						this.setState({ surname: res.data.surname });
+						this.setState({ email: res.data.email });
+						this.setState({ birthdate: res.data.birthdate });
+						this.setState({ phone: res.data.phone });
+					}).catch((err) => {
+						window.location.href = "/serverError"
+					});
+			}
+		}
 	}
 
 	handleChange = (input) => (e) => {

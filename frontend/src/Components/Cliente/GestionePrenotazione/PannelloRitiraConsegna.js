@@ -14,15 +14,29 @@ export default class PannelloRitiroConsegna extends Component {
         listReservation: [],
     };
 
+
     componentDidMount() {
-        Axios.get('/api/reservation/myreservations')
-            .then((res) => {
-                this.setState({ listReservation: res.data })
-                console.log(this.state.listReservation)
-            }).catch((err) => {
-                console.log(err);
-                //window.location.href = '/errorServer'
-            })
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "driver") {
+                window.location.href = "/pannelloAutista";
+            } else if (c.role === "admin") {
+                window.location.href = "/pannelloAmministratore";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            } else {
+                Axios.get('/api/reservation/myreservations')
+                    .then((res) => {
+                        this.setState({ listReservation: res.data })
+                        console.log(this.state.listReservation)
+                    }).catch((err) => {
+                        console.log(err);
+                        //window.location.href = '/errorServer'
+                    })
+            }
+        }
     }
 
     remove = (reservationID) => {

@@ -14,12 +14,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
 
 
+
 import {
-    Button, ListGroupItem, Label, Col, Input, ListGroup,  FormGroup, 
+    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup,
 } from 'reactstrap';
 
 import {
     AvForm,
+	AvGroup,
+	AvField,
 } from "availity-reactstrap-validation";
 
 import {
@@ -36,7 +39,8 @@ export default class CardSegnalaGuasto extends Component {
         consegna: false,
         id: this.props.id,
         errore: false,
-        mostra: false,
+        mostraRitardo: false,
+        mostraCambiaLuogo: false,
         disabled: true,
         viaRiferimento: "",
 
@@ -50,10 +54,12 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ ritiro: bool });
     }
 
-    setMostra = (bool) => {
-        this.setState({ mostra: bool });
-        this.setState({ disabled: true });
+    setMostra = (input) => {
+        this.setState({ [input]: !this.state[input] });
+        
+        
     }
+
 
     setConsegna = (bool) => {
         this.setState({ consegna: bool });
@@ -65,6 +71,7 @@ export default class CardSegnalaGuasto extends Component {
 
     onValidSubmit = (event) => {
         event.preventDefault();
+        this.setState({ disabled: true });
         this.setState({ mostra: false });
 
     };
@@ -83,67 +90,69 @@ export default class CardSegnalaGuasto extends Component {
     render() {
         return (
             <div>
-           <div className="card card-css">
-           <center>
-                <div className="row no-gutters">
-                    <div className="col">
-                        <div className="card-body">
-
-                            <div className="row no-gutters">
-                                <div className="col-md-12">
-                                    <h3 className="infoCard">Id veicolo:  {this.props.id}{/* {props.idVeicolo} */}</h3>
-                                    <hr style={{ backgroundColor: "white" }} />
-                                </div>
-
-
-                            </div>
-                            <div className="row no-gutters">
-                                <div className="col-md-6">
-                                    <p className="infoCard"><strong>Tipo:</strong> {this.props.tipo}</p>
-                                    <p className="infoCard"><strong>parcheggio ritiro:</strong>   {this.props.parcRitiro}</p>
-                                    <p className="infoCard"><strong>data ritiro:</strong>   {this.props.dataRitiro}</p>
-                                </div>
-                                <div className="col-md-6">
-                                    <p className="infoCard"><strong>Autista:</strong> {this.props.autista}</p>
-                                    <p className="infoCard"><strong>parcheggio consegna:</strong>   {this.props.parcConsegna}</p>
-                                    <p className="infoCard"><strong>data consegna:</strong>   {this.props.dataConsegna}</p>
-                                </div>
-                            </div>
-                            <center>
-                                <Button type="button" className="buttonRed" onClick={() => this.setMostra(true)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={this.state.ritiro}>
-                                    Ritardo consegna
-                                </Button>
-                            </center>
-                        </div>
-                    </div>
-                </div>
-                {(this.state.mostra) &&
+                <div className="card card-css">
                     <center>
-                 
-                      
+                        <div className="row no-gutters">
+                            <div className="col">
+                                <div className="card-body">
 
+                                    <div className="row no-gutters">
+                                        <div className="col-md-12">
+                                            <h3 className="infoCard">Id veicolo:  {this.props.id}{/* {props.idVeicolo} */}</h3>
+                                            <hr style={{ backgroundColor: "white" }} />
+                                        </div>
+
+
+                                    </div>
+                                    <div className="row no-gutters">
+                                        <div className="col-md-6">
+                                            <p className="infoCard"><strong>Tipo:</strong> {this.props.tipo}</p>
+                                            <p className="infoCard"><strong>parcheggio ritiro:</strong>   {this.props.parcRitiro}</p>
+                                            <p className="infoCard"><strong>data ritiro:</strong>   {this.props.dataRitiro}</p>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p className="infoCard"><strong>Autista:</strong> {this.props.autista}</p>
+                                            <p className="infoCard"><strong>parcheggio consegna:</strong>   {this.props.parcConsegna}</p>
+                                            <p className="infoCard"><strong>data consegna:</strong>   {this.props.dataConsegna}</p>
+                                        </div>
+                                    </div>
+                                    <center>
+                                        <div className="row justify-content-md-center">
+                                            <Button type="button" className="buttonRed" onClick={() => this.setMostra("mostraRitardo")} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
+                                                Ritardo consegna
+                                            </Button>
+                                            <Button type="button" className="buttonVerde" onClick={() => this.setMostra("mostraCambiaLuogo")} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
+                                                Cambia luogo consegna
+                                            </Button>
+                                        </div>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        {(this.state.mostraRitardo) &&
+                            <center>
                                 <AvForm onValidSubmit={this.onValidSubmit}>
                                     <Col>
-                                      
-                                            <center>
+
+                                        <center>
                                             <Label for="exampleText" >Ora della consegna</Label>
-                                                <div className="row " style={{ marginTop: "10px", marginBotton: "20px" }}>
-                                                
-                                                    <div className="col">
-                                                        
-                                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                            <TimePicker inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.DataPartenza} onChange={this.handleChangeDatePartenza} />
-                                                        </MuiPickersUtilsProvider>
-                                                    </div>
+                                            <div className="row " style={{ marginTop: "10px", marginBotton: "20px" }}>
+
+                                                <div className="col">
+
+                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                        <TimePicker inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.DataPartenza} onChange={this.handleChangeDatePartenza} />
+                                                    </MuiPickersUtilsProvider>
                                                 </div>
-                                            </center>
-                                    
+                                            </div>
+                                        </center>
+
                                     </Col >
 
-                                    <FormGroup row style={{marginTop: "10px"}}>
+                                    <FormGroup row style={{ marginTop: "10px" }}>
 
                                         <Col >
-                                            <Label for="exampleText" style={{marginTop: "20px" }} >Motivo del ritardo (opzionale)</Label>
+                                            <Label for="exampleText" style={{ marginTop: "20px" }} >Motivo del ritardo (opzionale)</Label>
                                             <Input type="textarea" name="text" id="exampleText" />
                                         </Col>
                                     </FormGroup>
@@ -154,11 +163,52 @@ export default class CardSegnalaGuasto extends Component {
                                         Conferma
                                     </Button>
                                 </AvForm>
-                
-                        {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
-                    </center>}
-                        </center>
-            </div>
+
+                                {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
+                            </center>}
+                        {(this.state.mostraCambiaLuogo) &&
+                            <center>
+                                <AvForm onValidSubmit={this.onValidSubmit}>
+                                    <Col>
+
+                                        <center>
+                                       
+                                            <div className="row " style={{ marginTop: "10px", marginBotton: "20px" }}>
+
+                                                <div className="col">
+
+                                                    <AvField type="select" name="parcheggioArrivo" label="Consegna" onClick={this.handleChange("refParkingC")}>
+                                                        <option>Via Libertà</option>
+                                                        <option>Via Roma</option>
+                                                        <option>Via Ernesto Basile</option>
+                                                        <option>Viale Regione</option>
+                                                        <option>Via Tersicore</option>
+                                                    </AvField>
+                                                </div>
+                                            </div>
+                                        </center>
+
+                                    </Col >
+
+                                    <FormGroup row style={{ marginTop: "10px" }}>
+
+                                        <Col >
+                                            <Label for="exampleText" style={{ marginTop: "20px" }} >Motivo del ritardo (opzionale)</Label>
+                                            <Input type="textarea" name="text" id="exampleText" />
+                                        </Col>
+                                    </FormGroup>
+
+                                    {/* Pulsante Conferma*/}
+
+                                    <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
+                                        Conferma
+                                    </Button>
+                                </AvForm>
+
+                                {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
+                            </center>}
+                    </center>
+                </div>
             </div>
         );
     }
