@@ -61,7 +61,7 @@ export default class PannelloPagamento extends Component {
 			window.localStorage.removeItem("price")
 			this.setState({ success: true });
 			this.setState({ selezionePagamento: true });
-
+			setTimeout(() => { window.location.href="/ricerca" }, 5000);
 		}
 	};
 
@@ -95,8 +95,7 @@ export default class PannelloPagamento extends Component {
 							</center>
 
 							{this.state.success &&
-								<Alert severity="success" style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>Pagamento confermato</Alert>
-								//aggiungere tasto per tornare alla home
+								<Alert severity="success" style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>Pagamento confermato, tra 5 secondi verrai reindirizzato alla ricerca</Alert>
 							}
 
 

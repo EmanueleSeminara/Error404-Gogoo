@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 const reservationManagement = require("../models/reservationManagement");
+const userManagement = require("../models/userManagement");
 const isGuest = require("../middleware/isGuest");
 const mail = require("../models/mail");
 
@@ -92,8 +93,31 @@ router.post(
     console.log(reservation);
 
     try {
-      await reservationManagement.addReservation(reservation, req.user.id);
-      mail.sendNewReservationMail(req.user.email, req.user.name);
+      const idReservation = await reservationManagement.addReservation(reservation, req.user.id);
+      console.log("idReservation: " + idReservation);
+      mail.sendNewReservationMail(req.user.email, req.user.name, idReservation);
+      const deliveryDate = new Date(reservation.dateC).getTime();
+      const nowDate = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Rome"})).getTime();
+      const deliveryDatetime =  deliveryDate - nowDate;
+      
+      setTimeout(async () => {
+        try{
+          const isInReservations = await reservationManagement.isInReservations(req.user.id, idReservation);
+          console.log("isInReservation: " + isInReservations);
+          if(isInReservations){
+            mail.sendsendExpiredDeliveryMail(req.user.email, req.user.name, idReservation);
+            const admins = await userManagement.getAllAdmins();
+            admins.forEach((admin) => {
+              mail.sendsendExpiredDeliveryMail(admin.email, 'Admin', idReservation);
+            })
+            console.log("MANDA EMAIL!!");
+          }
+        }catch(err){
+          console.log(err);
+        }
+        
+        //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
+      }, deliveryDatetime);
       res.status(201).end();
     } catch (err) {
       if (err.errno == 19) {

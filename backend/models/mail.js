@@ -195,7 +195,7 @@ exports.sendPaymentMethodAddedMail = (email, name) => {
   );
 };
 
-exports.sendNewReservationMail = (email, name) => {
+exports.sendNewReservationMail = (email, name, id) => {
   transporter.sendMail(
     {
       from: process.env.MAIL_USER,
@@ -204,7 +204,7 @@ exports.sendNewReservationMail = (email, name) => {
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the booking of your vehicle has been confirmed!\n\nGogoo Team",
+        ",\n\nWe inform you that the booking of your vehicle with id " + id + " has been confirmed!\n\nGogoo Team",
     },
     function (error, info) {
       if (error) {
@@ -247,6 +247,27 @@ exports.sendReservationEditedMail = (email, name, id) => {
         "Dear " +
         name +
         ",\n\nWe inform you that the reservation with id " + id + " has been edited\n\nGogoo Team",
+    },
+    function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    }
+  );
+};
+
+exports.sendsendExpiredDeliveryMail = (email, name, id) => {
+  transporter.sendMail(
+    {
+      from: process.env.MAIL_USER,
+      to: email,
+      subject: "Gogoo - Delivery Expired",
+      text:
+        "Dear " +
+        name +
+        ",\n\nWe inform you that the delivery for the booking with id " + id + "has expired, log in to the portal to update the information.\n\nGogoo Team",
     },
     function (error, info) {
       if (error) {

@@ -42,11 +42,10 @@ import Axios from 'axios';
 export default class FormRicerca extends Component {
 	state = {
 		list: [],
-		rSelected: "1",
 		type: "car",
 		dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-		category: "suv",
+		category: "",
 		positionR: "",
 		positionC: "",
 
@@ -68,7 +67,7 @@ export default class FormRicerca extends Component {
 	};
 
 	search = () => {
-		Axios.post('/api/search/searchvehicles')
+		Axios.post('/api/search/searchcarwithdriver', this.state)
 			.then((res) => {
 				this.setState({ list: res.data });
 			}).catch((err) => {
@@ -93,7 +92,6 @@ export default class FormRicerca extends Component {
 			refDriver: null
 		};
 		window.localStorage.setItem("reservation", JSON.stringify(reservation));
-		console.log(JSON.parse(localStorage.getItem("reservation")));
 	};
 
 	render() {
@@ -181,7 +179,7 @@ export default class FormRicerca extends Component {
 			
 
 					{this.state.list.map(((item) => (
-						<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} positionR={item.positionR} state={item.state} />
+						<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} />
 					)))}
 			
 			</div>

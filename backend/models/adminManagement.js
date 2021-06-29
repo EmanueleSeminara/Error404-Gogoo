@@ -8,13 +8,13 @@ exports.listUsersByRole = (role) => {
         reject(err);
         return;
       }
-      const utenti = rows.map((u) => ({
+      const users = rows.map((u) => ({
         id: u.id,
         name: u.name,
         surname: u.surname,
         email: u.email,
       }));
-      resolve(utenti);
+      resolve(users);
     });
   });
 };
