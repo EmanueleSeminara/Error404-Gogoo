@@ -6,6 +6,8 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 const guestManagement = require("../models/guestManagement");
+const vehicleManagement = require("../models/vehicleManagement");
+const reservationManagement = require("../models/reservationManagement");
 const mail = require("../models/mail");
 const isGuest = require("../middleware/isGuest");
 
@@ -265,8 +267,29 @@ router.put(
       console.log(errors.array());
       return res.status(422).json({ errors: errors.array() });
     }
+    const reservation = {
+      id: req.body.id,
+      refVehicle: req.body.refVehicle,
+      position: req.body.position,
+      refParkingC: req.body.refParkingC,
+      type: req.body.type,
+      category: req.body.category,
+    };
     try {
-      await guestManagement.damagedVehicle(req.body.id, req.body.position);
+      await guestManagement.damagedVehicle(
+        reservation.refVehicle,
+        reservation.position
+      );
+      const vehicle = await vehicleManagement.getSimilarVehicle(
+        reservation.refParkingC,
+        reservation.type,
+        reservation.category
+      );
+      await reservationManagement.updateVehicleInReservation(
+        reservation.refVehicle,
+        vehicle
+      );
+      await reservationManagement.deleteReservationById(reservation.id);
       res.status(201).end();
     } catch (err) {
       res.status(503).json({
