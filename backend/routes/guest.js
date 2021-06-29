@@ -6,6 +6,8 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 const guestManagement = require("../models/guestManagement");
+const vehicleManagement = require("../models/vehicleManagement");
+const reservationManagement = require("../models/reservationManagement");
 const mail = require("../models/mail");
 const isGuest = require("../middleware/isGuest");
 
@@ -267,6 +269,8 @@ router.put(
     }
     try {
       await guestManagement.damagedVehicle(req.body.id, req.body.position);
+      const vehicle = await vehicleManagement.getSimilarVehicle;
+      await reservationManagement.updateVehicleInReservation(vehicle);
       res.status(201).end();
     } catch (err) {
       res.status(503).json({

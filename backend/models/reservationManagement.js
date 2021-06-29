@@ -289,3 +289,29 @@ exports.addReservationWithDriver = (reservation, userId) => {
     );
   });
 };
+
+exports.retireVehicle = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "UPDATE vehicles SET state = 'in use' WHERE id = ?";
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+exports.updateVehicleInReservation = (idOldVehicle, idNewVehicle) => {
+  return Promise((resolve, reject) => {
+    const sql = "UPDATE reservations SET refVehicle = ? WHERE refVehicle = ?";
+    db.run(sql, [idNewVehicle, idOldVehicle], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  })
+}
