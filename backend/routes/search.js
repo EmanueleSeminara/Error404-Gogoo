@@ -32,13 +32,15 @@ router.post("/searchvehicles/", isGuest, async (req, res) => {
 router.post("/searchcarwithdriver", isGuest, async (req, res) => {
   try {
     if (
-      await searchManagement.searchDrivers(req.params.dateR, req.params.dateC)
+      await searchManagement.searchDrivers(req.body.dateR, req.body.dateC)
     ) {
-      res.json(await searchManagement.searchVehicles(req.params.category));
+      console.log("CATEGORY: " + req.body.category)
+      res.json(await searchManagement.searchVehiclesForDrivers(req.body.category));
     } else {
       res.status(514).json({ error: "No driver available" });
     }
   } catch (err) {
+    
     res.status(503).json({
       error: "Database error during the creation of user - " + err,
     });
