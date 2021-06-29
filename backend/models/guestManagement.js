@@ -258,16 +258,65 @@ exports.damagedVehicle = (id, posizione) => {
   });
 };
 
+// Consegna fuori stallo - fare sostituzione nelle prenotazioni
 exports.deliveryOutOfStall = (reservation) => {
   console.log("DENTRO: " + reservation);
   return new Promise((resolve, reject) => {
-    const sql = "UPDATE vehicles SET position = ?, state = 'available' WHERE id = ? AND EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
-    db.run(sql, [reservation.position, reservation.refVehicle, reservation.refGuest, reservation.refVehicle, reservation.id], (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
+    const sql =
+            "UPDATE vehicles SET position = ?, state = 'available' WHERE id = ? AND EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
+          db.run(
+            sql,
+            [
+              reservation.position,
+              reservation.refVehicle,
+              reservation.refGuest,
+              reservation.refVehicle,
+              reservation.id,
+            ],
+            (err, rows) => {
+              if (err) {
+                reject(err);
+                return;
+              }
+              //resolve(this.lastID);
+              const sql2 =
+                "DELETE FROM reservations WHERE id = ? AND  EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
+              db.run(
+                sql2,
+                [
+                  reservation.id,
+                  reservation.refGuest,
+                  reservation.refVehicle,
+                  reservation.id,
+                ],
+                (err) => {
+                  if (err) {
+                    reject(err);
+                    return;
+                  }
+                  resolve(true);
+                }
+              );
+            }
+          );
+  });
+};
+
+exports.canDeliverOutOfStall = (reservation) => {
+  console.log("DENTRO: " + reservation + "TERNARIO: " + row ? frue : false);
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT refVehicle FROM reservations as r WHERE r.refVehicle = ? AND r.id = ? AND refVehicle NOT IN(SELECT refVehicle FROM reservations as r1 WHERE r1.refVehicle = ? AND r.id != r1.id)";
+    db.get(
+      sql,
+      [reservation.refVehicle, reservation.id, reservation.refVehicle],
+      (err, row) => {
+        console.log("ROW: " + row);
+        if (err) {
+          reject(err);
+        } 
+        resolve(row ? frue : false);
       }
-      resolve(this.lastID);
-    });
+    );
   });
 };

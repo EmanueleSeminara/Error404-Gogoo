@@ -5,6 +5,7 @@ import Axios from 'axios';
 import CardRitiroConsegna from "./CardRitiroConsegna";
 import { Alert, AlertTitle } from '@material-ui/lab';
 import NavbarCliente from "../../../Components/NavbarCliente";
+import "../../../ComponentsCss/GestionePrenotazione.css"
 
 
 
@@ -38,7 +39,8 @@ export default class PannelloRitiroConsegna extends Component {
             <div className="ez sfondo-card">
                 <NavbarCliente />
                 <div className="row justify-content-md-center boxpannel ">
-                    <center><div className="title">Rimuovi Carta</div></center>
+                <div className="d-flex flex-column pannell-User ">
+                    <center><div className="title">Ritiro e Consegna</div></center>
                     {this.state.listReservation.length == 0 && <Alert severity="error">Non hai nessun metodo di pagamento</Alert>}
                     <div className="d-flex flex-row flex-wrap justify-content-center">
 
@@ -47,6 +49,7 @@ export default class PannelloRitiroConsegna extends Component {
                                 <CardRitiroConsegna id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} remove={this.remove} />
                             </div>
                         )))}
+                    </div>
                     </div>
                 </div>
             </div>

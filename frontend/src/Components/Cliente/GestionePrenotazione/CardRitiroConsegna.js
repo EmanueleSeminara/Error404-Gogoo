@@ -69,7 +69,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
     render() {
         return (
             <div>
-            <div className="card mb-3" style={{ maxWidth: " 940px", padding: "10px" }}>
+             <div className="card card-css">
 
                 <div className="row no-gutters">
                     <div className="col-md-12">
@@ -77,7 +77,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
 
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-                                    <p ><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
+                                    <p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
 
@@ -85,33 +85,33 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
                             </div>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
-                                    <p><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+                                    <p className="infoCard"><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
                                     {this.props.refParkingR != null &&
-                                        <p><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
+                                        <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
                                     }
                                     {this.props.positionR != null &&
-                                        <p><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+                                        <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
                                     }
-                                    <p><strong>Data ritiro:</strong>   {this.props.dateR}</p>
+                                    <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p><strong>Autista:</strong> {this.props.refDriver}</p>       {/* TODO ########### */}
+                                    <p className="infoCard"><strong>Autista:</strong> {this.props.refDriver}</p>       {/* TODO ########### */}
                                     {this.props.refParkingC != null &&
-                                        <p><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
+                                        <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
                                     }
                                     {this.props.positionC != null &&
-                                        <p><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
+                                        <p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
                                     }
-                                    <p><strong>Data consegna:</strong>   {this.props.dateC}</p>
+                                    <p className="infoCard"><strong>Data consegna:</strong>   {this.props.dateC}</p>
                                 </div>
                             </div>
 
 
                             <center>
-                                <Button type="button" color="primary" onClick={() => this.ritira()} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.ritiro}>
+                                <Button type="button" className="buttonRitiro" onClick={() => this.ritira()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={!this.state.ritiro}>
                                     Ritiro
                                 </Button>
-                                <Button type="button" color="success" onClick={() => this.props.remove(this.props.id)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
+                                <Button type="button" className="buttonConsegna" onClick={() => this.props.remove(this.props.id)} style={{ marginRight: "10px", marginTop: "20px" }}  disabled={!this.state.consegna}>
                                     Consegna
                                 </Button>
                             </center>
