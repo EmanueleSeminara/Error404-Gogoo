@@ -303,7 +303,6 @@ exports.deliveryOutOfStall = (reservation) => {
 };
 
 exports.canDeliverOutOfStall = (reservation) => {
-  console.log("DENTRO: " + reservation + "TERNARIO: " + row ? frue : false);
   return new Promise((resolve, reject) => {
     const sql =
       "SELECT refVehicle FROM reservations as r WHERE r.refVehicle = ? AND r.id = ? AND refVehicle NOT IN(SELECT refVehicle FROM reservations as r1 WHERE r1.refVehicle = ? AND r.id != r1.id)";
@@ -311,11 +310,11 @@ exports.canDeliverOutOfStall = (reservation) => {
       sql,
       [reservation.refVehicle, reservation.id, reservation.refVehicle],
       (err, row) => {
-        console.log("ROW: " + row);
+
         if (err) {
           reject(err);
         } 
-        resolve(row ? frue : false);
+        resolve(row ? true : false);
       }
     );
   });
