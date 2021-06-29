@@ -26,19 +26,21 @@ export default class CardConsegnaFuoriStallo extends Component {
     };
 
     setting = async () => {
-        const result = await Axios.get('/api/guest/candeliveroutofstall?refVehicle=' + this.props.refVehicle + '&id=' + this.props.id)
-        this.setState({possibile: result})
-        console.log(this.state.possibile)
-        if (this.state.possibile) {
-            this.setState({ position: "" })
-            this.setState({ mostra: false })
-            this.setState({ price: 0 })
-            if (this.props.state === "withdrawn") {
-                this.setState({ consegna: true })
-            }
+        this.setState({ position: "" })
+        this.setState({ mostra: false })
+        this.setState({ price: 0 })
+        if (this.props.state === "withdrawn") {
+            this.setState({ consegna: true })
         } else {
             this.setState({ consegna: false })
         }
+        Axios.get('/api/guest/candeliveroutofstall?refVehicle=' + this.props.refVehicle + '&id=' + this.props.id)
+        .then((res) => {
+            this.setState({possibile: res.data})
+        }).catch((err) =>{
+            console.log(err)
+        })
+        console.log(this.state.possibile)
     }
 
     componentDidMount() {
@@ -125,7 +127,8 @@ export default class CardConsegnaFuoriStallo extends Component {
                                 </center>
                             }
                             {!this.state.possibile &&
-                                <h3>non puoi effettuare la consegna fuori stallo per questo veicolo</h3>
+                                <h6>non puoi effettuare la consegna fuori stallo per questo veicolo</h6>
+                                // Scrivilo più bello
                             }
                         </div>
                     </div>
