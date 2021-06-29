@@ -7,41 +7,6 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import Axios from 'axios';
 
 export default class CardVeicolo extends Component {
-	
-	componentDidMount() {
-		if (localStorage.getItem("utente") === null) {
-			window.location.href = '/login';
-		} 
-	}/*else {
-			Axios.get('/api/guest/getdatacarlicense')
-				.then((res) => {
-					if (this.props.type === "car") {
-						this.setState({ license: res.data.b })
-					} else if (this.props.type === "scooter") {
-						this.setState({ license: (res.data.b || res.data.a2 || res.data.a1 || res.data.am || res.data.a) })
-					}
-				}).catch((err) => {
-					//window.location.href = "/serverError"
-				});
-		}
-	}
-
-	validLicense = () => {
-		return new Promise((resolve, reject) => {
-			Axios.get('/api/guest/getdatacarlicense')
-			.then((res) => {
-				if (this.props.type === "car") {
-					resolve(res.data.b);
-				} else if (this.props.type === "scooter") {
-					resolve(res.data.b || res.data.a2 || res.data.a1 || res.data.am || res.data.a);
-				} else {
-					resolve(true);
-				}
-			}).catch((err) => {
-				reject(err);
-			})
-		})
-	}*/
 		
 	setting =  () => {
 		let license = true;
