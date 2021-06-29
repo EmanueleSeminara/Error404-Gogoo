@@ -7,7 +7,6 @@ import Axios from 'axios';
 import {
     Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup,
 } from 'reactstrap';
-
 import {
     AvForm,
     AvField,
@@ -26,8 +25,9 @@ export default class CardConsegnaFuoriStallo extends Component {
         price: 0,
     };
 
-    setting = () => {
-        // verificare che il velico prenotato non abbia altre prenotazioni refVehicle id
+    setting = async () => {
+        const result = await Axios.get('/api/guest/candeliveroutofstall?refVehicle=' + this.props.refVehicle + '&id=' + this.props.id)
+        this.setState({possibile: result})
         if (this.state.possibile) {
             this.setState({ position: "" })
             this.setState({ mostra: false })
