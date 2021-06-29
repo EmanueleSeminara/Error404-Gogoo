@@ -20,7 +20,7 @@ router.post(
     check("refParkingR")
       .isAlpha("it-IT", { ignore: " " })
       .optional({ checkFalsy: true }),
-    check("refParkingC").isAlpha("it-IT", { ignore: " " }),
+    check("refParkingC").isAlpha("it-IT", { ignore: " " }).optional({ checkFalsy: true }),
   ],
   isGuest,
   async (req, res) => {
@@ -34,8 +34,8 @@ router.post(
       refVehicle: req.body.refVehicle,
       dateR: req.body.dateR,
       dateC: req.body.dateC,
-      refParkingR: req.body.refParkingR,
-      refParkingC: req.body.refParkingC,
+      refParkingR: 'Via Libertà',
+      refParkingC: 'Via Libertà',
       positionR: req.body.positionR,
       positionC: req.body.positionC,
     };
