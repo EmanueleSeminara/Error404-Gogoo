@@ -59,9 +59,9 @@ export default class PannelloRitiro extends Component {
 
                     {<div>
                         { this.state.listReservation.map(((item) => (
-
+                            <div className="p-3">
                             <CardRitiro id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} ritira={this.ritira}/>
-
+                            </div>
                         )))}
                     </div>}
                 </div>

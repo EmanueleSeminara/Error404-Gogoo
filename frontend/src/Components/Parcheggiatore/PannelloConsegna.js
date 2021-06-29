@@ -58,9 +58,9 @@ export default class PannelloConsegna extends Component {
 
                     {<div>
                         {this.state.listReservation.map(((item) => (
-
+                             <div className="p-3">
                             <CardConsegna id={item.id} state={item.state} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} name={item.name} surname={item.surname} remove={this.remove}  />
-
+                            </div>
                         )))}
                     </div>}
                 </div>

@@ -40,7 +40,7 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `full-width-tab-${index}`,
+    id: `parcheggiatore-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
