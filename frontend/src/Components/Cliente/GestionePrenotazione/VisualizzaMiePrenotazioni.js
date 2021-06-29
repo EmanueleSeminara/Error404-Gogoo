@@ -4,6 +4,8 @@ import { ListGroup, ListGroupItem, } from "reactstrap";
 
 import CardPrenotazione from "./CardPrenotazione";
 import Axios from 'axios';
+import NavbarCliente from "../../../Components/NavbarCliente";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 
 
@@ -45,20 +47,18 @@ export default class ViasualizzaMiePrenotazioni extends Component {
 
     render() {
         return (
-            <div>
-                <div className="row h-100 justify-content-md-center"
-                    style={{ minHeight: "100vh" }}>
-                    <div className="col-sm-12 col-md-8 col-lg-6 my-auto">
-                        <div id="pannelloRicerca" style={{ width: "690px", backgroundColor: "#e9ecef", paddingBottom: "60px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
-                            <ListGroup>
-                                <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}></ListGroupItem>
-                                {
-                                    <div>
-                                        {this.state.listReservation.map(((item) => (
-                                            <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
-                                        )))}
-                                    </div>}
-                            </ListGroup>
+            <div className="ez sfondo-card">
+                <NavbarCliente />
+                <div className="row justify-content-md-center  ">
+                    <div className="d-flex flex-column pannell-User ">
+                        <center><div className="title">Visualizza prenotazioni</div></center>
+                        {this.state.listReservation.length == 0 && <Alert severity="error">Non hai prenotazioni</Alert>}
+                        <div className="d-flex flex-row flex-wrap justify-content-center">
+                            {this.state.listReservation.map(((item) => (
+                                <div className="p-3 col-12">
+                                    <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
+                                </div>
+                            )))}
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ export default class PannelloRitiroConsegna extends Component {
         return (
             <div className="ez sfondo-card">
                 <NavbarCliente />
-                <div className="row justify-content-md-center boxpannel ">
+                <div className="row justify-content-md-center  ">
                 <div className="d-flex flex-column pannell-User ">
                     <center><div className="title">Ritiro e Consegna</div></center>
                     {this.state.listReservation.length == 0 && <Alert severity="error">Non hai prenotazioni</Alert>}
