@@ -9,7 +9,7 @@
 
   .pannell-registrazione {
     width: 590px;
-    padding: 35px !important;
+    padding: 5px !important;
     background: #1d192b !important;
     box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
     border-radius: 60px;
@@ -18,6 +18,10 @@
     transform: scale(0.7); 
     display: flex;
     align-items: start;
+    transform-origin: top center;
+    padding-bottom: 40px!important;
+    padding-top: 30px!important;
+    margin-top: 20px;
   }
   
   .buttonCyano {
@@ -50,3 +54,16 @@ box-shadow: 0 0 0 1000px #39304d inset !important;
 -webkit-text-fill-color: rgb(255, 255, 255) !important;
 -webkit-box-border: none!important;
 }
+
+
+@media only screen and (max-width: 1100px) {
+  /* For mobile phones: */
+ 
+  .boxpannel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+}
+

@@ -107,48 +107,50 @@ export default class CardPrenotazione extends Component {
 
 	render() {
 		return (
-			<div className="card mb-3" style={{ maxWidth: " 940px", padding: "10px" }}>
+			<div>
+			<div className="card card-css">
+			<center>
 
 				<div className="row no-gutters">
-					<div className="col-md-12">
+					<div className="col">
 						<div className="card-body">
 
 							<div className="row no-gutters">
 								<div className="col-md-12">
-									<p ><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
-									<hr style={{ backgroundColor: "white" }} />
+									<p className="infoCard"><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
+									
 								</div>
 
 
 							</div>
 							<div className="row no-gutters">
 								<div className="col-md-6">
-									<p><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
+									<p className="infoCard"><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
 									{this.state.refParkingR != null &&
-										<p><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
+										<p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
 									}
 									{this.state.positionR != null &&
-										<p><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
+										<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
 									}
-									<p><strong>Data ritiro:</strong>   {this.state.dateR}</p>
+									<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.dateR}</p>
 								</div>
 								<div className="col-md-6">
-									<p><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
+									<p className="infoCard"><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
 									{this.state.refParkingC != null &&
-										<p><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
+										<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
 									}
 									{this.state.positionC != null &&
-										<p><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
+										<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
 									}
-									<p><strong>Data consegna:</strong>   {this.state.dateC}</p>
+									<p className="infoCard"><strong>Data consegna:</strong>   {this.state.dateC}</p>
 								</div>
 							</div>
 
 							<center>
-								<Button type="button" color="outline-success" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
+								<Button type="button" className="buttonModify" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
 									Modifica
 								</Button>
-								<Button type="button" color="outline-danger" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
+								<Button type="button" className="buttonAnnulla" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
 									Elimina
 								</Button>
 							</center>
@@ -157,8 +159,8 @@ export default class CardPrenotazione extends Component {
 				</div>
 				{this.state.modifica &&
 					<center>
-						<ListGroup>
-							<ListGroupItem>
+					
+						
 								<AvForm>
 									{this.state.positionR == null &&
 										<Row>
@@ -199,7 +201,7 @@ export default class CardPrenotazione extends Component {
 									</Row>
 									<Row>
 										<Col>
-											<ListGroupItem>
+										
 												<center>
 													<div className="row ">
 														<div className="col">
@@ -209,10 +211,10 @@ export default class CardPrenotazione extends Component {
 														</div>
 													</div>
 												</center>
-											</ListGroupItem>
+											
 										</Col>
 										<Col>
-											<ListGroupItem>
+										
 												<center>
 													<div className="row ">
 														<div className="col">
@@ -222,26 +224,27 @@ export default class CardPrenotazione extends Component {
 														</div>
 													</div>
 												</center>
-											</ListGroupItem>
+											
 										</Col>
 									</Row>
 
 									{/* Pulsante modifica*/}
 
-									<Button type="submit" color="outline-success" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px" }}  >
 										Modifica
 									</Button>
 
-									<Button type="submit" color="outline-error" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonAnnulla" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px" }}  >
 										Annulla
 									</Button>
 
 								</AvForm>
-							</ListGroupItem>
-						</ListGroup>
+							
+						
 						{this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
 					</center>}
-
+					</center>
+			</div>
 			</div>
 		);
 	}
