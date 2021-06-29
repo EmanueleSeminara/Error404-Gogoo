@@ -62,6 +62,7 @@ export default class CardPrenotazione extends Component {
 
 	componentDidMount() {
 		this.setting();
+		console.log(this.props.id + " sate " + this.props.state)
 	}
 
 	componentDidUpdate(propsPrecedenti) {

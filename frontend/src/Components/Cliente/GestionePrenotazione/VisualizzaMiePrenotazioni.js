@@ -69,7 +69,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                         <div className="d-flex flex-row flex-wrap justify-content-center">
                             {this.state.listReservation.map(((item) => (
                                 <div className="p-3 col-12">
-                                    <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
+                                    <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} remove={this.remove} />
                                 </div>
                             )))}
                         </div>
