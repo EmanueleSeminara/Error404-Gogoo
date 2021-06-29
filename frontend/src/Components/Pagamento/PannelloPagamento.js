@@ -7,6 +7,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
 import CardPagamento from "./CardPagamento";
 import Axios from 'axios';
+import NavbarCliente from "../../Components/NavbarCliente";
 
 
 export default class PannelloPagamento extends Component {
@@ -46,29 +47,19 @@ export default class PannelloPagamento extends Component {
 
 	render() {
 		return (
-			<div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "45vh" }}>
-				<div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
-					<div style={{ backgroundColor: "#27394c", padding: "1vh", paddingTop: "1vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
-						<center>
-							<p
-								className="glacialReg"
-								style={{ fontSize: "30px", color: "white" }}
-							>
-								Pagamento
-							</p>
+			<div className="ez sfondo-card">
+				  <NavbarCliente />
+			 <div className="row justify-content-md-center  ">
+			 <div className="d-flex flex-column pannell-User ">
 
-							<h6 style={{ color: "white" }}>importo da pagare: {this.state.price}€</h6>
-
-						</center>
-					</div>
 					<AvForm onValidSubmit={this.onValidSubmit}>
-						<ListGroupItem>
+						
 							{!this.state.selezionePagamento && <Alert severity="error" style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>Scegliere almeno un metodo di pagamento</Alert>}
 							<center>
-								<div class="col-8" style={{ marginTop: "30px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", backgroundColor: "#255e6d" }}>
+								<div class="col-12" style={{ marginTop: "30px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px", backgroundColor: "#181521" }}>
 									<Label size="lg" style={{ fontSize: "1.85rem", color: "aliceblue" }}>Seleziona metodo di pagamento</Label>
 								</div>
-								<div class="col-8" style={{ backgroundColor: "#255e6d", paddingBottom: "20px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
+								<div class="col-12" style={{ backgroundColor: "#181521", paddingBottom: "20px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
 
 									{this.state.listpayments.map(((item) => (
 
@@ -77,19 +68,20 @@ export default class PannelloPagamento extends Component {
 									)))}
 
 								</div>
-								<Button color="primary" size="lg" style={{ marginTop: "30px", marginBottom: "30px" }}>  Paga  </Button>
+								<Button className="buttonCyano" type="submit" style={{ marginTop: "30px", marginBottom: "30px" }}>  Paga  </Button>
 							</center>
-
+									
 									{this.state.success && 
 									<Alert severity="success" style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>Pagamento confermato</Alert>
 									//aggiungere tasto per tornare alla home
 									}
 
-						</ListGroupItem>
+					
 					</AvForm>
 
 				</div>
 			</div >
+			</div>
 		);
 	}
 }

@@ -83,7 +83,7 @@ export default class FormRicerca extends Component {
 									active={this.state.rSelected === "2"}
 									size="lg"
 								>
-									Automobili vicino a te
+									Automobili fuori stallo
 								</Button>
 								<Button
 									className="buttonCyanoGruoup "

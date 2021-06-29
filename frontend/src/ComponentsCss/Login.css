@@ -166,6 +166,9 @@
     align-items: center;
   
   }
+  .MuiAlert-root {
+    margin-top: 60px;
+}
 }
 
 #root {

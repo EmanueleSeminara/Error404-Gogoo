@@ -76,28 +76,30 @@ export default class CardVeicolo extends Component {
 
 	render() {
 		return (
-			<div className="card mb-3" style={{ display: "flex", justifyContent: "center" }}>
+			<div className="card card-css">
+				<center>
 				<div className="row no-gutters">
-					<div className="col-md-12">
+					<div className="col-12">
 						<div className="card-body">
-							<h5 className="card-title">Tipo: {this.props.type}</h5>
+							<h5 className="infoCard">Tipo: {this.props.type}</h5>
 							{this.props.type === "car" &&
-								<p className="card-text">Categoria: {this.props.category}</p>
+								<p className="infoCard">Categoria: {this.props.category}</p>
 							}
 							{this.props.position !== undefined &&
-								<p className="card-text">Posizione: {this.props.position}</p>
+								<p className="infoCard">Posizione: {this.props.position}</p>
 							}
 							{this.props.duration !== undefined &&
-								<p className="card-text">Tempo per raggiongere il veicolo: {this.props.duration}</p>
+								<p className="infoCard">Tempo per raggiongere il veicolo: {this.props.duration}</p>
 							}
 							{this.props.distance !== undefined  &&
-								<p className="card-text">Distanza: {this.props.distance}</p>
+								<p className="infoCard">Distanza: {this.props.distance}</p>
 							}
-							<p className="card-index">Id: {this.props.id}</p>
-							<button className="btn-lg btn-primary" onClick={() => { this.setting() }} style={{ textDecoration: "none" }}>Prenota</button>
+							<p className="infoCard">Id: {this.props.id}</p>
+							<button className="buttonCyano" onClick={() => { this.setting() }} style={{ textDecoration: "none" }}>Prenota</button>
 						</div>
 					</div>
 				</div>
+				</center>
 			</div>
 		);
 	}

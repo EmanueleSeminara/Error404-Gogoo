@@ -1,4 +1,4 @@
-.buttonModify{
+.buttonModify, .buttonSeleziona{
     background-color: #89f60d !important;
     color: #1d182e !important;
     font-family: "Futura Md BT" !important;
@@ -9,7 +9,7 @@
     border: none !important;
 }
 
-.buttonModify:hover{
+.buttonModify:hover, .buttonSeleziona:hover{
     box-shadow: 0px 0.5px 10px 0.5px #89f60d !important;
  
 }
@@ -98,6 +98,16 @@
 
 .card-css{
     border-radius: 41.5px !important;
+    background-color: #14101e;
+    box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
+    padding: 13px;
+    min-width: 52vw;
+    
+
+}
+
+.card-css-pagamento{
+    border-radius: 11.5px !important;
     background-color: #14101e;
     box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
     padding: 13px;
