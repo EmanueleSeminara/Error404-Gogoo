@@ -89,7 +89,7 @@ export default class FormRicerca extends Component {
 			category: this.state.category,
 			positionR: this.state.positionR,
 			positionC: this.state.positionC,
-			refDriver: null
+			driver: true
 		};
 		window.localStorage.setItem("reservation", JSON.stringify(reservation));
 	};
