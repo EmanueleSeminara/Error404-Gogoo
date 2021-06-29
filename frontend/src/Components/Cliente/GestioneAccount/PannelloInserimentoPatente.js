@@ -93,7 +93,7 @@ export default class Registrazione extends Component {
 				<AvForm onValidSubmit={this.onValidSubmit}	>
 					<div className="row h-100 justify-content-md-center boxpannel ">
 
-						<div className="col-9 bg-pannell">
+						<div className="bg-pannell">
 							<div >
 								<div className="title">Inserisci Patente</div>
 								{/* Riga numero e scadenza */}

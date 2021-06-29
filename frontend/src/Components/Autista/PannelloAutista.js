@@ -38,14 +38,14 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `full-width-tab-${index}`,
+    id: `autista-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#00151f",
+  
     /* width: 500, */
   },
 }));
@@ -71,7 +71,7 @@ export default function FullWidthTabs() {
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
+          indicatorColor="secondary"
           textColor="primary"
           variant="fullWidth"
           aria-label="full width tabs example"

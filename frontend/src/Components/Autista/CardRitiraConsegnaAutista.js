@@ -58,7 +58,7 @@ export default class CardRitiraConsegnaAutista extends Component {
 
     render() {
         return (
-            <div className="card ">
+            <div className="card card-css-RC">
                 <div className="row no-gutters">
                     <div className="col" >
                         <div className="card-body"  >
@@ -66,7 +66,7 @@ export default class CardRitiraConsegnaAutista extends Component {
 
                             <div className="row no-gutters">
                                 <div className="col-md-12">
-                                    <p ><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
+                                    <p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
                                     <hr style={{ backgroundColor: "white" }} />
                                 </div>
 
@@ -74,22 +74,22 @@ export default class CardRitiraConsegnaAutista extends Component {
                             </div>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
-                                    <p><strong>Tipo:</strong> {this.props.type} {this.props.category}</p>
-                                    <p><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
-                                    <p><strong>Data ritiro:</strong>   {this.props.dateR}</p>
+                                    <p className="infoCard"><strong>Tipo:</strong> {this.props.type} {this.props.category}</p>
+                                    <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+                                    <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p><strong>Cliente:</strong> {this.props.name} {this.props.surname}</p>
-                                    <p><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
-                                    <p><strong>Data consegna:</strong>   {this.props.dateC}</p>
+                                    <p className="infoCard"><strong>Cliente:</strong> {this.props.name} {this.props.surname}</p>
+                                    <p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
+                                    <p className="infoCard"><strong>Data consegna:</strong>   {this.props.dateC}</p>
                                 </div>
                             </div>
 
                             <center>
-                                <Button type="button" color="primary" onClick={() => this.ritira()} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.ritiro}>
+                                <Button type="button" className="buttonRitiro" onClick={() => this.ritira()} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.ritiro}>
                                     Ritiro
                                 </Button>
-                                <Button type="button" color="success" onClick={() => this.props.consegna(this.props.id, this.props.refVehicle)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
+                                <Button type="button" className="buttonConsegna" onClick={() => this.props.consegna(this.props.id, this.props.refVehicle)} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
                                     Consegna
                                 </Button>
                             </center>
