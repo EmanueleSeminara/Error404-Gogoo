@@ -304,7 +304,7 @@ exports.retireVehicle = (id) => {
 };
 
 exports.updateVehicleInReservation = (idOldVehicle, idNewVehicle) => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = "UPDATE reservations SET refVehicle = ? WHERE refVehicle = ?";
     db.run(sql, [idNewVehicle, idOldVehicle], function (err) {
       if (err) {
