@@ -45,7 +45,7 @@ export default class FormRicerca extends Component {
 		type: "car",
 		dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
-		category: "",
+		category: "suv",
 		positionR: "",
 		positionC: "",
 
