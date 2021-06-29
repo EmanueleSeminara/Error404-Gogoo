@@ -49,6 +49,21 @@ export default class PannelloAggiugiUtente extends Component {
         string: ""
     };
 
+    componentDidMount() {
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "driver") {
+                window.location.href = "/pannelloAutista";
+            } else if (c.role === "guest") {
+                window.location.href = "/ricerca";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            }
+        }
+    }
+
 
     setRSelected = (type) => {
         this.setState({ role: type });

@@ -15,13 +15,27 @@ export default class PannelloRitiraConsegnaAutista extends Component {
     }
 
     componentDidMount() {
-        Axios.get('/api/driver/myreservations')
-            .then((res) => {
-                this.setState({ listReservationDriver: res.data });
-            }).catch((err) => {
-                window.location.href = '/errorServer';
-            });
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "admin") {
+                window.location.href = "/pannelloAmministratore";
+            } else if (c.role === "guest") {
+                window.location.href = "/ricerca";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            } else {
+                Axios.get('/api/driver/myreservations')
+                    .then((res) => {
+                        this.setState({ listReservationDriver: res.data });
+                    }).catch((err) => {
+                        window.location.href = '/errorServer';
+                    });
+            }
+        }
     }
+
 
     consegna = (reservationID, vehicleID) => {
         Axios.delete('/api/reservation/delete/?id=' + reservationID + '&refVehicle=' + vehicleID)

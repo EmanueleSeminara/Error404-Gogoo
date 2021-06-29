@@ -15,13 +15,27 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
     }
 
     componentDidMount() {
-        Axios.get('/api/driver/reservationsnotconfirmed')
-            .then((res) => {
-                this.setState({ listReservationDriver: res.data });
-            }).catch((err) => {
-                window.location.href = '/errorServer';
-            });
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "driver") {
+                window.location.href = "/pannelloAutista";
+            } else if (c.role === "guest") {
+                window.location.href = "/ricerca";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            } else {
+                Axios.get('/api/driver/reservationsnotconfirmed')
+                    .then((res) => {
+                        this.setState({ listReservationDriver: res.data });
+                    }).catch((err) => {
+                        window.location.href = '/errorServer';
+                    });
+            }
+        }
     }
+
 
     conferma = (reservationID) => {
         Axios.delete('/api/driver/confirmationofreservation/?id=' + reservationID)

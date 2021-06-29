@@ -23,6 +23,20 @@ export default class Registrazione extends Component {
 		success: false,
 		string: ""
 	};
+	componentDidMount() {
+		if (localStorage.getItem("utente") === null) {
+			window.location.href = '/'
+		} else {
+			let c = JSON.parse(localStorage.getItem("utente"));
+			if (c.role === "driver") {
+				window.location.href = "/pannelloAutista";
+			} else if (c.role === "admin") {
+				window.location.href = "/pannelloAmministratore";
+			} else if (c.role === "valet") {
+				window.location.href = "/pannelloParcheggiatore";
+			}
+		}
+	}
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });

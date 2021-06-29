@@ -13,6 +13,21 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
         listReservation: [],
         email: ""
     };
+    
+    componentDidMount() {
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "driver") {
+                window.location.href = "/pannelloAutista";
+            } else if (c.role === "guest") {
+                window.location.href = "/ricerca";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            }
+        }
+    }
 
 
     handleChange = (input) => (e) => {
