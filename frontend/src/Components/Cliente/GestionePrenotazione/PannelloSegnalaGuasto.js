@@ -3,6 +3,8 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 
 import Axios from "axios";
 import CardSegnalaGuasto from "./CardSegnalaGuasto";
+import { type } from "jquery";
+import { vehicle } from "faker";
 
 
 
@@ -23,16 +25,22 @@ export default class PannelloSegnalaGuasto extends Component {
     }
 
 
-    segnaleGuasto = (reservationID, position) => {
+    segnaleGuasto = (reservationID, position, vehicleID, category, type, refParkingC) => {
         const data = {
             id: reservationID,
-            position: position
+            position: position,
+            refVehicle: vehicleID,
+            refParkingc: refParkingC,
+            type: type,
+            category: category,
         }
+        console.log(data)
         Axios.put('/api/guest/damagedvehicle', data)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
             }).catch((err) => {
-                window.location.href = '/errorServer';
+                console.log(err)
+                // window.location.href = '/errorServer';
             });
     };
 
