@@ -328,12 +328,12 @@ exports.updateVehicleInReservation = (idOldVehicle, idNewVehicle) => {
 exports.isInReservations = (idGuest, idReservation) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE reservations SET state='late delivery' WHERE id = ? AND refGuest= ?";
-    db.get(sql, [idReservation, idGuest], function (err, row) {
+    db.run(sql, [idReservation, idGuest], function (err, row) {
       if (err) {
         reject(err);
         return;
       }
-      console.log("ROW lunghezza: " + this.changes);
+      console.log("CAMBIAMENTI " + this.changes);
       this.changes === 1 ? resolve(true) : resolve(false);
       //resolve(row);
     });

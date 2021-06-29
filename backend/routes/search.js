@@ -6,7 +6,6 @@ var distance = require("../models/distance");
 const searchManagement = require("../models/searchManagement");
 const isGuest = require("../middleware/isGuest");
 
-
 router.post("/searchvehicles/", isGuest, async (req, res) => {
   try {
     console.log(
@@ -35,14 +34,7 @@ router.post("/searchcarwithdriver", isGuest, async (req, res) => {
     if (
       await searchManagement.searchDrivers(req.params.dateR, req.params.dateC)
     ) {
-      res.json(
-        await searchManagement.searchVehicles(
-          req.params.category,
-          req.params.dateR,
-          req.params.dateC,
-          req.params.startParking
-        )
-      );
+      res.json(await searchManagement.searchVehicles(req.params.category));
     } else {
       res.status(514).json({ error: "No driver available" });
     }

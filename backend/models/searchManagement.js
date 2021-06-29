@@ -7,21 +7,21 @@ distance.apiKey = process.env.GOOGLE_KEY;
 //  4.1 RICERCA VEICOLI:
 
 // get all available vehicles
-exports.searchVehicles = (type, dateR, dateC, startParking) => {
+exports.searchVehicles = (category) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT * FROM vehicles AS v WHERE v.type = ? AND v.refParking = ? AND v.state != 'damage' AND v.id NOT IN(SELECT refVehicle FROM reservations WHERE DATE(?)< DATE(dateC) AND DATE(?)> DATE(dateR))";
-    db.all(sql, [type, startParking, dateR, dateC], (err, rows) => {
+      "SELECT * FROM vehicles AS v WHERE v.state!= 'damage' AND v.type = 'car' AND category = ? AND v.refParking != 'NULL' AND v. id NOT IN (SELECT refVehicle FROM reservations) LIMIT 1";
+    db.all(sql, [category], (err, rows) => {
       if (err) {
         reject(err);
         return;
       }
-      const vehicles = rows.map((v) => ({
+      const vehicle = rows.map((v) => ({
         id: v.id,
         type: v.type,
         category: v.category,
       }));
-      resolve(vehicles);
+      resolve(vehicle);
     });
   });
 };
