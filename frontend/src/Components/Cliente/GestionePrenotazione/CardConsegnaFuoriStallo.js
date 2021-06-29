@@ -28,6 +28,7 @@ export default class CardConsegnaFuoriStallo extends Component {
     setting = async () => {
         const result = await Axios.get('/api/guest/candeliveroutofstall?refVehicle=' + this.props.refVehicle + '&id=' + this.props.id)
         this.setState({possibile: result})
+        console.log(this.state.possibile)
         if (this.state.possibile) {
             this.setState({ position: "" })
             this.setState({ mostra: false })
