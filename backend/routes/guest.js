@@ -267,6 +267,14 @@ router.put(
       console.log(errors.array());
       return res.status(422).json({ errors: errors.array() });
     }
+    console.log(
+      req.body.id,
+      req.body.refVehicle,
+      req.body.position,
+      req.body.refParkingC,
+      req.body.type,
+      req.body.category
+    );
     const reservation = {
       id: req.body.id,
       refVehicle: req.body.refVehicle,
