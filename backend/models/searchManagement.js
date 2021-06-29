@@ -29,7 +29,7 @@ exports.searchVehicles = (type, dateR, dateC, startParking) => {
 exports.searchVehiclesForDrivers = (category) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT * FROM vehicles AS v WHERE v.state!= 'damage' AND v.type = 'car' AND category = ? AND v.refParking != 'NULL' AND v. id NOT IN (SELECT refVehicle FROM reservations) LIMIT 1";
+      "SELECT * FROM vehicles AS v WHERE v.state!= 'damage' AND v.type = 'car' AND category = ? AND v.refParking = 'Via Libertà' AND v. id NOT IN (SELECT refVehicle FROM reservations) LIMIT 1";
     db.all(sql, [category], (err, rows) => {
       if (err) {
         reject(err);
