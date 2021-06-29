@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import {ListGroup, ListGroupItem } from "reactstrap";
+import { ListGroup, ListGroupItem } from "reactstrap";
 
 
 import faker from 'faker';
 import Axios from "axios";
 import CardConsegnaFuoriStallo from "./CardConsegnaFuoriStallo";
+import NavbarCliente from "../../../Components/NavbarCliente";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 
 export default class PannelloRitiroConsegna extends Component {
@@ -56,17 +58,20 @@ export default class PannelloRitiroConsegna extends Component {
 
     render() {
         return (
-            <div className="row h-100 justify-content-md-center">
-                <div className="col-sm-12 col-md-8 col-lg-6 my-auto" style={{ margin: "1%", minHeight: "100vh" }}>
-                    <ListGroup>
-                        <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}></ListGroupItem>
-
-                        {<div>
-                                {this.state.listReservation.map(((item) => (
+            <div className="ez sfondo-card">
+                <NavbarCliente />
+                <div className="row justify-content-md-center  ">
+                    <div className="d-flex flex-column pannell-User ">
+                        <center><div className="title">Consegna fuori stallo</div></center>
+                        {this.state.listReservation.length == 0 && <Alert severity="error">Non hai prenotazioni</Alert>}
+                        <div className="d-flex flex-row flex-wrap justify-content-center">
+                            {this.state.listReservation.map(((item) => (
+                                <div className="p-3 col-12">
                                     <CardConsegnaFuoriStallo id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} remove={this.remove} />
-                                )))}
-                            </div>}
-                    </ListGroup>
+                                </div>
+                            )))}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

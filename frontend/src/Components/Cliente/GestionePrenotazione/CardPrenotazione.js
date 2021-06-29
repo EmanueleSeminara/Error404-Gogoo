@@ -167,7 +167,7 @@ export default class CardPrenotazione extends Component {
 											<Col>
 												<FormGroup>
 													<Label for="exampleSelect">Tipo veicolo</Label>
-													<Input type="select" name="select" id="exampleSelect" onClick={this.handleChange("type")}>
+													<Input type="select" name="select" id="type" onClick={this.handleChange("type")}>
 														<option>Auto</option>
 														<option>Moto</option>
 														<option>Monopattino</option>
@@ -206,7 +206,8 @@ export default class CardPrenotazione extends Component {
 													<div className="row ">
 														<div className="col">
 															<MuiPickersUtilsProvider utils={DateFnsUtils}>
-																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} label="Ritiro" inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+															<Label sm={12} style={{marginTop: "20px"}}>Ritiro</Label>
+																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()}  inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
 															</MuiPickersUtilsProvider>
 														</div>
 													</div>
@@ -219,7 +220,8 @@ export default class CardPrenotazione extends Component {
 													<div className="row ">
 														<div className="col">
 															<MuiPickersUtilsProvider utils={DateFnsUtils}>
-																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} label="Consegna" inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+															<Label sm={12} style={{marginTop: "20px"}}>Consegna</Label>
+																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
 															</MuiPickersUtilsProvider>
 														</div>
 													</div>
@@ -230,11 +232,11 @@ export default class CardPrenotazione extends Component {
 
 									{/* Pulsante modifica*/}
 
-									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px", marginTop: "40px", marginBottom: "20px"}}  >
 										Modifica
 									</Button>
 
-									<Button type="submit" className="buttonAnnulla" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonAnnulla" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px", marginTop: "40px" , marginBottom: "20px"}}  >
 										Annulla
 									</Button>
 

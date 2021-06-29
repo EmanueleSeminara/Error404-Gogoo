@@ -14,7 +14,7 @@
  
 }
 
-.buttonAnnulla{
+.buttonAnnulla, .buttonFuoriStallo{
     background-color: #ef462c !important;
     color: #1d182e !important;
     font-family: "Futura Md BT" !important;
@@ -25,7 +25,7 @@
     border: none !important;
 }
 
-.buttonAnnulla:hover{
+.buttonAnnulla:hover, .buttonFuoriStallo:hover{
     box-shadow: 0px 0.5px 10px 0.5px #ef462c !important;
  
 }
@@ -98,9 +98,10 @@
 
 .card-css{
     border-radius: 41.5px !important;
-    background-color: #0e0b15;
+    background-color: #14101e;
     box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.25);
     padding: 13px;
+    min-width: 52vw;
     
 
 }
@@ -115,7 +116,16 @@
     transform: scale(0.5);
 }
 
-#parcheggioPartenza{
+#parcheggioPartenza, #Partenza, #Arrivo{
+    height: 45px;
+    background: #39304d;
+    border-radius: 10px;
+    border: none;
+    color: lavender;
+  
+}
+
+#parcheggioArrivo{
     height: 45px;
     background: #39304d;
     border-radius: 10px;

@@ -27,6 +27,31 @@
     border: none !important;
 }
 
+.buttonGuasto, .buttonRed{
+    background-color: #ef462c !important;
+    color: #1d182e !important;
+    font-family: "Futura Md BT" !important;
+    font-style: normal;
+  
+    text-align: center !important;
+  
+    border: none !important;
+}
+
+.buttonGuasto:hover:enabled, .buttonRed:hover:enabled{
+    box-shadow: 0px 0.5px 10px 0.5px #ef462c !important;
+ 
+}
+
+.buttonGuasto:disabled, .buttonRed:disabled{
+    background-color: #b3b3b3 !important;
+    
+ 
+}
+
+
+
+
 .buttonConsegna:hover:enabled{
     box-shadow: 0px 0.5px 10px 0.5px #89f60d !important;
  
@@ -57,4 +82,12 @@
 .buttonRitiro:disabled{
     background-color: #b3b3b3 !important;
  
+}
+
+
+
+.cardStallo{
+    min-width: 52vw;
+
+
 }

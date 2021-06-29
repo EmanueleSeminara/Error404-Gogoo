@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import "../../ComponentsCss/Pannel.css";
 import * as moment from 'moment';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 
 import {
@@ -119,25 +124,25 @@ export default class FormRicerca extends Component {
 			<div>
 
 				<AvForm onValidSubmit={this.onValidSubmit} >
-					<ListGroup>
-						<ListGroupItem >
+					
+					
 							<div>
 								<div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: "20px" }}>
-									<AvRadioGroup
-										inline
+									<RadioGroup
+										row
 										name="TipoVeicolo"
 										label=""
-										value="car"
+										defaultValue="car"
 										onClick={this.handleChange("type")}
 									>
-										<AvRadio label="Auto" value="car" />
-										<AvRadio label="Moto" value="scooter" />
-										<AvRadio label="Bici" value="bicycle" />
-										<AvRadio label="Monopattino" value="electric scooter" />
-									</AvRadioGroup>
+										<FormControlLabel label="Auto" value="car" control={<Radio />} />
+										<FormControlLabel label="Moto" value="scooter" control={<Radio />} />
+										<FormControlLabel label="Bici" value="bicycle" control={<Radio />} />
+										<FormControlLabel label="Monopattino" value="electric scooter" control={<Radio />} />
+									</RadioGroup>
 								</div>
 								<div style={{ paddingBottom: "20px" }}>
-									<AvField type="select" name="select" label="Ritiro" onClick={this.handleChange("refParkingR")}>
+									<AvField type="select" name="parcheggioPartenza" label="Ritiro" onClick={this.handleChange("refParkingR")}>
 										<option>Via Libertà</option>
 										<option>Via Roma</option>
 										<option>Via Ernesto Basile</option>
@@ -146,8 +151,8 @@ export default class FormRicerca extends Component {
 									</AvField>
 								</div>
 
-								<div style={{ paddingBottom: "30px" }}>
-									<AvField type="select" name="select" label="Consegna" onClick={this.handleChange("refParkingC")}>
+								<div style={{ paddingBottom: "20px" }}>
+									<AvField type="select" name="parcheggioArrivo" label="Consegna" onClick={this.handleChange("refParkingC")}>
 										<option>Via Libertà</option>
 										<option>Via Roma</option>
 										<option>Via Ernesto Basile</option>
@@ -158,30 +163,32 @@ export default class FormRicerca extends Component {
 							</div>
 
 							<center>
-								<div className="row " style={{ paddingBottom: "30px" }}>
+								<div className="row " style={{ paddingBottom: "20px" }}>
 									<div className="col">
 										<MuiPickersUtilsProvider utils={DateFnsUtils}>
-											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} label="Ritiro" inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+										<Label sm={12} >Ritiro</Label>
+											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()}  inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
 										</MuiPickersUtilsProvider>
 									</div>
 									<div className="col">
 										<MuiPickersUtilsProvider utils={DateFnsUtils}>
-											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} label="Consegna" inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+										<Label sm={12} >Consegna</Label>
+											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR}  inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
 										</MuiPickersUtilsProvider>
 									</div>
 								</div>
 
-								<div style={{ paddingBottom: "30px" }}>
-									<Button color="primary" type="submit" size="lg"  >
+								<div style={{ paddingBottom: "20px" }}>
+									<Button className="buttonCyano" type="submit" size="lg"  >
 										CERCA
 									</Button>
 								</div>
 
 							</center>
-						</ListGroupItem>
+				
 
 
-					</ListGroup>
+			
 				</AvForm>
 				{this.state.list.map(((item) => (
 					<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} />

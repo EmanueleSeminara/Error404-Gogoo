@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import "../../ComponentsCss/Pannel.css";
 import * as moment from 'moment';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 import {
@@ -97,25 +100,26 @@ export default class FormRicerca extends Component {
 		return (
 			<div>
 				<AvForm onValidSubmit={this.onValidSubmit} >
-					<ListGroup>
-						<ListGroupItem >
+					
+						
 							<div>
 								<div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", marginBottom: "0", paddingBottom: "20px" }}>
-									<AvRadioGroup
+									<RadioGroup
+										row
 										inline
 										name="TipoAuto"
 										label=""
-										value="suv"
+										defaultValue="suv"
 										onClick={this.handleChange("category")}
 									>
-										<AvRadio label="suv" value="suv" />
-										<AvRadio label="utilitaria" value="utilitaire" />
-										<AvRadio label="berlina" value="sedan" />
-									</AvRadioGroup>
+										<FormControlLabel label="suv" value="suv" control={<Radio />}/>
+										<FormControlLabel label="utilitaria" value="utilitaire" control={<Radio />}/>
+										<FormControlLabel label="berlina" value="sedan" control={<Radio />}/>
+									</RadioGroup>
 								</div>
 								<div style={{ paddingBottom: "20px" }}>
 									<AvField
-										name="ViaRiferimento"
+										name="Partenza"
 										type="text"
 										label="Dove ti trovi?"
 										placeholder="inserisci la via in cui ti trovi"
@@ -130,9 +134,9 @@ export default class FormRicerca extends Component {
 										required
 									/>
 								</div>
-								<div style={{ paddingBottom: "30px" }}>
+								<div style={{ paddingBottom: "20px" }}>
 									<AvField
-										name="LuogoArrivo"
+										name="Arrivo"
 										type="text"
 										label="Destinazione"
 										placeholder="inserisci la via di destinazione"
@@ -149,36 +153,37 @@ export default class FormRicerca extends Component {
 								</div>
 							</div>
 							<center>
-								<div className="row " style={{ paddingBottom: "30px" }}>
+								<div className="row " style={{ paddingBottom: "20px" }}>
 									<div className="col">
 										<MuiPickersUtilsProvider utils={DateFnsUtils}>
-											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} label="Ritiro" inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+										<Label sm={12} >Ritiro</Label>
+											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()}  inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
 										</MuiPickersUtilsProvider>
 									</div>
 									<div className="col">
 										<MuiPickersUtilsProvider utils={DateFnsUtils}>
-											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} label="Consegna" inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+										<Label sm={12} >Consegna</Label>
+											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
 										</MuiPickersUtilsProvider>
 									</div>
 								</div>
 
-								<div style={{ paddingBottom: "30px" }}>
-									<Button color="primary" type="submit" size="lg"  >
+								<div style={{ paddingBottom: "20px" }}>
+									<Button className="buttonCyano" type="submit" size="lg"  >
 										CERCA
 									</Button>
 								</div>
 
 							</center>
-						</ListGroupItem>
-					</ListGroup>
+					
 				</AvForm>
 
-				{<div>
+			
 
 					{this.state.list.map(((item) => (
 						<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} positionR={item.positionR} state={item.state} />
 					)))}
-				</div>}
+			
 			</div>
 		);
 	}
