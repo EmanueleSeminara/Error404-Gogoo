@@ -95,7 +95,7 @@ export default class PannelloPagamento extends Component {
 									)))}
 
 								</div>
-								<Button color="primary" size="lg" style={{ marginTop: "30px", marginBottom: "30px" }}>  Paga  </Button>
+								<Button color="primary" size="lg" type="submit" style={{ marginTop: "30px", marginBottom: "30px" }}>  Paga  </Button>
 							</center>
 
 									{this.state.success && 
