@@ -14,7 +14,7 @@
  
 }
 
-.buttonAnnulla{
+.buttonAnnulla, .buttonFuoriStallo{
     background-color: #ef462c !important;
     color: #1d182e !important;
     font-family: "Futura Md BT" !important;
@@ -25,7 +25,7 @@
     border: none !important;
 }
 
-.buttonAnnulla:hover{
+.buttonAnnulla:hover, .buttonFuoriStallo:hover{
     box-shadow: 0px 0.5px 10px 0.5px #ef462c !important;
  
 }

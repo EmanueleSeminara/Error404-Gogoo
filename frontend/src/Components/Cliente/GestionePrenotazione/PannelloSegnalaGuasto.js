@@ -5,6 +5,7 @@ import Axios from "axios";
 import CardSegnalaGuasto from "./CardSegnalaGuasto";
 import { type } from "jquery";
 import { vehicle } from "faker";
+import NavbarCliente from "../../../Components/NavbarCliente";
 
 
 
@@ -48,16 +49,17 @@ export default class PannelloSegnalaGuasto extends Component {
 
     render() {
         return (
-            <div className="row h-100 justify-content-md-center">
-                <div className="col-sm-12 col-md-8 col-lg-6 my-auto" style={{ margin: "1%", minHeight: "100vh" }}>
-                    <ListGroup>
-                        <ListGroupItem style={{ backgroundColor: "#2e1534", padding: "10px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}></ListGroupItem>
-                        {<div>
-                            {this.state.listReservation.map(((item) => (
+            <div className="ez sfondo-card">
+                <NavbarCliente />
+                <div className="row justify-content-md-center  ">
+                    <div className="d-flex flex-column pannell-User ">
+                        <center><div className="title">Segnala Guasto</div></center>
+                        {this.state.listReservation.map(((item) => (
+                            <div className="p-3 col-12">
                                 <CardSegnalaGuasto id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} segnaleGuasto={this.segnaleGuasto} />
-                            )))}
-                        </div>}
-                    </ListGroup>
+                            </div>
+                        )))}
+                    </div>
                 </div>
             </div>
         );

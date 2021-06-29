@@ -29,7 +29,7 @@
 }
 
 #emailLogin,
-#pswLogin {
+#pswLogin, #id, #text, #exampleText {
   height: 55px;
 
   background: #39304d;
