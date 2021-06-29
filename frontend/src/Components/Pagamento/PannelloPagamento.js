@@ -68,7 +68,7 @@ export default class PannelloPagamento extends Component {
 	render() {
 		return (
 			<div className="ez sfondo-card">
-				<NavbarCliente />
+
 				<div className="row justify-content-md-center  ">
 					<div className="d-flex flex-column pannell-User ">
 
@@ -77,7 +77,7 @@ export default class PannelloPagamento extends Component {
 							{!this.state.selezionePagamento && <Alert severity="error" style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>Scegliere almeno un metodo di pagamento</Alert>}
 							<center>
 								<div class="col-12" style={{ marginTop: "30px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
-									<Label size="lg" style={{ fontSize: "1.85rem", color: "aliceblue" }}>Seleziona metodo di pagamento</Label>
+									<Label className="title">Seleziona metodo di pagamento</Label>
 								</div>
 								<div class="col-12" style={{ paddingBottom: "20px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
 
@@ -86,9 +86,11 @@ export default class PannelloPagamento extends Component {
 										<CardPagamento name={item.name} surname={item.surname} number={item.number} id={item.id} seleziona={this.seleziona} />
 
 									)))}
-									<h6>Prezzo da pagare: {this.state.price}€</h6>
+									
 								</div>
+								<h6 className="infoCard"  style={{ marginTop: "30px"}}>Prezzo da pagare: {this.state.price}€</h6>
 								<Button className="buttonCyano" type="submit" style={{ marginTop: "30px", marginBottom: "30px" }}>  Paga  </Button>
+							
 							</center>
 
 							{this.state.success &&
