@@ -51,7 +51,7 @@ export default class CardSegnalaGuasto extends Component {
 
     onValidSubmit = (event) => {
         event.preventDefault();
-        this.props.segnaleGuasto(this.props.id, this.state.position);
+        this.props.segnaleGuasto(this.props.id, this.state.position, this.props.refVehicle, this.props.category, this.props.type, this.props.refParkingC);
         //MOSTRARE MESSAGGIO DI CORRETTO FUNZIONAMENTO***********************************************************************************************************
     };
 
