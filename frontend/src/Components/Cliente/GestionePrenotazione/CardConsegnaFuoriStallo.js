@@ -122,7 +122,7 @@ export default class CardConsegnaFuoriStallo extends Component {
 
                             {this.state.possibile &&
                                 <center>
-                                    <Button type="button" className="buttonFuoriStallo" onClick={() => { this.setMostra("mostra"); this.setPrice() }} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
+                                    <Button type="button" className="buttonRed" onClick={() => { this.setMostra("mostra"); this.setPrice() }} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
                                         Consegna fuori stallo
                                     </Button>
                                 </center>
