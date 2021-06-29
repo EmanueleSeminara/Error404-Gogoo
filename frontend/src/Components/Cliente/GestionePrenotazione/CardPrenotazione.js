@@ -232,11 +232,11 @@ export default class CardPrenotazione extends Component {
 
 									{/* Pulsante modifica*/}
 
-									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px", marginTop: "40px", marginBottom: "20px"}}  >
 										Modifica
 									</Button>
 
-									<Button type="submit" className="buttonAnnulla" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px" }}  >
+									<Button type="submit" className="buttonAnnulla" onClick={() => { this.setting(); this.setModifica("modifica") }} style={{ padding: "8px", margin: "10px", marginTop: "40px" , marginBottom: "20px"}}  >
 										Annulla
 									</Button>
 

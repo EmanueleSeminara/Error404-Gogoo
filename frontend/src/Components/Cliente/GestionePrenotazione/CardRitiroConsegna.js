@@ -72,7 +72,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
              <div className="card card-css">
 
                 <div className="row no-gutters">
-                    <div className="col-md-12">
+                    <div className="col">
                         <div className="card-body">
 
                             <div className="row no-gutters">
