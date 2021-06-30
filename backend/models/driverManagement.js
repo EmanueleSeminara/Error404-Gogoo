@@ -34,7 +34,7 @@ exports.reservationNotConfirmed = () => {
   return new Promise((resolve, reject) => {
     const sql =
       "SELECT r.id,r.refVehicle, v.type, v.category, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.positionR, r.positionC, u.name, u.surname FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id JOIN users AS u ON u.id = r.refGuest WHERE r.state = 'not confirmed'";
-    db.all(sql, [id], (err, rows) => {
+    db.all(sql, [], (err, rows) => {
       if (err) {
         reject(err);
         return;
