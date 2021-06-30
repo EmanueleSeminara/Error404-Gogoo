@@ -258,7 +258,7 @@ exports.sendReservationEditedMail = (email, name, id) => {
   );
 };
 
-exports.sendsendExpiredDeliveryMail = (email, name, id) => {
+exports.sendExpiredDeliveryMail = (email, name, id) => {
   transporter.sendMail(
     {
       from: process.env.MAIL_USER,
@@ -267,7 +267,7 @@ exports.sendsendExpiredDeliveryMail = (email, name, id) => {
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the delivery for the booking with id " + id + "has expired, log in to the portal to update the information.\n\nGogoo Team",
+        ",\n\nWe inform you that the delivery for the booking with id " + id + " has expired, log in to the portal to update the information.\n\nGogoo Team",
     },
     function (error, info) {
       if (error) {
@@ -289,6 +289,47 @@ exports.sendReservationBeingProcessedMail = (email, name) => {
         "Dear " +
         name +
         ",\n\nWe inform you that your reservation is being processed, as soon as it is confirmed you will be informed!\n\nGogoo Team",
+    },
+    function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    }
+  );
+};
+
+exports.sendDeliveryFailureyMail = (email, name, id) => {
+  transporter.sendMail(
+    {
+      from: process.env.MAIL_USER,
+      to: email,
+      subject: "Gogoo - Delivery Failure",
+      text:
+        "Dear " +
+        name +
+        ",\n\nWe inform you that you have not delivered the vehicle associated with the booking with id " + id + ", you have been charged for the penalty.\n\nGogoo Team",
+    },
+    function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    }
+  );
+};
+
+exports.sendDeliveryFailureyMailAdmin = (emailAdmin, nameGuest, idReservation, emailGuest) => {
+  transporter.sendMail(
+    {
+      from: process.env.MAIL_USER,
+      to: emailAdmin,
+      subject: "Gogoo - Delivery Failure",
+      text:
+        "Dear Admin" +
+        ",\n\nMr. " + nameGuest + " with email " + emailGuest + " did not deliver the vehicle associated with the booking with id " + idReservation + ".\n\nGogoo Team",
     },
     function (error, info) {
       if (error) {

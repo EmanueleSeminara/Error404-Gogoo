@@ -124,7 +124,7 @@ exports.updateReservation = (reservation) => {
           reject(err);
           return;
         }
-        resolve(this.lastID);
+        resolve(this.changes);
       }
     );
   });
@@ -365,5 +365,23 @@ exports.isInReservations = (idGuest, idReservation) => {
       this.changes === 1 ? resolve(true) : resolve(false);
       //resolve(row);
     });
+  });
+};
+
+exports.canTEditReservation = (refVehicle, id) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT id FROM reservations as r WHERE r.refVehicle = ? AND r.id != ?";
+    db.get(
+      sql,
+      [refVehicle, id],
+      (err, row) => {
+
+        if (err) {
+          reject(err);
+        } 
+        resolve(row ? true : false);
+      }
+    );
   });
 };
