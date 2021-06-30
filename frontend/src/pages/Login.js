@@ -99,10 +99,10 @@ export default class Login extends Component {
 
 
             <div className="ez sfondo  no-scrollable" >
-                {/* <Navbar /> */}
-                <div className="navMobile" style={{ display: "none" }}>
+                <Navbar />
+                {/* <div className="navMobile" style={{ display: "none" }}>
                     <Navbar />
-                </div>
+                </div> */}
                 {this.state.error &&
 
                     <Alert severity="error">Email o password non validi</Alert>

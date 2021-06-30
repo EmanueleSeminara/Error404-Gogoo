@@ -42,6 +42,15 @@ export default class CardConsegnaFuoriStallo extends Component {
                 this.setState({ possibile: res.data })
             }).catch((err) => {
                 console.log(err)
+                if (err.response.status === 422) {
+                    this.setState({ string: "errore nell'inserimento dei dati" });
+                    this.setState({ error: true });
+                } else if (err.response.status === 503) {
+                    this.setState({ string: "impossibile cambiare password al momento, riprova più tardi" });
+                    this.setState({ error: true });
+                } else {
+                    window.location.href = "/serverError"
+                }
             })
         console.log(this.state.possibile)
     }

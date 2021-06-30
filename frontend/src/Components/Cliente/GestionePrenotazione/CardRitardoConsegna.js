@@ -43,6 +43,7 @@ export default class CardSegnalaGuasto extends Component {
         mostraCambiaLuogo: false,
         disabled: true,
         viaRiferimento: "",
+        success: false,
 
     };
 
@@ -81,6 +82,7 @@ export default class CardSegnalaGuasto extends Component {
         event.preventDefault();
         this.setState({ disabled: true });
         this.setState({ mostra: false });
+        this.setState({ success: true});
 
     };
 
@@ -132,6 +134,7 @@ export default class CardSegnalaGuasto extends Component {
                                             <Button type="button" className="buttonVerde" onClick={() => this.setMostraCambiaLuogo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
                                                 Cambia luogo consegna
                                             </Button>
+                                            {this.state.success && <Alert style={{marginTop: "20px" }} severity="success">Segnalazione avvenuta con successo!</Alert>} {/* mettere delay */}
                                     
                                     </center>
                                 </div>
@@ -174,7 +177,7 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
-
+                                
                                 {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                         {(this.state.mostraCambiaLuogo) &&
@@ -218,7 +221,7 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
-
+                                                        
                                 {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                     </center>

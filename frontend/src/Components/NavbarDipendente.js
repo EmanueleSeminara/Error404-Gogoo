@@ -66,7 +66,7 @@ export default class NavbarDipendente extends Component {
     return (
       <div>
         <Navbar light expand="md" style={{ backgroundColor: "#39304d" }}  fixed="top"Z >
-          <NavbarBrand href="/" style={{ color: "white" }}>GoGoo!</NavbarBrand>
+          <NavbarBrand href="/" style={{ color: "white" }}>dropcar</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Button href={this.state.home} style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Home</Button>

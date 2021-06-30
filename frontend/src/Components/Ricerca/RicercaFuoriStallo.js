@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import "../../ComponentsCss/Pannel.css";
 import * as moment from 'moment';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 
 import {
@@ -43,7 +44,9 @@ export default class FormRicerca extends Component {
 		dateR: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		dateC: moment(new Date()).format('YYYY-MM-DD HH:mm'),
 		start: "",
-		cerca: false
+		cerca: false,
+		errorList: false,
+		errorPayment: false,
 	};
 
 
@@ -68,6 +71,10 @@ export default class FormRicerca extends Component {
 					this.setState({ list: res.data });
 					this.setState({ cerca: true });
 				}
+				else {
+					this.setState({errorList: true})
+				}
+
 			}).catch((err) => {
 				console.log(err);
 			})
@@ -106,7 +113,7 @@ export default class FormRicerca extends Component {
 						};
 						window.localStorage.setItem("reservation", JSON.stringify(reservation));
 					} else {
-						//fare spuntare messaggio di errore 
+						this.setState({errorPayment: true})
 					}
 
 				}).catch((err) => {
@@ -120,7 +127,8 @@ export default class FormRicerca extends Component {
 	render() {
 		return (
 			<div>
-
+				{this.state.errorPayment && <Alert severity="error">Non hai un metodo di pagamento</Alert>}
+				{this.state.errorList && <Alert severity="error">Non ci sono veicoli</Alert>}
 				<AvForm onValidSubmit={this.onValidSubmit} >
 					
 						

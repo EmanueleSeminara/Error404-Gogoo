@@ -12,6 +12,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 export default class PannelloRitiroConsegna extends Component {
     state = {
         listReservation: [],
+        string: "",
     };
 
     componentDidMount() {
@@ -63,7 +64,17 @@ export default class PannelloRitiroConsegna extends Component {
                 window.location.href = '/pagamento';
             }).catch((err) => {
                 console.log(err);
-                //window.location.href = '/errorServer';
+                if (err.response.status === 503) {
+                    this.setState({ string: "impossibile effettuare l'operazione riprova più tardi" });
+                    this.setState({ error: true });
+                }
+                else if (err.response.status === 422) {
+                    this.setState({ string: "errore nell'inserimento dei dati" });
+                    this.setState({ error: true });
+                }
+                else{
+                    window.location.href = '/errorServer';
+                }
             });
     };
 
@@ -73,10 +84,11 @@ export default class PannelloRitiroConsegna extends Component {
         return (
             <div className="ez sfondo-card">
                 <NavbarCliente />
+                {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Consegna fuori stallo</div></center>
-                        {this.state.listReservation.length == 0 && <Alert severity="error">Non hai prenotazioni</Alert>}
+                        {this.state.listReservation.length == 0 && <Alert severity="info">Non hai prenotazioni</Alert>}
                         <div className="d-flex flex-row flex-wrap justify-content-center">
                             {this.state.listReservation.map(((item) => (
                                 <div className="p-3 col-12">
