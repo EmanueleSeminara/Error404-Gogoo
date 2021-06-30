@@ -41,7 +41,7 @@ export default class PannelloRitiraConsegnaAutista extends Component {
     consegna = (reservationID, vehicleID) => {
         Axios.delete('/api/driver/cardelivery/?id=' + reservationID + '&refVehicle=' + vehicleID)
             .then((res) => {
-                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+                this.setState({ listReservationDriver: this.state.listReservationDriver.filter(reservation => reservation.id !== reservationID) });
                 // MESSAGGIO DI SUCESSO +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             }).catch((err) => {
                 console.log(err)
