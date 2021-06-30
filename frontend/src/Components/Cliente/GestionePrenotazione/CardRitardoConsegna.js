@@ -35,23 +35,19 @@ import {
 
 export default class CardSegnalaGuasto extends Component {
     state = {
-        ritiro: false,
-        consegna: false,
-        id: this.props.id,
-        errore: false,
         mostraRitardo: false,
         mostraCambiaLuogo: false,
         disabled: true,
+        refParkingC: "",
         viaRiferimento: "",
 
     };
 
-    stampa = (state) => {
-        console.log(state);
-    };
+    setting = () => {
+        this.setState({ mostraRitardo: false });
+        this.setState({ mostraCambiaLuogo: false });
+        this.setState({ refParkingC: this.props.refParkingC });
 
-    setRitiro = (bool) => {
-        this.setState({ ritiro: bool });
     }
 
     setMostraRitardo = () => {
@@ -69,10 +65,6 @@ export default class CardSegnalaGuasto extends Component {
     }
 
 
-    setConsegna = (bool) => {
-        this.setState({ consegna: bool });
-    }
-
     handleChange = (input) => (e) => {
         this.setState({ [input]: e.target.value });
     }
@@ -83,6 +75,11 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ mostra: false });
 
     };
+
+    onValidSubmit1 = (event) => {
+        event.preventDefault();
+        this.props.changeDestination()
+    }
 
     handleChangeDateArrivo = (date) => {
         this.setState({ dataArrivo: date });
@@ -106,7 +103,7 @@ export default class CardSegnalaGuasto extends Component {
 
                                     <div className="row no-gutters">
                                         <div className="col-md-12">
-                                            <h3 className="infoCard">Id veicolo:  {this.props.id}{/* {props.idVeicolo} */}</h3>
+                                            <h3 className="infoCard">Id veicolo:  {this.props.id}</h3>
                                             <hr style={{ backgroundColor: "white" }} />
                                         </div>
 
@@ -115,13 +112,18 @@ export default class CardSegnalaGuasto extends Component {
                                     <div className="row no-gutters">
                                         <div className="col-md-6">
                                             <p className="infoCard"><strong>Tipo:</strong> {this.props.tipo}</p>
-                                            <p className="infoCard"><strong>parcheggio ritiro:</strong>   {this.props.parcRitiro}</p>
-                                            <p className="infoCard"><strong>data ritiro:</strong>   {this.props.dataRitiro}</p>
+                                            {this.props.refParkingR != null &&
+                                                <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
+                                            }
+                                            {this.props.positionR != null &&
+                                                <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+                                            }
+                                            <p className="infoCard"><strong>data ritiro:</strong>   {this.props.dateR}</p>
                                         </div>
                                         <div className="col-md-6">
-                                            <p className="infoCard"><strong>Autista:</strong> {this.props.autista}</p>
-                                            <p className="infoCard"><strong>parcheggio consegna:</strong>   {this.props.parcConsegna}</p>
-                                            <p className="infoCard"><strong>data consegna:</strong>   {this.props.dataConsegna}</p>
+                                            <p className="infoCard"></p>
+                                            <p className="infoCard"><strong>parcheggio consegna:</strong>   {this.state.refParkingC}</p>
+                                            <p className="infoCard"><strong>data consegna:</strong>   {this.props.dateC}</p>
                                         </div>
                                     </div>
                                     <center>
@@ -179,7 +181,7 @@ export default class CardSegnalaGuasto extends Component {
                             </center>}
                         {(this.state.mostraCambiaLuogo) &&
                             <center>
-                                <AvForm onValidSubmit={this.onValidSubmit}>
+                                <AvForm onValidSubmit={this.onValidSubmit1}>
                                     <Col>
 
                                         <center>
@@ -218,8 +220,6 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
-
-                                {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                     </center>
                 </div>

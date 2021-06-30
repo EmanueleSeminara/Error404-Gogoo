@@ -1,36 +1,55 @@
 import React, { Component } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
-
-
-import faker from 'faker';
+import Axios from "axios";
 import CardRitardoConsegna from "./CardRitardoConsegna";
 import NavbarCliente from "../../../Components/NavbarCliente";
 
 
-const data = new Array(2).fill().map((value, index) => ({ id: index, tipo: faker.lorem.words(1), dataRitiro: faker.lorem.words(1), dataConsegna: faker.lorem.words(1), parcRitiro: faker.lorem.words(1), parcConsegna: faker.lorem.words(1) }))
-
-
 
 export default class PannelloRitiroConsegna extends Component {
-
-
-    setRSelected = (num) => {
-        this.setState({ rSelected: num });
+    state = {
+        list: []
     }
 
-    handleChange = (input) => (e) => {
-        this.setState({ [input]: e.target.value });
-    };
 
-    setModifica = (bool) => {
-        this.setState({ modifica: bool });
+    componentDidMount() {
+        if (localStorage.getItem("utente") === null) {
+            window.location.href = '/'
+        } else {
+            let c = JSON.parse(localStorage.getItem("utente"));
+            if (c.role === "driver") {
+                window.location.href = "/pannelloAutista";
+            } else if (c.role === "admin") {
+                window.location.href = "/pannelloAmministratore";
+            } else if (c.role === "valet") {
+                window.location.href = "/pannelloParcheggiatore";
+            } else {
+                Axios.get('/api/guest/myreservationslatedelivery')
+                    .then((res) => {
+                        this.setState({ listReservation: res.data })
+                        console.log(this.state.listReservation)
+                    }).catch((err) => {
+                        console.log(err);
+                        //window.location.href = '/errorServer'
+                    })
+            }
+        }
     }
 
-    onValidSubmit = (event) => {
-        event.preventDefault();
-        console.log(this.state);
-    };
 
+    changeDestination = (reservationID, parkingC) => {
+        const data = {
+            id: reservationID,
+            refParkingC: parkingC
+        }
+        Axios.put('/api/guest/changedestinationparking', data)
+        .then((res) => {
+            this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+        }).catch((err) => {
+            console.log(err)
+            // window.location.href = '/errorServer';
+        });
+    }
 
 
     render() {
@@ -40,11 +59,10 @@ export default class PannelloRitiroConsegna extends Component {
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Ritardo Consegna</div></center>
-                        {data.map(((item) => (
+                        {this.state.list.map(((item) => (
                              <div className="p-3 col-12">
-                            <CardRitardoConsegna tipo={item.tipo} dataRitiro={item.dataRitiro} dataConsegna={item.dataConsegna} parcRitiro={item.parcRitiro} parcConsegna={item.parcConsegna} autista={true} id={item.id} />
+                                <CardRitardoConsegna id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} positionR={item.positionR} state={item.state} changeDestination={this.changeDestination} />
                             </div>
-                            /*  <CardModificaUtente nome={item.nome} cognome={item.cognome} email={item.email} telefono={item.telefono} eta={item.eta} password={item.password}/> */
                         )))}
                     </div>
                 </div>
