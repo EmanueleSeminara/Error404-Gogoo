@@ -47,9 +47,18 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ mostraRitardo: false });
         this.setState({ mostraCambiaLuogo: false });
         this.setState({ refParkingC: this.props.refParkingC });
-
     }
 
+    componentDidMount() {
+        this.setting();
+    }
+
+    componentDidUpdate(propsPrecedenti) {
+        if (this.props !== propsPrecedenti) {
+            this.setting();
+        }
+    }
+    
     setMostraRitardo = () => {
         this.setState({ mostraRitardo: true });
         this.setState({ mostraCambiaLuogo: false });
@@ -103,7 +112,7 @@ export default class CardSegnalaGuasto extends Component {
 
                                     <div className="row no-gutters">
                                         <div className="col-md-12">
-                                            <h3 className="infoCard">Id veicolo:  {this.props.id}</h3>
+                                            <h3 className="infoCard">Id veicolo:  {this.props.refVehicle}</h3>
                                             <hr style={{ backgroundColor: "white" }} />
                                         </div>
 
