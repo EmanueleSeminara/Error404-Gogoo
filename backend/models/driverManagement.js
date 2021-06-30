@@ -177,3 +177,22 @@ exports.confirmationOfReservation = (idDriver, idReservation) => {
     });
   });
 };
+
+
+exports.getUserByReservation = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT u.name, u.email FROM users AS u JOIN reservations AS r ON u.id = r.refGuest WHERE r.id  = ?";
+    db.get(sql, [id], function (err, row) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const user = {
+        email: row.email,
+        name: row.name
+      }
+      resolve(user);
+    });
+  });
+};

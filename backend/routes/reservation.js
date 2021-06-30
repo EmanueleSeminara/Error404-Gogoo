@@ -44,7 +44,7 @@ router.post(
 
     try {
       await reservationManagement.addReservationWithDriver(reservation, req.user.id);
-      mail.sendNewReservationMail(req.user.email, req.user.name);
+      mail.sendReservationBeingProcessedMail(req.user.email, req.user.name);
       res.status(201).end();
     } catch (err) {
       if (err.errno == 19) {
