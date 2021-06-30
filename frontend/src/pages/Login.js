@@ -98,7 +98,7 @@ export default class Login extends Component {
         return (
 
 
-            <div className="ez sfondo" >
+            <div className="ez sfondo  no-scrollable" >
                 {/* <Navbar /> */}
                 <div className="navMobile" style={{ display: "none" }}>
                     <Navbar />
