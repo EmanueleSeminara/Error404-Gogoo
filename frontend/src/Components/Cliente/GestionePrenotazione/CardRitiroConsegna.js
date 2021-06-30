@@ -52,7 +52,8 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
     ritira = () => {
         const data = {
             id: this.props.id,
-            refVehicle: this.props.refVehicle
+            refVehicle: this.props.refVehicle,
+            dateC: this.props.dateC
         }
         Axios.put('/api/guest/retirevehicle', data)
         .then((res) => {
