@@ -11,7 +11,7 @@ router.get("/myreservations/", isDriver, async (req, res) => {
   try {
     res.json(await driverManagement.myReservation(req.user.id));
   } catch (err) {
-    res.json({
+    res.status(503).json({
       error: "Database error when requesting reservations - " + err,
     });
   }
@@ -22,7 +22,7 @@ router.get("/reservationsnotconfirmed/", isDriver, async (req, res) => {
   try {
     res.json(await driverManagement.reservationNotConfirmed());
   } catch (err) {
-    res.json({
+    res.status(503).json({
       error: "Database error when requesting unconfirmed reservations - " + err,
     });
   }
@@ -39,7 +39,7 @@ router.put("/retirecar/", isDriver, async (req, res) => {
     await driverManagement.retireCar(reservation);
     res.status(201).end();
   } catch (err) {
-    res.json({
+    res.status(503).json({
       error: "Database error when requesting unconfirmed reservations - " + err,
     });
   }
@@ -56,7 +56,7 @@ router.delete("/cardelivery/", isDriver, async (req, res) => {
     await driverManagement.carDelivery(reservation);
     res.status(201).end();
   } catch (err) {
-    res.json({
+    res.status(503).json({
       error: "Database error while canceling the reservation - " + err,
     });
   }
@@ -67,12 +67,12 @@ router.delete("/cardelivery/", isDriver, async (req, res) => {
 // Conferma prenotazione
 router.put("/confirmationofreservation/:id", isDriver, async (req, res) => {
   try {
-    await driverManagement.confirmationOfReservation(req.params.id, req.user.id);
+    await driverManagement.confirmationOfReservation(req.user.id, req.params.id);
     const user = driverManagement.getUserByReservation(req.params.id)
     mail.sendNewReservationMail(user.email, user.name, req.params.id)
     res.status(201).end();
   } catch (err) {
-    res.json({
+    res.status(503).json({
       error: "Database error while updating the reservation - " + err,
     });
   }
