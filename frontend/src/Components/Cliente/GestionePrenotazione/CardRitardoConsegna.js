@@ -125,14 +125,14 @@ export default class CardSegnalaGuasto extends Component {
                                         </div>
                                     </div>
                                     <center>
-                                        <div className="row justify-content-md-center">
+                                        
                                             <Button type="button" className="buttonRed" onClick={() => this.setMostraRitardo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
                                                 Ritardo consegna
                                             </Button>
                                             <Button type="button" className="buttonVerde" onClick={() => this.setMostraCambiaLuogo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
                                                 Cambia luogo consegna
                                             </Button>
-                                        </div>
+                                    
                                     </center>
                                 </div>
                             </div>
