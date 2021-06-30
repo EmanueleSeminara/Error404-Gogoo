@@ -7,8 +7,6 @@ import faker from 'faker';
 import CardRitiraConsegnaAutista from "./CardRitiraConsegnaAutista";
 import Axios from 'axios';
 
-const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(1) }))
-
 export default class PannelloRitiraConsegnaAutista extends Component {
     state = {
         listReservationDriver: []
@@ -28,10 +26,12 @@ export default class PannelloRitiraConsegnaAutista extends Component {
             } else {
                 Axios.get('/api/driver/myreservations')
                     .then((res) => {
+                        console.log(res.data)
                         this.setState({ listReservationDriver: res.data });
                     }).catch((err) => {
-                        window.location.href = '/errorServer';
-                      
+                        console.log(err)
+                        //window.location.href = '/errorServer';
+
                     });
             }
         }
@@ -39,12 +39,13 @@ export default class PannelloRitiraConsegnaAutista extends Component {
 
 
     consegna = (reservationID, vehicleID) => {
-        Axios.delete('/api/reservation/delete/?id=' + reservationID + '&refVehicle=' + vehicleID)
+        Axios.delete('/api/driver/cardelivery/?id=' + reservationID + '&refVehicle=' + vehicleID)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
                 // MESSAGGIO DI SUCESSO +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             }).catch((err) => {
-                window.location.href = '/errorServer';
+                console.log(err)
+                //window.location.href = '/errorServer';
             });
     }
 
@@ -52,15 +53,15 @@ export default class PannelloRitiraConsegnaAutista extends Component {
         return (
             <div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "45vh" }}>
                 <div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
-                   
 
-            
-                        {/* this.state.listReservationDriver */data.map(((item) => (
-                            <div className="p-3">
+
+
+                    {this.state.listReservationDriver.map(((item) => (
+                        <div className="p-3">
                             <CardRitiraConsegnaAutista type={item.type} category={item.category} id={item.id} dateR={item.dateR} dateC={item.dateC} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} name={item.name} surname={item.surname} consegna={this.consegna} />
-                            </div>
-                        )))}
-                    
+                        </div>
+                    )))}
+
                 </div>
             </div>
         );

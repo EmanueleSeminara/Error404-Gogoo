@@ -44,6 +44,7 @@ export default class CardRitiraConsegnaAutista extends Component {
             id: this.props.id,
             refVehicle: this.props.refVehicle
         }
+        console.log(data)
         Axios.put('/api/driver/retirecar/', data)
             .then((res) => {
                 this.setState({ ritiro: false })
