@@ -256,7 +256,9 @@ router.put("/edit", isGuest, async (req, res) => {
 
 router.get("/canteditreservation", isGuest, async (req, res) => {
   try{
-    res.json(await reservationManagement.canTEditReservation(req.query.refVehicle, req.query.id));
+    const resp = await reservationManagement.canTEditReservation(req.query.refVehicle, req.query.id);
+    console.log("RISPOSTA: " + resp);
+    res.json(resp);
   }catch(err){
     res
       .status(503)
