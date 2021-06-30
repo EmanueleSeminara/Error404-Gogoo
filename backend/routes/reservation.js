@@ -132,7 +132,7 @@ router.post(
   }
 );
 
-router.get("/myreservations/", isGuest, async (req, res) => {
+router.get("/myreservations", isGuest, async (req, res) => {
   try {
     res.json(await reservationManagement.getMyReservations(req.user.id));
   } catch (err) {
@@ -144,7 +144,8 @@ router.get("/myreservations/", isGuest, async (req, res) => {
   }
 });
 
-router.get("/myreservationsnotwithdrawn/", isGuest, async (req, res) => {
+router.get("/myreservationsnotwithdrawn", isGuest, async (req, res) => {
+  console.log("SEI DENTRO PIRLA!!")
   try {
     res.json(await reservationManagement.getMyReservationsNotWithdrawn(req.user.id));
   } catch (err) {
