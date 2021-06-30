@@ -187,7 +187,7 @@ export default class FormRicerca extends Component {
 							</div>
 						</div>
 							{this.state.errorTime &&
-								<h6 color="red">Non puoi andare indietro nel tempo </h6>
+							<h6 style={{ color: "#ef462c"}}>Non puoi andare indietro nel tempo </h6>
 							}
 
 						<div style={{ paddingBottom: "20px" }}>
