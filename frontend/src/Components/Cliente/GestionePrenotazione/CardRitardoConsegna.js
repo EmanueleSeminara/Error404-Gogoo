@@ -77,7 +77,7 @@ export default class CardSegnalaGuasto extends Component {
 
     onValidSubmit1 = (event) => {
         event.preventDefault();
-        this.props.changeDestination(this.props.id, this.state.refVehicle);
+        this.props.changeDestination(this.props.id, this.state.refParkingC);
     }
 
     handleChangeDateArrivo = (date) => {
