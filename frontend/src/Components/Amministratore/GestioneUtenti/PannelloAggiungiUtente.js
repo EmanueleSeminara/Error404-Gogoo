@@ -141,7 +141,7 @@ export default class PannelloAggiugiUtente extends Component {
                         <center>
                             <ButtonGroup style={{ marginBottom: "20px", flexWrap: "wrap" }}>
                                 <Button
-                                    className="buttonCyanoGruoup "
+                                    className={this.state.role === "guest" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
 
                                     onClick={() => {
                                         this.setRSelected("guest");
@@ -153,7 +153,7 @@ export default class PannelloAggiugiUtente extends Component {
                                     Cliente
                                 </Button>
                                 <Button
-                                    className="buttonCyanoGruoup "
+                                    className={this.state.role === "driver" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
                                     onClick={() => {
                                         this.setRSelected("driver");
                                         this.setState({ error: false });
@@ -164,7 +164,7 @@ export default class PannelloAggiugiUtente extends Component {
                                     Autista
                                 </Button>
                                 <Button
-                                    className="buttonCyanoGruoup "
+                                    className={this.state.role === "valet" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
                                     onClick={() => {
                                         this.setRSelected("valet");
                                         this.setState({ error: false });
@@ -175,7 +175,7 @@ export default class PannelloAggiugiUtente extends Component {
                                     Parcheggiatore
                                 </Button>
                                 <Button
-                                    className="buttonCyanoGruoup "
+                                    className={this.state.role === "admin" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
                                     onClick={() => {
                                         this.setRSelected("admin");
                                         this.setState({ error: false });
