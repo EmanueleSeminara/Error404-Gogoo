@@ -36,11 +36,11 @@ export default class PannelloRitiro extends Component {
     }
 
 
-    ritira = (reservationID, vehicleID, dateR) => {
+    ritira = (reservationID, vehicleID, dateC) => {
         const data = {
             id: reservationID,
             refVehicle: vehicleID,
-            dataR: dateR
+            dataC: dateC
         }
         Axios.put('/api/valet/deliveryvehicle', data)
             .then((res) => {
