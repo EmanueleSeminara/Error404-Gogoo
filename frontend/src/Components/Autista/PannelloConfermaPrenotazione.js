@@ -39,7 +39,7 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
 
 
     conferma = (reservationID) => {
-        Axios.put('/api/driver/confirmationofreservation/?id=' + reservationID)
+        Axios.put('/api/driver/confirmationofreservation/' + reservationID)
             .then((res) => {
                 this.setState({ listReservationDriver: this.state.listReservationDriver.filter(reservation => reservation.id !== reservationID) });
                 // MESSAGGIO DI SUCESSO +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
