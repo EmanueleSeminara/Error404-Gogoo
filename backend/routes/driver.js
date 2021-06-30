@@ -68,7 +68,7 @@ router.delete("/cardelivery/", isDriver, async (req, res) => {
 router.put("/confirmationofreservation/:id", isDriver, async (req, res) => {
   try {
     await driverManagement.confirmationOfReservation(req.user.id, req.params.id);
-    const user = driverManagement.getUserByReservation(req.params.id)
+    const user = await driverManagement.getUserByReservation(req.params.id)
     mail.sendNewReservationMail(user.email, user.name, req.params.id)
     res.status(201).end();
   } catch (err) {
