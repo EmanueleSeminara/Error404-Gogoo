@@ -30,7 +30,7 @@ router.get("/reservationsnotconfirmed/", isDriver, async (req, res) => {
 
 // Ritiro macchina
 router.put("/retirecar/", isDriver, async (req, res) => {
-  console.log("RITIRO: " + req.body.refVehicle, ref.body.id);
+  console.log("RITIRO: " + req.body.refVehicle, req.body.id);
   const reservation = {
     refDriver: req.user.id,
     refVehicle: req.body.refVehicle,
@@ -48,7 +48,7 @@ router.put("/retirecar/", isDriver, async (req, res) => {
 
 // Consegna macchina
 router.delete("/cardelivery/", isDriver, async (req, res) => {
-  console.log("CONSEGNA: " + req.query.refVehicle, ref.query.id);
+  console.log("CONSEGNA: " + req.query.refVehicle, req.query.id);
   const reservation = {
     refDriver: req.user.id,
     refVehicle: req.query.refVehicle,
