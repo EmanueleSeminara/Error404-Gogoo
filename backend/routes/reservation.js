@@ -145,7 +145,6 @@ router.get("/myreservations", isGuest, async (req, res) => {
 });
 
 router.get("/myreservationsnotwithdrawn", isGuest, async (req, res) => {
-  console.log("SEI DENTRO PIRLA!!")
   try {
     res.json(await reservationManagement.getMyReservationsNotWithdrawn(req.user.id));
   } catch (err) {
