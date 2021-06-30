@@ -7,7 +7,6 @@ import faker from 'faker';
 import CardConfermaRifiutaPrenotazione from "./CardConfermaPrenotazione";
 import Axios from 'axios';
 
-const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(1) }))
 
 export default class PannelloConfermaRifiutaPrenotazione extends Component {
     state = {
@@ -39,7 +38,7 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
 
 
     conferma = (reservationID) => {
-        Axios.delete('/api/driver/confirmationofreservation/?id=' + reservationID)
+        Axios.put('/api/driver/confirmationofreservation/?id=' + reservationID)
             .then((res) => {
                 this.setState({ listReservationDriver: this.state.listReservationDriver.filter(reservation => reservation.id !== reservationID) });
                 // MESSAGGIO DI SUCESSO +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -55,7 +54,7 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
                    
                    
                
-                        {/* this.state.listReservationDriver */data.map(((item) => (
+                        {this.state.listReservationDriver.map(((item) => (
                             <div className="p-3">
                             <CardConfermaRifiutaPrenotazione type={item.type} category={item.category} id={item.id} dateR={item.dateR} dateC={item.dateC} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} name={item.name} surname={item.surname} conferma={this.conferma} />
                             </div>
