@@ -30,7 +30,7 @@ fieldset.form-group > div.form-control {
 }
 
 .buttonCyanoGruoup {
-  background-color: #0df6e3 !important;
+  background-color: #17d8c8 !important;
   color: #1d182e !important;
   font-family: "Futura Md BT" !important;
   font-style: normal;
@@ -39,6 +39,22 @@ fieldset.form-group > div.form-control {
 
   border: none !important;
   /* margin-top: 30px; */
+}
+
+.buttonCyanoGruoupSelected {
+  background-color: #0df6e3 !important;
+  color: #1d182e !important;
+  font-family: "Futura Md BT" !important;
+  font-style: normal;
+  box-shadow: 0px 0.5px 10px 0.5px #0df6e3 !important;
+
+  text-align: center !important;
+
+  border: none !important;
+  /* margin-top: 30px; */
+}
+.buttonCyanoGruoupSelected:hover{
+  box-shadow: 0px 0.5px 10px 0.5px #0df6e3 !important;
 }
 
 

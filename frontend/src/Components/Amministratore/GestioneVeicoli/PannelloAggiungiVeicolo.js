@@ -113,7 +113,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 							{/*tipologia veicolo*/}
 							<ButtonGroup style={{ flexWrap: "wrap" }}>
 								<Button
-									className="buttonCyanoGruoup "
+									className={this.state.type === "car" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
 									onClick={() => {
 										this.setRSelected("car");
 										this.setState({ error: false });
@@ -124,7 +124,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 									Automobile
 								</Button>
 								<Button
-									className="buttonCyanoGruoup"
+									className={this.state.type === "scooter" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
 									onClick={() => {
 										this.setRSelected("scooter");
 										this.setState({ error: false });
@@ -134,7 +134,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 									Motore
 								</Button>
 								<Button
-									className="buttonCyanoGruoup"
+									className={this.state.type === "electric scooter" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
 									onClick={() => {
 										this.setRSelected("electric scooter");
 										this.setState({ error: false });
@@ -144,7 +144,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 									Monopattino
 								</Button>
 								<Button
-									className="buttonCyanoGruoup"
+									className={this.state.type === "bicycle" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
 									onClick={() => {
 										this.setRSelected("bicycle");
 										this.setState({ error: false });

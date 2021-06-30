@@ -57,7 +57,7 @@ export default class Registrazione extends Component {
 			<div className="ez sfondo-card">
 				<NavbarCliente />
 				<div className="row justify-content-md-center boxpannel ">
-					<div className="col-10 bg-pannell-card">
+					<div className="col-10 bg-pannell">
 						<div >
 						<center><div className="title">Rimuovi Carta</div></center>
 				

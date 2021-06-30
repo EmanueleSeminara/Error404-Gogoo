@@ -96,48 +96,6 @@ router.post(
       const idReservation = await reservationManagement.addReservation(reservation, req.user.id);
       console.log("idReservation: " + idReservation);
       mail.sendNewReservationMail(req.user.email, req.user.name, idReservation);
-      const deliveryDate = new Date(reservation.dateC).getTime();
-      const nowDate = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Rome"})).getTime();
-      const deliveryDatetime =  deliveryDate - nowDate;
-      // Scadenza orario di consegna
-      setTimeout(async () => {
-        try{
-          const isInReservations = await reservationManagement.isInReservations(req.user.id, idReservation);
-          console.log("isInReservation: " + isInReservations);
-          if(isInReservations){
-            mail.sendExpiredDeliveryMail(req.user.email, req.user.name, idReservation);
-            const admins = await userManagement.getAllAdmins();
-            admins.forEach((admin) => {
-              mail.sendExpiredDeliveryMail(admin.email, 'Admin', idReservation);
-            })
-            console.log("MANDA EMAIL!!");
-          }
-        }catch(err){
-          console.log(err);
-        }
-        
-        //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-      }, deliveryDatetime);
-
-      // Mancata consegna
-      setTimeout(async () => {
-        try{
-          const isInReservations = await reservationManagement.isInReservations(req.user.id, idReservation);
-          console.log("isInReservation: " + isInReservations);
-          if(isInReservations){
-            mail.sendDeliveryFailureyMail(req.user.email, req.user.name, idReservation);
-            const admins = await userManagement.getAllAdmins();
-            admins.forEach((admin) => {
-              mail.sendDeliveryFailureyMailAdmin(admin.email, req.user.name, idReservation, req.user.email);
-            })
-            console.log("MANDA EMAIL!!");
-          }
-        }catch(err){
-          console.log(err);
-        }
-        
-        //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-      }, deliveryDatetime + 14400000);
       res.status(201).end();
     } catch (err) {
       if (err.errno == 19) {
@@ -256,9 +214,7 @@ router.put("/edit", isGuest, async (req, res) => {
 
 router.get("/canteditreservation", isGuest, async (req, res) => {
   try{
-    const resp = await reservationManagement.canTEditReservation(req.query.refVehicle, req.query.id);
-    console.log("RISPOSTA: " + resp);
-    res.json(resp);
+    res.json(await reservationManagement.canTEditReservation(req.query.refVehicle, req.query.id));
   }catch(err){
     res
       .status(503)

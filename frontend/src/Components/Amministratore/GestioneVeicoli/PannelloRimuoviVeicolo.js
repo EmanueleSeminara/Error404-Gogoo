@@ -74,7 +74,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                         {this.state.listvehicles.length == 0 && <Alert severity="error">Non ci sono veicoli</Alert>}
                         <ButtonGroup style={{ flexWrap: "wrap" }}>
                             <Button
-                                className="buttonCyanoGruoup "
+                                className={this.state.type === "car" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
                                 onClick={async () => {
                                     await this.setRSelected("car");
                                     this.search();
@@ -84,7 +84,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                 Automobile
                             </Button>
                             <Button
-                                className="buttonCyanoGruoup "
+                                className={this.state.type === "scooter" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
                                 onClick={async () => {
                                     await this.setRSelected("scooter");
                                     this.search();
@@ -94,7 +94,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                 Motore
                             </Button>
                             <Button
-                                className="buttonCyanoGruoup "
+                                className={this.state.type === "electric scooter" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
                                 onClick={async () => {
                                     await this.setRSelected("electric scooter");
                                     this.search();
@@ -104,7 +104,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                                 Monopattino
                             </Button>
                             <Button
-                                className="buttonCyanoGruoup "
+                                className={this.state.type === "bicycle" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
                                 onClick={async () => {
                                     await this.setRSelected("bicycle");
                                     this.search();
