@@ -110,7 +110,7 @@ export default class CardSegnalaGuasto extends Component {
                                     </div>
                                     <div className="row no-gutters">
                                         <div className="col-md-6">
-                                            <p className="infoCard"><strong>Tipo:</strong> {this.props.tipo}</p>
+                                            <p className="infoCard"><strong>Tipo:</strong> {this.props.type}</p>
                                             {this.props.refParkingR != null &&
                                                 <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
                                             }

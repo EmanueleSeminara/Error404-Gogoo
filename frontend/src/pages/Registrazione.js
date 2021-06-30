@@ -218,6 +218,7 @@ export default class Registrazione extends Component {
                                             name="telefono"
                                             label="Numero di telefono"
                                             type="tel"
+                                            pattern="(38[890]|34[7-90]|36[680]|33[3-90]|32[89])[0-9]{7}"
                                             validate={{
                                                 required: { value: true, errorMessage: "Il campo è richiesto" },
                                                 minLength: { value: 10 },
