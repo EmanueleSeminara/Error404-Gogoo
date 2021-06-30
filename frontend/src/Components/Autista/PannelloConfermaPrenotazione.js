@@ -44,7 +44,8 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
                 this.setState({ listReservationDriver: this.state.listReservationDriver.filter(reservation => reservation.id !== reservationID) });
                 // MESSAGGIO DI SUCESSO +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             }).catch((err) => {
-                window.location.href = '/errorServer';
+                console.log(err)
+                //window.location.href = '/errorServer';
             });
     }
 
