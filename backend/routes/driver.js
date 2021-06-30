@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator");
 
 const driverManagement = require("../models/driverManagement");
 const isDriver = require("../middleware/isDriver");
+const mail = require("../models/mail");
 
 // Prenotazioni prese in carico dall'autista corrispondente all'id passato
 router.get("/myreservations/", isDriver, async (req, res) => {
@@ -66,7 +67,9 @@ router.delete("/cardelivery/", isDriver, async (req, res) => {
 // Conferma prenotazione
 router.put("/confirmationofreservation/:id", isDriver, async (req, res) => {
   try {
-    await driverManagement.confirmationOfReservation(req.body.idRes, req.user.id);
+    await driverManagement.confirmationOfReservation(req.params.id, req.user.id);
+    const user = driverManagement.getUserByReservation(req.params.id)
+    mail.sendNewReservationMail(user.email, user.name, req.params.id)
     res.status(201).end();
   } catch (err) {
     res.json({
