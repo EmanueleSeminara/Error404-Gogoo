@@ -40,7 +40,7 @@ export default class PannelloRitiro extends Component {
         const data = {
             id: reservationID,
             refVehicle: vehicleID,
-            dataC: dateC
+            dateC: dateC
         }
         Axios.put('/api/valet/deliveryvehicle', data)
             .then((res) => {
