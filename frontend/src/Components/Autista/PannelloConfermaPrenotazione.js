@@ -29,7 +29,8 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
                     .then((res) => {
                         this.setState({ listReservationDriver: res.data });
                     }).catch((err) => {
-                        window.location.href = '/errorServer';
+                        console.log(err)
+                        //window.location.href = '/errorServer';
                      
                     });
             }
