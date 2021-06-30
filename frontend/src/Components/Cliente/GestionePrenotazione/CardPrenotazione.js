@@ -57,6 +57,7 @@ export default class CardPrenotazione extends Component {
 		this.setting();
 		Axios.get('/api/reservation/canteditreservation?id=' + this.state.id + '&refVehicle=' + this.state.refVehicle)
 		.then((res) => {
+			console.log(res.data)
 			this.setState({disabled: res.data})
 		}).catch((err) => {
 			console.log(err)
