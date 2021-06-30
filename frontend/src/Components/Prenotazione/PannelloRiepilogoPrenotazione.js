@@ -76,7 +76,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 			Axios.post('/api/reservation/addreservationwithdriver', this.state.reservation)
 			.then((res) => {
 				let price = Number(this.state.price) + Number(this.state.tip);
-				window.localStorage.setItem("price", price);
+				window.localStorage.setItem("price", Math.floor(price));
 				window.location.href = '/pagamento'
 				window.localStorage.removeItem("reservation")
 			})
@@ -84,7 +84,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 			Axios.post('/api/reservation/add', this.state.reservation)
 			.then((res) => {
 					let price = Number(this.state.price) + Number(this.state.tip);
-					window.localStorage.setItem("price", price);
+				window.localStorage.setItem("price", Math.floor(price));
 					window.location.href = '/pagamento'
 					window.localStorage.removeItem("reservation")
 				})
@@ -101,18 +101,18 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 		let price = ((dateC - dateR) / 1000000);
 		if (this.state.reservation.type === "car") {
 			if (this.state.reservation.category === "suv") {
-				price *= 1.8;
+				price *= 0.8;
 			} else if (this.state.reservation.category === "berline") {
-				price *= 1.9;
+				price *= 0.9;
 			} else {
-				price *= 1.7;
+				price *= 0.7;
 			}
 		} else if (this.state.reservation.type === "scooter") {
-			price *= 1.4
+			price *= 0.4
 		} else if (this.state.reservation.type === "bicycle") {
-			price *= 0.9;
+			price *= 0.5;
 		} else {
-			price *= 1.1;
+			price *= 0.2;
 		}
 		console.log(price);
 		this.setState({ price: price })
@@ -161,7 +161,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 											}
 											<p className="infoCard"><strong>Data consegna:</strong>   {this.state.reservation.dateC}</p>
 										</div>
-										<p className="infoCard"><strong>price:</strong>   {this.state.price}</p>
+										<p className="infoCard"><strong>price:</strong>   {Math.floor(this.state.price)}€</p>
 									</div>
 
 									<div>

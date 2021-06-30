@@ -222,8 +222,9 @@ export default class Registrazione extends Component {
                                                 required: { value: true, errorMessage: "Il campo è richiesto" },
                                                 minLength: { value: 10 },
                                                 maxLength: { value: 10 },
+                                                tel: { pattern: /^([+]39)?((38[{8,9}|0])|(34[{7-9}|0])|(36[6|8|0])|(33[{3-9}|0])|(32[0|{8,9}]))([\d]{7})$/}
                                             }}
-                                            errorMessage="il numero di telefono deve contenere 10 cifre"
+                                            errorMessage="il numero di telefono non è valido"
                                             onChange={this.handleChange("phone")}
                                         />
                                     </div>

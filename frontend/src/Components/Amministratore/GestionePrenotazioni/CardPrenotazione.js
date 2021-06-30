@@ -109,58 +109,58 @@ export default class CardPrenotazione extends Component {
 	render() {
 		return (
 			<div>
-			<div className="card card-css">
-			<center>
-			
-				<div className="row no-gutters">
-					<div className="col">
-						<div className="card-body">
-
-							<div className="row no-gutters">
-								<div className="col-md-12">
-									<p className="infoCard"><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
-									<hr style={{ backgroundColor: "white" }} />
-								</div>
-
-
-							</div>
-							<div className="row no-gutters">
-								<div className="col-md-6">
-									<p className="infoCard"><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
-									{this.state.refParkingR != null &&
-										<p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
-									}
-									{this.state.positionR != null &&
-										<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
-									}
-									<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.dateR}</p>
-								</div>
-								<div className="col-md-6">
-									<p className="infoCard"><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
-									{this.state.refParkingC != null &&
-										<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
-									}
-									{this.state.positionC != null &&
-										<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
-									}
-									<p className="infoCard"><strong>Data consegna:</strong>   {this.state.dateC}</p>
-								</div>
-							</div>
-
-							<center>
-								<Button type="button" className="buttonModify" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
-									Modifica
-								</Button>
-								<Button type="button" className="buttonAnnulla" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
-									Elimina
-								</Button>
-							</center>
-						</div>
-					</div>
-				</div>
-				{this.state.modifica &&
+				<div className="card card-css">
 					<center>
-						
+
+						<div className="row no-gutters">
+							<div className="col">
+								<div className="card-body">
+
+									<div className="row no-gutters">
+										<div className="col-md-12">
+											<p className="infoCard"><strong>ID veicolo:  {this.state.refVehicle}</strong></p>
+											<hr style={{ backgroundColor: "white" }} />
+										</div>
+
+
+									</div>
+									<div className="row no-gutters">
+										<div className="col-md-6">
+											<p className="infoCard"><strong>Tipo:</strong> {this.state.type} {this.state.type === "car" ? <> {this.state.category}</> : <></>}</p>
+											{this.state.refParkingR != null &&
+												<p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
+											}
+											{this.state.positionR != null &&
+												<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.state.positionR}</p>
+											}
+											<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.dateR}</p>
+										</div>
+										<div className="col-md-6">
+											<p className="infoCard"><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
+											{this.state.refParkingC != null &&
+												<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
+											}
+											{this.state.positionC != null &&
+												<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.state.positionC}</p>
+											}
+											<p className="infoCard"><strong>Data consegna:</strong>   {this.state.dateC}</p>
+										</div>
+									</div>
+
+									<center>
+										<Button type="button" className="buttonModify" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
+											Modifica
+										</Button>
+										<Button type="button" className="buttonAnnulla" onClick={() => this.props.remove(this.state.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >
+											Elimina
+										</Button>
+									</center>
+								</div>
+							</div>
+						</div>
+						{this.state.modifica &&
+							<center>
+
 								<AvForm>
 									{this.state.positionR == null &&
 										<Row>
@@ -178,16 +178,6 @@ export default class CardPrenotazione extends Component {
 										</Row>
 									}
 									<Row>
-										{/*<Col >
-                                            <Label sm={12}>Partenza</Label>
-                                            <Input type="select" name="selectRitiro" id="parcheggioRitiro" onClick={this.handleChange("refParkingR")} >
-                                                <option>Via Libertà</option>
-                                                <option>Via Roma</option>
-                                                <option>Via Ernesto Basile</option>
-                                                <option>Viale Regione</option>
-                                                <option>Via Tersicore</option>
-                                            </Input>
-                                        </Col>*/}
 										<Col>
 											<Label sm={12}>Destinazione</Label>
 											<Input type="select" name="selectConsegna" id="parcheggioConsegna" onClick={this.handleChange("refParkingC")} >
@@ -201,38 +191,38 @@ export default class CardPrenotazione extends Component {
 									</Row>
 									<Row>
 										<Col>
-										
-												<center>
-													<div className="row ">
-														<div className="col">
-															<MuiPickersUtilsProvider utils={DateFnsUtils}>
-															<Label sm={12} style={{marginTop: "20px"}}>Ritiro</Label>
-																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()}  inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
-															</MuiPickersUtilsProvider>
-														</div>
+
+											<center>
+												<div className="row ">
+													<div className="col">
+														<MuiPickersUtilsProvider utils={DateFnsUtils}>
+															<Label sm={12} style={{ marginTop: "20px" }}>Ritiro</Label>
+															<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={new Date()} minTime={new Date()} inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+														</MuiPickersUtilsProvider>
 													</div>
-												</center>
-										
+												</div>
+											</center>
+
 										</Col>
 										<Col>
-											
-												<center>
-													<div className="row ">
-														<div className="col">
-															<MuiPickersUtilsProvider utils={DateFnsUtils}>
-															<Label sm={12} style={{marginTop: "20px"}}>Consegna</Label>
-																<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
-															</MuiPickersUtilsProvider>
-														</div>
+
+											<center>
+												<div className="row ">
+													<div className="col">
+														<MuiPickersUtilsProvider utils={DateFnsUtils}>
+															<Label sm={12} style={{ marginTop: "20px" }}>Consegna</Label>
+															<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={this.state.dateR} maxDate={moment(this.state.dateR).add(7, 'days')} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+														</MuiPickersUtilsProvider>
 													</div>
-												</center>
-										
+												</div>
+											</center>
+
 										</Col>
 									</Row>
 
 									{/* Pulsante modifica*/}
 
-									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px", marginTop: "30px"}}  >
+									<Button type="submit" className="buttonModify" onClick={() => this.modify()} style={{ padding: "8px", margin: "10px", marginTop: "30px" }}  >
 										Modifica
 									</Button>
 
@@ -241,12 +231,12 @@ export default class CardPrenotazione extends Component {
 									</Button>
 
 								</AvForm>
-						
-					
-						{this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
-					</center>}
+
+
+								{this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
+							</center>}
 					</center>
-			</div>
+				</div>
 			</div>
 		);
 	}

@@ -7,7 +7,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
 import CardPagamento from "./CardPagamento";
 import Axios from 'axios';
-import NavbarCliente from "../../Components/NavbarCliente";
+import PagamentoPDF from "./PagamentoPDF";
 
 
 export default class PannelloPagamento extends Component {
@@ -58,10 +58,11 @@ export default class PannelloPagamento extends Component {
 		}
 		else {
 			//generazione pdf
-			window.localStorage.removeItem("price")
 			this.setState({ success: true });
 			this.setState({ selezionePagamento: true });
+			PagamentoPDF(JSON.parse(localStorage.getItem("utente")), localStorage.getItem("price"), Math.floor(Math.random() * 1000000))
 			setTimeout(() => { window.location.href="/ricerca" }, 5000);
+			window.localStorage.removeItem("price")
 		}
 	};
 

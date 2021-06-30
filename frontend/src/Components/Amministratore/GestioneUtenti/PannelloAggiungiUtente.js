@@ -303,11 +303,12 @@ export default class PannelloAggiugiUtente extends Component {
                                             label="Numero di cellulare"
                                             type="tel"
                                             validate={{
-                                                required: { value: true },
+                                                required: { value: true, errorMessage: "Il campo è richiesto" },
                                                 minLength: { value: 10 },
                                                 maxLength: { value: 10 },
+                                                tel: { pattern: /^([+]39)?((38[{8,9}|0])|(34[{7-9}|0])|(36[6|8|0])|(33[{3-9}|0])|(32[0|{8,9}]))([\d]{7})$/ }
                                             }}
-                                            errorMessage="numero non valido"
+                                            errorMessage="il numero di telefono non è valido"
                                             onChange={this.handleChange("phone")}
                                         />
                                     </div>
