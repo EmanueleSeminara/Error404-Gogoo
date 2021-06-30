@@ -8,7 +8,7 @@ import NavbarCliente from "../../../Components/NavbarCliente";
 
 export default class PannelloRitiroConsegna extends Component {
     state = {
-        list: []
+        listReservation: []
     }
 
 
@@ -59,7 +59,7 @@ export default class PannelloRitiroConsegna extends Component {
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Ritardo Consegna</div></center>
-                        {this.state.list.map(((item) => (
+                        {this.state.listReservation.map(((item) => (
                              <div className="p-3 col-12">
                                 <CardRitardoConsegna id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} positionR={item.positionR} state={item.state} changeDestination={this.changeDestination} />
                             </div>
