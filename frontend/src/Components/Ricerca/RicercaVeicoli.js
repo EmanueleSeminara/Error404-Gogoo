@@ -85,7 +85,8 @@ export default class FormRicerca extends Component {
 			})
 	}
 
-	onValidSubmit = async (event) => {
+	onValidSubmit =  (event) => {
+		event.preventDefault();
 		if (moment(this.state.dateR) > moment(this.state.dateC)) {
 			this.setState({ errorTime: true })
 			this.setState({ list: [] });

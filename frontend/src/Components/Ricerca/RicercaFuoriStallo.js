@@ -72,24 +72,49 @@ export default class FormRicerca extends Component {
 				console.log(err);
 			})
 	}
+	
 
 	onValidSubmit = (event) => {
 		event.preventDefault();
-		this.search();
-		console.log(this.state)
-		const reservation = {
-			refVehicle: null,
-			type: "car",
-			refParkingR: null,
-			refParkingC: this.state.refParkingC,
-			dateR: this.state.dateR,
-			dateC: this.state.dateC,
-			category: null,
-			positionR: this.state.start,
-			positionC: null,
-			refDriver: null
-		};
-		window.localStorage.setItem("reservation", JSON.stringify(reservation));
+		if (moment(this.state.dateR) > moment(this.state.dateC)) {
+			this.setState({ errorTime: true })
+			this.setState({ list: [] });
+		} else {
+			this.setState({ errorTime: false })
+			let payment = false;
+			Axios.get('/api/guest/listpayments')
+				.then((res) => {
+
+					if (res.data.length !== 0) {
+						payment = true;
+					}
+
+					if (payment) {
+						this.search();
+						console.log(this.state)
+						const reservation = {
+							refVehicle: null,
+							type: "car",
+							refParkingR: null,
+							refParkingC: this.state.refParkingC,
+							dateR: this.state.dateR,
+							dateC: this.state.dateC,
+							category: null,
+							positionR: this.state.start,
+							positionC: null,
+							refDriver: null
+						};
+						window.localStorage.setItem("reservation", JSON.stringify(reservation));
+					} else {
+						//fare spuntare messaggio di errore 
+					}
+
+				}).catch((err) => {
+					console.log(err);
+					//window.location.href = '/errorServer';
+				});
+		}
+		
 	};
 
 	render() {
@@ -128,29 +153,32 @@ export default class FormRicerca extends Component {
 								</AvField>
 							</div>
 
-							<center>
-								<div className="row " style={{ paddingBottom: "30px" }}>
-									<div className="col">
-										<MuiPickersUtilsProvider utils={DateFnsUtils}>
-										<Label sm={12}>Ritiro</Label>
-											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={new Date()} inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
-										</MuiPickersUtilsProvider>
-									</div>
-									<div className="col">
-										<MuiPickersUtilsProvider utils={DateFnsUtils}>
-										<Label sm={12}>Consegna</Label>
-											<DateTimePicker format={"dd/MM/yyyy hh:mm"} minDateTime={this.state.dateR} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
-										</MuiPickersUtilsProvider>
-									</div>
-								</div>
+					<center>
+						<div className="row " style={{ paddingBottom: "20px" }}>
+							<div className="col">
+								<MuiPickersUtilsProvider utils={DateFnsUtils}>
+									<Label sm={12} >Ritiro</Label>
+									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={new Date()} minTime={new Date()} inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+								</MuiPickersUtilsProvider>
+							</div>
+							<div className="col">
+								<MuiPickersUtilsProvider utils={DateFnsUtils}>
+									<Label sm={12} >Consegna</Label>
+									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={this.state.dateR} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+								</MuiPickersUtilsProvider>
+							</div>
+						</div>
+						{this.state.errorTime &&
+							<h6 color="red">Non puoi andare indietro nel tempo </h6>
+						}
 
-								<div style={{ paddingBottom: "30px" }}>
-									<Button className="buttonCyano" type="submit" size="lg"  >
-										CERCA
-									</Button>
-								</div>
+						<div style={{ paddingBottom: "20px" }}>
+							<Button className="buttonCyano" type="submit" size="lg"  >
+								CERCA
+							</Button>
+						</div>
 
-							</center>
+					</center>
 				
 				</AvForm>
 
