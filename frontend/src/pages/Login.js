@@ -112,7 +112,7 @@ export default class Login extends Component {
                     className="row"
 
                 >
-                    <div className="col-6 imageLogo">
+                    <div className="col-6 imageLogo" style={{marginTop: "60px" }}>
                         <img src={logo_testo} />
                     </div>
                     <div className="col boxpannel">
