@@ -20,7 +20,7 @@ router.post(
     check("refParkingR")
       .isAlpha("it-IT", { ignore: " " })
       .optional({ checkFalsy: true }),
-    check("refParkingC").isAlpha("it-IT", { ignore: " " }),
+    check("refParkingC").isAlpha("it-IT", { ignore: " " }).optional({ checkFalsy: true }),
   ],
   isGuest,
   async (req, res) => {
@@ -34,8 +34,8 @@ router.post(
       refVehicle: req.body.refVehicle,
       dateR: req.body.dateR,
       dateC: req.body.dateC,
-      refParkingR: req.body.refParkingR,
-      refParkingC: req.body.refParkingC,
+      refParkingR: 'Via Libertà',
+      refParkingC: 'Via Libertà',
       positionR: req.body.positionR,
       positionC: req.body.positionC,
     };
@@ -44,7 +44,7 @@ router.post(
 
     try {
       await reservationManagement.addReservationWithDriver(reservation, req.user.id);
-      mail.sendNewReservationMail(req.user.email, req.user.name);
+      mail.sendReservationBeingProcessedMail(req.user.email, req.user.name);
       res.status(201).end();
     } catch (err) {
       if (err.errno == 19) {
@@ -132,9 +132,21 @@ router.post(
   }
 );
 
-router.get("/myreservations/", isGuest, async (req, res) => {
+router.get("/myreservations", isGuest, async (req, res) => {
   try {
-    res.json(await reservationManagement.getmyreservation(req.user.id));
+    res.json(await reservationManagement.getMyReservations(req.user.id));
+  } catch (err) {
+    res
+      .status(503)
+      .json({
+        error: "Database error during the request of reservations - " + err,
+      });
+  }
+});
+
+router.get("/myreservationsnotwithdrawn", isGuest, async (req, res) => {
+  try {
+    res.json(await reservationManagement.getMyReservationsNotWithdrawn(req.user.id));
   } catch (err) {
     res
       .status(503)

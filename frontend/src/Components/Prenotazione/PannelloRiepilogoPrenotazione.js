@@ -72,16 +72,26 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 	}
 
 	confirmation = () => {
-		Axios.post('/api/reservation/add', this.state.reservation)
+		if(this.state.reservation.driver === true){
+			Axios.post('/api/reservation/addreservationwithdriver', this.state.reservation)
 			.then((res) => {
 				let price = Number(this.state.price) + Number(this.state.tip);
 				window.localStorage.setItem("price", price);
 				window.location.href = '/pagamento'
 				window.localStorage.removeItem("reservation")
 			})
-			.catch((err) => {
-				console.log(err);
-			})
+		} else {
+			Axios.post('/api/reservation/add', this.state.reservation)
+			.then((res) => {
+					let price = Number(this.state.price) + Number(this.state.tip);
+					window.localStorage.setItem("price", price);
+					window.location.href = '/pagamento'
+					window.localStorage.removeItem("reservation")
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+		}
 	}
 
 	setPrice = () => {
@@ -142,7 +152,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 											<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.reservation.dateR}</p>
 										</div>
 										<div className="col-md-6">
-											<p className="infoCard"><strong>Autista:</strong> {this.state.reservation.refDriver}</p>       {/* TODO ########### */}
+											<p className="infoCard"><strong>Autista:</strong> {this.state.reservation.driver ? <>si</> : <>no</> }</p>       {/* TODO ########### */}
 											{this.state.reservation.refParkingC != null &&
 												<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.reservation.refParkingC}</p>
 											}
@@ -156,7 +166,7 @@ export default class PannelloRiepilogoPrenotazione extends Component {
 
 									<div>
 										{
-											this.state.reservation.refDriver != null &&
+											this.state.reservation.driver &&
 											<AvForm>
 
 												<AvField

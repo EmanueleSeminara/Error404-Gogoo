@@ -59,7 +59,7 @@ export default class FormRicerca extends Component {
 
 	render() {
 		return (
-			<div className="ez sfondo no-scrollable" style={{ height: "100%" }}>
+			<div className="ez sfondo" style={{ height: "100%" }}>
 				<NavbarCliente />
 				<div className="row h-100 justify-content-md-center boxpannel">
 					<div className="d-flex flex-column pannell-User boxRicerca ">

@@ -13,12 +13,16 @@ import "../ComponentsCss/Login.css"
 
 
 export default class Login extends Component {
-
     state = {
+        username: "autista@gmail.com",
+        password: "Autista966&",
+        error: false
+    };
+    /* state = {
         username: "samu@gmail.com",
         password: "Samu966&",
         error: false
-    };
+    }; */
     /* state = {
         username: "super@gmail.com",
         password: "Super966&",
