@@ -27,7 +27,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
             } else if (c.role === "valet") {
                 window.location.href = "/pannelloParcheggiatore";
             } else {
-                Axios.get('/api/resevation/myreservationsnotwithdrawn')
+                Axios.get('/api/reservation/myreservationsnotwithdrawn')
                     .then((res) => {
                         this.setState({ listReservation: res.data })
                         console.log(this.state.listReservation)
@@ -65,7 +65,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Visualizza prenotazioni</div></center>
-                        {this.state.listReservation.length == 0 && <Alert severity="error">Non hai prenotazioni</Alert>}
+                        {this.state.listReservation.length === 0 && <Alert severity="error">Non hai prenotazioni</Alert>}
                         <div className="d-flex flex-row flex-wrap justify-content-center">
                             {this.state.listReservation.map(((item) => (
                                 <div className="p-3 col-12">
