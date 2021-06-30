@@ -134,7 +134,19 @@ router.post(
 
 router.get("/myreservations/", isGuest, async (req, res) => {
   try {
-    res.json(await reservationManagement.getmyreservation(req.user.id));
+    res.json(await reservationManagement.getMyReservations(req.user.id));
+  } catch (err) {
+    res
+      .status(503)
+      .json({
+        error: "Database error during the request of reservations - " + err,
+      });
+  }
+});
+
+router.get("/myreservationsnotwithdrawn/", isGuest, async (req, res) => {
+  try {
+    res.json(await reservationManagement.getMyReservationsNotWithdrawn(req.user.id));
   } catch (err) {
     res
       .status(503)
