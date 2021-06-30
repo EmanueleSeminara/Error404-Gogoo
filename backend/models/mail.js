@@ -90,26 +90,26 @@ exports.sendInformationChangedMail = (email, name) => {
   );
 };
 
-exports.sendInformationChangedMail = (email, name) => {
-  transporter.sendMail(
-    {
-      from: process.env.MAIL_USER,
-      to: email,
-      subject: "Gogoo - Payment method removed",
-      text:
-        "Dear " +
-        name +
-        ",\n\nWe inform you that a payment method has been removed from your account.\n\nGogoo Team",
-    },
-    function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Email sent: " + info.response);
-      }
-    }
-  );
-};
+// exports.sendInformationChangedMail = (email, name) => {
+//   transporter.sendMail(
+//     {
+//       from: process.env.MAIL_USER,
+//       to: email,
+//       subject: "Gogoo - Payment method removed",
+//       text:
+//         "Dear " +
+//         name +
+//         ",\n\nWe inform you that a payment method has been removed from your account.\n\nGogoo Team",
+//     },
+//     function (error, info) {
+//       if (error) {
+//         console.log(error);
+//       } else {
+//         console.log("Email sent: " + info.response);
+//       }
+//     }
+//   );
+// };
 
 exports.sendPaymentMethodRemovedMail = (email, name) => {
   transporter.sendMail(
@@ -268,6 +268,27 @@ exports.sendsendExpiredDeliveryMail = (email, name, id) => {
         "Dear " +
         name +
         ",\n\nWe inform you that the delivery for the booking with id " + id + "has expired, log in to the portal to update the information.\n\nGogoo Team",
+    },
+    function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    }
+  );
+};
+
+exports.sendReservationBeingProcessedMail = (email, name) => {
+  transporter.sendMail(
+    {
+      from: process.env.MAIL_USER,
+      to: email,
+      subject: "Gogoo - New Reservation",
+      text:
+        "Dear " +
+        name +
+        ",\n\nWe inform you that your reservation is being processed, as soon as it is confirmed you will be informed!\n\nGogoo Team",
     },
     function (error, info) {
       if (error) {
