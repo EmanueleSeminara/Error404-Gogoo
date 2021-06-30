@@ -107,10 +107,10 @@ export default class PannelloRimuoviCliente extends Component {
 						<center>
 
 						<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
-							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
-							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
-							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
+							<Button className={this.state.role === "guest" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
+							<Button className={this.state.role === "driver" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
+							<Button className={this.state.role === "valet" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
+							<Button className={this.state.role === "admin" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
 						</ButtonGroup>
 
 						</center>

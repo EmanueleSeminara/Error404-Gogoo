@@ -12,7 +12,8 @@
    /*  display: flex;
     align-items: start; */
     transform-origin: top center;
-    margin-top: 40px;
+    /* margin-top: 40px; */
+    margin-top:  10vh;
 }
 
 #number, #dataScadenza{

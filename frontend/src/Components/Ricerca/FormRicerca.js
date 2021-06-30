@@ -67,7 +67,8 @@ export default class FormRicerca extends Component {
 						<center>
 							<ButtonGroup style={{ marginBottom: "20px", flexWrap: "wrap", marginTop: "20px" }}>
 								<Button
-									className="buttonCyanoGruoup "
+									className={this.state.rSelected === "1" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
+									
 									onClick={() => {
 										this.setRSelected("1");
 										this.setState({ type: "car" });
@@ -78,7 +79,7 @@ export default class FormRicerca extends Component {
 									Veicoli nei parcheggi
 								</Button>
 								<Button
-									className="buttonCyanoGruoup "
+									className={this.state.rSelected === "2" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
 									onClick={() => {
 										this.setRSelected("2");
 										this.setState({ type: "car" });
@@ -90,7 +91,7 @@ export default class FormRicerca extends Component {
 									Automobili fuori stallo
 								</Button>
 								<Button
-									className="buttonCyanoGruoup "
+									className={this.state.rSelected === "3" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
 									onClick={() => {
 										this.setRSelected("3");
 										this.setState({ type: "car" });
