@@ -21,8 +21,8 @@ import {
 
 import {
     AvForm,
-	AvGroup,
-	AvField,
+    AvGroup,
+    AvField,
 } from "availity-reactstrap-validation";
 
 import {
@@ -54,10 +54,18 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ ritiro: bool });
     }
 
-    setMostra = (input) => {
-        this.setState({ [input]: !this.state[input] });
-        
-        
+    setMostraRitardo = () => {
+        this.setState({ mostraRitardo: true });
+        this.setState({ mostraCambiaLuogo: false });
+    }
+    setMostraCambiaLuogo = () => {
+        this.setState({ mostraRitardo: false });
+        this.setState({ mostraCambiaLuogo: true });
+    }
+
+    annulla = () => {
+        this.setState({ mostraRitardo: false });
+        this.setState({ mostraCambiaLuogo: false });
     }
 
 
@@ -118,10 +126,10 @@ export default class CardSegnalaGuasto extends Component {
                                     </div>
                                     <center>
                                         <div className="row justify-content-md-center">
-                                            <Button type="button" className="buttonRed" onClick={() => this.setMostra("mostraRitardo")} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
+                                            <Button type="button" className="buttonRed" onClick={() => this.setMostraRitardo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
                                                 Ritardo consegna
                                             </Button>
-                                            <Button type="button" className="buttonVerde" onClick={() => this.setMostra("mostraCambiaLuogo")} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
+                                            <Button type="button" className="buttonVerde" onClick={() => this.setMostraCambiaLuogo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
                                                 Cambia luogo consegna
                                             </Button>
                                         </div>
@@ -162,6 +170,9 @@ export default class CardSegnalaGuasto extends Component {
                                     <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
                                         Conferma
                                     </Button>
+                                    <Button className="buttonModify" onClick={() => this.annulla()} style={{ padding: "8px", margin: "10px" }} >
+                                        Annulla
+                                    </Button>
                                 </AvForm>
 
                                 {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
@@ -172,7 +183,7 @@ export default class CardSegnalaGuasto extends Component {
                                     <Col>
 
                                         <center>
-                                       
+
                                             <div className="row " style={{ marginTop: "10px", marginBotton: "20px" }}>
 
                                                 <div className="col">
@@ -202,6 +213,9 @@ export default class CardSegnalaGuasto extends Component {
 
                                     <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
                                         Conferma
+                                    </Button>
+                                    <Button className="buttonModify" onClick={() => this.annulla()} style={{ padding: "8px", margin: "10px" }} >
+                                        Annulla
                                     </Button>
                                 </AvForm>
 

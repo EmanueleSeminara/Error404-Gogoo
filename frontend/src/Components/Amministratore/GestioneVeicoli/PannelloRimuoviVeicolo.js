@@ -6,6 +6,7 @@ import CardRimuoviVeicolo from "./CardRimuoviVeicolo";
 import faker from 'faker';
 import Axios from 'axios';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(2), refParking: faker.lorem.word(2), state: faker.lorem.word(2) }))
 
@@ -66,6 +67,7 @@ export default class PannelloRimuoviVeicolo extends Component {
     render() {
         return (
             <div className="ez sfondo" style={{ height: "100%" }}>
+                <NavbarDipendente />
                 <div className="row h-100 justify-content-md-center boxpannel">
                     <div className="d-flex flex-column pannell-amministratore">
                         <div className="title">Rimuovi veicolo</div>

@@ -95,74 +95,78 @@ export default class PannelloRimuoviCliente extends Component {
 	render() {
 
 		return (
-			<div className="ez sfondo" style={{ height: "100%" }}> 
-			<NavbarDipendente />
-			<div className="row h-100 justify-content-md-center boxpannel">
-			<div className="d-flex flex-column pannell-amministratore ">
-			<div className="title">Modifica dati utente</div>
+			<div className="ez sfondo" style={{ height: "100%" }}>
+				<NavbarDipendente />
+				<div className="row h-100 justify-content-md-center boxpannel">
+					
+					<div className="d-flex flex-column pannell-amministratore ">
+						<div className="title">Modifica dati utente</div>
 						{/*ptipologia veicolo*/}
-					
-							
+						<div className="col-9">
 
-								<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
-									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
-									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
-									<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
-								</ButtonGroup>
-						
-					
+						<center>
 
-					
-							<AvForm onValidSubmit={this.onValidSubmit}>
-								{/* Riga nome e cognome */}
-								<div className="row">
-									<div className="col-12 col-md-6">
-										<AvField
-											name="nome"
-											type="text"
-											label="Nome"
-											onChange={this.handleChange("name")}
-											style={{ label: { color: "white" } }}
+						<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
+							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
+							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
+							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
+							<Button className="buttonCyanoGruoup" onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
+						</ButtonGroup>
 
-											validate={{
-												required: {
-													value: true,
-													errorMessage: "Il campo è richiesto",
-												},
-											}}
-										/>
-									</div>
+						</center>
 
-									<div className="col-12 col-md-6">
-										<AvField
-											name="cognome"
-											type="text"
-											label="Cognome"
-											onChange={this.handleChange("surname")}
-											required
-											validate={{
-												required: {
-													value: true,
-													errorMessage: "Il campo è richiesto.",
-												},
-											}}
-										/>
-									</div>
+
+
+
+						<AvForm onValidSubmit={this.onValidSubmit}>
+							{/* Riga nome e cognome */}
+							<div className="row">
+								<div className="col-12 col-md-6">
+									<AvField
+										name="nome"
+										type="text"
+										label="Nome"
+										onChange={this.handleChange("name")}
+										style={{ label: { color: "white" } }}
+
+										validate={{
+											required: {
+												value: true,
+												errorMessage: "Il campo è richiesto",
+											},
+										}}
+									/>
 								</div>
 
+								<div className="col-12 col-md-6">
+									<AvField
+										name="cognome"
+										type="text"
+										label="Cognome"
+										onChange={this.handleChange("surname")}
+										required
+										validate={{
+											required: {
+												value: true,
+												errorMessage: "Il campo è richiesto.",
+											},
+										}}
+									/>
+								</div>
+							</div>
 
-								
 
-								<center>
-									<Button className="buttonCyano" type="submit" style={{ padding: "8px", marginBottom: "30px"}} >
-										cerca
-									</Button>
-								</center>
-							</AvForm>
 
-							
-							<div className="d-flex flex-row flex-wrap justify-content-center">
+
+							<center>
+								<Button className="buttonCyano" type="submit" style={{ padding: "8px", marginBottom: "30px" }} >
+									cerca
+								</Button>
+							</center>
+						</AvForm>
+
+
+						<div className="d-flex flex-row flex-wrap justify-content-center">
 							{this.state.modifica &&
 								<div className="p-3 col-12">
 
@@ -170,12 +174,13 @@ export default class PannelloRimuoviCliente extends Component {
 										<CardModificaUtente id={item.id} name={item.name} surname={item.surname} email={item.email} phone={item.phone} birthdate={item.birthdate} />
 									)))}
 								</div>}
-								</div>
-					
+						</div>
 
 
-				</div>
-			</div >
+
+					</div>
+					</div>
+				</div >
 			</div>
 		);
 

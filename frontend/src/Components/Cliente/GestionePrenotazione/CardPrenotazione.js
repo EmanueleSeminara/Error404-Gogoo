@@ -38,6 +38,9 @@ export default class CardPrenotazione extends Component {
 		dateC: "",
 		modifica: false,
 		errore: false,
+		id: "",
+		refVehicle: "",
+		disabled: false
 	};
 
 	setting = () => {
@@ -46,10 +49,18 @@ export default class CardPrenotazione extends Component {
 		this.setState({ dateR: this.props.dateR });
 		this.setState({ dateC: this.props.dateC });
 		this.setState({ type: this.props.type });
+		this.setState({ id: this.props.id });
+		this.setState({ refVehicle: this.props.refVehicle });
 	};
 
 	componentDidMount() {
 		this.setting();
+		Axios.get('/api/reservation/canteditreservation?id=' + this.state.id + '&refVehicle=' + this.state.refVehicle)
+		.then((res) => {
+			this.setState({disabled: res.data})
+		}).catch((err) => {
+			console.log(err)
+		})
 	}
 
 	componentDidUpdate(propsPrecedenti) {
@@ -135,7 +146,7 @@ export default class CardPrenotazione extends Component {
 							</div>
 
 							<center>
-								<Button type="button" className="buttonModify" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }}  >
+								<Button type="button" className="buttonModify" onClick={() => this.setModifica("modifica")} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.disabled} >
 									Modifica
 								</Button>
 								<Button type="button" className="buttonAnnulla" onClick={() => this.props.remove(this.props.id)} style={{ marginRight: "10px", marginTop: "20px" }}  >

@@ -22,7 +22,8 @@ export default class Registrazione extends Component {
 		b: false,
 		error: false,
 		success: false,
-		string: ""
+		string: "",
+		disabled: false
 	};
 
 		componentDidMount() {
@@ -39,13 +40,21 @@ export default class Registrazione extends Component {
 				} else {
 					Axios.get('/api/guest/getdatacarlicense')
 						.then((res) => {
-							this.setState({ number: res.data.number });
-							this.setState({ date: res.data.date });
-							this.setState({ a: res.data.a });
-							this.setState({ am: res.data.am });
-							this.setState({ a1: res.data.a1 });
-							this.setState({ a2: res.data.a2 });
-							this.setState({ b: res.data.b });
+							console.log(res.data)
+							if(res.data.number == null){
+								console.log("sono dentro")
+								this.setState({ string: "Non hai inserito ancora una patente" });
+								this.setState({ error: true });
+								this.setState({ disabled: true });
+							} else {
+								this.setState({ number: res.data.number });
+								this.setState({ date: res.data.date });
+								this.setState({ a: res.data.a });
+								this.setState({ am: res.data.am });
+								this.setState({ a1: res.data.a1 });
+								this.setState({ a2: res.data.a2 });
+								this.setState({ b: res.data.b });
+							}
 						}).catch((err) => {
 							window.location.href = "/serverError"
 						});
@@ -189,7 +198,7 @@ export default class Registrazione extends Component {
 									</Form>
 								</center>
 								<div className="text-center" style={{ paddingTop: "2%" }}>
-									<Button type="submit" className="buttonCyano">
+									<Button type="submit" className="buttonCyano" disabled={this.state.disabled}>
 										Update
 									</Button>
 								</div>
