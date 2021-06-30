@@ -168,7 +168,7 @@ exports.confirmationOfReservation = (idDriver, idReservation) => {
   console.log("PRENOTAZIONE DA CONFERMARE: " + idDriver, idReservation)
   return new Promise((resolve, reject) => {
     const sql =
-      "UPDATE reservations SET refDriver = 59, state = 'confirmed' WHERE state = 'not confirmed' AND id = 91";
+      "UPDATE reservations SET refDriver = ?, state = 'confirmed' WHERE state = 'not confirmed' AND id = ?";
     db.run(sql, [idDriver, idReservation], function (err) {
       if (err) {
         reject(err);
