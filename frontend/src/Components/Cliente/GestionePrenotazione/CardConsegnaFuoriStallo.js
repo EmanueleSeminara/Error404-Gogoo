@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Alert from '@material-ui/lab/Alert';
+
 import Axios from 'axios';
 
 import {
@@ -11,6 +11,9 @@ import {
     AvForm,
     AvField,
 } from "availity-reactstrap-validation";
+
+import Alert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 
@@ -35,11 +38,11 @@ export default class CardConsegnaFuoriStallo extends Component {
             this.setState({ consegna: false })
         }
         Axios.get('/api/guest/candeliveroutofstall?refVehicle=' + this.props.refVehicle + '&id=' + this.props.id)
-        .then((res) => {
-            this.setState({possibile: res.data})
-        }).catch((err) =>{
-            console.log(err)
-        })
+            .then((res) => {
+                this.setState({ possibile: res.data })
+            }).catch((err) => {
+                console.log(err)
+            })
         console.log(this.state.possibile)
     }
 
@@ -83,108 +86,111 @@ export default class CardConsegnaFuoriStallo extends Component {
     render() {
         return (
             <div>
-            <div className="card card-css cardStallo">
+                <div className="card card-css cardStallo">
 
-                <div className="row no-gutters">
-                    <div className="col">
-                        <div className="card-body">
+                    <div className="row no-gutters">
+                        <div className="col">
+                            <div className="card-body">
 
-                            <div className="row no-gutters">
-                                <div className="col-md-12">
-                                    <p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
-                                    <hr style={{ backgroundColor: "white" }} />
+                                <div className="row no-gutters">
+                                    <div className="col-md-12">
+                                        <p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
+                                        <hr style={{ backgroundColor: "white" }} />
+                                    </div>
+
+
+                                </div>
+                                <div className="row no-gutters">
+                                    <div className="col-md-6">
+                                        <p className="infoCard"><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+                                        {this.props.refParkingR != null &&
+                                            <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
+                                        }
+                                        {this.props.positionR != null &&
+                                            <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+                                        }
+                                        <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <p className="infoCard"><strong>Autista:</strong> x{this.props.refDriver}</p>       {/* TODO ########### */}
+                                        {this.props.refParkingC != null &&
+                                            <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
+                                        }
+                                        {this.props.positionC != null &&
+                                            <p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
+                                        }
+                                        <p className="infoCard"><strong>Data consegna:</strong>   {this.props.dateC}</p>
+                                    </div>
                                 </div>
 
+                                {this.state.possibile &&
+                                    <center>
+                                        <Button type="button" className="buttonRed" onClick={() => { this.setMostra("mostra"); this.setPrice() }} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
+                                            Consegna fuori stallo
+                                        </Button>
+                                    </center>
+                                }
+                      
+                                {!this.state.possibile &&
 
+                                    <Alert severity="warning">Non puoi effettuare la consegna fuori stallo per questo veicolo</Alert>
+                                }
                             </div>
-                            <div className="row no-gutters">
-                                <div className="col-md-6">
-                                    <p className="infoCard"><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
-                                    {this.props.refParkingR != null &&
-                                        <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
-                                    }
-                                    {this.props.positionR != null &&
-                                        <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
-                                    }
-                                    <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
-                                </div>
-                                <div className="col-md-6">
-                                    <p className="infoCard"><strong>Autista:</strong> x{this.props.refDriver}</p>       {/* TODO ########### */}
-                                    {this.props.refParkingC != null &&
-                                        <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
-                                    }
-                                    {this.props.positionC != null &&
-                                        <p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
-                                    }
-                                    <p className="infoCard"><strong>Data consegna:</strong>   {this.props.dateC}</p>
-                                </div>
-                            </div>
-
-                            {this.state.possibile &&
-                                <center>
-                                    <Button type="button" className="buttonRed" onClick={() => { this.setMostra("mostra"); this.setPrice() }} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.consegna}>
-                                        Consegna fuori stallo
-                                    </Button>
-                                </center>
-                            }
-                            {!this.state.possibile &&
-                                <h6>non puoi effettuare la consegna fuori stallo per questo veicolo</h6>
-                                // Scrivilo più bello
-                            }
                         </div>
                     </div>
-                </div>
-                {(this.state.mostra) &&
-                    <center>
-                    
-                    
-                                <AvForm onValidSubmit={this.onValidSubmit}>
-                                    <center>
-                                        <div className="row">
-                                            <div className="col-12 col-md-12">
-                                                <AvField
-                                                    name="id"
-                                                    type="text"
-                                                    label="Via di riferimento"
-                                                    placeholder={this.state.position}
-                                                    onChange={this.handleChange("position")}
-                                                    style={{ label: { color: "white" } }}
-                                                    validate={{
-                                                        required: {
-                                                            value: true,
-                                                            errorMessage: "Il campo è richiesto.",
-                                                        },
-                                                    }}
-                                                />
-                                            </div>
+                    {(this.state.mostra) &&
+                        <center>
+
+
+                            <AvForm onValidSubmit={this.onValidSubmit}>
+                                <center>
+                                    <div className="row">
+                                        <div className="col-12 col-md-12">
+                                            <AvField
+                                                name="id"
+                                                type="text"
+                                                label="Via di riferimento"
+                                                placeholder={this.state.position}
+                                                onChange={this.handleChange("position")}
+                                                style={{ label: { color: "white" } }}
+                                                validate={{
+                                                    required: {
+                                                        value: true,
+                                                        errorMessage: "Il campo è richiesto.",
+                                                    },
+                                                }}
+                                            />
                                         </div>
-                                    </center>
-                                    <Label for="exampleText">Motivo della consegna fuori stallo (opzionale)</Label>
-                                    <FormGroup row>
-                                        <Col >
-                                            <Input type="textarea" name="text" id="exampleText" />
-                                        </Col>
-                                    </FormGroup>
+                                    </div>
+                                </center>
+                                <Label for="exampleText">Motivo della consegna fuori stallo (opzionale)</Label>
+                                <FormGroup row>
+                                    <Col >
+                                        <Input type="textarea" name="text" id="exampleText" />
+                                    </Col>
+                                </FormGroup>
 
-                                    {/* scrivile meglio mimmo*/}
-                                    <h6 className="infoCard">
-                                        prezzo per la consegna fuori stallo : {this.state.price}€
-                                    </h6>
+                                {/* scrivile meglio mimmo*/}
+                                <h6 className="infoCard">
+                                    prezzo per la consegna fuori stallo : {this.state.price}€
+                                </h6>
 
 
-                                    {/* Pulsante Conferma*/}
 
-                                    <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
-                                        Conferma
-                                    </Button>
-                                    <Button type="submit" className="buttonAnnulla" onClick={() => this.setMostra("mostra")} style={{ padding: "8px", margin: "10px" }} >
-                                        Annulla
-                                    </Button>
-                                </AvForm>
-                                                
-                    </center>}
 
-            </div>
+                                {/* Pulsante Conferma*/}
+
+                                <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
+                                    Conferma
+                                </Button>
+                                <Button type="submit" className="buttonAnnulla" onClick={() => this.setMostra("mostra")} style={{ padding: "8px", margin: "10px" }} >
+                                    Annulla
+                                </Button>
+                            </AvForm>
+
+                        </center>}
+
+                </div>
             </div>
         );
     }

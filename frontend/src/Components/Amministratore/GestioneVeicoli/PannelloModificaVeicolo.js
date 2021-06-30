@@ -6,6 +6,7 @@ import CardModificaVeicolo from "./CardModificaVeicolo";
 import faker from 'faker';
 import Axios from 'axios';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 
 
@@ -55,7 +56,8 @@ export default class PannelloModificaVeicolo extends Component {
 
     render() {
         return (
-            <div className="ez sfondo" style={{ height: "100%" }}>           
+            <div className="ez sfondo" style={{ height: "100%" }}> 
+            <NavbarDipendente />          
                 <div className="row h-100 justify-content-md-center boxpannel">
                     <div className="d-flex flex-column pannell-amministratore ">
                         <div className="title">Modifica veicolo</div>
