@@ -1,12 +1,3 @@
-/* email Cliente
-id veicolo
-tipo
-data 
-ora
-parcheggi
-autista
- */
-
 import React, { Component } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -29,7 +20,6 @@ import {
     TimePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-
 
 
 
@@ -87,7 +77,7 @@ export default class CardSegnalaGuasto extends Component {
 
     onValidSubmit1 = (event) => {
         event.preventDefault();
-        this.props.changeDestination()
+        this.props.changeDestination(this.props.id, this.state.refVehicle);
     }
 
     handleChangeDateArrivo = (date) => {
