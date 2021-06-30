@@ -8,6 +8,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import NavbarDipendente from "../../../Components/NavbarDipendente"
 
 import {
 	DateTimePicker,
@@ -104,6 +105,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 	render() {
 		return (
 			<div className="ez sfondo" style={{ height: "100%" }}>
+				<NavbarDipendente />
 				<AvForm onValidSubmit={this.onValidSubmit}>
 					<div className="row h-100 justify-content-md-center boxpannel">
 						<div className="d-flex flex-column pannell-amministratore ">
