@@ -182,7 +182,7 @@ export default class FormRicerca extends Component {
 							<div className="col">
 								<MuiPickersUtilsProvider utils={DateFnsUtils}>
 									<Label sm={12} >Consegna</Label>
-									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={this.state.dateR} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={this.state.dateR} maxDate={moment(this.state.dateR).add(7, 'days') }inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
 								</MuiPickersUtilsProvider>
 							</div>
 						</div>
