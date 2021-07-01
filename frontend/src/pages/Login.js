@@ -34,7 +34,7 @@ export default class Login extends Component {
         error: false
     } */
 
-    componentDidMount() {
+  /*   componentDidMount() {
         if (window.localStorage.getItem("utente") !== null) {
             let c = JSON.parse(window.localStorage.getItem("utente"));
             if (c.role === "guest") {
@@ -47,7 +47,7 @@ export default class Login extends Component {
                 window.location.href = "/pannelloAutista";
             }
         }
-    }
+    } */
 
     handleChange = (input) => (e) => {
         this.setState({ [input]: e.target.value });
