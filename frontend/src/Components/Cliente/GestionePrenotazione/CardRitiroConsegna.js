@@ -65,7 +65,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
 				this.setState({ string: "errore nell'inserimento dei dati" });
 				this.setState({ error: true });
 			} else if (err.response.status === 503) {
-				this.setState({ string: "impossibile cambiare password al momento, riprova più tardi" });
+				this.setState({ string: "impossibile ritirare il veicolo, riprova più tardi" });
 				this.setState({ error: true });
 			} else {
 				window.location.href = "/serverError"

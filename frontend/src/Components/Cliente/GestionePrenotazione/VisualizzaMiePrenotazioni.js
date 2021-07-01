@@ -13,6 +13,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
     state = {
         listReservation: [],
         modifica: "",
+        error: false,
     };
 
     componentDidMount() {
