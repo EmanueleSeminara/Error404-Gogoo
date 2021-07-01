@@ -4,7 +4,7 @@ import CardRimuoviVeicolo from "./CardRimuoviVeicolo";
 import Axios from "axios";
 import { Alert } from "@material-ui/lab";
 import NavbarDipendente from "../../../Components/NavbarDipendente";
-import Footer from "../../Footer";
+
 
 export default class PannelloRimuoviVeicolo extends Component {
   state = {

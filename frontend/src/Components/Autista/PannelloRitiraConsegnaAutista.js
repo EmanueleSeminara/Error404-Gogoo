@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-
-import { Jumbotron, Button } from "reactstrap";
-import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
-import faker from "faker";
 import CardRitiraConsegnaAutista from "./CardRitiraConsegnaAutista";
 import Axios from "axios";
 import { Alert } from "@material-ui/lab";

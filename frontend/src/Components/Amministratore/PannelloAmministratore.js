@@ -61,10 +61,10 @@ export default class PannelloAmministratore extends Component {
                       className="p-3 buttonAdmin "
                       href="/aggiungiVeicolo"
                     >
-                      <img className="iconAdmin" src={AggiungiVeicolo} />
+                      <img className="iconAdmin" src={AggiungiVeicolo} alt="AggiungiVeicolo"/>
                     </Button>
                     <Button className="p-3 buttonAdmin " href="/rimuoviVeicolo">
-                      <img className="iconAdmin" src={RimuoviVeicolo} />
+                      <img className="iconAdmin" src={RimuoviVeicolo} alt="RimuoviVeicolo"/>
                     </Button>
                   </center>
                 </div>
@@ -74,14 +74,14 @@ export default class PannelloAmministratore extends Component {
                       className="p-3 buttonAdmin "
                       href="/modificaVeicolo"
                     >
-                      <img className="iconAdmin" src={ModificaStatoVeicolo} />
+                      <img className="iconAdmin" src={ModificaStatoVeicolo} alt="ModificaStatoVeicolo"/>
                     </Button>
 
                     <Button
                       className="p-3 buttonAdmin "
                       href="/visualizzaPrenotazioni"
                     >
-                      <img className="iconAdmin" src={PrenotazioniEffettuate} />
+                      <img className="iconAdmin" src={PrenotazioniEffettuate} alt="PrenotazioniEffettuate"/>
                     </Button>
                   </center>
                 </div>
@@ -90,25 +90,25 @@ export default class PannelloAmministratore extends Component {
                 <div>
                   <center>
                     <Button className="p-3 buttonAdmin " href="/aggiungiUtente">
-                      <img className="iconAdmin" src={AggiungiUtente} />
+                      <img className="iconAdmin" src={AggiungiUtente} alt="AggiungiUtente"/>
                     </Button>
 
                     <Button className="p-3 buttonAdmin " href="/rimuoviUtente">
-                      <img className="iconAdmin" src={RimuoviUtente} />
+                      <img className="iconAdmin" src={RimuoviUtente} alt="RimuoviUtente"/>
                     </Button>
                   </center>
                 </div>
                 <div>
                   <Button className="p-3 buttonAdmin " href="/modificaUtente">
-                    <img className="iconAdmin" src={ModificaDatiUtente} />
+                    <img className="iconAdmin" src={ModificaDatiUtente} alt="ModificaDatiUtente"/>
                   </Button>
 
                   <Button
                     className="p-3 buttonAdmin "
                     onClick={() => this.logout()}
                   >
-                    <img className="iconAdmin" src={Logout} />
-                  </Button>
+                    <img className="iconAdmin" src={Logout} alt="Logout"/>
+                 </Button>
                 </div>
               </div>
             </div>
