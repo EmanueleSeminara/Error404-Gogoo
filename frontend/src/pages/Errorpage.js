@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 
-
-import { Jumbotron, Container, Button } from "reactstrap";
-import { AvForm, AvField } from "availity-reactstrap-validation";
-
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import imageLogo from "../images/logo.svg";
-import { Alert, AlertTitle } from '@material-ui/lab';
-import Axios from 'axios';
-import "../ComponentsCss/RecuperoPassword.css";
 import Cane from "../images/cane_testo.png"
-export default class recuperoPassword extends Component {
+export default class Errorpage extends Component {
+
+    componentDidMount() {
+        window.localStorage.clear();
+    }
 
     render() {
         return (
