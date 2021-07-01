@@ -51,7 +51,6 @@ export default class NavbarCliente extends Component {
 					<NavbarBrand href="/" style={{ color: "white" }}>dropcar</NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.state.isOpen} navbar>
-						<Button href='/ricerca' style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Home</Button>
 						<Nav className="ml-auto" navbar>
 							<UncontrolledDropdown nav inNavbar>
 								<DropdownToggle nav style={{ color: "white" }}>
@@ -102,8 +101,9 @@ export default class NavbarCliente extends Component {
 
 								</DropdownMenu>
 							</UncontrolledDropdown>
+							<NavItem><NavLink href='/ricerca' style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Home</NavLink></NavItem>
+							<NavItem style={{ display: "flex", justifyContent: "start", alignItems: "center"}}><button onClick={() => {this.logout()}} style={{ color: "white", backgroundColor: "transparent", border: "none", textAlign: "left", padding: "0"}}>Logout</button></NavItem>
 						</Nav>
-						<Button onClick={() => {this.logout()}} style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Logout</Button>
 					</Collapse>
 				</Navbar>
 			</div>
