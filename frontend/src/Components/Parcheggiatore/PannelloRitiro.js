@@ -5,6 +5,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
 import CardRitiro from "./CardRitiro";
 import Axios from 'axios';
+import { Alert} from '@material-ui/lab';
 
 
 export default class PannelloRitiro extends Component {
@@ -57,6 +58,7 @@ export default class PannelloRitiro extends Component {
                 <div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
                     <div style={{ padding: "3vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
                     </div>
+                    {this.state.listReservation.length === 0 && <Alert severity="info">Non hai prenotazioni da ritirare</Alert>}
 
                     {<div>
                         { this.state.listReservation.map(((item) => (

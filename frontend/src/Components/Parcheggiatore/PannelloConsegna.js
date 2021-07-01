@@ -6,6 +6,7 @@ import "../../ComponentsCss/Pannel.css";
 import faker from 'faker';
 import CardConsegna from "./CardConsegna";
 import Axios from 'axios';
+import { Alert} from '@material-ui/lab';
 
 const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(1) }))
 
@@ -55,6 +56,7 @@ export default class PannelloConsegna extends Component {
                 <div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
                     <div style={{ padding: "3vh", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
                     </div>
+                    {this.state.listReservation.length === 0 && <Alert severity="info">Non hai prenotazioni da consegnare</Alert>}
 
                     {<div>
                         {this.state.listReservation.map(((item) => (

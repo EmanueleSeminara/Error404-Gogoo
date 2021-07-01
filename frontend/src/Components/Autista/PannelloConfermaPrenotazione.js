@@ -6,6 +6,7 @@ import "../../ComponentsCss/Pannel.css";
 import faker from 'faker';
 import CardConfermaRifiutaPrenotazione from "./CardConfermaPrenotazione";
 import Axios from 'axios';
+import { Alert} from '@material-ui/lab';
 
 
 export default class PannelloConfermaRifiutaPrenotazione extends Component {
@@ -53,6 +54,7 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
         return (
             <div className="row h-100 justify-content-md-center" style={{ margin: "1%", minHeight: "45vh" }}>
                 <div className="col-sm-12 col-md-8 col-lg-6 my-auto ">
+                {this.state.listReservationDriver.length === 0 && <Alert severity="info">Non hai prenotazioni da confermare</Alert>}
                    
                    
                
