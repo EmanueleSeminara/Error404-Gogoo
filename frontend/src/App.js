@@ -30,6 +30,7 @@ import PannelloRimuoviVeicolo from '../src/Components/Amministratore/GestioneVei
 import PannelloAggiungiVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloAggiungiVeicolo';
 import PannelloModificaVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloModificaVeicolo';
 
+
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -40,7 +41,6 @@ class App extends Component {
       <Router>
         <Switch>
           {/* Gestione accesso */}
-
           <Route exact path="/" component={Login} />
           <Route exact path="/registrazione" component={Registrazione} />
           <Route exact path="/recuperoPassword" component={RecuperoPassword} />
@@ -75,7 +75,10 @@ class App extends Component {
           <Route exact path="/aggiungiVeicolo" component={PannelloAggiungiVeicolo} />
           <Route exact path="/rimuoviVeicolo" component={PannelloRimuoviVeicolo} />
           <Route exact path="/modificaVeicolo" component={PannelloModificaVeicolo} />
-          {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */}
+          
+
+          
+
         </Switch>
       </Router>
     );
