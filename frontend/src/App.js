@@ -74,8 +74,10 @@ class App extends Component {
           <Route exact path="/aggiungiVeicolo" component={PannelloAggiungiVeicolo} />
           <Route exact path="/rimuoviVeicolo" component={PannelloRimuoviVeicolo} />
           <Route exact path="/modificaVeicolo" component={PannelloModificaVeicolo} />
+         
           <Route exact path="/errorServer" component={Errorpage} />
-          {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */}
+          <Route exact path="*" component={Errorpage} />
+
         </Switch>
       </Router>
     );
