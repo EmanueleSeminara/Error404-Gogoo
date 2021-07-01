@@ -18,7 +18,7 @@ import {
 } from "availity-reactstrap-validation";
 
 import {
-    TimePicker,
+    DateTimePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
@@ -33,6 +33,7 @@ export default class CardSegnalaGuasto extends Component {
         viaRiferimento: "",
         dateC: new Date(),
         success: false,
+        errorTime: false
 
     };
 
@@ -52,7 +53,7 @@ export default class CardSegnalaGuasto extends Component {
             this.setting();
         }
     }
-    
+
     setMostraRitardo = () => {
         this.setState({ mostraRitardo: true });
         this.setState({ mostraCambiaLuogo: false });
@@ -73,10 +74,16 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ success: true});
         
     }; */
-    
+
     timeChange = (event) => {
         event.preventDefault();
-        this.props.changeTime(this.props.id, this.state.dateC)
+        console.log("sono dentri")
+        if (moment(this.state.dateC) > moment(new Date())) {
+            console.log(this.state.dateC)
+            this.props.changeTime(this.props.id, this.state.dateC)
+        } else {
+            this.setState({ errorTime: true })
+        }
     }
 
     destinationChange = (event) => {
@@ -128,15 +135,15 @@ export default class CardSegnalaGuasto extends Component {
                                         </div>
                                     </div>
                                     <center>
-                                        
-                                            <Button type="button" className="buttonRed" onClick={() => this.setMostraRitardo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
-                                                Ritardo consegna
-                                            </Button>
-                                            <Button type="button" className="buttonVerde" onClick={() => this.setMostraCambiaLuogo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
-                                                Cambia luogo consegna
-                                            </Button>
-                                            {this.state.success && <Alert style={{marginTop: "20px" }} severity="success">Segnalazione avvenuta con successo!</Alert>} {/* mettere delay */}
-                                    
+
+                                        <Button type="button" className="buttonRed" onClick={() => this.setMostraRitardo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
+                                            Ritardo consegna
+                                        </Button>
+                                        <Button type="button" className="buttonVerde" onClick={() => this.setMostraCambiaLuogo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
+                                            Cambia luogo consegna
+                                        </Button>
+                                        {this.state.success && <Alert style={{ marginTop: "20px" }} severity="success">Segnalazione avvenuta con successo!</Alert>} {/* mettere delay */}
+
                                     </center>
                                 </div>
                             </div>
@@ -153,10 +160,13 @@ export default class CardSegnalaGuasto extends Component {
                                                 <div className="col">
 
                                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                    <TimePicker inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+                                                        <DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={this.state.dateC} maxDate={moment(this.state.dateC)} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
                                                     </MuiPickersUtilsProvider>
                                                 </div>
                                             </div>
+                                            {this.state.errorTime &&
+                                                <h6 style={{ color: "#ef462c" }}>Non puoi andare indietro nel tempo </h6>
+                                            }
                                         </center>
 
                                     </Col >
@@ -169,6 +179,10 @@ export default class CardSegnalaGuasto extends Component {
                                         </Col>
                                     </FormGroup>
 
+                                    <h6 className="infoCard">
+                                        prezzo per la consegna fuori stallo : 25€
+                                    </h6>
+
                                     {/* Pulsante Conferma*/}
 
                                     <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
@@ -178,7 +192,7 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
-                                
+
                                 {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                         {(this.state.mostraCambiaLuogo) &&
@@ -222,7 +236,7 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
-                                                        
+
                                 {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                     </center>
