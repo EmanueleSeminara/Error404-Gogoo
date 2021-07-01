@@ -12,22 +12,31 @@ export default class CardVeicolo extends Component {
 		let license = true;
 		Axios.get('/api/guest/getdatacarlicense')
 			.then((res) => {
-
-				if (this.props.type === "car") {
+				console.log(1)
+				if(this.props.driver){
+					license = true
+				} else if (this.props.type === "car") {
+					console.log("sono dentro car")
 					license = res.data.b;
 				} else if (this.props.type === "scooter") {
+					console.log("sono dentro scouter")
 					license = (res.data.b || res.data.a2 || res.data.a1 || res.data.am || res.data.a);
 				}
+				console.log(2)
+				console.log(license)
 				
 				if (license) {
+					console.log(3)
 					const reservation = JSON.parse(localStorage.getItem("reservation"))
 					reservation.refVehicle = this.props.id
 					if (this.props.type === "car") {
 						reservation.category = this.props.category
 					}
+					console.log(4)
 					window.localStorage.setItem("reservation", JSON.stringify(reservation));
 					console.log(JSON.parse(localStorage.getItem("reservation")));
 					window.location.href = "/riepilogoPrenotazione";
+					console.log(5)
 				} else {
 					//messaggio di errore popup
 				}

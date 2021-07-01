@@ -218,7 +218,7 @@ export default class FormRicerca extends Component {
 
 
 				{this.state.list.map(((item) => (
-					<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} />
+					<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} driver={true}/>
 				)))}
 
 			</div>

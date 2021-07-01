@@ -105,7 +105,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
                                     <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p className="infoCard"><strong>Autista:</strong> {this.props.refDriver}</p>       {/* TODO ########### */}
+                                        <p className="infoCard"><strong>Autista:</strong> {this.props.refDriver != null ? <>{this.props.refDriver}</> : <> no </>} </p>
                                     {this.props.refParkingC != null &&
                                         <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
                                     }
