@@ -489,15 +489,9 @@ router.put(
       const reservation = await reservationManagement.getReservationById(
         req.body.id
       );
-      // console.log(reservation);
       const dateNow = new Date(
         new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
       );
-      // console.log(
-      //   // "CONTROLLO DATE: " + new Date(reservation.dateC),
-      //   dateNow,
-      //   new Date(reservation.dateC) <= dateNow
-      // );
       if (
         reservation.refGuest == req.user.id &&
         new Date(reservation.dateC) <= dateNow &&

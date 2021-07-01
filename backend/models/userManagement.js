@@ -1,6 +1,7 @@
 const db = require("../db/db");
 const bcrypt = require("bcrypt");
 
+// Restituisce l'utente corrispondente all'id passato
 exports.getUserById = (id) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM users WHERE id = ?";
@@ -8,7 +9,6 @@ exports.getUserById = (id) => {
       if (err) reject(err);
       else if (row === undefined) resolve({ error: "User not found." });
       else {
-        // by default, the local strategy looks for "username": not to create confusion in server.js, we can create an object with that property
         const user = {
           id: row.id,
           email: row.email,
@@ -24,6 +24,7 @@ exports.getUserById = (id) => {
   });
 };
 
+// Restituisce l'utente corrispondente all'email se la password inserita è corretta
 exports.getUser = (email, password) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM users WHERE email = ?";
@@ -41,8 +42,6 @@ exports.getUser = (email, password) => {
           age: row.age,
           role: row.role,
         };
-
-        // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
         bcrypt.compare(password, row.password).then((result) => {
           if (result) resolve(user);
           else resolve(false);
@@ -52,6 +51,7 @@ exports.getUser = (email, password) => {
   });
 };
 
+// Crea un nuovo utente di tipo cliente
 exports.createGuest = (user) => {
   console.log(user);
   return new Promise((resolve, reject) => {
@@ -78,6 +78,7 @@ exports.createGuest = (user) => {
   });
 };
 
+// Aggiorna la password all'utente corrispondente all'id passato
 exports.updatePassword = (userId, newPassword) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE users SET password = ? WHERE id=?";
@@ -91,6 +92,7 @@ exports.updatePassword = (userId, newPassword) => {
   });
 };
 
+// Imposta una nuova password all'utente corrispondente all'email passata se presente
 exports.forgotPassword = (email, randomPassword) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -108,6 +110,7 @@ exports.forgotPassword = (email, randomPassword) => {
   });
 };
 
+// Restituisce tutti gli utentei di tipo admin
 exports.getAllAdmins = () => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT email, name FROM users WHERE role = 'admin'";
