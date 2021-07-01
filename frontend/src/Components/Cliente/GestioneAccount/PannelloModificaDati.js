@@ -6,7 +6,7 @@ import Axios from 'axios'
 import { Alert, AlertTitle } from '@material-ui/lab';
 import NavbarCliente from "../../NavbarCliente";
 
-export default class Registrazione extends Component {
+export default class PannelloModifcaDati extends Component {
 
 
 	state = {
@@ -51,12 +51,7 @@ export default class Registrazione extends Component {
 		this.setState({ [input]: e.target.value });
 	};
 
-	stampa = () => {
-		console.log(this.state);
-	}
-
 	onValidSubmit = (event) => {
-		console.log(JSON.parse(localStorage.getItem("utente")));
 		event.preventDefault();
 		this.update();
 	};
@@ -111,10 +106,6 @@ export default class Registrazione extends Component {
 							<div className="col">
 								
 									<div className="title">Modifica Dati</div>
-							
-
-
-
 
 								{/* Riga nome e cognome */}
 								<div className="row">
@@ -139,8 +130,6 @@ export default class Registrazione extends Component {
 										/>
 									</div>
 								</div>
-
-
 
 
 								{/* Riga data di nascita */}
@@ -175,8 +164,6 @@ export default class Registrazione extends Component {
 										/>
 									</div>
 								</div>
-
-
 
 
 

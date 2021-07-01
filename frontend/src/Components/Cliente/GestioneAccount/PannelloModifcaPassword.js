@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Jumbotron, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
 import NavbarCliente from "../../NavbarCliente";
@@ -9,7 +9,7 @@ import Axios from 'axios'
 import "../../../ComponentsCss/ModificaPassword.css"
 
 
-export default class Registrazione extends Component {
+export default class PannelloModifcaPassword extends Component {
 
 	state = {
 		password: "",
@@ -34,8 +34,6 @@ export default class Registrazione extends Component {
 	};
 
 	isStrongPassword(value, ctx, input, cb) {
-		//console.log(!value);
-
 		if (!value || value === '') {
 			cb(false);
 			return;
@@ -52,7 +50,6 @@ export default class Registrazione extends Component {
 	}
 
 	modificaPassword = () => {
-		console.log("funzione modifica");
 		Axios.put('/api/user/changepassword', this.state)
 			.then((res) => {
 				console.log(res);
@@ -88,12 +85,9 @@ export default class Registrazione extends Component {
 	render() {
 		return (
 			<div className="ez sfondo" style={{ height: "100%" }}>
-				{this.state.role === "guest" &&
-					<NavbarCliente />
-				}
-				{this.state.role !== "guest" &&
-					<NavbarDipendente />
-				}
+				{this.state.role === "guest" && <NavbarCliente />}
+				{this.state.role !== "guest" && <NavbarDipendente />}
+
 				{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 				{this.state.success && <Alert severity="success">Password Modificata Correttamente</Alert>}
 

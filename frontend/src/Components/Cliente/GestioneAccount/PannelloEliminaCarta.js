@@ -1,21 +1,17 @@
 import React, { Component } from "react";
-
-import { Jumbotron, Button } from "reactstrap";
-import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
-import faker from 'faker';
 import CardEliminaCarta from "./CardEliminaCarta";
 import Axios from 'axios';
 import NavbarCliente from "../../NavbarCliente";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import "../../../ComponentsCss/PannelloEliminaCarta.css"
 
 
 
-
-export default class Registrazione extends Component {
+export default class PannelloEliminaCarta extends Component {
 	state = {
-		listpayments: []
+		listpayments: [],
+		error: false
 	}
 
 	
@@ -34,7 +30,6 @@ export default class Registrazione extends Component {
 			Axios.get('/api/guest/listpayments')
 			.then((res) => {
 				this.setState({ listpayments: res.data });
-				console.log(this.state.listpayments);
 			}).catch((err) => {
 				window.location.href = '/errorServer';
 			});
@@ -47,7 +42,11 @@ export default class Registrazione extends Component {
 		.then((res) => {
 			this.setState({ listpayments: this.state.listpayments.filter(card => card.id !== cardID) });
 		}).catch((err) => {
-			window.location.href = '/errorServer';
+			if (err.response.status === 503){
+				this.setState({error: true})
+			} else {
+				window.location.href = '/errorServer';
+			}
 		});
 	};
 
@@ -63,7 +62,8 @@ export default class Registrazione extends Component {
 				
 
 							
-							{this.state.listpayments.length == 0 && <Alert severity="error">Non hai nessun metodo di pagamento</Alert>}
+							{this.state.listpayments.length === 0 && <Alert severity="error">Non hai nessun metodo di pagamento</Alert>}
+							{this.state.error && <Alert severity="error">Impossibile rimuovere al momento il metodo di pagamneto, riprova</Alert>}
 
 							{<div>
 								{ this.state.listpayments.map(((item) => (
