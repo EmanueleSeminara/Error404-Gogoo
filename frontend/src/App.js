@@ -29,12 +29,7 @@ import PannelloRimuoviUtente from '../src/Components/Amministratore/GestioneUten
 import PannelloRimuoviVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloRimuoviVeicolo';
 import PannelloAggiungiVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloAggiungiVeicolo';
 import PannelloModificaVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloModificaVeicolo';
-<<<<<<< HEAD
 import Errorpage from '../src/pages/Errorpage'
-=======
-
-
->>>>>>> e7f4e9694cd06f5317466ffedfac274adc037b67
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -79,8 +74,10 @@ class App extends Component {
           <Route exact path="/aggiungiVeicolo" component={PannelloAggiungiVeicolo} />
           <Route exact path="/rimuoviVeicolo" component={PannelloRimuoviVeicolo} />
           <Route exact path="/modificaVeicolo" component={PannelloModificaVeicolo} />
+         
           <Route exact path="/errorServer" component={Errorpage} />
-          {/* <Route path="/paintingInfo/:id" exact component={paintingInfo} /> */}
+          <Route exact path="*" component={Errorpage} />
+
         </Switch>
       </Router>
     );

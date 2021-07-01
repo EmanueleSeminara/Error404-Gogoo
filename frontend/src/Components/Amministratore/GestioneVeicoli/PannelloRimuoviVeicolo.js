@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup } from "reactstrap";
 import CardRimuoviVeicolo from "./CardRimuoviVeicolo";
-import faker from 'faker';
 import Axios from 'axios';
 import { Alert} from '@material-ui/lab';
 import NavbarDipendente from "../../../Components/NavbarDipendente"
