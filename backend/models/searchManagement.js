@@ -2,29 +2,7 @@ const db = require("../db/db");
 var distance = require("google-distance");
 distance.apiKey = process.env.GOOGLE_KEY;
 
-//4. RICERCA:
-//  4.1 RICERCA VEICOLI:
-
-// get all available vehicles
-exports.searchVehicles = (type, dateR, dateC, startParking) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      "SELECT * FROM vehicles AS v WHERE v.type = ? AND v.refParking = ? AND v.state != 'damage' AND v.id NOT IN(SELECT refVehicle FROM reservations WHERE DATE(?)< DATE(dateC) AND DATE(?)> DATE(dateR))";
-    db.all(sql, [type, startParking, dateR, dateC], (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      const vehicles = rows.map((v) => ({
-        id: v.id,
-        type: v.type,
-        category: v.category,
-      }));
-      resolve(vehicles);
-    });
-  });
-};
-
+// Restituisce una macchina che non sia danneggiata, che non abbia altre prenotazioni e che parta dal parcheggio principale
 exports.searchVehiclesForDrivers = (category) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -44,24 +22,7 @@ exports.searchVehiclesForDrivers = (category) => {
   });
 };
 
-//  4.2 RICERCA AUTOMOBILI CON AUTISTA:
-
-// // get all available vehicles stesso di sopra
-// exports.searchVehicles = (type, dateR, dateC, startParking) => {
-//     return new Promise((resolve, reject) => {
-//         const sql = 'SELECT * FROM vehicles WHERE type = ? AND position = ? AND id NOT IN(SELECT refVehicles FROM reservations WHERE ((? >= dateR AND ? <= dateC) OR (? >= dateR AND ? <= dateC) OR (? <= dateR AND ? >=dateC) ))';
-//         db.all(sql, [type, startParking, dateR, dateR, dateC, dateC, dateR, dateC], (err, rows) => {
-//             if (err) {
-//                 reject(err);
-//                 return;
-//             }
-//             const vehicles = rows.map((v) => ({ id: v.id}));
-//             resolve(vehicles);
-//         });
-//     });
-// };
-
-// get all available drivers
+// Restituisce tutti gli autisti che non sono impegnati in altre prenotazioni
 exports.searchDrivers = (dateR, dateC) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -77,9 +38,7 @@ exports.searchDrivers = (dateR, dateC) => {
   });
 };
 
-//  4.3 RICERCA AUTOMOBILI FUORI STALLO:  - DA RIVEDERE
-
-// get all vehicles (in inglese) fuori stallo
+// Restituisce tutti i veicoli fuori stallo disponibili
 exports.searchVehiclesOutOfStall = (dateR, dateC) => {
   return new Promise((resolve, reject) => {
     const sql =

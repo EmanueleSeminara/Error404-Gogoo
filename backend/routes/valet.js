@@ -31,90 +31,7 @@ router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
   }
 });
 
-// Consegna del mezzo al cliente
-// router.put("/deliveryvehicle/", isValet, async (req, res) => {
-//   console.log(req.body);
-//   const reservation = {
-//     id: req.body.id,
-//     refVehicle: req.body.refVehicle,
-//     idValet: req.user.id,
-//     dateC: req.body.dateC,
-//   };
-//   try {
-
-//     await valetManagement.deliveryVehicle(reservation);
-//     console.log("DELIVERY VEHICLEEEEE");
-//     const deliveryDate = new Date(reservation.dateC).getTime();
-//     const nowDate = new Date(
-//       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
-//     ).getTime();
-//     const deliveryDatetime = deliveryDate - nowDate;
-//     // Scadenza orario di consegna
-//     setTimeout(async () => {
-//       try {
-//         const isInReservations = await reservationManagement.isInReservations(
-//           req.user.id,
-//           reservation.id
-//         );
-//         console.log("isInReservation: " + isInReservations);
-//         if (isInReservations) {
-//           mail.sendExpiredDeliveryMail(
-//             req.user.email,
-//             req.user.name,
-//             reservation.id
-//           );
-//           const admins = await userManagement.getAllAdmins();
-//           admins.forEach((admin) => {
-//             mail.sendExpiredDeliveryMail(admin.email, "Admin", reservation.id);
-//           });
-//           console.log("MANDA EMAIL!!");
-//         }
-//       } catch (err) {
-//         console.log(err);
-//       }
-
-//       //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-//     }, deliveryDatetime);
-
-//     // Mancata consegna
-//     setTimeout(async () => {
-//       try {
-//         const isInReservations = await reservationManagement.isInReservations(
-//           req.user.id,
-//           reservation.id
-//         );
-//         console.log("isInReservation: " + isInReservations);
-//         if (isInReservations) {
-//           mail.sendDeliveryFailureyMail(
-//             req.user.email,
-//             req.user.name,
-//             reservation.id
-//           );
-//           const admins = await userManagement.getAllAdmins();
-//           admins.forEach((admin) => {
-//             mail.sendDeliveryFailureyMailAdmin(
-//               admin.email,
-//               req.user.name,
-//               reservation.id,
-//               req.user.email
-//             );
-//           });
-//           console.log("MANDA EMAIL!!");
-//         }
-//       } catch (err) {
-//         console.log(err);
-//       }
-
-//       //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-//     }, deliveryDatetime + 14400000);
-//     res.status(201).end();
-//   } catch (err) {
-//     res.json({
-//       error: "Database error when requesting unconfirmed reservations - " + err,
-//     });
-//   }
-// });
-
+// Consegna del veicolo al cliente
 router.put("/deliveryvehicle", isValet, async (req, res) => {
   try {
     const reservation = await reservationManagement.getReservationById(
@@ -169,8 +86,6 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
         } catch (err) {
           console.log(err);
         }
-
-        //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
       }, timerDatetime);
 
       // Mancata consegna
@@ -218,24 +133,7 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
   }
 });
 
-// Ritiro del mezzo dal cliente
-// router.delete("/retirevehicle/", isValet, async (req, res) => {
-//   console.log("BODY: " + req.body.refVehicle, req.body.id);
-//   const reservation = {
-//     id: req.query.id,
-//     refVehicle: req.query.refVehicle,
-//     idValet: req.user.id,
-//   };
-//   try {
-//     await valetManagement.retirevehicle(reservation);
-//     res.status(201).end();
-//   } catch (err) {
-//     res.json({
-//       error: "Database error while canceling the reservation - " + err,
-//     });
-//   }
-// });
-
+// Ritiro del veicolo dal cliente
 router.delete("/retirevehicle", isValet, async (req, res) => {
   try {
     console.log(req.query.id, req.user.id);

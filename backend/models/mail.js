@@ -1,6 +1,6 @@
 var nodemailer = require("nodemailer");
-//require("dotenv").config({ path: "../.env" });
 
+// Informazioni relativa lla mail usata per le comunicazioni
 var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -9,13 +9,17 @@ var transporter = nodemailer.createTransport({
   },
 });
 
+// Mail di benvenuto
 exports.sendWelcomeMail = (email, name) => {
   transporter.sendMail(
     {
       from: process.env.MAIL_USER,
       to: email,
       subject: "Welcome to dropcar",
-      text: "Dear " + name + ",\n\nThe Error404 team welcomes you to dropcar!!",
+      text:
+        "Dear " +
+        name +
+        ",\n\nThe dropcar team welcomes you to the platform, we wish you a good stay!",
     },
     function (error, info) {
       if (error) {
@@ -27,6 +31,7 @@ exports.sendWelcomeMail = (email, name) => {
   );
 };
 
+// Mail che notifica l'avvenuto cambiamento della password
 exports.sendPasswordChangedMail = (email, name) => {
   transporter.sendMail(
     {
@@ -48,6 +53,7 @@ exports.sendPasswordChangedMail = (email, name) => {
   );
 };
 
+// Mail che invia la nuova password generata casualmente a seguito del ripristino
 exports.sendRecoveryPasswordMail = (email, password) => {
   transporter.sendMail(
     {
@@ -56,9 +62,9 @@ exports.sendRecoveryPasswordMail = (email, password) => {
       subject: "dropcar - The password has been changed",
       text:
         "Dear User" +
-        ",\n\nThe password associated with your account has been changed in: " +
+        ",\n\nThe password associated with your account has been changed in:  " +
         password +
-        ".\n\ndropcar Team",
+        "  .\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -69,6 +75,8 @@ exports.sendRecoveryPasswordMail = (email, password) => {
     }
   );
 };
+
+// Mail che notifica l'avvenuto cambiamento delle informazioni personali del cliente
 exports.sendInformationChangedMail = (email, name) => {
   transporter.sendMail(
     {
@@ -90,27 +98,7 @@ exports.sendInformationChangedMail = (email, name) => {
   );
 };
 
-// exports.sendInformationChangedMail = (email, name) => {
-//   transporter.sendMail(
-//     {
-//       from: process.env.MAIL_USER,
-//       to: email,
-//       subject: "dropcar - Payment method removed",
-//       text:
-//         "Dear " +
-//         name +
-//         ",\n\nWe inform you that a payment method has been removed from your account.\n\ndropcar Team",
-//     },
-//     function (error, info) {
-//       if (error) {
-//         console.log(error);
-//       } else {
-//         console.log("Email sent: " + info.response);
-//       }
-//     }
-//   );
-// };
-
+// Mail che notifica l'avvenuta rimozione di un metodo di pagamento del cliente
 exports.sendPaymentMethodRemovedMail = (email, name) => {
   transporter.sendMail(
     {
@@ -132,6 +120,7 @@ exports.sendPaymentMethodRemovedMail = (email, name) => {
   );
 };
 
+// Mail che notifica l'avvenuta aggiunzione della patente del cliente
 exports.sendAddedLicenseMail = (email, name) => {
   transporter.sendMail(
     {
@@ -153,6 +142,7 @@ exports.sendAddedLicenseMail = (email, name) => {
   );
 };
 
+// Mail che notifica l'avvenuta modifica della patente del cliente
 exports.sendModifiedLicenseMail = (email, name) => {
   transporter.sendMail(
     {
@@ -174,6 +164,7 @@ exports.sendModifiedLicenseMail = (email, name) => {
   );
 };
 
+// Mail che notifica l'avvenuta aggiunzione di un metodo di pagamento del cliente
 exports.sendPaymentMethodAddedMail = (email, name) => {
   transporter.sendMail(
     {
@@ -195,6 +186,7 @@ exports.sendPaymentMethodAddedMail = (email, name) => {
   );
 };
 
+// Mail che notifica la conferma della prenotazione richiesta dal cliente
 exports.sendNewReservationMail = (email, name, id) => {
   transporter.sendMail(
     {
@@ -204,7 +196,9 @@ exports.sendNewReservationMail = (email, name, id) => {
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the booking of your vehicle with id " + id + " has been confirmed!\n\ndropcar Team",
+        ",\n\nWe inform you that the booking of your vehicle with id " +
+        id +
+        " has been confirmed!\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -216,6 +210,7 @@ exports.sendNewReservationMail = (email, name, id) => {
   );
 };
 
+// Mail che notifica l'avvenuta eliminazione della prenotazione richiesta dal cliente
 exports.sendReservationDeletedMail = (email, name, id) => {
   transporter.sendMail(
     {
@@ -225,7 +220,9 @@ exports.sendReservationDeletedMail = (email, name, id) => {
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the reservation with id " + id + " has been canceled\n\ndropcar Team",
+        ",\n\nWe inform you that the reservation with id " +
+        id +
+        " has been canceled\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -237,6 +234,7 @@ exports.sendReservationDeletedMail = (email, name, id) => {
   );
 };
 
+// Mail che notifica l'avvenuta modifica della prenotazioen richiesta dal cliente
 exports.sendReservationEditedMail = (email, name, id) => {
   transporter.sendMail(
     {
@@ -246,7 +244,9 @@ exports.sendReservationEditedMail = (email, name, id) => {
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the reservation with id " + id + " has been edited\n\ndropcar Team",
+        ",\n\nWe inform you that the reservation with id " +
+        id +
+        " has been edited\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -258,6 +258,7 @@ exports.sendReservationEditedMail = (email, name, id) => {
   );
 };
 
+// Mail che notifica la scadenza della data e ora di consegna del veicolo prenotato dal cliente
 exports.sendExpiredDeliveryMail = (email, name, id) => {
   transporter.sendMail(
     {
@@ -267,7 +268,9 @@ exports.sendExpiredDeliveryMail = (email, name, id) => {
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the delivery for the booking with id " + id + " has expired, log in to the portal to update the information.\n\ndropcar Team",
+        ",\n\nWe inform you that the delivery for the booking with id " +
+        id +
+        " has expired, log in to the portal to update the information.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -279,6 +282,7 @@ exports.sendExpiredDeliveryMail = (email, name, id) => {
   );
 };
 
+// Mail che notifica che la prenotazione richiesta dal cliente è in fase di elaborazione
 exports.sendReservationBeingProcessedMail = (email, name) => {
   transporter.sendMail(
     {
@@ -300,6 +304,7 @@ exports.sendReservationBeingProcessedMail = (email, name) => {
   );
 };
 
+// Mail che notifica la mancata consegna del veicolo prenotato dal cliente e l'addebito della penale
 exports.sendDeliveryFailureyMail = (email, name, id) => {
   transporter.sendMail(
     {
@@ -309,7 +314,9 @@ exports.sendDeliveryFailureyMail = (email, name, id) => {
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that you have not delivered the vehicle associated with the booking with id " + id + ", you have been charged for the penalty.\n\ndropcar Team",
+        ",\n\nWe inform you that you have not delivered the vehicle associated with the booking with id " +
+        id +
+        ", you have been charged for the penalty.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -321,7 +328,13 @@ exports.sendDeliveryFailureyMail = (email, name, id) => {
   );
 };
 
-exports.sendDeliveryFailureyMailAdmin = (emailAdmin, nameGuest, idReservation, emailGuest) => {
+// Mail che notifica gli amministratori che vi è stata una mancata consegna di un veicolo
+exports.sendDeliveryFailureyMailAdmin = (
+  emailAdmin,
+  nameGuest,
+  idReservation,
+  emailGuest
+) => {
   transporter.sendMail(
     {
       from: process.env.MAIL_USER,
@@ -329,7 +342,13 @@ exports.sendDeliveryFailureyMailAdmin = (emailAdmin, nameGuest, idReservation, e
       subject: "dropcar - Delivery Failure",
       text:
         "Dear Admin" +
-        ",\n\nMr. " + nameGuest + " with email " + emailGuest + " did not deliver the vehicle associated with the booking with id " + idReservation + ".\n\ndropcar Team",
+        ",\n\nMr. " +
+        nameGuest +
+        " with email " +
+        emailGuest +
+        " did not deliver the vehicle associated with the booking with id " +
+        idReservation +
+        ".\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {

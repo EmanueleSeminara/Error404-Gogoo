@@ -13,6 +13,7 @@ const userManagement = require("../models/userManagement");
 const mail = require("../models/mail");
 const isGuest = require("../middleware/isGuest");
 
+// Modifica dati personali - Modifica i dati dell'utente
 router.put(
   "/update",
   [
@@ -40,7 +41,6 @@ router.put(
 
     try {
       await guestManagement.updateUser(user);
-      console.log(req.user.email);
       mail.sendInformationChangedMail(req.body.email, req.body.name);
       res.status(201).end();
     } catch (err) {
@@ -56,8 +56,8 @@ router.put(
   }
 );
 
+// Modifica dati personali - Restituisce i dati del cliente
 router.get("/mydata", isGuest, async (req, res) => {
-  //console.log(req.user)
   try {
     res.json(await guestManagement.getGuestData(req.session.passport.user));
   } catch (err) {
@@ -67,6 +67,7 @@ router.get("/mydata", isGuest, async (req, res) => {
   }
 });
 
+// Inserisci patente - Aggiunge la patente al cliente
 router.post(
   "/addcarlicense",
   [
@@ -113,8 +114,8 @@ router.post(
   }
 );
 
+// Aggiorna patente - Restituisce i dati della patente del cliente
 router.get("/getdatacarlicense", isGuest, async (req, res) => {
-  //console.log(req.user)
   try {
     const cl = await guestManagement.getCarLicenseData(
       req.session.passport.user
@@ -136,6 +137,7 @@ router.get("/getdatacarlicense", isGuest, async (req, res) => {
   }
 });
 
+// Aggiorna patente - Modifica i dati della patente
 router.put(
   "/updatecarlicense",
   [
@@ -177,6 +179,7 @@ router.put(
   }
 );
 
+// Elimina metodi di pagamento - Restituisce la lista dei metodi di pagamento del cliente
 router.get("/listpayments", isGuest, async (req, res) => {
   try {
     res.json(await guestManagement.listPayments(req.session.passport.user));
@@ -187,6 +190,7 @@ router.get("/listpayments", isGuest, async (req, res) => {
   }
 });
 
+// Elimina metodi di apgamento - Elimina il metodo di pagamento selezionato
 router.delete(
   "/deletepayment/:id",
   [check("id").isInt({ min: 0 })],
@@ -204,6 +208,7 @@ router.delete(
   }
 );
 
+// Aggiungi metodo di pagmaneto - Aggiunge un nuovo metodo di pagamento al cliente
 router.post(
   "/addpaymentmethod",
   [
@@ -243,92 +248,7 @@ router.post(
   }
 );
 
-// router.put("/retirevehicle", isGuest, async (req, res) => {
-//   const reservation = {
-//     refGuest: req.user.id,
-//     refVehicle: req.body.refVehicle,
-//     id: req.body.id,
-//     dateC: req.body.dateC,
-//   };
-//   try {
-//     await guestManagement.retireVehicle(reservation);
-//     const deliveryDate = new Date(reservation.dateC).getTime();
-//     const nowDate = new Date(
-//       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
-//     ).getTime();
-//     const timerDatetime = deliveryDate - nowDate;
-//     console.log(
-//       "DATA TIMER CALCOLATA: " +
-//         new Date(timerDatetime) +
-//         "DATA IN MILLI: " +
-//         timerDatetime
-//     );
-//     // Scadenza orario di consegna
-//     setTimeout(async () => {
-//       try {
-//         const isInReservations = await reservationManagement.isInReservations(
-//           req.user.id,
-//           reservation.id
-//         );
-//         console.log("isInReservation: " + isInReservations);
-//         if (isInReservations) {
-//           mail.sendExpiredDeliveryMail(
-//             req.user.email,
-//             req.user.name,
-//             reservation.id
-//           );
-//           const admins = await userManagement.getAllAdmins();
-//           admins.forEach((admin) => {
-//             mail.sendExpiredDeliveryMail(admin.email, "Admin", reservation.id);
-//           });
-//           console.log("MANDA EMAIL!!");
-//         }
-//       } catch (err) {
-//         console.log(err);
-//       }
-
-//       //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-//     }, timerDatetime);
-
-//     // Mancata consegna
-//     setTimeout(async () => {
-//       try {
-//         const isInReservations = await reservationManagement.isInReservations(
-//           req.user.id,
-//           reservation.id
-//         );
-//         console.log("isInReservation: " + isInReservations);
-//         if (isInReservations) {
-//           mail.sendDeliveryFailureyMail(
-//             req.user.email,
-//             req.user.name,
-//             reservation.id
-//           );
-//           const admins = await userManagement.getAllAdmins();
-//           admins.forEach((admin) => {
-//             mail.sendDeliveryFailureyMailAdmin(
-//               admin.email,
-//               req.user.name,
-//               reservation.id,
-//               req.user.email
-//             );
-//           });
-//           console.log("MANDA EMAIL!!");
-//         }
-//       } catch (err) {
-//         console.log(err);
-//       }
-
-//       //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-//     }, timerDatetime + 14400000);
-//     res.status(201).end();
-//   } catch (err) {
-//     res.status(503).json({
-//       error: "Database error when requesting vehicle collection - " + err,
-//     });
-//   }
-// });
-
+// Segnala il guasto del veicolo prenotato durante l'ora di prenotazione
 router.put(
   "/damagedvehicle",
   isGuest,
@@ -339,38 +259,35 @@ router.put(
       console.log(errors.array());
       return res.status(422).json({ errors: errors.array() });
     }
-    console.log(
-      req.body.id,
-      req.body.refVehicle,
-      req.body.position,
-      req.body.refParkingC,
-      req.body.type,
-      req.body.category
-    );
-    const reservation = {
-      id: req.body.id,
-      refVehicle: req.body.refVehicle,
-      position: req.body.position,
-      refParkingC: req.body.refParkingC,
-      type: req.body.type,
-      category: req.body.category,
-    };
     try {
-      await guestManagement.damagedVehicle(
-        reservation.refVehicle,
-        reservation.position
+      const reservation = await reservationManagement.getReservationById(
+        req.body.id
       );
-      const vehicle = await vehicleManagement.getSimilarVehicle(
-        reservation.refParkingC,
-        reservation.type,
-        reservation.category
-      );
-      await reservationManagement.updateVehicleInReservation(
-        reservation.refVehicle,
-        vehicle
-      );
-      await reservationManagement.deleteReservationById(reservation.id);
-      res.status(201).end();
+      if (
+        reservation.refGuest === req.user.id &&
+        reservation.refVehicle === req.body.refVehicle
+      ) {
+        reservation.position = req.body.position;
+        await guestManagement.damagedVehicle(
+          reservation.refVehicle,
+          reservation.position
+        );
+        const vehicle = await vehicleManagement.getSimilarVehicle(
+          reservation.refParkingC,
+          reservation.type,
+          reservation.category
+        );
+        await reservationManagement.updateVehicleInReservation(
+          reservation.refVehicle,
+          vehicle
+        );
+        await reservationManagement.deleteReservationById(reservation.id);
+        res.status(201).end();
+      } else {
+        res.status(513).json({
+          error: "Unable to change the delivery parking of the reservation",
+        });
+      }
     } catch (err) {
       res.status(503).json({
         error: "Database error when requesting vehicle status update - " + err,
@@ -381,12 +298,6 @@ router.put(
 
 // Consegna fuori stallo
 router.delete("/deliveryoutofstall", isGuest, async (req, res) => {
-  console.log(
-    req.query.id,
-    req.query.refVehicle,
-    req.user.id,
-    req.query.position
-  );
   const reservation = {
     id: req.query.id,
     refVehicle: req.query.refVehicle,
@@ -403,8 +314,8 @@ router.delete("/deliveryoutofstall", isGuest, async (req, res) => {
   }
 });
 
+// Verifica se per il mezzo selezionato è possibile la consegna fuori stallo
 router.get("/candeliveroutofstall", isGuest, async (req, res) => {
-  console.log(req.query);
   const reservation = {
     refVehicle: req.query.refVehicle,
     id: req.query.id,
@@ -418,6 +329,7 @@ router.get("/candeliveroutofstall", isGuest, async (req, res) => {
   }
 });
 
+// Mostra le prenotazioni in ritardo consegna
 router.get("/myreservationslatedelivery", isGuest, async (req, res) => {
   try {
     res.json(await guestManagement.getMyReservationsLateDelivery(req.user.id));
@@ -434,27 +346,17 @@ router.put(
   isGuest,
   [check("refParkingC").isAlphanumeric("it-IT", { ignore: " " })],
   async (req, res) => {
-    console.log(req.body.id, req.body.dateC, req.user.id);
-
     const errors = validationResult(req);
-    console.log(req.body.id, req.body.refParkingC);
     if (!errors.isEmpty()) {
       console.log(errors.array());
       return res.status(422).json({ errors: errors.array() });
     }
     try {
-      
       const reservation = await reservationManagement.getReservationById(
         req.body.id
       );
-      console.log(reservation);
       const dateNow = new Date(
         new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
-      );
-      console.log(
-        "CONTROLLO DATE: " + new Date(reservation.dateC),
-        dateNow,
-        new Date(reservation.dateC) <= dateNow
       );
       if (
         reservation.refGuest == req.user.id &&
@@ -463,9 +365,8 @@ router.put(
       ) {
         reservation.refParkingC = req.body.refParkingC;
         reservation.state = "withdrawn";
-        console.log("Sei dentro!");
 
-        await reservationManagement.changeDestinationParking(reservation);
+        await reservationManagement.changeParking(reservation);
         await reservationManagement.changeState(reservation);
         res.status(200).end();
       } else {
@@ -484,12 +385,10 @@ router.put(
 
 // Cambio dell'orario di consegna a seguito di ritardo consegna
 router.put("/deliverydelay", isGuest, async (req, res) => {
-  console.log(req.body.id, req.body.dateC, req.user.id);
   try {
     const reservation = await reservationManagement.getReservationById(
       req.body.id
     );
-    console.log(reservation);
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
@@ -501,8 +400,6 @@ router.put("/deliverydelay", isGuest, async (req, res) => {
     ) {
       reservation.dateC = req.body.dateC;
       reservation.state = "withdrawn";
-      console.log("Sei dentro!");
-      console.log(reservation.dateC);
       await reservationManagement.changeDate(reservation);
       await reservationManagement.changeState(reservation);
       res.status(200).end();
@@ -519,6 +416,7 @@ router.put("/deliverydelay", isGuest, async (req, res) => {
   }
 });
 
+// Ritira il veicolo
 router.put("/retirevehicle", isGuest, async (req, res) => {
   try {
     const reservation = await reservationManagement.getReservationById(
@@ -540,12 +438,7 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
         new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
       ).getTime();
       const timerDatetime = deliveryDate - nowDate;
-      console.log(
-        "DATA TIMER CALCOLATA: " +
-          new Date(timerDatetime) +
-          "DATA IN MILLI: " +
-          timerDatetime
-      );
+
       // Scadenza orario di consegna
       setTimeout(async () => {
         try {
@@ -553,7 +446,6 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
             req.user.id,
             reservation.id
           );
-          console.log("isInReservation: " + isInReservations);
           if (isInReservations) {
             mail.sendExpiredDeliveryMail(
               req.user.email,
@@ -568,13 +460,10 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
                 reservation.id
               );
             });
-            console.log("MANDA EMAIL!!");
           }
         } catch (err) {
           console.log(err);
         }
-
-        //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
       }, timerDatetime);
 
       // Mancata consegna
@@ -584,7 +473,6 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
             req.user.id,
             reservation.id
           );
-          console.log("isInReservation: " + isInReservations);
           if (isInReservations) {
             mail.sendDeliveryFailureyMail(
               req.user.email,
@@ -600,13 +488,10 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
                 req.user.email
               );
             });
-            console.log("MANDA EMAIL!!");
           }
         } catch (err) {
           console.log(err);
         }
-
-        //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
       }, timerDatetime + 14400000);
       res.status(200).end();
     } else {
@@ -622,16 +507,15 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
   }
 });
 
+// Consegna veicolo
 router.delete("/deliveryvehicle", isGuest, async (req, res) => {
   try {
-    console.log(req.query.id, req.user.id, req.query.refVehicle);
     const reservation = await reservationManagement.getReservationById(
       req.query.id
     );
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    console.log(reservation);
     if (
       reservation.refVehicle == req.query.refVehicle &&
       reservation.refGuest == req.user.id &&
