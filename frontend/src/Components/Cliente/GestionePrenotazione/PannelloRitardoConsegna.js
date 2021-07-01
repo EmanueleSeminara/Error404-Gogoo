@@ -53,6 +53,23 @@ export default class PannelloRitiroConsegna extends Component {
             });
     }
 
+    changeTime = (reservationID, dateC) => {
+        const data = {
+            id: reservationID,
+            dateC: dateC
+        }
+        console.log(data)
+        Axios.put('/api/guest/deliverydelay', data)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+                localStorage.setItem("price", 25)
+                window.location.href = "/pagamento"
+            }).catch((err) => {
+                console.log(err)
+                // window.location.href = '/errorServer';
+            });
+    }
+
 
     render() {
         return (
