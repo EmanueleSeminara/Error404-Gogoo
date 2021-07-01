@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavbarCliente from "../NavbarCliente";
+import NavbarCliente from "../../NavbarCliente";
 import Axios from "axios";
 import * as moment from "moment";
 import { Button } from "reactstrap";
