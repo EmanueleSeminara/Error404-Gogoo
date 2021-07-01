@@ -41,8 +41,12 @@ export default class PannelloRitiroConsegna extends Component {
         }
     }
 
-    remove = (reservationID) => {
-        Axios.delete('/api/reservation/delete/' + reservationID)
+    delivery = (reservationID, vehicleID) => {
+        const data={
+            id: reservationID,
+            refVehicle: vehicleID
+        }
+        Axios.delete('/api/guest/deliveryvehicle' + data)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
             }).catch((err) => {
@@ -69,7 +73,7 @@ export default class PannelloRitiroConsegna extends Component {
 
                         {this.state.listReservation.map(((item) => (
                             <div className="p-3 col-12">
-                                <CardRitiroConsegna id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} remove={this.remove} />
+                                <CardRitiroConsegna id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} delivery={this.delivery} />
                             </div>
                         )))}
                     </div>

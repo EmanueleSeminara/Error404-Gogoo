@@ -121,7 +121,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
                                 <Button type="button" className="buttonRitiro" onClick={() => this.ritira()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={!this.state.ritiro}>
                                     Ritiro
                                 </Button>
-                                <Button type="button" className="buttonConsegna" onClick={() => this.props.remove(this.props.id)} style={{ marginRight: "10px", marginTop: "20px" }}  disabled={!this.state.consegna}>
+                                    <Button type="button" className="buttonConsegna" onClick={() => this.props.delivery(this.props.id, this.props.refVehicle)} style={{ marginRight: "10px", marginTop: "20px" }}  disabled={!this.state.consegna}>
                                     Consegna
                                 </Button>
                             </center>
