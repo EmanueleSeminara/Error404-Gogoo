@@ -11,7 +11,6 @@ export default class PannelloRitiroConsegna extends Component {
     state = {
         listReservation: [],
         error: false,
-        success: false,
         string: "",
     }
 
@@ -66,10 +65,18 @@ export default class PannelloRitiroConsegna extends Component {
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
                 localStorage.setItem("price", 25)
+                this.setState({ error: false });
                 //window.location.href = "/pagamento"
             }).catch((err) => {
-                console.log(err)
-                // window.location.href = '/errorServer';
+                if (err.response.status === 422) {
+                    this.setState({ string: "errore nell'inserimento dei dati" });
+                    this.setState({ error: true });
+                } else if (err.response.status === 503) {
+                    this.setState({ string: "impossibile segnalare il guasto al momento, riprova più tardi" });
+                    this.setState({ error: true });
+                } else {
+                    window.location.href = "/serverError"
+                }
             });
     }
 
@@ -78,6 +85,7 @@ export default class PannelloRitiroConsegna extends Component {
         return (
             <div className="ez sfondo-card">
                 <NavbarCliente />
+                {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Ritardo Consegna</div></center>
