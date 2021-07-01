@@ -49,15 +49,21 @@ router.get("/reservationsnotconfirmed/", isDriver, async (req, res) => {
 // });
 
 router.put("/retirecar", isDriver, async (req, res) => {
+  console.log(req.body.id, req.body.refVehicle);
   try {
-    const reservation =
-      await reservationManagement.getReservationById(
-        req.body.id
-      );
+    const reservation = await reservationManagement.getReservationById(
+      req.body.id
+    );
+    console.log(reservation);
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    if (reservation.refDriver === req.user.id && reservation.refVehicle === req.body.refVehicle && new Date(reservation.dateR) <= dateNow) {
+    console.log(new Date(reservation.dateR) <= dateNow);
+    if (
+      reservation.refDriver === req.user.id &&
+      reservation.refVehicle === req.body.refVehicle &&
+      new Date(reservation.dateR) <= dateNow
+    ) {
       reservation.state = "withdrawn";
       await vehicleManagement.updateState(reservation.refVehicle, "in use");
       await reservationManagement.changeState(reservation);
@@ -95,18 +101,31 @@ router.put("/retirecar", isDriver, async (req, res) => {
 
 router.delete("/cardelivery", isDriver, async (req, res) => {
   try {
-    console.log(req.query.id, req.user.id);
-    const reservation =
-      await reservationManagement.getReservationById(
-        req.query.id
-      );
+    console.log(req.query.id, req.user.id, req.query.refVehicle);
+    const reservation = await reservationManagement.getReservationById(
+      req.query.id
+    );
+    console.log(
+      reservation.refDriver == req.user.id,
+      reservation.refVehicle == req.body.refVehicle,
+      reservation.state == "withdrawn"
+    );
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    console.log(reservation)
-    if (reservation.refDriver === req.user.id && reservation.refVehicle === req.body.refVehicle && reservation.state == "withdrawn") {
+    console.log(reservation);
+    if (
+      reservation.refDriver == req.user.id &&
+      reservation.refVehicle == req.query.refVehicle &&
+      reservation.state == "withdrawn"
+    ) {
       await vehicleManagement.updateState("available", reservation.refVehicle);
       await reservationManagement.deleteReservationById(reservation.id);
+      await vehicleManagement.changeRefParking(
+        reservation.refParkingC,
+        reservation.refVehicle
+      );
+
       res.status(200).end();
     } else {
       res.status(513).json({

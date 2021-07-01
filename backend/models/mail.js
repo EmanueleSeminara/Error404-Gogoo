@@ -14,8 +14,8 @@ exports.sendWelcomeMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Welcome to Gogoo",
-      text: "Dear " + name + ",\n\nThe Error404 team welcomes you to Gogoo!!",
+      subject: "Welcome to dropcar",
+      text: "Dear " + name + ",\n\nThe Error404 team welcomes you to dropcar!!",
     },
     function (error, info) {
       if (error) {
@@ -32,11 +32,11 @@ exports.sendPasswordChangedMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - The password has been changed",
+      subject: "dropcar - The password has been changed",
       text:
         "Dear " +
         name +
-        ",\n\nThe password associated with your account has been changed.\n\nGogoo Team",
+        ",\n\nThe password associated with your account has been changed.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -53,12 +53,12 @@ exports.sendRecoveryPasswordMail = (email, password) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - The password has been changed",
+      subject: "dropcar - The password has been changed",
       text:
         "Dear User" +
         ",\n\nThe password associated with your account has been changed in: " +
         password +
-        ".\n\nGogoo Team",
+        ".\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -74,11 +74,11 @@ exports.sendInformationChangedMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Information changed",
+      subject: "dropcar - Information changed",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that your account information has been changed.\n\nGogoo Team",
+        ",\n\nWe inform you that your account information has been changed.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -95,11 +95,11 @@ exports.sendInformationChangedMail = (email, name) => {
 //     {
 //       from: process.env.MAIL_USER,
 //       to: email,
-//       subject: "Gogoo - Payment method removed",
+//       subject: "dropcar - Payment method removed",
 //       text:
 //         "Dear " +
 //         name +
-//         ",\n\nWe inform you that a payment method has been removed from your account.\n\nGogoo Team",
+//         ",\n\nWe inform you that a payment method has been removed from your account.\n\ndropcar Team",
 //     },
 //     function (error, info) {
 //       if (error) {
@@ -116,11 +116,11 @@ exports.sendPaymentMethodRemovedMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Payment method removed",
+      subject: "dropcar - Payment method removed",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that a payment method has been removed from your account.\n\nGogoo Team",
+        ",\n\nWe inform you that a payment method has been removed from your account.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -137,11 +137,11 @@ exports.sendAddedLicenseMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Added license",
+      subject: "dropcar - Added license",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the license has been successfully added to your account!\n\nGogoo Team",
+        ",\n\nWe inform you that the license has been successfully added to your account!\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -158,11 +158,11 @@ exports.sendModifiedLicenseMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - License modified",
+      subject: "dropcar - License modified",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the license associated with your account has been updated!\n\nGogoo Team",
+        ",\n\nWe inform you that the license associated with your account has been updated!\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -179,11 +179,11 @@ exports.sendPaymentMethodAddedMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Payment method added",
+      subject: "dropcar - Payment method added",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that a payment method has been added from your account.\n\nGogoo Team",
+        ",\n\nWe inform you that a payment method has been added from your account.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -200,11 +200,11 @@ exports.sendNewReservationMail = (email, name, id) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - New Reservation",
+      subject: "dropcar - New Reservation",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the booking of your vehicle with id " + id + " has been confirmed!\n\nGogoo Team",
+        ",\n\nWe inform you that the booking of your vehicle with id " + id + " has been confirmed!\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -221,11 +221,11 @@ exports.sendReservationDeletedMail = (email, name, id) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Reservation deleted",
+      subject: "dropcar - Reservation deleted",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the reservation with id " + id + " has been canceled\n\nGogoo Team",
+        ",\n\nWe inform you that the reservation with id " + id + " has been canceled\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -242,11 +242,11 @@ exports.sendReservationEditedMail = (email, name, id) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Reservation deleted",
+      subject: "dropcar - Reservation deleted",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the reservation with id " + id + " has been edited\n\nGogoo Team",
+        ",\n\nWe inform you that the reservation with id " + id + " has been edited\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -263,11 +263,11 @@ exports.sendExpiredDeliveryMail = (email, name, id) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Delivery Expired",
+      subject: "dropcar - Delivery Expired",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that the delivery for the booking with id " + id + " has expired, log in to the portal to update the information.\n\nGogoo Team",
+        ",\n\nWe inform you that the delivery for the booking with id " + id + " has expired, log in to the portal to update the information.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -284,11 +284,11 @@ exports.sendReservationBeingProcessedMail = (email, name) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - New Reservation",
+      subject: "dropcar - New Reservation",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that your reservation is being processed, as soon as it is confirmed you will be informed!\n\nGogoo Team",
+        ",\n\nWe inform you that your reservation is being processed, as soon as it is confirmed you will be informed!\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -305,11 +305,11 @@ exports.sendDeliveryFailureyMail = (email, name, id) => {
     {
       from: process.env.MAIL_USER,
       to: email,
-      subject: "Gogoo - Delivery Failure",
+      subject: "dropcar - Delivery Failure",
       text:
         "Dear " +
         name +
-        ",\n\nWe inform you that you have not delivered the vehicle associated with the booking with id " + id + ", you have been charged for the penalty.\n\nGogoo Team",
+        ",\n\nWe inform you that you have not delivered the vehicle associated with the booking with id " + id + ", you have been charged for the penalty.\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {
@@ -326,10 +326,10 @@ exports.sendDeliveryFailureyMailAdmin = (emailAdmin, nameGuest, idReservation, e
     {
       from: process.env.MAIL_USER,
       to: emailAdmin,
-      subject: "Gogoo - Delivery Failure",
+      subject: "dropcar - Delivery Failure",
       text:
         "Dear Admin" +
-        ",\n\nMr. " + nameGuest + " with email " + emailGuest + " did not deliver the vehicle associated with the booking with id " + idReservation + ".\n\nGogoo Team",
+        ",\n\nMr. " + nameGuest + " with email " + emailGuest + " did not deliver the vehicle associated with the booking with id " + idReservation + ".\n\ndropcar Team",
     },
     function (error, info) {
       if (error) {

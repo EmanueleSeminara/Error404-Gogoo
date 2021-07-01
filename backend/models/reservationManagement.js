@@ -66,7 +66,8 @@ exports.listReservations = (idV) => {
 
 exports.getReservationById = (idP) => {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT r.id, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refGuest, r.refVehicle, r.state, pr.refValet AS refValetR, pc.refValet AS refValetC  FROM (reservations AS r JOIN parkings AS pr ON pr.position = r.refParkingR )JOIN parkings AS pc ON pc.position = r.refParkingC WHERE r.id = ?";
+    const sql =
+      "SELECT r.id, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refGuest, r.refDriver, r.refVehicle, r.state, pr.refValet AS refValetR, pc.refValet AS refValetC  FROM (reservations AS r JOIN parkings AS pr ON pr.position = r.refParkingR )JOIN parkings AS pc ON pc.position = r.refParkingC WHERE r.id = ?";
     db.get(sql, [idP], (err, row) => {
       if (err) {
         reject(err);
@@ -85,7 +86,8 @@ exports.getReservationById = (idP) => {
           refVehicle: row.refVehicle,
           state: row.state,
           refValetR: row.refValetR,
-          refValetC: row.refValetC
+          refValetC: row.refValetC,
+          refDriver: row.refDriver,
         };
         resolve(reservation);
       }
@@ -141,7 +143,7 @@ exports.updateReservation = (reservation) => {
 exports.getMyReservations = (userId) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT r.id,r.refVehicle, v.type, v.category, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refDriver, r.positionR, r.positionC, r.state FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE r.refGuest = ?";
+      "SELECT r.id,r.refVehicle, v.type, v.category, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refDriver, r.positionR, r.positionC, r.state FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE r.refGuest = ? AND r.state != 'late delivery'";
     db.all(sql, [userId], (err, rows) => {
       if (err) {
         reject(err);
@@ -424,15 +426,10 @@ exports.changeState = (reservation) => {
 
 exports.changeDate = (reservation) => {
   return new Promise((resolve, reject) => {
-    const sql =
-      "UPDATE reservations SET dateR = ?, dateC= ? WHERE id = ?";
+    const sql = "UPDATE reservations SET dateR = ?, dateC= ? WHERE id = ?";
     db.run(
       sql,
-      [
-        reservation.dateR,
-        reservation.dateC,
-        reservation.id
-      ],
+      [reservation.dateR, reservation.dateC, reservation.id],
       function (err) {
         if (err) {
           reject(err);

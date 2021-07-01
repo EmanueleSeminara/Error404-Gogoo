@@ -47,9 +47,15 @@ router.post("/searchvehicles/", isGuest, async (req, res) => {
       if (!vehicle.idReservation) {
         return vehicle;
       } else {
-        if (vehicles[i - 1] && vehicle.id !== vehicles[i - 1].id) {
-          if (flag) {
-            return vehicles[i - 1];
+        if (vehicle.id !== vehicles[i + 1].id) {
+          if (
+            flag &&
+            !(
+              new Date(vehicle.dateC) > new Date(req.body.dateR) &&
+              new Date(vehicle.dateR) < new Date(req.body.dateC)
+            )
+          ) {
+            return vehicle;
           }
           flag = true;
         } else {
