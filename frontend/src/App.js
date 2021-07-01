@@ -5,7 +5,7 @@ import Registrazione from "../src/pages/Registrazione";
 import RecuperoPassword from "../src/pages/RecuperoPassword";
 import Ricerca from "../src/Components/Ricerca/FormRicerca";
 import PannelloAmministratore from "../src/Components/Amministratore/PannelloAmministratore";
-import PannelloRiepilogoPrenotazione from '../src/Components/Prenotazione/PannelloRiepilogoPrenotazione'
+import PannelloRiepilogoPrenotazione from '../src/Components/Cliente/GestionePrenotazione/PannelloRiepilogoPrenotazione'
 import PannelloEliminaCarta from "../src/Components/Cliente/GestioneAccount/PannelloEliminaCarta";
 import PannelloModifcaPassword from "../src/Components/Cliente/GestioneAccount/PannelloModifcaPassword";
 import PannelloModificaDati from "../src/Components/Cliente/GestioneAccount/PannelloModificaDati";
