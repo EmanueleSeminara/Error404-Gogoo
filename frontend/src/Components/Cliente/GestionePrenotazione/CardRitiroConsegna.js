@@ -60,7 +60,7 @@ export default class CardRitiroConsegna extends Component {
           });
           this.setState({ error: true });
         } else {
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };

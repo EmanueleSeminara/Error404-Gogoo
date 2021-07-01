@@ -63,7 +63,7 @@ export default class CardModificaVeicolo extends Component {
           this.setState({ string: "impossibile modificare i dati del veicolo al momento, riprova più tardi" });
           this.setState({ error: true });
         } else {
-          window.location.href = "/serverError"
+          window.location.href = "/errorServer"
         }
       })
   };
