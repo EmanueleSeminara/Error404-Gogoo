@@ -53,7 +53,7 @@ export default class PannelloModificaPatente extends Component {
             }
           })
           .catch((err) => {
-            window.location.href = "/serverError";
+            window.location.href = "/errorServer";
           });
       }
     }
@@ -84,7 +84,7 @@ export default class PannelloModificaPatente extends Component {
           });
           this.setState({ error: true });
         } else {
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };

@@ -53,7 +53,6 @@ exports.getUser = (email, password) => {
 
 // Crea un nuovo utente di tipo cliente
 exports.createGuest = (user) => {
-  console.log(user);
   return new Promise((resolve, reject) => {
     const sql =
       "INSERT INTO users(name, surname, email, password, phone, birthdate) VALUES(?, ?, ?, ?, ?, DATE(?))";

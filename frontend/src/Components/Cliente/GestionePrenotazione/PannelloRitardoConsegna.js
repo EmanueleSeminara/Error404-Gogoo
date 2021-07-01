@@ -61,7 +61,7 @@ export default class PannelloRitardoConsegna extends Component {
           this.setState({ error: true });
         } else {
           console.log(err);
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };
@@ -95,7 +95,7 @@ export default class PannelloRitardoConsegna extends Component {
           this.setState({ error: true });
         } else {
           console.log(err);
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };

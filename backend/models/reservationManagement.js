@@ -17,7 +17,7 @@ exports.deleteReservationById = (id) => {
 exports.getReservationById = (idP) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT r.id, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refGuest, r.refDriver, r.refVehicle, r.state, pr.refValet AS refValetR, pc.refValet AS refValetC  FROM (reservations AS r JOIN parkings AS pr ON pr.position = r.refParkingR )JOIN parkings AS pc ON pc.position = r.refParkingC WHERE r.id = ?";
+      "SELECT r.id, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refGuest, r.refDriver, r.refVehicle, r.state, pr.refValet AS refValetR, pc.refValet AS refValetC, v.type, v.category  FROM ((reservations AS r LEFT JOIN parkings AS pr ON pr.position = r.refParkingR )JOIN parkings AS pc ON pc.position = r.refParkingC) JOIN vehicles as v ON v.id = r.refVehicle WHERE r.id = ?";
     db.get(sql, [idP], (err, row) => {
       if (err) {
         reject(err);
@@ -38,6 +38,8 @@ exports.getReservationById = (idP) => {
           refValetR: row.refValetR,
           refValetC: row.refValetC,
           refDriver: row.refDriver,
+          type: row.type,
+          category: row.category,
         };
         resolve(reservation);
       }

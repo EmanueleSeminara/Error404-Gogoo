@@ -66,7 +66,7 @@ export default class PannelloAggiugiUtente extends Component {
           });
           this.setState({ error: true });
         } else {
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };

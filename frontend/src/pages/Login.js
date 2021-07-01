@@ -67,7 +67,7 @@ export default class Login extends Component {
         if (err.response.status === 401) {
           this.setState({ error: true });
         } else {
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };

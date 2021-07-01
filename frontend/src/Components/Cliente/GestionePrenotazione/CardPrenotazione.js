@@ -98,7 +98,7 @@ export default class CardPrenotazione extends Component {
           });
           this.setState({ error: true });
         } else {
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };

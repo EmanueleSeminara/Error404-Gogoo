@@ -49,7 +49,7 @@ export default class CardPrenotaVeicolo extends Component {
         }
       })
       .catch((err) => {
-        window.location.href = "/serverError";
+        window.location.href = "/errorServer";
       });
   };
 

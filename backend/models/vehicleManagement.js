@@ -79,15 +79,28 @@ exports.updateVehicle = (vehicle) => {
 // Restituisce un veicolo con tipo, categoria e parcheggio passati come parametri che non abbia nessuna prenotazione
 exports.getSimilarVehicle = (refParking, type, category) => {
   return new Promise((resolve, reject) => {
-    const sql =
-      "SELECT v.id FROM vehicles AS v WHERE v.refParking = ? AND v.state != 'damage' AND v.type = ? AND v.category = ? AND v.id NOT IN(SELECT refVehicle FROM reservations) LIMIT 1";
-    db.get(sql, [refParking, type, category], (err, row) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(row);
-    });
+    let sql = "";
+    if (category) {
+      sql =
+        "SELECT v.id FROM vehicles AS v WHERE v.refParking = ? AND v.state != 'damage' AND v.type = ? AND v.category = ? AND v.id NOT IN(SELECT refVehicle FROM reservations) LIMIT 1";
+      db.get(sql, [refParking, type, category], (err, row) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(row);
+      });
+    } else {
+      sql =
+        "SELECT v.id FROM vehicles AS v WHERE v.refParking = ? AND v.state != 'damage' AND v.type = ? AND v.id NOT IN(SELECT refVehicle FROM reservations) LIMIT 1";
+      db.get(sql, [refParking, type], (err, row) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(row);
+      });
+    }
   });
 };
 
