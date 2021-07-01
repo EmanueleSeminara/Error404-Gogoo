@@ -30,6 +30,7 @@ export default class CardSegnalaGuasto extends Component {
         disabled: true,
         refParkingC: "",
         viaRiferimento: "",
+        dateC: new Date(),
         success: false,
 
     };
@@ -38,6 +39,7 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ mostraRitardo: false });
         this.setState({ mostraCambiaLuogo: false });
         this.setState({ refParkingC: this.props.refParkingC });
+        this.setState({ dateC: this.props.dateC });
     }
 
     componentDidMount() {
@@ -59,25 +61,24 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ mostraCambiaLuogo: true });
     }
 
-    annulla = () => {
-        this.setState({ mostraRitardo: false });
-        this.setState({ mostraCambiaLuogo: false });
-    }
-
-
     handleChange = (input) => (e) => {
         this.setState({ [input]: e.target.value });
     }
 
-    onValidSubmit = (event) => {
+    /* onValidSubmit = (event) => {
         event.preventDefault();
         this.setState({ disabled: true });
         this.setState({ mostra: false });
         this.setState({ success: true});
+        
+    }; */
+    
+    timeChange = (event) => {
+        event.preventDefault();
 
-    };
+    }
 
-    onValidSubmit1 = (event) => {
+    destinationChange = (event) => {
         event.preventDefault();
         this.props.changeDestination(this.props.id, this.state.refParkingC);
     }
@@ -86,9 +87,6 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ dataArrivo: date });
     };
 
-    handleChangeDatePartenza = (date) => {
-        this.setState({ dataPartenza: date });
-    };
 
 
 
@@ -143,7 +141,7 @@ export default class CardSegnalaGuasto extends Component {
                         </div>
                         {(this.state.mostraRitardo) &&
                             <center>
-                                <AvForm onValidSubmit={this.onValidSubmit}>
+                                <AvForm onValidSubmit={this.timeChange}>
                                     <Col>
 
                                         <center>
@@ -153,7 +151,7 @@ export default class CardSegnalaGuasto extends Component {
                                                 <div className="col">
 
                                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <TimePicker inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.DataPartenza} onChange={this.handleChangeDatePartenza} />
+                                                        <TimePicker inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.DataPartenza} onChange={this.handleChangeDateArrivo} />
                                                     </MuiPickersUtilsProvider>
                                                 </div>
                                             </div>
@@ -174,7 +172,7 @@ export default class CardSegnalaGuasto extends Component {
                                     <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
                                         Conferma
                                     </Button>
-                                    <Button className="buttonModify" onClick={() => this.annulla()} style={{ padding: "8px", margin: "10px" }} >
+                                    <Button className="buttonModify" onClick={() => this.setting()} style={{ padding: "8px", margin: "10px" }} >
                                         Annulla
                                     </Button>
                                 </AvForm>
@@ -183,7 +181,7 @@ export default class CardSegnalaGuasto extends Component {
                             </center>}
                         {(this.state.mostraCambiaLuogo) &&
                             <center>
-                                <AvForm onValidSubmit={this.onValidSubmit1}>
+                                <AvForm onValidSubmit={this.destinationChange}>
                                     <Col>
 
                                         <center>
@@ -218,7 +216,7 @@ export default class CardSegnalaGuasto extends Component {
                                     <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
                                         Conferma
                                     </Button>
-                                    <Button className="buttonModify" onClick={() => this.annulla()} style={{ padding: "8px", margin: "10px" }} >
+                                    <Button className="buttonModify" onClick={() => this.setting()} style={{ padding: "8px", margin: "10px" }} >
                                         Annulla
                                     </Button>
                                 </AvForm>

@@ -50,19 +50,26 @@ export default class PannelloRitiroConsegna extends Component {
         Axios.put('/api/guest/changedestinationparking', data)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
-				this.setState({ error: false });
-				this.setState({ success: true });
             }).catch((err) => {
                 console.log(err)
-				if (err.response.status === 422) {
-					this.setState({ string: "errore nell'inserimento dei dati" });
-					this.setState({ error: true });
-				} else if (err.response.status === 503) {
-					this.setState({ string: "impossibile cambiare password al momento, riprova più tardi" });
-					this.setState({ error: true });
-				} else {
-					window.location.href = "/serverError"
-				}
+                // window.location.href = '/errorServer';
+            });
+    }
+
+    changeTime = (reservationID, dateC) => {
+        const data = {
+            id: reservationID,
+            dateC: dateC
+        }
+        console.log(data)
+        Axios.put('/api/guest/deliverydelay', data)
+            .then((res) => {
+                this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+                localStorage.setItem("price", 25)
+                window.location.href = "/pagamento"
+            }).catch((err) => {
+                console.log(err)
+                // window.location.href = '/errorServer';
             });
     }
 
@@ -74,7 +81,11 @@ export default class PannelloRitiroConsegna extends Component {
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Ritardo Consegna</div></center>
+<<<<<<< HEAD
                         {this.state.listReservation.length == 0 && <Alert severity="info">Non hai prenotazioni</Alert>}
+=======
+                        {this.state.listReservation.length == 0 && <Alert severity="info">Non hai prenotazioni in ritardo</Alert>}
+>>>>>>> 7fd5088a7083b77f687b18eac8c4ba2b6acf240d
                         {this.state.listReservation.map(((item) => (
                             <div className="p-3 col-12">
                                 <CardRitardoConsegna id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refVehicle={item.refVehicle} positionR={item.positionR} state={item.state} changeDestination={this.changeDestination} />
