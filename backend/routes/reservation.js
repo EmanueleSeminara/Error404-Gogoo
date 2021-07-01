@@ -229,7 +229,7 @@ router.get("/canteditreservation", isGuest, async (req, res) => {
 //     isLoggedIn,
 //     async (req, res) => {
 //       try {
-//         res.json(await ReservationManagement.getReservationDataById(req.params.id));
+//         res.json(await ReservationManagement.getReservationById(req.params.id));
 //       } catch (err) {
 //         res.status(503).json({
 //           error: 'Database error during the creation of user - ' + err,

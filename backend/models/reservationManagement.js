@@ -64,7 +64,7 @@ exports.listReservations = (idV) => {
 
 // get dati prenotazione by id
 
-exports.getReservationDataById = (idP) => {
+exports.getReservationById = (idP) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM reservations WHERE id=?";
     db.get(sql, [idP], (err, row) => {
@@ -76,11 +76,13 @@ exports.getReservationDataById = (idP) => {
         resolve({ error: "Reservation not found." });
       } else {
         const reservation = {
-          id: reservation.id,
-          dateR: reservation.dateR,
-          dateC: reservation.dateC,
-          refParkingR: reservation.refParkingR,
-          refParkingC: reservation.refParkingC,
+          id: row.id,
+          dateR: row.dateR,
+          dateC: row.dateC,
+          refParkingR: row.refParkingR,
+          refParkingC: row.refParkingC,
+          refGuest: row.refGuest,
+          state: row.state
         };
         resolve(reservation);
       }
@@ -383,5 +385,36 @@ exports.canTEditReservation = (refVehicle, id) => {
         resolve(row ? true : false);
       }
     );
+  });
+};
+
+exports.changeDestinationParking = (reservation) => {
+  console.log("RESERVATION: " + reservation);
+  return new Promise((resolve, reject) => {
+    const sql = "UPDATE reservations SET refParkingC = ? WHERE id = ?";
+    db.run(sql, [reservation.refParkingC, reservation.id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      console.log("CAMBIAMENTI " + this.changes);
+      this.changes === 1 ? resolve(true) : resolve(false);
+      //resolve(row);
+    });
+  });
+};
+
+exports.changeStatus = (reservation) => {
+  return new Promise((resolve, reject) => {
+    const sql = "UPDATE reservations SET state = ? WHERE id = ?";
+    db.run(sql, [reservation.state, reservation.id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      console.log("CAMBIAMENTI " + this.changes);
+      this.changes === 1 ? resolve(true) : resolve(false);
+      //resolve(row);
+    });
   });
 };
