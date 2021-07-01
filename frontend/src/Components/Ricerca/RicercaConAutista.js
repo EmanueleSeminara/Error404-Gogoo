@@ -87,7 +87,7 @@ export default class FormRicerca extends Component {
 
 	onValidSubmit = (event) => {
 		event.preventDefault();
-		if (moment(this.state.dateR) > moment(this.state.dateC)) {
+		if (moment(this.state.dateR).add(15, 'minutes') > moment(this.state.dateC)) {
 			this.setState({ errorTime: true })
 			this.setState({ list: [] });
 		} else {
@@ -202,7 +202,7 @@ export default class FormRicerca extends Component {
 							</div>
 						</div>
 						{this.state.errorTime &&
-							<h6 color="red">Non puoi andare indietro nel tempo </h6>
+							<h6 style={{ color: "#ef462c" }}>Prenotazione minima consentita 15 minuti </h6>
 						}
 
 						<div style={{ paddingBottom: "20px" }}>
@@ -218,7 +218,7 @@ export default class FormRicerca extends Component {
 
 
 				{this.state.list.map(((item) => (
-					<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} />
+					<CardPrenotaVeicolo id={item.id} type={item.type} category={item.category} driver={true}/>
 				)))}
 
 			</div>

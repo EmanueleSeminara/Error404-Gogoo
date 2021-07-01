@@ -121,7 +121,7 @@ export default class CardConsegnaFuoriStallo extends Component {
                                         <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                     </div>
                                     <div className="col-md-6">
-                                        <p className="infoCard"><strong>Autista:</strong> x{this.props.refDriver}</p>       {/* TODO ########### */}
+                                        <p></p>
                                         {this.props.refParkingC != null &&
                                             <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
                                         }
