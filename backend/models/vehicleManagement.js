@@ -93,3 +93,17 @@ exports.getSimilarVehicle = (refParking, type, category) => {
     });
   });
 };
+
+exports.updateState = (id, state) => {
+  console.log(vehicle);
+  return new Promise((resolve, reject) => {
+    const sql = "UPDATE vehicles SET state = ? WHERE id = ?";
+    db.run(sql, [state, id], function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.changes);
+    });
+  });
+};

@@ -440,3 +440,29 @@ exports.changeDate = (reservation) => {
     );
   });
 };
+
+exports.getReservationByIdAndRefDriver = (id, refDriver) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM reservations WHERE id=? AND refDriver = ?";
+    db.get(sql, [id, refDriver], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (row == undefined) {
+        resolve({ error: "Reservation not found." });
+      } else {
+        const reservation = {
+          id: row.id,
+          dateR: row.dateR,
+          dateC: row.dateC,
+          refParkingR: row.refParkingR,
+          refParkingC: row.refParkingC,
+          refGuest: row.refGuest,
+          state: row.state,
+        };
+        resolve(reservation);
+      }
+    });
+  });
+};
