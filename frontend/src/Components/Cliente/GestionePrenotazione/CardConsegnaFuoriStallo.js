@@ -179,7 +179,7 @@ export default class CardConsegnaFuoriStallo extends Component {
                                     </Col>
                                 </FormGroup>
 
-                                {/* scrivile meglio mimmo*/}
+                                
                                 <h6 className="infoCard">
                                     prezzo per la consegna fuori stallo : {this.state.price}€
                                 </h6>

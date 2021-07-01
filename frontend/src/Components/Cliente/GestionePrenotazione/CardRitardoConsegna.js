@@ -179,6 +179,10 @@ export default class CardSegnalaGuasto extends Component {
                                         </Col>
                                     </FormGroup>
 
+                                    <h6 className="infoCard">
+                                        prezzo per la consegna fuori stallo : 25€
+                                    </h6>
+
                                     {/* Pulsante Conferma*/}
 
                                     <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} >
