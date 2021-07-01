@@ -1,33 +1,12 @@
 
 import React, { Component } from 'react';
-import DateFnsUtils from '@date-io/date-fns';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Switch from '@material-ui/core/Switch';
-import Alert from '@material-ui/lab/Alert';
 import NavbarCliente from '../NavbarCliente';
 import Axios from 'axios'
 import * as moment from 'moment';
-
-import {
-	Card, CardImg, CardText, CardBody,
-	CardTitle, CardSubtitle, Button, ListGroupItem, Label, Col, Input, ListGroup, Row, FormGroup, CustomInput, Jumbotron,
-} from 'reactstrap';
-
-import {
-	AvForm,
-	AvGroup,
-	AvRadio,
-	AvRadioGroup,
-	AvField,
-} from "availity-reactstrap-validation";
-
-import {
-	DatePicker,
-	TimePicker,
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import {Button} from 'reactstrap';
+import {AvForm,AvField,} from "availity-reactstrap-validation";
 
 
 

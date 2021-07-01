@@ -6,7 +6,7 @@ import { Alert} from '@material-ui/lab';
 import Axios from 'axios';
 import "../ComponentsCss/RecuperoPassword.css";
 
-export default class recuperoPassword extends Component {
+export default class RecuperoPassword extends Component {
     state = {
         email: "",
         error: false,
@@ -42,7 +42,7 @@ export default class recuperoPassword extends Component {
                 }
             });
     }
-    
+
     render() {
         return (
             <div className="ez sfondo">
