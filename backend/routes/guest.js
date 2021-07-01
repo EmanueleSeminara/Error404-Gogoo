@@ -248,7 +248,7 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
     refGuest: req.user.id,
     refVehicle: req.body.refVehicle,
     id: req.body.id,
-    dateC: req.body.dateC
+    dateC: req.body.dateC,
   };
   try {
     await guestManagement.retireVehicle(reservation);
@@ -257,7 +257,12 @@ router.put("/retirevehicle", isGuest, async (req, res) => {
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     ).getTime();
     const timerDatetime = deliveryDate - nowDate;
-    console.log("DATA TIMER CALCOLATA: " + new Date(timerDatetime) + "DATA IN MILLI: " + timerDatetime);
+    console.log(
+      "DATA TIMER CALCOLATA: " +
+        new Date(timerDatetime) +
+        "DATA IN MILLI: " +
+        timerDatetime
+    );
     // Scadenza orario di consegna
     setTimeout(async () => {
       try {
@@ -412,5 +417,118 @@ router.get("/candeliveroutofstall", isGuest, async (req, res) => {
     });
   }
 });
+
+router.get("/myreservationslatedelivery", isGuest, async (req, res) => {
+  try {
+    res.json(await guestManagement.getMyReservationsLateDelivery(req.user.id));
+  } catch (err) {
+    res.status(503).json({
+      error: "Database error during the request of reservations - " + err,
+    });
+  }
+});
+
+// Cambio del parcheggio di destinazione a seguito di ritardo consegna
+router.put(
+  "/changedestinationparking",
+  isGuest,
+  [check("refParkingC").isAlphanumeric("it-IT", { ignore: " " })],
+  async (req, res) => {
+    const errors = validationResult(req);
+    console.log(req.body.id, req.body.refParkingC);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+    try {
+      const reservation = await reservationManagement.getReservationById(
+        req.body.id
+      );
+      // console.log(reservation);
+      const dateNow = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
+      );
+      console.log(
+        // "CONTROLLO DATE: " + new Date(reservation.dateC),
+        dateNow,
+        new Date(reservation.dateC) <= dateNow
+      );
+      if (
+        reservation.refGuest == req.user.id &&
+        new Date(reservation.dateC) <= dateNow &&
+        reservation.state == "late delivery"
+      ) {
+        reservation.refParkingC = req.body.refParkingC;
+        reservation.state = "withdrawn";
+        console.log("Sei dentro!");
+
+        await reservationManagement.changeDestinationParking(reservation);
+        await reservationManagement.changeStatus(reservation);
+        res.status(200).end();
+      } else {
+        res.status(513).json({
+          error: "Unable to change the delivery parking of the reservation",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(503).json({
+        error: "Database error when requesting vehicle status update - " + err,
+      });
+    }
+  }
+);
+
+// Cambio dell'orario di consegna a seguito di ritardo consegna
+
+router.put(
+  "/deliverydelay",
+  isGuest,
+  [check("refParkingC").isAlphanumeric("it-IT", { ignore: " " })],
+  async (req, res) => {
+    const errors = validationResult(req);
+    console.log(req.body.id, req.body.refParkingC);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+    try {
+      const reservation = await reservationManagement.getReservationById(
+        req.body.id
+      );
+      // console.log(reservation);
+      const dateNow = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
+      );
+      console.log(
+        // "CONTROLLO DATE: " + new Date(reservation.dateC),
+        dateNow,
+        new Date(reservation.dateC) <= dateNow
+      );
+      if (
+        reservation.refGuest == req.user.id &&
+        new Date(reservation.dateC) <= dateNow &&
+        reservation.state == "late delivery"
+      ) {
+        reservation.refParkingC = req.body.refParkingC;
+        reservation.state = "withdrawn";
+        console.log("Sei dentro!");
+
+        await reservationManagement.changeDestinationParking(reservation);
+        await reservationManagement.changeStatus(reservation);
+        res.status(200).end();
+      } else {
+        res.status(513).json({
+          error: "Unable to change the delivery parking of the reservation",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(503).json({
+        error: "Database error when requesting vehicle status update - " + err,
+      });
+    }
+  }
+);
 
 module.exports = router;
