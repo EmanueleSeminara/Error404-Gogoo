@@ -1,4 +1,4 @@
-# Gogoo
+# dropcar
 Progetto per Programmazione web e mobile e Ingegneria del software (a.a. 2020/2021)
 
 ## Tema di Progetto 
@@ -36,12 +36,11 @@ Per la realizzazione delle interfacce grafiche, si è scelto di utilizzare il fr
 Per gestire le richieste HTTP POST e GET tra client e server, si è utilizzata la libreria “axios”.  
 SQLite, Express, React, NodeJS
 
-## Come avviare Gogoo
+## Come avviare dropcar
 
-Aprire un terminale nella directory in cui si vuole installare Gogoo ed eseguire i seguenti comandi
+Aprire un terminale nella directory in cui si vuole installare dropcar ed eseguire i seguenti comandi
 ```
-git clone https://github.com/EmanueleSeminara/Error404-Gogoo
-cd Error404-Gogoo
+git clone https://github.com/EmanueleSeminara/Error404-dropcar
 ```
 
 Configurazione Backend:
