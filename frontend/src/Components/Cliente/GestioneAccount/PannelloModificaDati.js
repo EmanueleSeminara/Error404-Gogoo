@@ -40,7 +40,7 @@ export default class PannelloModifcaDati extends Component {
             this.setState({ phone: res.data.phone });
           })
           .catch((err) => {
-            window.location.href = "/serverError";
+            window.location.href = "/errorServer";
           });
       }
     }
@@ -77,7 +77,7 @@ export default class PannelloModifcaDati extends Component {
           });
           this.setState({ error: true });
         } else {
-          window.location.href = "/serverError";
+          window.location.href = "/errorServer";
         }
       });
   };
