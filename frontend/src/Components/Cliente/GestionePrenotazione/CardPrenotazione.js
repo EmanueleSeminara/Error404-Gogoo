@@ -97,9 +97,9 @@ export default class CardPrenotazione extends Component {
 		Axios.put('/api/reservation/edit', this.state)
 			.then((res) => {
 				console.log(res)
-				this.setState({success: true})
+				this.setState({ success: true })
 				this.setState({ error: false });
-				
+
 			}).catch((err) => {
 				console.log(err)
 				if (err.response.status === 422) {
@@ -166,6 +166,10 @@ export default class CardPrenotazione extends Component {
 											Elimina
 										</Button>
 									</center>
+									{this.state.disabled &&
+
+										<Alert style={{marginTop: "20px"}} severity="warning">Non puoi effettuare la consegna fuori stallo per questo veicolo</Alert>
+									}
 								</div>
 							</div>
 						</div>
