@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
 
 import {
-    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup, 
+    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup,
 } from 'reactstrap';
 
 import {
@@ -59,51 +59,51 @@ export default class CardSegnalaGuasto extends Component {
     render() {
         return (
             <div>
-			<div className="card card-css">
-            <center>
-                <div className="row no-gutters">
-                    <div className="col">
-                        <div className="card-body">
-                            <div className="row no-gutters">
-                                <div className="col-md-12">
-                                    <p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>   
-                                </div>
-                            </div>
-                            <div className="row no-gutters">
-                                <div className="col-md-6">
-                                    <p className="infoCard"><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
-                                    {this.props.refParkingR != null &&
-                                        <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
-                                    }
-                                    {this.props.positionR != null &&
-                                        <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
-                                    }
-                                    <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
-                                </div>
-                                <div className="col-md-6">
-                                    <p className="infoCard"><strong>Autista:</strong> x{this.props.refDriver}</p>       {/* TODO ########### */}
-                                    {this.props.refParkingC != null &&
-                                        <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
-                                    }
-                                    {this.props.positionC != null &&
-                                        <p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
-                                    }
-                                    <p className="infoCard"><strong>Data consegna:</strong>   {this.props.dateC}</p>
-                                </div>
-                            </div>
-
-                            <center>
-                                <Button type="button" className="buttonGuasto" onClick={() => this.setMostra("mostra")} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.guasto}>
-                                    Segnala Guasto
-                                </Button>
-                            </center>
-                        </div>
-                    </div>
-                </div>
-                {(this.state.mostra) &&
+                <div className="card card-css">
                     <center>
-            
-                            
+                        <div className="row no-gutters">
+                            <div className="col">
+                                <div className="card-body">
+                                    <div className="row no-gutters">
+                                        <div className="col-md-12">
+                                            <p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
+                                        </div>
+                                    </div>
+                                    <div className="row no-gutters">
+                                        <div className="col-md-6">
+                                            <p className="infoCard"><strong>Tipo:</strong> {this.props.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+                                            {this.props.refParkingR != null &&
+                                                <p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.props.refParkingR}</p>
+                                            }
+                                            {this.props.positionR != null &&
+                                                <p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+                                            }
+                                            <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p className="infoCard"><strong>Autista:</strong> {this.props.refDriver != null ? <>{this.props.refDriver}</> : <> no </>} </p>
+                                            {this.props.refParkingC != null &&
+                                                <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
+                                            }
+                                            {this.props.positionC != null &&
+                                                <p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
+                                            }
+                                            <p className="infoCard"><strong>Data consegna:</strong>   {this.props.dateC}</p>
+                                        </div>
+                                    </div>
+
+                                    <center>
+                                        <Button type="button" className="buttonGuasto" onClick={() => this.setMostra("mostra")} style={{ marginRight: "10px", marginTop: "20px" }} size="lg" disabled={!this.state.guasto}>
+                                            Segnala Guasto
+                                        </Button>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        {(this.state.mostra) &&
+                            <center>
+
+
                                 <AvForm onValidSubmit={this.onValidSubmit}>
                                     <center>
                                         <div className="row">
@@ -137,16 +137,16 @@ export default class CardSegnalaGuasto extends Component {
                                     <Button type="submit" className="buttonModify" style={{ padding: "8px", margin: "10px" }} size="lg">
                                         Conferma
                                     </Button>
-                                    <Button type="submit" className="buttonAnnulla" onClick={() => this.setMostra("mostra")}style={{ padding: "8px", margin: "10px" }} size="lg">
+                                    <Button type="submit" className="buttonAnnulla" onClick={() => this.setMostra("mostra")} style={{ padding: "8px", margin: "10px" }} size="lg">
                                         Annulla
                                     </Button>
                                 </AvForm>
-                            
-                        
-                       
-                    </center>}
+
+
+
+                            </center>}
                     </center>
-            </div>
+                </div>
             </div>
         );
     }

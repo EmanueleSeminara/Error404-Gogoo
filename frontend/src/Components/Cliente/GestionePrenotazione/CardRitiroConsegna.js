@@ -105,7 +105,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
                                     <p className="infoCard"><strong>Data ritiro:</strong>   {this.props.dateR}</p>
                                 </div>
                                 <div className="col-md-6">
-                                    <p className="infoCard"><strong>Autista:</strong> {this.props.refDriver}</p>       {/* TODO ########### */}
+                                        <p className="infoCard"><strong>Autista:</strong> {this.props.refDriver != null ? <>{this.props.refDriver}</> : <> no </>} </p>
                                     {this.props.refParkingC != null &&
                                         <p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.props.refParkingC}</p>
                                     }
@@ -121,7 +121,7 @@ export default class CardPrenotazioneRitiroConsegna extends Component {
                                 <Button type="button" className="buttonRitiro" onClick={() => this.ritira()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={!this.state.ritiro}>
                                     Ritiro
                                 </Button>
-                                <Button type="button" className="buttonConsegna" onClick={() => this.props.remove(this.props.id)} style={{ marginRight: "10px", marginTop: "20px" }}  disabled={!this.state.consegna}>
+                                    <Button type="button" className="buttonConsegna" onClick={() => this.props.delivery(this.props.id, this.props.refVehicle)} style={{ marginRight: "10px", marginTop: "20px" }}  disabled={!this.state.consegna}>
                                     Consegna
                                 </Button>
                             </center>

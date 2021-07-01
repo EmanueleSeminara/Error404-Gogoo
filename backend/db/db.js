@@ -3,7 +3,7 @@
 const sqlite = require('sqlite3');
 
 // open the database
-const db = new sqlite.Database('./db/gogoo.sqlite', (err) => {
+const db = new sqlite.Database('./db/dropcar.sqlite', (err) => {
   if (err) throw err;
 });
 

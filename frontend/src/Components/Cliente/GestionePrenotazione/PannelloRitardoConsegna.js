@@ -75,7 +75,8 @@ export default class PannelloRitiroConsegna extends Component {
                     this.setState({ string: "impossibile segnalare il guasto al momento, riprova più tardi" });
                     this.setState({ error: true });
                 } else {
-                    window.location.href = "/serverError"
+                    console.log(err)
+                    //window.location.href = "/serverError"
                 }
             });
     }

@@ -2,7 +2,6 @@ const db = require("../db/db");
 var distance = require("google-distance");
 distance.apiKey = process.env.GOOGLE_KEY;
 
-
 //4. RICERCA:
 //  4.1 RICERCA VEICOLI:
 
