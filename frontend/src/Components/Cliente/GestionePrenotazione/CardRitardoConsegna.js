@@ -3,6 +3,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
+import * as moment from 'moment';
 
 
 
@@ -83,8 +84,9 @@ export default class CardSegnalaGuasto extends Component {
         this.props.changeDestination(this.props.id, this.state.refParkingC);
     }
 
-    handleChangeDateArrivo = (date) => {
-        this.setState({ dateC: date });
+    handleChangeDataArrivo = (date) => {
+        const d = (moment(date).format('YYYY-MM-DD HH:mm'));
+        this.setState({ dateC: d });
     };
 
 
@@ -151,7 +153,7 @@ export default class CardSegnalaGuasto extends Component {
                                                 <div className="col">
 
                                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <TimePicker inputVariant="outlined" value={this.state.dataPartenza} selected={this.state.DataPartenza} onChange={this.handleChangeDateArrivo} />
+                                                    <TimePicker inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
                                                     </MuiPickersUtilsProvider>
                                                 </div>
                                             </div>
