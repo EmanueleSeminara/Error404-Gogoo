@@ -1,12 +1,6 @@
-//2 GESTIONE VEICOLI
-
-"use strict";
-
 const db = require("../db/db");
 
-//  2.1 AGGIUNGI VEICOLO:
-
-// add a new vehicle
+// Crea un nuovo veicolo
 exports.createVehicle = (vehicle) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -30,9 +24,7 @@ exports.createVehicle = (vehicle) => {
   });
 };
 
-//  2.2 RIMUOVI VEICOLO:
-
-// get all Vehicles identified by {tipologia}
+// Restituisce l'elenco dei veicolo per tipo
 exports.listVehicle = (tipologia) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM vehicles WHERE type = ?";
@@ -53,7 +45,7 @@ exports.listVehicle = (tipologia) => {
   });
 };
 
-// delete an existing vehicles
+// Elimina il veicolo associato all'id passato come parametro
 exports.deleteVehiclesById = (id) => {
   return new Promise((resolve, reject) => {
     const sql = "DELETE FROM vehicles WHERE id = ?";
@@ -66,13 +58,8 @@ exports.deleteVehiclesById = (id) => {
   });
 };
 
-//  2.3 MODIFICA STATO VEICOLO:
-
-// get all Vehicles identified by {tipologia}
-
-// update an existing vehicle
+// Aggiorna lo stato e il parcheggio in cui si trova al veicolo passato come parametro
 exports.updateVehicle = (vehicle) => {
-  console.log(vehicle);
   return new Promise((resolve, reject) => {
     const sql = "UPDATE vehicles SET refParking = ?, state = ? WHERE id = ?";
     db.run(
@@ -89,6 +76,7 @@ exports.updateVehicle = (vehicle) => {
   });
 };
 
+// Restituisce un veicolo con tipo, categoria e parcheggio passati come parametri che non abbia nessuna prenotazione
 exports.getSimilarVehicle = (refParking, type, category) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -103,6 +91,7 @@ exports.getSimilarVehicle = (refParking, type, category) => {
   });
 };
 
+// Aggiorna lo stato a quello passato come parametro al veicolo associato all'id passato come parametro
 exports.updateState = (id, state) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE vehicles SET state = ? WHERE id = ?";
@@ -116,6 +105,7 @@ exports.updateState = (id, state) => {
   });
 };
 
+// Restituisce tutti i veicoli con il tipo passato come parametro con eventuale prenotazione associata
 exports.getVehiclesAndReservation = (type) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -130,6 +120,7 @@ exports.getVehiclesAndReservation = (type) => {
   });
 };
 
+// Modifica il parcheggio al veicolo associato all'id passto come parametro
 exports.changeRefParking = (refParking, id) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE vehicles SET refParking = ? WHERE id = ?";
@@ -138,9 +129,7 @@ exports.changeRefParking = (refParking, id) => {
         reject(err);
         return;
       }
-      console.log("CAMBIAMENTI " + this.changes);
       this.changes === 1 ? resolve(true) : resolve(false);
-      //resolve(row);
     });
   });
 };

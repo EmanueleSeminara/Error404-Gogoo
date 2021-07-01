@@ -1,5 +1,6 @@
 const db = require("../db/db");
 
+// Restituisce tutti gli utenti che hanno il ruolo passato come parametro
 exports.listUsersByRole = (role) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM users WHERE role = ?";
@@ -19,6 +20,7 @@ exports.listUsersByRole = (role) => {
   });
 };
 
+// Elimina l'utente associato all'id passato come parametro
 exports.deleteUserById = (id) => {
   return new Promise((resolve, reject) => {
     const sql = "DELETE FROM users WHERE id = ?";
@@ -31,8 +33,8 @@ exports.deleteUserById = (id) => {
   });
 };
 
+// Restituisce la lista degli utenti che hanno  ruolo, nome e cognome passati come parametro
 exports.listUsers = (role, name, surname) => {
-  console.log(role, name, surname);
   return new Promise((resolve, reject) => {
     const sql =
       "SELECT * FROM users WHERE role = ? AND name = ? AND surname = ?";
@@ -54,8 +56,8 @@ exports.listUsers = (role, name, surname) => {
   });
 };
 
+// Aggiorna le informazioni ddell'utente associato all'id passato come parametro
 exports.updateUser = (user) => {
-  console.log("MODIFICHE: " + user);
   return new Promise((resolve, reject) => {
     const sql =
       "UPDATE users SET name = ?, surname = ?, email=?, phone=?, password = ?, birthdate = DATE(?) WHERE id=?";
@@ -84,8 +86,8 @@ exports.updateUser = (user) => {
   });
 };
 
+// Crea un nuovo utente con le credenzali passte come parametro
 exports.createUser = (user) => {
-  console.log(user);
   return new Promise((resolve, reject) => {
     const sql =
       "INSERT INTO users(name, surname, email, password, phone, birthdate, role) VALUES(?, ?, ?, ?, ?, DATE(?), ?)";
@@ -111,6 +113,7 @@ exports.createUser = (user) => {
   });
 };
 
+// Restituisce tutte le prenotazioni fatte dall'utente associato alla email passata come parametro
 exports.getReservations = (email) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -133,12 +136,12 @@ exports.getReservations = (email) => {
         positionR: r.positionR,
         positionC: r.positionC,
       }));
-      console.log(res);
       resolve(res);
     });
   });
 };
 
+// Elimina la prenotazione associata all'id passato come parametro
 exports.deleteReservationById = (id) => {
   return new Promise((resolve, reject) => {
     const sql = "DELETE FROM reservations WHERE id = ?";
@@ -151,6 +154,7 @@ exports.deleteReservationById = (id) => {
   });
 };
 
+// Aggiorna la prenotazione associata all'id passato come parametro se non vi sono altre prenotazioni con quel determinato veicolo
 exports.updateReservation = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql =

@@ -101,7 +101,7 @@ export default class Login extends Component {
                             <div className="col-10">
 
                                 <div className="titleLogin">Login</div>
-                                <p style={{ color: "grey" }}>Please sign in to continue</p>
+                                <p style={{ color: "grey" }}>Accedi per continuare</p>
 
                                 <AvForm className="formEmail" onValidSubmit={this.onValidSubmit}>
                                     <center>
@@ -142,14 +142,14 @@ export default class Login extends Component {
 
                                 <center style={{ marginTop: "30px" }}>
                                     <a href="/recuperoPassword" style={{ color: "#43AAA6", textDecoration: "none" }}>
-                                        Forgot password?
+                                        Password dimenticata?
                                     </a>
                                 </center>
 
                                 <center style={{ color: '#554774', marginTop: "80px" }}>
-                                    Don't have an account? {" "}
+                                    Non hai un account? {" "}
                                     <a href="/registrazione" style={{ color: "#9dffe8", textDecoration: "none" }}>
-                                        Sign Up
+                                        Iscriviti
                                     </a>
                                 </center>
                             </div>

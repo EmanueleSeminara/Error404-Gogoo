@@ -7,16 +7,28 @@ const mail = require("../models/mail");
 const adminManagement = require("../models/adminManagement");
 const isAdmin = require("../middleware/isAdmin");
 
-router.get("/listusers/:role", isAdmin, async (req, res) => {
-  try {
-    res.json(await adminManagement.listUsersByRole(req.params.role));
-  } catch (err) {
-    res.status(503).json({
-      error: "Database error during the request of users - " + err,
-    });
+// Rimuovi utente - Ricerca utenti per ruolo
+router.get(
+  "/listusers/:role",
+  [check("role").isIn(["guest", "admin", "valet", "driver"])],
+  isAdmin,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+    try {
+      res.json(await adminManagement.listUsersByRole(req.params.role));
+    } catch (err) {
+      res.status(503).json({
+        error: "Database error during the request of users - " + err,
+      });
+    }
   }
-});
+);
 
+// Rimuovi utente - Elimina l'utente per id
 router.delete("/delete/:userId", isAdmin, async (req, res) => {
   try {
     await adminManagement.deleteUserById(req.params.userId);
@@ -28,6 +40,7 @@ router.delete("/delete/:userId", isAdmin, async (req, res) => {
   }
 });
 
+// Modifica dati utente - Ricerca utenti per ruolo, nome e cognome
 router.get(
   "/listusers",
   [
@@ -42,7 +55,6 @@ router.get(
       console.log(errors.array());
       return res.status(422).json({ errors: errors.array() });
     }
-    console.log(req.query.role, req.query.name, req.query.surname);
 
     try {
       res.json(
@@ -52,7 +64,6 @@ router.get(
           req.query.surname
         )
       );
-      // INSERIRE MAIL
       res.status(201).end();
     } catch (err) {
       if (err.errno == 19) {
@@ -61,12 +72,13 @@ router.get(
         res.status(503);
       }
       res.json({
-        error: "Database error during the creation of user - " + err,
+        error: "Database error during the request of users - " + err,
       });
     }
   }
 );
 
+// Modifica dati utente - Modifica l'utente selezionato
 router.put(
   "/updateuser",
   [
@@ -104,12 +116,13 @@ router.put(
         res.status(503);
       }
       res.json({
-        error: "Database error during the creation of user - " + err,
+        error: "Database error during the updating of user - " + err,
       });
     }
   }
 );
 
+// Aggiungi utente - Crea un nuovo utente
 router.post(
   "/createuser",
   [
@@ -135,9 +148,8 @@ router.post(
       birthdate: req.body.birthdate,
       phone: req.body.phone,
       role: req.body.role,
-      password: hashPassword
+      password: hashPassword,
     };
-    console.log("USER: " + user);
 
     try {
       await adminManagement.createUser(user);
@@ -156,45 +168,91 @@ router.post(
   }
 );
 
-router.get("/reservations", isAdmin, async (req, res) => {
-  try {
-    res.json(
-      await adminManagement.getReservations(req.query.email)
-    );
-  } catch (err) {
-    res
-      .status(503)
-      .json({ error: "Database error when requesting reservations - " + err });
+// Prenotazioni effettuate - Ricera le prenotazioni del cliente per email
+router.get(
+  "/reservations",
+  [check("email").isEmail()],
+  isAdmin,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+    try {
+      res.json(await adminManagement.getReservations(req.query.email));
+    } catch (err) {
+      res.status(503).json({
+        error: "Database error when requesting reservations - " + err,
+      });
+    }
   }
-});
+);
 
-router.delete("/deletereservation/:id", isAdmin, async (req, res) => {
-  try{
+// Prenotazioni effettuate - Elimina la prenotazione per id
+router.delete(
+  "/deletereservation/:id",
+  [check("email").isEmail(), check("name").isAlpha("it-IT", { ignore: " " })],
+  isAdmin,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+    try {
       await adminManagement.deleteReservationById(req.params.id);
-      mail.sendReservationDeletedMail(req.user.email, req.user.name, req.params.id);
+      mail.sendReservationDeletedMail(
+        req.user.email,
+        req.user.name,
+        req.params.id
+      );
       res.status(201).end();
-  } catch(err){
-      res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+    } catch (err) {
+      res.status(503).json({
+        error: "Database error while deleting the reservation - " + err,
+      });
+    }
   }
-})
+);
 
-router.put("/editreservation", isAdmin, async (req, res) => {
-  const reservation = {
+// Visualizza prenotazioni - Modifica i dati della prenotazione
+router.put(
+  "/editreservation",
+  isAdmin,
+  [
+    check("refParkingR").isAlpha("it-IT", { ignore: " " }),
+    check("refParkingC").isAlpha("it-IT", { ignore: " " }),
+    check("refVehicle").isInt(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors.array());
+      return res.status(422).json({ errors: errors.array() });
+    }
+    const reservation = {
       dateR: req.body.dateR,
       dateC: req.body.dateC,
       refParkingR: req.body.refParkingR,
       refParkingC: req.body.refParkingC,
       id: req.body.id,
-      refVehicle: req.body.refVehicle
-  }
-  console.log(reservation);
-  try{
+      refVehicle: req.body.refVehicle,
+    };
+    try {
       await adminManagement.updateReservation(reservation);
-      mail.sendReservationEditedMail(req.user.email, req.user.name, req.body.id);
+      mail.sendReservationEditedMail(
+        req.user.email,
+        req.user.name,
+        req.body.id
+      );
       res.status(201).end();
-  }catch(err){
-      res.status(503).json({error: 'Database error while deleting the reservation - ' + err});
+    } catch (err) {
+      res.status(503).json({
+        error: "Database error while deleting the reservation - " + err,
+      });
+    }
   }
-})
+);
 
 module.exports = router;

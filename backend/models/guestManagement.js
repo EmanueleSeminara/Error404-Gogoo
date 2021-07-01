@@ -1,6 +1,6 @@
 const db = require("../db/db");
 
-// update an existing user
+// Aggiorna le impostazioni personali del cliente associato all'id passato come parametro
 exports.updateUser = (user) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -26,7 +26,7 @@ exports.updateUser = (user) => {
   });
 };
 
-//get dati cliente
+// Restituisce le informazioni del cliente associato all'id passato come parametro
 exports.getGuestData = (userId) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM users WHERE id = ?";
@@ -50,7 +50,7 @@ exports.getGuestData = (userId) => {
   });
 };
 
-// add a new car-license
+// Aggiunge una nuova patente associata al cliente refGuest
 exports.createCarLicense = (carlicense) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -78,6 +78,7 @@ exports.createCarLicense = (carlicense) => {
   });
 };
 
+// Restituisce la patente del cliente associato all'id passato come parametro
 exports.getCarLicenseData = (userId) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM licenses WHERE refGuest = ?";
@@ -103,7 +104,7 @@ exports.getCarLicenseData = (userId) => {
   });
 };
 
-//update car-license
+// Aggiorna i dati della patente del cliente associato a refGuest
 exports.updateCarLicense = (license) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -131,7 +132,7 @@ exports.updateCarLicense = (license) => {
   });
 };
 
-// delete an existing PaymentMethod
+// Elimina il metodo di apgamento associato all'id pasato come parametro
 exports.deletePaymentMethodById = (id) => {
   return new Promise((resolve, reject) => {
     const sql = "DELETE FROM payments WHERE id = ?";
@@ -144,7 +145,7 @@ exports.deletePaymentMethodById = (id) => {
   });
 };
 
-// add a new paymentMethod
+// Aggiunge un nuovo metodo di pagamento al cliente associato a userId passato come parametro
 exports.createPaymentMethod = (userId, paymentMethod) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -170,7 +171,7 @@ exports.createPaymentMethod = (userId, paymentMethod) => {
   });
 };
 
-// get all payments identified by {userId}
+// Restituisce tutti i metodi di pagamento del cliente associato a userId passato come parametro
 exports.listPayments = (userId) => {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM payments WHERE refGuest = ?";
@@ -190,60 +191,7 @@ exports.listPayments = (userId) => {
   });
 };
 
-exports.retireVehicle = (reservation) => {
-  return new Promise((resolve, reject) => {
-    date = new Date();
-    const dateNow =
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1) +
-      "-" +
-      date.getDate() +
-      " " +
-      date.getHours() +
-      ":" +
-      date.getMinutes();
-    console.log("Data e ora attuale: " + dateNow);
-    const sql =
-      "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)";
-    db.run(
-      sql,
-      [
-        reservation.refVehicle,
-        reservation.refVehicle,
-        dateNow,
-        reservation.refGuest,
-      ],
-      function (err) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        //resolve(this.lastID);
-        const sql2 =
-          "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR<= ? AND refGuest = ?)";
-        db.run(
-          sql2,
-          [
-            reservation.id,
-            reservation.refVehicle,
-            dateNow,
-            reservation.refGuest,
-          ],
-          function (err) {
-            if (err) {
-              reject(err);
-              return;
-            }
-            resolve(this.lastID);
-          }
-        );
-      }
-    );
-  });
-};
-
-// Da aggiungere il controllo
+// Aggiorna lo stato del veicolo a danneggiato e inserisce la posizione in cui è stato lasciato
 exports.damagedVehicle = (id, posizione) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -258,50 +206,49 @@ exports.damagedVehicle = (id, posizione) => {
   });
 };
 
-// Consegna fuori stallo - fare sostituzione nelle prenotazioni
+// Aggiorna la posizione e lo stato del veicolo e elimina la prenotazione a seguito della consegna fuori stallo
 exports.deliveryOutOfStall = (reservation) => {
-  console.log("DENTRO: " + reservation);
   return new Promise((resolve, reject) => {
     const sql =
-            "UPDATE vehicles SET position = ?, state = 'available' WHERE id = ? AND EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
-          db.run(
-            sql,
-            [
-              reservation.position,
-              reservation.refVehicle,
-              reservation.refGuest,
-              reservation.refVehicle,
-              reservation.id,
-            ],
-            (err, rows) => {
-              if (err) {
-                reject(err);
-                return;
-              }
-              //resolve(this.lastID);
-              const sql2 =
-                "DELETE FROM reservations WHERE id = ? AND  EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
-              db.run(
-                sql2,
-                [
-                  reservation.id,
-                  reservation.refGuest,
-                  reservation.refVehicle,
-                  reservation.id,
-                ],
-                (err) => {
-                  if (err) {
-                    reject(err);
-                    return;
-                  }
-                  resolve(true);
-                }
-              );
+      "UPDATE vehicles SET position = ?, state = 'available' WHERE id = ? AND EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
+    db.run(
+      sql,
+      [
+        reservation.position,
+        reservation.refVehicle,
+        reservation.refGuest,
+        reservation.refVehicle,
+        reservation.id,
+      ],
+      (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const sql2 =
+          "DELETE FROM reservations WHERE id = ? AND  EXISTS (SELECT 1 FROM reservations AS r WHERE refGuest=? AND refVehicle = ? AND id = ?)";
+        db.run(
+          sql2,
+          [
+            reservation.id,
+            reservation.refGuest,
+            reservation.refVehicle,
+            reservation.id,
+          ],
+          (err) => {
+            if (err) {
+              reject(err);
+              return;
             }
-          );
+            resolve(true);
+          }
+        );
+      }
+    );
   });
 };
 
+// Verifica se il veicolo associato alla prenotazione può essere consegnato fuori stallo
 exports.canDeliverOutOfStall = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -310,16 +257,16 @@ exports.canDeliverOutOfStall = (reservation) => {
       sql,
       [reservation.refVehicle, reservation.id, reservation.refVehicle],
       (err, row) => {
-
         if (err) {
           reject(err);
-        } 
+        }
         resolve(row ? true : false);
       }
     );
   });
 };
 
+// Restituisce tutte le prenotazione nello stato di ritardo consegna del cliente associato all'id passato come parametro
 exports.getMyReservationsLateDelivery = (userId) => {
   return new Promise((resolve, reject) => {
     const sql =

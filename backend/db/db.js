@@ -1,9 +1,7 @@
-'use strict';
+const sqlite = require("sqlite3");
 
-const sqlite = require('sqlite3');
-
-// open the database
-const db = new sqlite.Database('./db/dropcar.sqlite', (err) => {
+// Apertura del database
+const db = new sqlite.Database("./db/dropcar.sqlite", (err) => {
   if (err) throw err;
 });
 

@@ -150,7 +150,7 @@ export default class RicercaVeicoli extends Component {
 							<div className="col">
 								<MuiPickersUtilsProvider utils={DateFnsUtils}>
 									<Label sm={12} >Ritiro</Label>
-									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={new Date()} minTime={new Date()} inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
+									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={new Date()} inputVariant="outlined" value={this.state.dateR} selected={this.state.dateR} onChange={this.handleChangeDataPartenza} />
 								</MuiPickersUtilsProvider>
 							</div>
 							<div className="col">

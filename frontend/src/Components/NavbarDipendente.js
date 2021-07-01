@@ -57,7 +57,7 @@ export default class NavbarDipendente extends Component {
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav style={{ color: "white" }}>
-                  Gestione Accout
+                  Gestione Account
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
