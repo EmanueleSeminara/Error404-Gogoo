@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import { Button } from "reactstrap";
 
 export default class CardRitiraConfermaRifiutaPrenotazione extends Component {
-  conferma = (cardID) => {
-    console.log(this.state);
-  };
 
-  rifiuta = (cardID) => {
-    console.log(this.state);
-  };
   render() {
     return (
       <div className="card card-css-RC">
