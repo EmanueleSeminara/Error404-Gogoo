@@ -89,7 +89,7 @@ export default class Registrazione extends Component {
         return (
             <div className="ez sfondo no-scrollable">
                 <Navbar />
-                {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+                {this.state.error && <Alert severity="error" style={{position: "absolute", top:"0", zIndex: "3"}}>{this.state.string}</Alert>}
 
                 <AvForm
 
