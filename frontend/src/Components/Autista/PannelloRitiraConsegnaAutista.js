@@ -27,8 +27,7 @@ export default class PannelloRitiraConsegnaAutista extends Component {
             this.setState({ listReservationDriver: res.data });
           })
           .catch((err) => {
-            console.log(err);
-            //window.location.href = '/errorServer';
+            window.location.href = '/errorServer';
           });
       }
     }
@@ -47,11 +46,9 @@ export default class PannelloRitiraConsegnaAutista extends Component {
             (reservation) => reservation.id !== reservationID
           ),
         });
-        // MESSAGGIO DI SUCESSO +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       })
       .catch((err) => {
-        console.log(err);
-        //window.location.href = '/errorServer';
+        window.location.href = '/errorServer';
       });
   };
 

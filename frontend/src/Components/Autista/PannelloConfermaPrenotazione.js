@@ -27,8 +27,7 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
             this.setState({ listReservationDriver: res.data });
           })
           .catch((err) => {
-            console.log(err);
-            //window.location.href = '/errorServer';
+            window.location.href = '/errorServer';
           });
       }
     }
@@ -44,8 +43,7 @@ export default class PannelloConfermaRifiutaPrenotazione extends Component {
         });
       })
       .catch((err) => {
-        console.log(err);
-        //window.location.href = '/errorServer';
+       window.location.href = '/errorServer';
       });
   };
 

@@ -28,8 +28,7 @@ export default class PannelloConsegna extends Component {
             console.log(res.data);
           })
           .catch((err) => {
-            console.log(err);
-            //window.location.href = '/errorServer';
+            window.location.href = '/errorServer';
           });
       }
     }
@@ -48,7 +47,6 @@ export default class PannelloConsegna extends Component {
             (reservation) => reservation.id !== reservationID
           ),
         });
-        // MOSTRA ALLERT SUCCESSO+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       })
       .catch((err) => {
         window.location.href = "/errorServer";
