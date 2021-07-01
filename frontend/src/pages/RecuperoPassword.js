@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-
-
-import { Jumbotron, Container, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
-
 import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
-import imageLogo from "../images/logo.svg";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 import Axios from 'axios';
 import "../ComponentsCss/RecuperoPassword.css";
 
@@ -25,7 +20,6 @@ export default class recuperoPassword extends Component {
 
 
     onValidSubmit = (event) => {
-        console.log("tasto cliccato")
         event.preventDefault();
         this.retrievePassword();
     };
@@ -48,6 +42,7 @@ export default class recuperoPassword extends Component {
                 }
             });
     }
+    
     render() {
         return (
             <div className="ez sfondo">

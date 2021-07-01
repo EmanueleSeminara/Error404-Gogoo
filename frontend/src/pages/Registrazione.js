@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
-
-import { Jumbotron, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
-import imageLogo from "../images/logo.svg";
 import "../ComponentsCss/Pannel.css";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import Axios from 'axios'
 import "../ComponentsCss/Registrazione.css";
 
@@ -28,10 +25,6 @@ export default class Registrazione extends Component {
     handleChange = (input) => (e) => {
         this.setState({ [input]: e.target.value });
     };
-
-    stampa = () => {
-        console.log(this.state);
-    }
 
     register = () => {
         Axios.post('/api/user/register', this.state)
@@ -89,7 +82,7 @@ export default class Registrazione extends Component {
         return (
             <div className="ez sfondo no-scrollable">
                 <Navbar />
-                
+
 
                 <AvForm
 
@@ -97,7 +90,7 @@ export default class Registrazione extends Component {
                 >
 
                     <div className="row justify-content-md-center boxpannell">
-                    <center>{this.state.error && <Alert severity="error" style={{position: "absolute", top:"0", zIndex: "3", width: "100%", left: "0"}}>{this.state.string}</Alert>}</center>
+                        <center>{this.state.error && <Alert severity="error" style={{ position: "absolute", top: "0", zIndex: "3", width: "100%", left: "0" }}>{this.state.string}</Alert>}</center>
 
 
                         <div className="pannell-registrazione" style={{ backgroundColor: "#27394c", color: "beige" }} >

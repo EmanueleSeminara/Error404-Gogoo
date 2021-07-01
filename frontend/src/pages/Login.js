@@ -1,38 +1,24 @@
 import { AvField, AvForm } from "availity-reactstrap-validation";
 import React, { Component } from 'react';
-import { Col, Container, Row, Jumbotron, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import "../ComponentsCss/Pannel.css";
 import "../ComponentsCss/util.css";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 import logo_testo from "../images/logo_testo.svg";
 import "../ComponentsCss/Pannel.css";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import Axios from 'axios';
 import "../ComponentsCss/Login.css"
 
 
 export default class Login extends Component {
     state = {
-        username: "autista@gmail.com",
-        password: "Autista966&",
+        username: "",
+        password: "",
         error: false
     };
-    /* state = {
-        username: "samu@gmail.com",
-        password: "Samu966&",
-        error: false
-    }; */
-    /* state = {
-        username: "super@gmail.com",
-        password: "Super966&",
-        error: false
-    }; */
-   /*  state = {
-        username: "p.liberta@gmail.com",
-        password: "Roma966&",
-        error: false
-    } */
+
 
     componentDidMount() {
         if (window.localStorage.getItem("utente") !== null) {
@@ -73,7 +59,7 @@ export default class Login extends Component {
                     console.log(JSON.stringify(res.data));
                     window.localStorage.setItem("utente", JSON.stringify(res.data));
                     window.location.href = "/pannelloParcheggiatore";
-                } else  {
+                } else {
                     console.log(JSON.stringify(res.data));
                     window.localStorage.setItem("utente", JSON.stringify(res.data));
                     window.location.href = "/pannelloAutista";
@@ -100,38 +86,22 @@ export default class Login extends Component {
 
             <div className="ez sfondo  no-scrollable" >
                 <Navbar />
-                {/* <div className="navMobile" style={{ display: "none" }}>
-                    <Navbar />
-                </div> */}
-                {this.state.error &&
 
-                    <Alert severity="error">Email o password non validi</Alert>
-                }
+                {this.state.error && <Alert severity="error">Email o password non validi</Alert>}
 
                 <div
                     className="row"
 
                 >
-                    <div className="col-6 imageLogo" style={{marginTop: "60px" }}>
+                    <div className="col-6 imageLogo" style={{ marginTop: "60px" }}>
                         <img src={logo_testo} />
                     </div>
                     <div className="col boxpannel">
-
-                        {/* <Jumbotron style={{ backgroundColor: "#27394c", color: "beige" }}> */}
                         <div className="row pannelLogin">
                             <div className="col-10">
 
-                                {/* <Container fluid> */}
-                                {/* <center>
-                                    <img
-                                        src={imageLogo}
-                                        height="94px"
-                                        width="94px"
-                                        alt="Errore"
-                                    />
-                                </center> */}
                                 <div className="titleLogin">Login</div>
-                                <p style={{color: "grey"}}>Please sign in to continue</p>
+                                <p style={{ color: "grey" }}>Please sign in to continue</p>
 
                                 <AvForm className="formEmail" onValidSubmit={this.onValidSubmit}>
                                     <center>
@@ -142,7 +112,7 @@ export default class Login extends Component {
                                             placeholder="email"
                                             onChange={this.handleChange("username")}
                                             errorMessage="Non sembra tu abbia inserito una mail"
-                                            //required TODO: levare commento
+                                            required
                                             style={{ marginTop: "27px" }}
                                         />
 
@@ -155,8 +125,7 @@ export default class Login extends Component {
                                             placeholder="password"
                                             onChange={this.handleChange("password")}
                                             errorMessage="Campo obbligatorio"
-                                        //required TODO: levare commento
-
+                                            required
                                         />
                                     </center>
 
@@ -169,7 +138,6 @@ export default class Login extends Component {
                                     </center>
 
                                 </AvForm>
-                                {/* </Container> */}
 
 
                                 <center style={{ marginTop: "30px" }}>
@@ -186,10 +154,6 @@ export default class Login extends Component {
                                 </center>
                             </div>
 
-
-
-
-                            {/* </Jumbotron> */}
 
                         </div>
 
