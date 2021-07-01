@@ -7,16 +7,23 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import Axios from 'axios';
 
 export default class CardVeicolo extends Component {
-	state={
+	state = {
 		error: false,
 	};
-		
-	setting =  () => {
+
+	componentDidUpdate(propsPrec) {
+		if (this.props !== propsPrec) {
+			this.setState({ error: false })
+		}
+	}
+
+	setting = () => {
+		console.log(this.props.type)
 		let license = true;
 		Axios.get('/api/guest/getdatacarlicense')
 			.then((res) => {
 				console.log(1)
-				if(this.props.driver){
+				if (this.props.driver) {
 					license = true
 				} else if (this.props.type === "car") {
 					console.log("sono dentro car")
@@ -27,7 +34,7 @@ export default class CardVeicolo extends Component {
 				}
 				console.log(2)
 				console.log(license)
-				
+
 				if (license) {
 					console.log(3)
 					const reservation = JSON.parse(localStorage.getItem("reservation"))
@@ -41,7 +48,7 @@ export default class CardVeicolo extends Component {
 					window.location.href = "/riepilogoPrenotazione";
 					console.log(5)
 				} else {
-					this.setState({error: true})
+					this.setState({ error: true })
 				}
 
 			}).catch((err) => {
@@ -55,28 +62,28 @@ export default class CardVeicolo extends Component {
 		return (
 			<div className="card card-css">
 				<center>
-				<div className="row no-gutters">
-					<div className="col-12">
-						<div className="card-body">
-							<h5 className="infoCard">Tipo: {this.props.type}</h5>
-							{this.props.type === "car" &&
-								<p className="infoCard">Categoria: {this.props.category}</p>
-							}
-							{this.props.position !== undefined &&
-								<p className="infoCard">Posizione: {this.props.position}</p>
-							}
-							{this.props.duration !== undefined &&
-								<p className="infoCard">Tempo per raggiongere il veicolo: {this.props.duration}</p>
-							}
-							{this.props.distance !== undefined  &&
-								<p className="infoCard">Distanza: {this.props.distance}</p>
-							}
-							<p className="infoCard">Id: {this.props.id}</p>
-							<button className="buttonCyano" onClick={() => { this.setting() }} style={{ textDecoration: "none" }}>Prenota</button>
+					<div className="row no-gutters">
+						<div className="col-12">
+							<div className="card-body">
+								<h5 className="infoCard">Tipo: {this.props.type}</h5>
+								{this.props.type === "car" &&
+									<p className="infoCard">Categoria: {this.props.category}</p>
+								}
+								{this.props.position !== undefined &&
+									<p className="infoCard">Posizione: {this.props.position}</p>
+								}
+								{this.props.duration !== undefined &&
+									<p className="infoCard">Tempo per raggiongere il veicolo: {this.props.duration}</p>
+								}
+								{this.props.distance !== undefined &&
+									<p className="infoCard">Distanza: {this.props.distance}</p>
+								}
+								<p className="infoCard">Id: {this.props.id}</p>
+								<button className="buttonCyano" onClick={() => { this.setting() }} style={{ textDecoration: "none" }}>Prenota</button>
+							</div>
 						</div>
 					</div>
-				</div>
-				{this.state.error && <Alert severity="error">Non hai una patente adeguata</Alert>}
+					{this.state.error && <Alert severity="error">Non hai una patente adeguata</Alert>}
 				</center>
 			</div>
 		);
