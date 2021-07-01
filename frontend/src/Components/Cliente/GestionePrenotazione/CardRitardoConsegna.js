@@ -30,6 +30,7 @@ export default class CardSegnalaGuasto extends Component {
         disabled: true,
         refParkingC: "",
         viaRiferimento: "",
+        success: false,
 
     };
 
@@ -72,6 +73,7 @@ export default class CardSegnalaGuasto extends Component {
         event.preventDefault();
         this.setState({ disabled: true });
         this.setState({ mostra: false });
+        this.setState({ success: true});
 
     };
 
@@ -126,14 +128,15 @@ export default class CardSegnalaGuasto extends Component {
                                         </div>
                                     </div>
                                     <center>
-                                        <div className="row justify-content-md-center">
+                                        
                                             <Button type="button" className="buttonRed" onClick={() => this.setMostraRitardo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
                                                 Ritardo consegna
                                             </Button>
                                             <Button type="button" className="buttonVerde" onClick={() => this.setMostraCambiaLuogo()} style={{ marginRight: "10px", marginTop: "20px" }} disabled={this.state.ritiro}>
                                                 Cambia luogo consegna
                                             </Button>
-                                        </div>
+                                            {this.state.success && <Alert style={{marginTop: "20px" }} severity="success">Segnalazione avvenuta con successo!</Alert>} {/* mettere delay */}
+                                    
                                     </center>
                                 </div>
                             </div>
@@ -175,7 +178,7 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
-
+                                
                                 {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                         {(this.state.mostraCambiaLuogo) &&
@@ -219,6 +222,8 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
+                                                        
+                                {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                     </center>
                 </div>

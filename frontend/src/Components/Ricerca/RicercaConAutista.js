@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 
 import {
@@ -48,6 +49,8 @@ export default class FormRicerca extends Component {
 		category: "suv",
 		positionR: "",
 		positionC: "",
+		errorPayment: false,
+		errorList: false,
 
 	};
 
@@ -70,8 +73,13 @@ export default class FormRicerca extends Component {
 		Axios.post('/api/search/searchcarwithdriver', this.state)
 			.then((res) => {
 				this.setState({ list: res.data });
+				console.log(res.data);
+				if (res.data.length == 0) {
+					this.setState({errorList: true})
+				}
 			}).catch((err) => {
 				console.log(err);
+				
 			})
 	}
 
@@ -90,6 +98,7 @@ export default class FormRicerca extends Component {
 
 					if (res.data.length !== 0) {
 						payment = true;
+						console.log(res.data);
 					}
 
 					if (payment) {
@@ -108,7 +117,8 @@ export default class FormRicerca extends Component {
 						};
 						window.localStorage.setItem("reservation", JSON.stringify(reservation));
 					} else {
-						//fare spuntare messaggio di errore 
+						this.setState({errorPayment: true})
+						console.log(res.data);
 					}
 
 				}).catch((err) => {
@@ -121,11 +131,13 @@ export default class FormRicerca extends Component {
 	render() {
 		return (
 			<div>
+				{this.state.errorPayment && <Alert severity="error">Non hai un metodo di pagamento</Alert>}
+				{this.state.errorList && <Alert severity="error">Non ci sono veicoli</Alert>}
 				<AvForm onValidSubmit={this.onValidSubmit} >
 
 
 					<div>
-						<div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", marginBottom: "0", paddingBottom: "20px" }}>
+						<div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", marginBottom: "0", paddingBottom: "20px" }}>					
 							<RadioGroup
 								row
 								inline

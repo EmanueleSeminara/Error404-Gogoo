@@ -98,11 +98,11 @@ export default class Login extends Component {
         return (
 
 
-            <div className="ez sfondo" >
-                {/* <Navbar /> */}
-                <div className="navMobile" style={{ display: "none" }}>
+            <div className="ez sfondo  no-scrollable" >
+                <Navbar />
+                {/* <div className="navMobile" style={{ display: "none" }}>
                     <Navbar />
-                </div>
+                </div> */}
                 {this.state.error &&
 
                     <Alert severity="error">Email o password non validi</Alert>
@@ -112,7 +112,7 @@ export default class Login extends Component {
                     className="row"
 
                 >
-                    <div className="col-6 imageLogo">
+                    <div className="col-6 imageLogo" style={{marginTop: "60px" }}>
                         <img src={logo_testo} />
                     </div>
                     <div className="col boxpannel">

@@ -69,7 +69,7 @@ export default class PannelloPagamento extends Component {
 
 	render() {
 		return (
-			<div className="ez sfondo-card">
+			<div className="ez ">
 
 				<div className="row justify-content-md-center  ">
 					<div className="d-flex flex-column pannell-User ">

@@ -48,7 +48,7 @@ export default class NavbarCliente extends Component {
 		return (
 			<div>
 				<Navbar light expand="md" style={{ backgroundColor: "#39304d", marginBottom: "45px"}} fixed="top" >
-					<NavbarBrand href="/" style={{ color: "white" }}>GoGoo!</NavbarBrand>
+					<NavbarBrand href="/" style={{ color: "white" }}>dropcar</NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.state.isOpen} navbar>
 						<Button href='/ricerca' style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Home</Button>

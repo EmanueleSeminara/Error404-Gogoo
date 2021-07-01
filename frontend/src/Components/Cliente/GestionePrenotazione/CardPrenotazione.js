@@ -40,7 +40,8 @@ export default class CardPrenotazione extends Component {
 		errore: false,
 		id: "",
 		refVehicle: "",
-		disabled: false
+		disabled: false,
+		success: false,
 	};
 
 	setting = () => {
@@ -96,8 +97,18 @@ export default class CardPrenotazione extends Component {
 		Axios.put('/api/reservation/edit', this.state)
 			.then((res) => {
 				console.log(res)
+				this.setState({success: true})
 			}).catch((err) => {
 				console.log(err)
+				if (err.response.status === 422) {
+					this.setState({ string: "errore nell'inserimento dei dati" });
+					this.setState({ error: true });
+				} else if (err.response.status === 503) {
+					this.setState({ string: "impossibile cambiare password al momento, riprova più tardi" });
+					this.setState({ error: true });
+				} else {
+					window.location.href = "/serverError"
+				}
 			})
 	}
 

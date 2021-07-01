@@ -6,12 +6,14 @@ import CardSegnalaGuasto from "./CardSegnalaGuasto";
 import { type } from "jquery";
 import { vehicle } from "faker";
 import NavbarCliente from "../../../Components/NavbarCliente";
+import Alert from '@material-ui/lab/Alert';
 
 
 
 export default class PannelloSegnalaGuasto extends Component {
     state = {
         listReservation: [],
+        string: "",
     };
 
     componentDidMount() {
@@ -54,7 +56,15 @@ export default class PannelloSegnalaGuasto extends Component {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
             }).catch((err) => {
                 console.log(err)
-                // window.location.href = '/errorServer';
+                if (err.response.status === 422) {
+                    this.setState({ string: "errore nell'inserimento dei dati" });
+                    this.setState({ error: true });
+                } else if (err.response.status === 503) {
+                    this.setState({ string: "impossibile segnalare il guasto al momento, riprova più tardi" });
+                    this.setState({ error: true });
+                } else {
+                    window.location.href = "/serverError"
+                }
             });
     };
 
@@ -64,9 +74,11 @@ export default class PannelloSegnalaGuasto extends Component {
         return (
             <div className="ez sfondo-card">
                 <NavbarCliente />
+                {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Segnala Guasto</div></center>
+                        {this.state.listReservation.length == 0 && <Alert severity="info">Non hai prenotazioni</Alert>}
                         {this.state.listReservation.map(((item) => (
                             <div className="p-3 col-12">
                                 <CardSegnalaGuasto id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} state={item.state} segnaleGuasto={this.segnaleGuasto} />
