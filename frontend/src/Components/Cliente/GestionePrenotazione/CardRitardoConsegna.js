@@ -84,7 +84,7 @@ export default class CardSegnalaGuasto extends Component {
     }
 
     handleChangeDateArrivo = (date) => {
-        this.setState({ dataArrivo: date });
+        this.setState({ dateC: date });
     };
 
 
