@@ -29,7 +29,12 @@ import PannelloRimuoviUtente from '../src/Components/Amministratore/GestioneUten
 import PannelloRimuoviVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloRimuoviVeicolo';
 import PannelloAggiungiVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloAggiungiVeicolo';
 import PannelloModificaVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloModificaVeicolo';
+<<<<<<< HEAD
 import Errorpage from '../src/pages/Errorpage'
+=======
+
+
+>>>>>>> e7f4e9694cd06f5317466ffedfac274adc037b67
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -40,7 +45,6 @@ class App extends Component {
       <Router>
         <Switch>
           {/* Gestione accesso */}
-
           <Route exact path="/" component={Login} />
           <Route exact path="/registrazione" component={Registrazione} />
           <Route exact path="/recuperoPassword" component={RecuperoPassword} />

@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import { AvForm } from "availity-reactstrap-validation";
-import { Button, ListGroup, ListGroupItem, Card, Jumbotron, Table, ButtonGroup } from "reactstrap";
-
+import { Button, ButtonGroup } from "reactstrap";
 import CardRimuoviVeicolo from "./CardRimuoviVeicolo";
 import faker from 'faker';
 import Axios from 'axios';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 import NavbarDipendente from "../../../Components/NavbarDipendente"
 import Footer from "../../Footer";
-
-const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(2), refParking: faker.lorem.word(2), state: faker.lorem.word(2) }))
 
 export default class PannelloRimuoviVeicolo extends Component {
     state = {
@@ -72,7 +68,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                 <div className="row h-100 justify-content-md-center boxpannel">
                     <div className="d-flex flex-column pannell-amministratore">
                         <div className="title">Rimuovi veicolo</div>
-                        {this.state.listvehicles.length == 0 && <Alert severity="error">Non ci sono veicoli</Alert>}
+                        {this.state.listvehicles.length === 0 && <Alert severity="error">Non ci sono veicoli</Alert>}
                         <ButtonGroup style={{ flexWrap: "wrap" }}>
                             <Button
                                 className={this.state.type === "car" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}
