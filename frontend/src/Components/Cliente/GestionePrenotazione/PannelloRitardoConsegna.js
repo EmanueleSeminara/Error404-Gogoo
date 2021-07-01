@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
 import Axios from "axios";
 import CardRitardoConsegna from "./CardRitardoConsegna";
 import NavbarCliente from "../../../Components/NavbarCliente";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 
 
 
-export default class PannelloRitiroConsegna extends Component {
+export default class PannelloRitardoConsegna extends Component {
     state = {
         listReservation: [],
         error: false,
@@ -32,8 +31,7 @@ export default class PannelloRitiroConsegna extends Component {
                         this.setState({ listReservation: res.data })
                         console.log(this.state.listReservation)
                     }).catch((err) => {
-                        console.log(err);
-                        //window.location.href = '/errorServer'
+                        window.location.href = '/errorServer'
                     })
             }
         }
@@ -50,8 +48,16 @@ export default class PannelloRitiroConsegna extends Component {
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
             }).catch((err) => {
-                console.log(err)
-                // window.location.href = '/errorServer';
+                if (err.response.status === 422) {
+                    this.setState({ string: "errore nell'inserimento dei dati" });
+                    this.setState({ error: true });
+                } else if (err.response.status === 503) {
+                    this.setState({ string: "impossibile cambiare le opzioni di consegna al momento, riprova più tardi" });
+                    this.setState({ error: true });
+                } else {
+                    console.log(err)
+                    window.location.href = "/serverError"
+                }
             });
     }
 
@@ -66,17 +72,17 @@ export default class PannelloRitiroConsegna extends Component {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
                 localStorage.setItem("price", 25)
                 this.setState({ error: false });
-                //window.location.href = "/pagamento"
+                window.location.href = "/pagamento"
             }).catch((err) => {
                 if (err.response.status === 422) {
                     this.setState({ string: "errore nell'inserimento dei dati" });
                     this.setState({ error: true });
                 } else if (err.response.status === 503) {
-                    this.setState({ string: "impossibile segnalare il guasto al momento, riprova più tardi" });
+                    this.setState({ string: "impossibile cambiare le opzioni di consegna al momento, riprova più tardi" });
                     this.setState({ error: true });
                 } else {
                     console.log(err)
-                    //window.location.href = "/serverError"
+                    window.location.href = "/serverError"
                 }
             });
     }
@@ -90,7 +96,7 @@ export default class PannelloRitiroConsegna extends Component {
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Ritardo Consegna</div></center>
-                        {this.state.listReservation.length == 0 && <Alert severity="info">Non hai prenotazioni in ritardo</Alert>}
+                        {this.state.listReservation.length === 0 && <Alert severity="info">Non hai prenotazioni in ritardo</Alert>}
                         <div className="d-flex flex-row flex-wrap justify-content-center">
                             {this.state.listReservation.map(((item) => (
                                 <div className="p-3 col-12">

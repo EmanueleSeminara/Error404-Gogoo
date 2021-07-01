@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Axios from 'axios';
-
-import {
-    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup,
-} from 'reactstrap';
-import {
-    AvForm,
-    AvField,
-} from "availity-reactstrap-validation";
-
+import { Button,  Label, Col, Input,FormGroup,} from 'reactstrap';
+import {AvForm, AvField} from "availity-reactstrap-validation";
 import Alert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
-
-
 
 
 
@@ -52,7 +41,6 @@ export default class CardConsegnaFuoriStallo extends Component {
                     window.location.href = "/serverError"
                 }
             })
-        console.log(this.state.possibile)
     }
 
     componentDidMount() {
@@ -178,13 +166,10 @@ export default class CardConsegnaFuoriStallo extends Component {
                                         <Input type="textarea" name="text" id="exampleText" />
                                     </Col>
                                 </FormGroup>
-
                                 
                                 <h6 className="infoCard">
                                     prezzo per la consegna fuori stallo : {this.state.price}€
                                 </h6>
-
-
 
 
                                 {/* Pulsante Conferma*/}

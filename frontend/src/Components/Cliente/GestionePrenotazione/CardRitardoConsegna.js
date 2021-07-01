@@ -4,27 +4,13 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
 import * as moment from 'moment';
+import {Button, Label, Col, Input, FormGroup} from 'reactstrap';
+import {AvForm,AvField,} from "availity-reactstrap-validation";
+import {DateTimePicker,MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 
 
-import {
-    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup,
-} from 'reactstrap';
-
-import {
-    AvForm,
-    AvGroup,
-    AvField,
-} from "availity-reactstrap-validation";
-
-import {
-    DateTimePicker,
-    MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
-
-
-export default class CardSegnalaGuasto extends Component {
+export default class CardRitardoConsegna extends Component {
     state = {
         mostraRitardo: false,
         mostraCambiaLuogo: false,
@@ -67,17 +53,8 @@ export default class CardSegnalaGuasto extends Component {
         this.setState({ [input]: e.target.value });
     }
 
-    /* onValidSubmit = (event) => {
-        event.preventDefault();
-        this.setState({ disabled: true });
-        this.setState({ mostra: false });
-        this.setState({ success: true});
-        
-    }; */
-
     timeChange = (event) => {
         event.preventDefault();
-        console.log("sono dentri")
         if (moment(this.state.dateC) > moment(new Date())) {
             console.log(this.state.dateC)
             this.props.changeTime(this.props.id, this.state.dateC)
@@ -95,9 +72,6 @@ export default class CardSegnalaGuasto extends Component {
         const d = (moment(date).format('YYYY-MM-DD HH:mm'));
         this.setState({ dateC: d });
     };
-
-
-
 
 
     render() {
@@ -198,13 +172,9 @@ export default class CardSegnalaGuasto extends Component {
                             <center>
                                 <AvForm onValidSubmit={this.destinationChange}>
                                     <Col>
-
                                         <center>
-
                                             <div className="row " style={{ marginTop: "10px", marginBotton: "20px" }}>
-
                                                 <div className="col">
-
                                                     <AvField type="select" name="parcheggioArrivo" label="Consegna" onClick={this.handleChange("refParkingC")}>
                                                         <option>Via Libertà</option>
                                                         <option>Via Roma</option>
@@ -235,8 +205,6 @@ export default class CardSegnalaGuasto extends Component {
                                         Annulla
                                     </Button>
                                 </AvForm>
-
-                                {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                     </center>
                 </div>

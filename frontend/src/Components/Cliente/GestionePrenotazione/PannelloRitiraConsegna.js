@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
-
 import Axios from 'axios';
 import CardRitiroConsegna from "./CardRitiroConsegna";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import NavbarCliente from "../../../Components/NavbarCliente";
 import "../../../ComponentsCss/GestionePrenotazione.css"
 
 
 
-export default class PannelloRitiroConsegna extends Component {
+export default class PannelloRitiraConsegna extends Component {
     state = {
         listReservation: [],
         string: "",
@@ -34,8 +32,7 @@ export default class PannelloRitiroConsegna extends Component {
                         this.setState({ listReservation: res.data })
                         console.log(this.state.listReservation)
                     }).catch((err) => {
-                        console.log(err);
-                        //window.location.href = '/errorServer'
+                        window.location.href = '/errorServer'
                     })
             }
         }
@@ -51,8 +48,7 @@ export default class PannelloRitiroConsegna extends Component {
                     this.setState({ error: true });
                 }
                 else{
-                    console.log(err)
-                    //window.location.href = '/errorServer';
+                    window.location.href = '/errorServer';
                 }
             });
     };
@@ -65,7 +61,7 @@ export default class PannelloRitiroConsegna extends Component {
                 <div className="row justify-content-md-center  ">
                 <div className="d-flex flex-column pannell-User ">
                     <center><div className="title">Ritiro e Consegna</div></center>
-                    {this.state.listReservation.length == 0 && <Alert severity="info">Non hai prenotazioni</Alert>}
+                    {this.state.listReservation.length === 0 && <Alert severity="info">Non hai prenotazioni</Alert>}
                     <div className="d-flex flex-row flex-wrap justify-content-center">
 
                         {this.state.listReservation.map(((item) => (

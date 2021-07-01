@@ -3,29 +3,11 @@ import DateFnsUtils from '@date-io/date-fns';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
-
-import {
-	Card, CardImg, CardText, CardBody,
-	CardTitle, CardSubtitle, Button, ListGroupItem, Label, Col, Input, ListGroup, Row, FormGroup, CustomInput, Jumbotron,
-} from 'reactstrap';
-
-import {
-	AvForm,
-	AvGroup,
-	AvRadio,
-	AvRadioGroup,
-	AvField,
-} from "availity-reactstrap-validation";
-
-import {
-	DatePicker,
-	TimePicker,
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { Button, Label, Col, Input, Row, FormGroup} from 'reactstrap';
+import {AvForm} from "availity-reactstrap-validation";
+import {DateTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import Axios from 'axios';
 import * as moment from 'moment';
-
 
 
 
@@ -56,7 +38,7 @@ export default class CardPrenotazione extends Component {
 			.then((res) => {
 				this.setState({ disabled: res.data })
 			}).catch((err) => {
-				console.log(err)
+				window.location.href = '/errorServer'
 			})
 	};
 
@@ -115,8 +97,6 @@ export default class CardPrenotazione extends Component {
 	}
 
 
-
-
 	render() {
 		return (
 			<div>
@@ -129,7 +109,7 @@ export default class CardPrenotazione extends Component {
 
 									<div className="row no-gutters">
 										<div className="col-md-12">
-											<p className="infoCard"><strong>ID veicolo:  {this.props.refVehicle}</strong></p>
+											<p className="infoCard"><strong>ID veicolo: {this.props.refVehicle}</strong></p>
 
 										</div>
 
@@ -137,24 +117,29 @@ export default class CardPrenotazione extends Component {
 									</div>
 									<div className="row no-gutters">
 										<div className="col-md-6">
-											<p className="infoCard"><strong>Tipo:</strong> {this.state.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
+											<p className="infoCard"><strong>Tipo: </strong> {this.state.type} {this.props.type === "car" ? <> {this.props.category}</> : <></>}</p>
 											{this.props.refParkingR != null &&
-												<p className="infoCard"><strong>Parcheggio ritiro:</strong>   {this.state.refParkingR}</p>
+												<p className="infoCard"><strong>Parcheggio ritiro: </strong>   {this.state.refParkingR}</p>
 											}
 											{this.props.positionR != null &&
-												<p className="infoCard"><strong>Posizione di ritiro:</strong>   {this.props.positionR}</p>
+												<p className="infoCard"><strong>Posizione di ritiro: </strong>   {this.props.positionR}</p>
 											}
-											<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.dateR}</p>
+											<p className="infoCard"><strong>Data ritiro: </strong>   {this.state.dateR}</p>
 										</div>
 										<div className="col-md-6">
-											<p className="infoCard"><strong>Autista:</strong> {this.props.refDriver != null ? <>{this.props.refDriver}</> : <> no </> } </p>
+											{this.props.state === "not confirmed" &&
+												<p className="infoCard"><strong>Autista: </strong> in attesa di conferma </p>
+											}
+											{this.props.state === "confirmed" &&
+												<p className="infoCard"><strong>Autista: </strong> {this.props.refDriver != null ? <>{this.props.refDriver}</> : <> no </>} </p>
+											}
 											{this.props.refParkingC != null &&
-												<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
+												<p className="infoCard"><strong>Parcheggio consegna: </strong>   {this.state.refParkingC}</p>
 											}
 											{this.props.positionC != null &&
-												<p className="infoCard"><strong>Posizione di consegna:</strong>   {this.props.positionC}</p>
+												<p className="infoCard"><strong>Posizione di consegna: </strong>   {this.props.positionC}</p>
 											}
-											<p className="infoCard"><strong>Data consegna:</strong>   {this.state.dateC}</p>
+											<p className="infoCard"><strong>Data consegna: </strong>   {this.state.dateC}</p>
 										</div>
 									</div>
 
@@ -168,7 +153,7 @@ export default class CardPrenotazione extends Component {
 									</center>
 									{this.state.disabled &&
 
-										<Alert style={{marginTop: "20px"}} severity="warning">Non puoi effettuare la consegna fuori stallo per questo veicolo</Alert>
+										<Alert style={{ marginTop: "20px" }} severity="warning">Non puoi effettuare la consegna fuori stallo per questo veicolo</Alert>
 									}
 								</div>
 							</div>
@@ -252,8 +237,8 @@ export default class CardPrenotazione extends Component {
 								{this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
 							</center>}
 					</center>
-				</div>
-			</div>
+				</div >
+			</div >
 		);
 	}
 

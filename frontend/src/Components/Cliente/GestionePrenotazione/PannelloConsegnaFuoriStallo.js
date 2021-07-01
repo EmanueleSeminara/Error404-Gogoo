@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
-
-
-import faker from 'faker';
 import Axios from "axios";
 import CardConsegnaFuoriStallo from "./CardConsegnaFuoriStallo";
 import NavbarCliente from "../../../Components/NavbarCliente";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 
 
-export default class PannelloRitiroConsegna extends Component {
+export default class PannelloConsegnaFuoriStallo extends Component {
     state = {
         listReservation: [],
         string: "",
@@ -31,26 +27,13 @@ export default class PannelloRitiroConsegna extends Component {
                 Axios.get('/api/reservation/myreservations')
                     .then((res) => {
                         this.setState({ listReservation: res.data })
-                        console.log(this.state.listReservation)
                     }).catch((err) => {
-                        console.log(err);
-                        //window.location.href = '/errorServer'
+                        window.location.href = '/errorServer'
                     })
             }
         }
     }
 
-    setRSelected = (num) => {
-        this.setState({ rSelected: num });
-    }
-
-    handleChange = (input) => (e) => {
-        this.setState({ [input]: e.target.value });
-    };
-
-    setModifica = (bool) => {
-        this.setState({ modifica: bool });
-    }
 
     onValidSubmit = (event) => {
         event.preventDefault();
@@ -89,7 +72,7 @@ export default class PannelloRitiroConsegna extends Component {
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Consegna fuori stallo</div></center>
-                        {this.state.listReservation.length == 0 && <Alert severity="info">Non hai prenotazioni</Alert>}
+                        {this.state.listReservation.length === 0 && <Alert severity="info">Non hai prenotazioni</Alert>}
                         <div className="d-flex flex-row flex-wrap justify-content-center">
                             {this.state.listReservation.map(((item) => (
                                 <div className="p-3 col-12">
