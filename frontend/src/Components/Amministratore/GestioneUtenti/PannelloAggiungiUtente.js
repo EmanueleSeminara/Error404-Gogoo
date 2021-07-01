@@ -90,7 +90,7 @@ export default class PannelloAggiugiUtente extends Component {
                     this.setState({ error: true });
                 } else if (err.response.status === 503) {
                     console.log("inpossibile regitrarsi al momento")
-                    this.setState({ string: "impossibile regitrarsi al momento, riprova più tardi" });
+                    this.setState({ string: "impossibile registrare un utente momento, riprova più tardi" });
                     this.setState({ error: true });
                 } else {
                     window.location.href = "/serverError"

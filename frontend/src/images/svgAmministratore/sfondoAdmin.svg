@@ -1,5 +1,5 @@
 <svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="1440" height="1024" fill="url(#paint0_linear)"/>
+<rect width="1440" height="1024" fill="#1F1A30"/>
 <g filter="url(#filter0_d)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1712.44 793.97C1744.11 892.428 1758.93 1002.7 1701.45 1088.68C1640.64 1179.64 1531.7 1227.31 1422.29 1227.98C1315.54 1228.63 1203.09 1184.63 1149.93 1092.06C1102.97 1010.28 1168.44 917.818 1191.7 826.433C1212.38 745.199 1205.5 649.68 1274.62 602.253C1351.53 549.48 1454.73 549.911 1540.17 587.326C1626.6 625.171 1683.54 704.154 1712.44 793.97Z" fill="#3FD0CB"/>
 </g>
@@ -25,9 +25,5 @@
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
 </filter>
-<linearGradient id="paint0_linear" x1="0" y1="512" x2="1440" y2="512" gradientUnits="userSpaceOnUse">
-<stop stop-color="#2D0633"/>
-<stop offset="1" stop-color="#1F1A30"/>
-</linearGradient>
 </defs>
 </svg>

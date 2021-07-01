@@ -75,7 +75,7 @@ export default class CardSegnalaGuasto extends Component {
     
     timeChange = (event) => {
         event.preventDefault();
-
+        this.props.changeTime(this.props.id, this.state.dateC)
     }
 
     destinationChange = (event) => {

@@ -13,6 +13,7 @@ export default class PannelloRitiroConsegna extends Component {
     state = {
         listReservation: [],
         string: "",
+        error: false,
     };
 
 

@@ -19,7 +19,6 @@ export default class CardSegnalaGuasto extends Component {
         guasto: false,
         mostra: false,
         position: "",
-        success: false,
     };
 
     setting = () => {
@@ -53,7 +52,6 @@ export default class CardSegnalaGuasto extends Component {
     onValidSubmit = (event) => {
         event.preventDefault();
         this.props.segnaleGuasto(this.props.id, this.state.position, this.props.refVehicle, this.props.category, this.props.type, this.props.refParkingC);
-        this.setState({success: true})
     };
 
 
@@ -144,8 +142,8 @@ export default class CardSegnalaGuasto extends Component {
                                     </Button>
                                 </AvForm>
                             
-                        {this.state.success && <Alert severity="success">Segnalazione avvenuta con successo!</Alert>} {/* mettere delay */}
-                        {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
+                        
+                       
                     </center>}
                     </center>
             </div>
