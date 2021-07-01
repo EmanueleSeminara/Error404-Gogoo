@@ -79,6 +79,7 @@ export default class CardSegnalaGuasto extends Component {
         event.preventDefault();
         console.log("sono dentri")
         if (moment(this.state.dateC) > moment(new Date())) {
+            console.log(this.state.dateC)
             this.props.changeTime(this.props.id, this.state.dateC)
         } else {
             this.setState({ errorTime: true })
