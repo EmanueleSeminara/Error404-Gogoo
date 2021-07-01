@@ -98,6 +98,8 @@ export default class CardPrenotazione extends Component {
 			.then((res) => {
 				console.log(res)
 				this.setState({success: true})
+				this.setState({ error: false });
+				
 			}).catch((err) => {
 				console.log(err)
 				if (err.response.status === 422) {

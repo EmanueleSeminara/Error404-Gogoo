@@ -14,6 +14,8 @@ export default class PannelloSegnalaGuasto extends Component {
     state = {
         listReservation: [],
         string: "",
+        error: false,
+        success: false,
     };
 
     componentDidMount() {
@@ -54,8 +56,10 @@ export default class PannelloSegnalaGuasto extends Component {
         Axios.put('/api/guest/damagedvehicle', data)
             .then((res) => {
                 this.setState({ listReservation: this.state.listReservation.filter(reservation => reservation.id !== reservationID) });
+                this.setState({ error: false });
+				this.setState({ success: true });
             }).catch((err) => {
-                console.log(err)
+                this.setState({ success: false });
                 if (err.response.status === 422) {
                     this.setState({ string: "errore nell'inserimento dei dati" });
                     this.setState({ error: true });

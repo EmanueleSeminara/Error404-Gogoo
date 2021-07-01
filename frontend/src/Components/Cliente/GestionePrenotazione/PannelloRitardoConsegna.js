@@ -9,7 +9,10 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 
 export default class PannelloRitiroConsegna extends Component {
     state = {
-        listReservation: []
+        listReservation: [],
+        error: false,
+		success: false,
+		string: "",
     }
 
 

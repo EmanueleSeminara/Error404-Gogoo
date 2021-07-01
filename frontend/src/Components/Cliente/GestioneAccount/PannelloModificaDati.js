@@ -76,7 +76,7 @@ export default class Registrazione extends Component {
 					this.setState({ error: true });
 				} else if (err.response.status === 503) {
 					console.log("inpossibile regitrarsi al momento")
-					this.setState({ string: "impossibile regitrarsi al momento, riprova più tardi" });
+					this.setState({ string: "impossibile modificare i dati al momento, riprova più tardi" });
 					this.setState({ error: true });
 				} else {
 					window.location.href = "/serverError"
