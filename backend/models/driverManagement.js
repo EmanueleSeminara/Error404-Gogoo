@@ -113,26 +113,14 @@ exports.retireCar = (reservation) => {
 
 exports.carDelivery = (reservation) => {
   return new Promise((resolve, reject) => {
-    date = new Date();
-    const dateNow =
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1) +
-      "-" +
-      date.getDate() +
-      " " +
-      date.getHours() +
-      ":" +
-      date.getMinutes();
     const sql =
-      "UPDATE vehicles AS v SET state ='available' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR>= ? AND refDriver = ?)";
+      "UPDATE vehicles SET state ='available' WHERE id = ? AND EXISTS ( SELECT 1 FROM reservations WHERE refVehicle = ? AND state = 'withdrawn' AND refDriver = ?)";
     db.run(
       sql,
       [
         reservation.refVehicle,
         reservation.refVehicle,
-        dateNow,
-        reservation.refDriver,
+        reservation.refDriver
       ],
       function (err) {
         if (err) {
@@ -141,14 +129,13 @@ exports.carDelivery = (reservation) => {
         }
         //resolve(this.lastID);
         const sql2 =
-          "DELETE FROM reservations AS r WHERE r.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR>= ? AND refDriver = ?)";
+          "DELETE FROM reservations WHERE id = ? AND EXISTS ( SELECT 1 FROM reservations WHERE refVehicle = ? AND state = 'withdrawn' AND refDriver = ?)";
         db.run(
           sql2,
           [
             reservation.id,
             reservation.refVehicle,
-            dateNow,
-            reservation.refDriver,
+            reservation.refDriver
           ],
           function (err) {
             if (err) {
@@ -163,7 +150,7 @@ exports.carDelivery = (reservation) => {
   });
 };
 
-// Conferma la prenotazion
+// Conferma la prenotazione
 exports.confirmationOfReservation = (idDriver, idReservation) => {
   console.log("PRENOTAZIONE DA CONFERMARE: " + idDriver, idReservation)
   return new Promise((resolve, reject) => {

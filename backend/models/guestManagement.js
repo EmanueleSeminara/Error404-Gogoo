@@ -319,3 +319,31 @@ exports.canDeliverOutOfStall = (reservation) => {
     );
   });
 };
+
+exports.getMyReservationsLateDelivery = (userId) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT r.id,r.refVehicle, v.type, v.category, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refDriver, r.positionR, r.positionC, r.state FROM reservations AS r JOIN vehicles AS v ON r.refVehicle= v.id WHERE r.refGuest = ? AND r.state = 'late delivery'";
+    db.all(sql, [userId], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const reservations = rows.map((r) => ({
+        id: r.id,
+        refVehicle: r.refVehicle,
+        type: r.type,
+        category: r.category,
+        dateR: r.dateR,
+        dateC: r.dateC,
+        refParkingR: r.refParkingR,
+        refParkingC: r.refParkingC,
+        refDriver: r.refDriver,
+        positionR: r.positionR,
+        positionC: r.positionC,
+        state: r.state,
+      }));
+      resolve(reservations);
+    });
+  });
+};
