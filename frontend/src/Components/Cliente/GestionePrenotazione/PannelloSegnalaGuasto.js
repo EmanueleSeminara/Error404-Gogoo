@@ -79,6 +79,7 @@ export default class PannelloSegnalaGuasto extends Component {
             <div className="ez sfondo-card">
                 <NavbarCliente />
                 {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+                {this.state.success && <Alert severity="success"> segnalazione avvenuta con successo</Alert>}
                 <div className="row justify-content-md-center  ">
                     <div className="d-flex flex-column pannell-User ">
                         <center><div className="title">Segnala Guasto</div></center>
