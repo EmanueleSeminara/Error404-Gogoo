@@ -36,7 +36,7 @@ export default class Login extends Component {
 
     componentDidMount() {
         if (localStorage.getItem("utente") !== null) {
-            let c = JSON.parse(localStorage.getItem("utente"));
+            let c = JSON.parse(window.localStorage.getItem("utente"));
             if (c.role === "guest") {
                 window.location.href = "/ricerca";
             } else if (c.role === "admin") {
