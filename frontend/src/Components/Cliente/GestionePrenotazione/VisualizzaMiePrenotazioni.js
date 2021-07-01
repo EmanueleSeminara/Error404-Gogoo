@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import { ListGroup, ListGroupItem, } from "reactstrap";
-
-
 import CardPrenotazione from "./CardPrenotazione";
 import Axios from 'axios';
 import NavbarCliente from "../../../Components/NavbarCliente";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 
 
 
@@ -33,8 +30,7 @@ export default class ViasualizzaMiePrenotazioni extends Component {
                         this.setState({ listReservation: res.data })
                         console.log(this.state.listReservation)
                     }).catch((err) => {
-                        console.log(err);
-                        //window.location.href = '/errorServer'
+                        window.location.href = '/errorServer'
                     })
             }
         }

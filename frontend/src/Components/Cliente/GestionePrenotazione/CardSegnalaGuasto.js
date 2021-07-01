@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Alert from '@material-ui/lab/Alert';
-
-import {
-    Button, ListGroupItem, Label, Col, Input, ListGroup, FormGroup,
-} from 'reactstrap';
-
-import {
-    AvForm,
-    AvField,
-} from "availity-reactstrap-validation";
-
+import { Button, Label, Col, Input, FormGroup} from 'reactstrap';
+import {AvForm,AvField} from "availity-reactstrap-validation";
 
 
 export default class CardSegnalaGuasto extends Component {
@@ -53,7 +44,6 @@ export default class CardSegnalaGuasto extends Component {
         event.preventDefault();
         this.props.segnaleGuasto(this.props.id, this.state.position, this.props.refVehicle, this.props.category, this.props.type, this.props.refParkingC);
     };
-
 
 
     render() {
