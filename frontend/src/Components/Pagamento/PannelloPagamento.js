@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-
-import { Jumbotron, Button, ListGroupItem, Label } from "reactstrap";
-import { Alert, AlertTitle } from '@material-ui/lab';
-
-import { AvForm, AvField } from "availity-reactstrap-validation";
+import { Button, Label } from "reactstrap";
+import { Alert, } from '@material-ui/lab';
+import { AvForm } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
 import CardPagamento from "./CardPagamento";
 import Axios from 'axios';
@@ -35,7 +33,6 @@ export default class PannelloPagamento extends Component {
 					Axios.get('/api/guest/listpayments')
 						.then((res) => {
 							this.setState({ listpayments: res.data });
-							console.log(this.state.listpayments);
 						}).catch((err) => {
 							window.location.href = '/errorServer';
 						});
@@ -57,11 +54,10 @@ export default class PannelloPagamento extends Component {
 			this.setState({ selezionePagamento: false });
 		}
 		else {
-			//generazione pdf
 			this.setState({ success: true });
 			this.setState({ selezionePagamento: true });
 			PagamentoPDF(JSON.parse(localStorage.getItem("utente")), localStorage.getItem("price"), Math.floor(Math.random() * 1000000))
-			setTimeout(() => { window.location.href="/ricerca" }, 5000);
+			setTimeout(() => { window.location.href = "/ricerca" }, 5000);
 			window.localStorage.removeItem("price")
 		}
 	};
@@ -85,14 +81,14 @@ export default class PannelloPagamento extends Component {
 
 									{this.state.listpayments.map(((item) => (
 
-										<CardPagamento name={item.name} surname={item.surname} number={item.number} id={item.id} seleziona={this.seleziona} classes={this.state.cardID === item.id ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}/>
+										<CardPagamento name={item.name} surname={item.surname} number={item.number} id={item.id} seleziona={this.seleziona} classes={this.state.cardID === item.id ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} />
 
 									)))}
-									
+
 								</div>
-								<h6 className="infoCard"  style={{ marginTop: "30px"}}>Prezzo da pagare: {this.state.price}€</h6>
+								<h6 className="infoCard" style={{ marginTop: "30px" }}>Prezzo da pagare: {this.state.price}€</h6>
 								<Button className="buttonCyano" type="submit" style={{ marginTop: "30px", marginBottom: "30px" }}>  Paga  </Button>
-							
+
 							</center>
 
 							{this.state.success &&

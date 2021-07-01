@@ -1,9 +1,7 @@
 import React from 'react';
 
 
-function CardSelezionaCarta(props) {
-	//funzione rimuovi dal db
-
+function CardPagamento(props) {
 
 	return (
 		<div className="card card-css-pagamento">
@@ -24,4 +22,4 @@ function CardSelezionaCarta(props) {
 	);
 };
 
-export default CardSelezionaCarta;
+export default CardPagamento;
