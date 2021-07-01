@@ -7,6 +7,9 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import Axios from 'axios';
 
 export default class CardVeicolo extends Component {
+	state={
+		error: false,
+	};
 		
 	setting =  () => {
 		let license = true;
@@ -29,13 +32,13 @@ export default class CardVeicolo extends Component {
 					console.log(JSON.parse(localStorage.getItem("reservation")));
 					window.location.href = "/riepilogoPrenotazione";
 				} else {
-					//messaggio di errore popup
+					this.setState({error: true})
 				}
 
 			}).catch((err) => {
 				//window.location.href = "/serverError"
 			})
-	}
+	};
 
 
 
@@ -64,6 +67,7 @@ export default class CardVeicolo extends Component {
 						</div>
 					</div>
 				</div>
+				{this.state.error && <Alert severity="error">Non hai una patente adeguata</Alert>}
 				</center>
 			</div>
 		);

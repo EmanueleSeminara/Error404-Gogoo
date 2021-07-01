@@ -85,7 +85,7 @@ export default class PannelloPagamento extends Component {
 
 									{this.state.listpayments.map(((item) => (
 
-										<CardPagamento name={item.name} surname={item.surname} number={item.number} id={item.id} seleziona={this.seleziona} />
+										<CardPagamento name={item.name} surname={item.surname} number={item.number} id={item.id} seleziona={this.seleziona} classes={this.state.cardID === item.id ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"}/>
 
 									)))}
 									
