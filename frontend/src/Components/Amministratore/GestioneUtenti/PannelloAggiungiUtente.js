@@ -1,35 +1,8 @@
 import React, { Component } from "react";
-import DateFnsUtils from '@date-io/date-fns';
 import "../../../ComponentsCss/Pannel.css";
-
-import {
-    DateTimePicker,
-    MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
-
-import {
-    ListGroup,
-    ListGroupItem,
-    Button,
-    Input,
-    Jumbotron,
-    FormGroup,
-    Label,
-    Col,
-    Form,
-    ButtonGroup,
-} from "reactstrap";
-
-import {
-    AvForm,
-    AvGroup,
-    AvRadio,
-    AvRadioGroup,
-    AvField,
-} from "availity-reactstrap-validation";
-
-import { Alert, AlertTitle } from '@material-ui/lab';
+import {Button,ButtonGroup} from "reactstrap";
+import { AvForm, AvField,} from "availity-reactstrap-validation";
+import { Alert } from '@material-ui/lab';
 import Axios from 'axios'
 import NavbarDipendente from "../../../Components/NavbarDipendente"
 
@@ -134,10 +107,6 @@ export default class PannelloAggiugiUtente extends Component {
                         <center><div className="title">Aggiungi utente</div></center>
                         <div className="col-9">
 
-
-
-
-
                         <center>
                             <ButtonGroup style={{ marginBottom: "20px", flexWrap: "wrap" }}>
                                 <Button
@@ -228,9 +197,6 @@ export default class PannelloAggiugiUtente extends Component {
                                 </div>
 
 
-
-
-
                                 {/* Riga data di nascita */}
                                 <div className="row">
                                     <div className="col-12">
@@ -252,8 +218,6 @@ export default class PannelloAggiugiUtente extends Component {
                                 </div>
 
 
-
-
                                 {/*Riga email */}
                                 <div className="row">
                                     <div className="col-12">
@@ -267,8 +231,6 @@ export default class PannelloAggiugiUtente extends Component {
                                         />
                                     </div>
                                 </div>
-
-
 
 
                                 {/* Riga password */}
@@ -325,8 +287,6 @@ export default class PannelloAggiugiUtente extends Component {
                                     {this.state.success && <Alert severity="success">Utente inserito correttamente</Alert>}
                                 </center>
                             </AvForm>
-
-
 
                         </div>
 

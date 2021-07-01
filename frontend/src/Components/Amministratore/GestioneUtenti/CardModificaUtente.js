@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ListGroup, Jumbotron } from 'reactstrap';
+import { Button} from 'reactstrap';
 import { AvForm, AvField } from "availity-reactstrap-validation"
 import Alert from '@material-ui/lab/Alert';
 import Axios from 'axios';
@@ -175,10 +175,6 @@ export default class CardModificaUtente extends Component {
 												type="password"
 												placeholder="***********"
 												validate={{
-													/* required: {
-														value: true,
-														errorMessage: "Il campo è richiesto"
-													}, */
 													minLength: { value: 8, errorMessage: "La password deve contenere almeno 8 caratteri" },
 													isStrong: this.isStrongPassword
 												}}

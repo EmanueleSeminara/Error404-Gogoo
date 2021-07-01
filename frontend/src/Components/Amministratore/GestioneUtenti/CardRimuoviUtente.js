@@ -1,8 +1,6 @@
 import React from 'react';
 
 function CardRimuoviUtente(props) {
-	//funzione rimuovi dal db
-
 	
 	return (
 		<div className="card card-css">
