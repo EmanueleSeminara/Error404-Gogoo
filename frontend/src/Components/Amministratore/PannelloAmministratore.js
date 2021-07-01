@@ -12,6 +12,7 @@ import PrenotazioniEffettuate from "../../images/svgAmministratore/PrenotazioniE
 import RimuoviUtente from "../../images/svgAmministratore/RimuoviUtente.svg"
 import { Button } from "reactstrap";
 import Axios from 'axios';
+import NavbarDipendente from "../../Components/NavbarDipendente";
 
 import Footer from "../Footer";
 
@@ -51,6 +52,7 @@ export default class PannelloAmministratore extends Component {
     render() {
         return (
             <div>
+                 <NavbarDipendente />
                 <div className="row h-100 justify-content-md-center ">
                     <center className="screen">
                         <div className="pannellAdmin " >

@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import { AvForm, AvField } from "availity-reactstrap-validation";
-import { Button, ListGroup, ListGroupItem, Card, Jumbotron, Table, ButtonGroup } from "reactstrap";
-
-
+import { Button } from "reactstrap";
 import CardPrenotazione from "./CardPrenotazione";
-import faker from 'faker';
 import Axios from "axios";
 import NavbarDipendente from "../../../Components/NavbarDipendente"
+import { Alert } from '@material-ui/lab';
 
 export default class PannelloViasualizzaPrenotazioni extends Component {
     state = {
         listReservation: [],
         email: ""
     };
-    
+
     componentDidMount() {
         if (localStorage.getItem("utente") === null) {
             window.location.href = '/'
@@ -39,12 +37,23 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
     onValidSubmit = (event) => {
         console.log("premuto")
         event.preventDefault();
-        Axios.get('/api/admin/reservations?email=' + this.state.email )
+        Axios.get('/api/admin/reservations?email=' + this.state.email)
             .then((res) => {
                 this.setState({ listReservation: res.data })
+                if (res.data.length === 0) {
+                    this.setState({ string: "Il cliente selezionato non ha prenotazioni o non esiste" });
+                    this.setState({ error: true });
+                }
             }).catch((err) => {
-                console.log(err);
-                //window.location.href = '/errorServer'
+                if (err.response.status === 422) {
+                    this.setState({ string: "errore nell'inserimento dei dati" });
+                    this.setState({ error: true });
+                } else if (err.response.status === 503) {
+                    this.setState({ string: "Per il momento non è possibile cercare gli utenti, riprova più tardi" });
+                    this.setState({ error: true });
+                } else {
+                    window.location.href = "/errorServer";
+                }
             })
     };
 
@@ -63,80 +72,49 @@ export default class PannelloViasualizzaPrenotazioni extends Component {
         return (
             <div className="ez sfondo" style={{ height: "100%" }}>
                 <NavbarDipendente />
-             <div className="row h-100 justify-content-md-center boxpannel">
-             <div className="d-flex flex-column pannell-amministratore">
-                  
-             <div className="title">Visualizza Prenotazioni</div>
-                     
-                            <AvForm onValidSubmit={this.onValidSubmit}>
-                                {/* Riga nome e cognome */}
+                <div className="row h-100 justify-content-md-center boxpannel">
+                    <div className="d-flex flex-column pannell-amministratore">
+
+                        <div className="title">Visualizza Prenotazioni</div>
+
+                        <AvForm onValidSubmit={this.onValidSubmit}>
+                            {/* Riga nome e cognome */}
+                            <div className="row">
+                                {/*Riga email */}
                                 <div className="row">
-                                    {/*Riga email */}
-                                    <div className="row">
-                                        
-                                            <AvField
-                                                name="email"
-                                                label="Email"
-                                                type="email"
-                                                onChange={this.handleChange("email")}
-                                                errorMessage="Campo non valido."
-                                                required
-                                            />
-                                        
-                                    </div>
-                                    {/* <div className="col-12 col-md-6">
-                                        <AvField
-                                            name="nome"
-                                            type="text"
-                                            label="Nome"
-                                            onChange={this.handleChange("nome")}
-                                            style={{ label: { color: "white" } }}
-                                            validate={{
-                                                required: {
-                                                    value: true,
-                                                    errorMessage: "Il campo è richiesto",
-                                                },
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                        <AvField
-                                            name="cognome"
-                                            type="text"
-                                            label="Cognome"
-                                            onChange={this.handleChange("cognome")}
-                                            required
-                                            validate={{
-                                                required: {
-                                                    value: true,
-                                                    errorMessage: "Il campo è richiesto.",
-                                                },
-                                            }}
-                                        />
-                                    </div> */}
+
+                                    <AvField
+                                        name="email"
+                                        label="Email"
+                                        type="email"
+                                        onChange={this.handleChange("email")}
+                                        errorMessage="Campo non valido."
+                                        required
+                                    />
                                 </div>
-                                <br />
+                            </div>
+                            <br />
+
                             <center>
-                                <Button className="buttonCyano"  type="submit">
+                                <Button className="buttonCyano" type="submit">
                                     cerca
                                 </Button>
                             </center>
-                            </AvForm>
-                    
-
-
+                        </AvForm>
+                        <br />
+                        {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 
                         {<div>
                             {this.state.listReservation.map(((item) => (
                                 <div className="p-4">
-                                <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
+                                    <CardPrenotazione id={item.id} type={item.type} category={item.category} dateR={item.dateR} dateC={item.dateC} refParkingR={item.refParkingR} refParkingC={item.refParkingC} refDriver={item.refDriver} refVehicle={item.refVehicle} positionC={item.positionC} positionR={item.positionR} remove={this.remove} />
                                 </div>
                             )))}
                         </div>}
 
-                 
+
+                    </div>
                 </div>
-            </div>
             </div>
         );
     }

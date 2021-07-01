@@ -180,7 +180,7 @@ export default class CardSegnalaGuasto extends Component {
                                     </FormGroup>
 
                                     <h6 className="infoCard">
-                                        prezzo per la consegna fuori stallo : 25€
+                                        prezzo per la consegna in ritardo : 25€
                                     </h6>
 
                                     {/* Pulsante Conferma*/}
@@ -193,7 +193,6 @@ export default class CardSegnalaGuasto extends Component {
                                     </Button>
                                 </AvForm>
 
-                                {this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
                             </center>}
                         {(this.state.mostraCambiaLuogo) &&
                             <center>

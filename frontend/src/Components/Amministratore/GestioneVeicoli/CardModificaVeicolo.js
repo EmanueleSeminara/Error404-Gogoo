@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, ListGroup, Jumbotron, Label, Input, Col, ListGroupItem, Row } from 'reactstrap';
-import { AvForm, AvField, AvRadio, AvRadioGroup, } from "availity-reactstrap-validation"
+import { Button, Label, } from 'reactstrap';
+import { AvForm, AvField, } from "availity-reactstrap-validation"
 import Axios from 'axios';
 import Alert from '@material-ui/lab/Alert';
 import "../../../ComponentsCss/CardModificaVeicolo.css"
@@ -48,7 +48,8 @@ export default class CardModificaVeicolo extends Component {
     this.setState({ [input]: e.target.value });
   }
 
-  modify = () => {
+  onValidSubmit = (event) => {
+    event.preventDefault();
     Axios.put('/api/vehicle/updatevehicle', this.state)
       .then((res) => {
         this.setState({ error: false });
@@ -65,12 +66,6 @@ export default class CardModificaVeicolo extends Component {
           window.location.href = "/serverError"
         }
       })
-  }
-
-  onValidSubmit = (event) => {
-    event.preventDefault();
-    this.modify()
-    console.log(this.state);
   };
 
   render() {

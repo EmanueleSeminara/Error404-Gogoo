@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import { AvForm } from "availity-reactstrap-validation";
-import { Button, ListGroup, ListGroupItem, Card, Jumbotron, Table, ButtonGroup } from "reactstrap";
-
+import { Button, ButtonGroup } from "reactstrap";
 import CardModificaVeicolo from "./CardModificaVeicolo";
-import faker from 'faker';
 import Axios from 'axios';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 import NavbarDipendente from "../../../Components/NavbarDipendente"
-
-
-
 
 export default class PannelloModificaVeicolo extends Component {
     state = {
@@ -103,7 +97,7 @@ export default class PannelloModificaVeicolo extends Component {
                                 Bicicletta
                             </Button>
                         </ButtonGroup>
-                        {this.state.listvehicles.length == 0 && <Alert severity="error">Non ci sono veicoli</Alert>}          
+                        {this.state.listvehicles.length === 0 && <Alert severity="error">Non ci sono veicoli</Alert>}          
                             <div className="d-flex flex-row flex-wrap justify-content-center">
 
                                 {this.state.listvehicles.map(((item) => (

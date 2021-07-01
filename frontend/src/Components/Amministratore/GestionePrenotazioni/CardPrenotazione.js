@@ -3,31 +3,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from '@material-ui/lab/Alert';
+import {Button, Label, Col, Input, Row, FormGroup} from 'reactstrap';
+import {AvForm} from "availity-reactstrap-validation";
+import {DateTimePicker,MuiPickersUtilsProvider,} from '@material-ui/pickers';
 import "../../../ComponentsCss/visualizzaPrenotazioni.css"
-
-import {
-	Card, CardImg, CardText, CardBody,
-	CardTitle, CardSubtitle, Button, ListGroupItem, Label, Col, Input, ListGroup, Row, FormGroup, CustomInput, Jumbotron,
-} from 'reactstrap';
-
-import {
-	AvForm,
-	AvGroup,
-	AvRadio,
-	AvRadioGroup,
-	AvField,
-} from "availity-reactstrap-validation";
-
-import {
-	DatePicker,
-	TimePicker,
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
 import Axios from 'axios';
 import * as moment from 'moment';
-
-
 
 
 export default class CardPrenotazione extends Component {
@@ -44,7 +25,6 @@ export default class CardPrenotazione extends Component {
 		positionR: "",
 		positionC: "",
 		modifica: false,
-		errore: false,
 	};
 
 	setting = () => {
@@ -79,11 +59,6 @@ export default class CardPrenotazione extends Component {
 		this.setState({ [input]: e.target.value });
 	}
 
-	onValidSubmit = (event) => {
-		event.preventDefault();
-		console.log(this.state);
-	};
-
 	handleChangeDataArrivo = (date) => {
 		const d = (moment(date).format('YYYY-MM-DD HH:mm'));
 		this.setState({ dateC: d });
@@ -102,9 +77,6 @@ export default class CardPrenotazione extends Component {
 				console.log(err)
 			})
 	}
-
-
-
 
 	render() {
 		return (
@@ -136,7 +108,7 @@ export default class CardPrenotazione extends Component {
 											<p className="infoCard"><strong>Data ritiro:</strong>   {this.state.dateR}</p>
 										</div>
 										<div className="col-md-6">
-											<p className="infoCard"><strong>Autista:</strong> {this.state.refDriver}</p>       {/* TODO ########### */}
+											<p className="infoCard"><strong>Autista:</strong> {this.state.refDriver}</p>     
 											{this.state.refParkingC != null &&
 												<p className="infoCard"><strong>Parcheggio consegna:</strong>   {this.state.refParkingC}</p>
 											}
@@ -231,9 +203,6 @@ export default class CardPrenotazione extends Component {
 									</Button>
 
 								</AvForm>
-
-
-								{this.state.errore && <Alert severity="error">This is an error alert — check it out!</Alert>}
 							</center>}
 					</center>
 				</div>
