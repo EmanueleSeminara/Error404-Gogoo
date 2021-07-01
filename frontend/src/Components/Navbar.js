@@ -1,47 +1,8 @@
-/* import React, { Component } from "react";
-
-import 'bootstrap/dist/js/bootstrap.min.js';
-
-export default class Navbar extends Component {
-
-  render() {
-    return (
-      <nav 
-        className="navbar navbar-expand-sm navbar-dark justify-content-end fixed-top"
-        style={{ backgroundColor: "#39304d" }}
-      >
-        <a
-          className="navbar-brand glacialReg"
-          href="/"
-          style={{ fontSize: "20px" }}
-        >
-          dropcar!
-        </a>
-      </nav>
-    );
-  }
-} */
-
 import React, { Component } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios'
 
-import {
-	Collapse,
-	Navbar,
-	NavbarToggler,
-	NavbarBrand,
-	Nav,
-	NavItem,
-	NavLink,
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-	NavbarText,
-	Button
-} from 'reactstrap';
+import {Navbar,NavbarBrand} from 'reactstrap';
 
 export default class NavbarCliente extends Component {
 

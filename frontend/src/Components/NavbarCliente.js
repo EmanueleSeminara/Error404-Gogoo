@@ -1,23 +1,7 @@
 import React, { Component } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios'
-
-import {
-	Collapse,
-	Navbar,
-	NavbarToggler,
-	NavbarBrand,
-	Nav,
-	NavItem,
-	NavLink,
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-	NavbarText,
-	Button
-} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 export default class NavbarCliente extends Component {
 
@@ -47,7 +31,7 @@ export default class NavbarCliente extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar light expand="md" style={{ backgroundColor: "#39304d", marginBottom: "45px"}} fixed="top" >
+				<Navbar light expand="md" style={{ backgroundColor: "#39304d", marginBottom: "45px" }} fixed="top" >
 					<NavbarBrand href="/" style={{ color: "white" }}>dropcar</NavbarBrand>
 					<NavbarToggler onClick={this.toggle} />
 					<Collapse isOpen={this.state.isOpen} navbar>
@@ -102,7 +86,7 @@ export default class NavbarCliente extends Component {
 								</DropdownMenu>
 							</UncontrolledDropdown>
 							<NavItem><NavLink href='/ricerca' style={{ color: "white", backgroundColor: "transparent", border: "none" }}>Home</NavLink></NavItem>
-							<NavItem style={{ display: "flex", justifyContent: "start", alignItems: "center"}}><button onClick={() => {this.logout()}} style={{ color: "white", backgroundColor: "transparent", border: "none", textAlign: "left", padding: "0"}}>Logout</button></NavItem>
+							<NavItem style={{ display: "flex", justifyContent: "start", alignItems: "center" }}><button onClick={() => { this.logout() }} style={{ color: "white", backgroundColor: "transparent", border: "none", textAlign: "left", padding: "0" }}>Logout</button></NavItem>
 						</Nav>
 					</Collapse>
 				</Navbar>

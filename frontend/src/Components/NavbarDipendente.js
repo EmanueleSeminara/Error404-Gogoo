@@ -1,22 +1,6 @@
 import React, { Component } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
-  Button
-} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import Axios from 'axios';
 
 export default class NavbarDipendente extends Component {
@@ -38,7 +22,7 @@ export default class NavbarDipendente extends Component {
       case "valet":
         this.setState({ home: "/pannelloParcheggiatore" });
         break;
-        default:
+      default:
         this.setState({ home: "#" });
     }
   }
@@ -65,7 +49,7 @@ export default class NavbarDipendente extends Component {
   render() {
     return (
       <div>
-        <Navbar light expand="md" style={{ backgroundColor: "#39304d" }}  fixed="top"Z >
+        <Navbar light expand="md" style={{ backgroundColor: "#39304d" }} fixed="top" Z >
           <NavbarBrand href="/" style={{ color: "white" }}>dropcar</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
