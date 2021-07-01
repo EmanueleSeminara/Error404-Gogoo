@@ -1,44 +1,14 @@
 import React, { Component } from "react";
-import DateFnsUtils from '@date-io/date-fns';
 import "../../../ComponentsCss/Pannel.css";
 import "../../../ComponentsCss/PannelloGestioneAdmin.css"
-import Checkbox from '@material-ui/core/Checkbox';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import NavbarDipendente from "../../../Components/NavbarDipendente"
-
-import {
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
-
-import {
-	ListGroup,
-	ListGroupItem,
-	Button,
-	Input,
-	Jumbotron,
-	FormGroup,
-	Label,
-	Col,
-	Form,
-	ButtonGroup,
-	Row
-} from "reactstrap";
-
-import {
-	AvForm,
-	AvGroup,
-	AvRadio,
-	AvRadioGroup,
-	AvField,
-} from "availity-reactstrap-validation";
+import {Button,Input,Label,ButtonGroup} from "reactstrap";
+import {AvForm} from "availity-reactstrap-validation";
 import Axios from 'axios';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 
 
 export default class PannelloAggiugiVeicolo extends Component {
@@ -73,7 +43,8 @@ export default class PannelloAggiugiVeicolo extends Component {
 		this.setState({ [input]: e.target.value });
 	};
 
-	add = () => {
+	onValidSubmit = (event) => {
+		event.preventDefault();
 		Axios.post('/api/vehicle/add', this.state)
 			.then((res) => {
 				this.setState({ error: false });
@@ -91,14 +62,6 @@ export default class PannelloAggiugiVeicolo extends Component {
 					window.location.href = "/serverError"
 				}
 			})
-	}
-
-
-	onValidSubmit = (event) => {
-		console.log(JSON.parse(localStorage.getItem("utente")));
-		event.preventDefault();
-		this.add();
-		console.log(this.state);
 	};
 
 
@@ -188,6 +151,7 @@ export default class PannelloAggiugiVeicolo extends Component {
 							<Button className="buttonCyano" type="submit"  >
 								aggiungi
 							</Button>
+							
 							{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
 							{this.state.success && <Alert severity="success">Veicolo aggiunto correttamente</Alert>}
 						</div>

@@ -480,18 +480,11 @@ router.put(
 );
 
 // Cambio dell'orario di consegna a seguito di ritardo consegna
-
 router.put(
   "/deliverydelay",
   isGuest,
-  [check("refParkingC").isAlphanumeric("it-IT", { ignore: " " })],
   async (req, res) => {
-    const errors = validationResult(req);
-    console.log(req.body.id, req.body.refParkingC);
-    if (!errors.isEmpty()) {
-      console.log(errors.array());
-      return res.status(422).json({ errors: errors.array() });
-    }
+    
     try {
       const reservation = await reservationManagement.getReservationById(
         req.body.id
@@ -500,22 +493,23 @@ router.put(
       const dateNow = new Date(
         new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
       );
-      console.log(
-        // "CONTROLLO DATE: " + new Date(reservation.dateC),
-        dateNow,
-        new Date(reservation.dateC) <= dateNow
-      );
+      // console.log(
+      //   // "CONTROLLO DATE: " + new Date(reservation.dateC),
+      //   dateNow,
+      //   new Date(reservation.dateC) <= dateNow
+      // );
       if (
         reservation.refGuest == req.user.id &&
         new Date(reservation.dateC) <= dateNow &&
-        reservation.state == "late delivery"
+        reservation.state == "late delivery" &&
+        new Date(req.body.dateC) >= dateNow
       ) {
-        reservation.refParkingC = req.body.refParkingC;
+        reservation.dateC = req.body.dateC;
         reservation.state = "withdrawn";
         console.log("Sei dentro!");
-
-        await reservationManagement.changeDestinationParking(reservation);
-        await reservationManagement.changeStatus(reservation);
+        console.log(reservation.dateC);
+        await reservationManagement.changeDate(reservation);
+        await reservationManagement.changeState(reservation);
         res.status(200).end();
       } else {
         res.status(513).json({

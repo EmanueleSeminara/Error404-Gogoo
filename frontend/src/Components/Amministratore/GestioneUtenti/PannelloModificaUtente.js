@@ -1,44 +1,21 @@
 import React, { Component } from "react";
-import DateFnsUtils from '@date-io/date-fns';
 import "../../../ComponentsCss/Pannel.css";
-
-
-import {
-	ListGroup,
-	ListGroupItem,
-	Button,
-	Input,
-	Jumbotron,
-	FormGroup,
-	Label,
-	Col,
-	Form,
-	ButtonGroup,
-} from "reactstrap";
-
-import {
-	AvForm,
-	AvGroup,
-	AvRadio,
-	AvRadioGroup,
-	AvField,
-} from "availity-reactstrap-validation";
+import { Button, ButtonGroup } from "reactstrap";
+import { AvForm, AvField, } from "availity-reactstrap-validation";
 import CardModificaUtente from "./CardModificaUtente";
-import faker from 'faker';
 import Axios from 'axios';
 import NavbarDipendente from "../../../Components/NavbarDipendente"
+import { Alert } from '@material-ui/lab';
 
-
-const data = new Array(10).fill().map((value, index) => ({ id: index, name: "samu", surname: "marino", email: "samuele.marino@gmail.com", telfono: "3205318452", birthday: 26, password: "Giovanni33" }));
-
-export default class PannelloRimuoviCliente extends Component {
+export default class PannelloModificaUtente extends Component {
 
 	state = {
 		list: [],
 		name: "",
 		surname: "",
 		role: "guest",
-		modifica: false,
+		error: false,
+		string: ""
 	};
 
 	componentDidMount() {
@@ -65,29 +42,29 @@ export default class PannelloRimuoviCliente extends Component {
 		this.setState({ [input]: e.target.value });
 	};
 
-	setModifica = (bool) => {
-		this.setState({ modifica: bool });
-	}
-
-	stampa = (state) => {
-		console.log(state);
-		console.log();
-	};
-
-	search = () => {
+	
+	onValidSubmit = async (event) => {
+		event.preventDefault();
 		Axios.get('/api/admin/listusers?role=' + this.state.role + '&name=' + this.state.name + '&surname=' + this.state.surname)
 			.then((res) => {
 				this.setState({ list: res.data });
+				this.setState({ error: false })
+				if (res.data.length === 0) {
+					this.setState({ string: "Non ci sono utenti con queste credenziali" });
+					this.setState({ error: true })
+				}
 			}).catch((err) => {
-				console.log(err);
+				if (err.response.status === 422) {
+					this.setState({ string: "errore nell'inserimento dei dati" });
+					this.setState({ error: true });
+				}else if (err.response.status === 503) {
+					this.setState({ string: "Per il momento non è possibile cercare gli utenti, riprova più tardi" });
+					this.setState({ error: true });
+				} else{
+					window.location.href = "/errorServer";
+				}
 			})
-	}
-
-	onValidSubmit = async (event) => {
-		event.preventDefault();
-		await this.search();
-		console.log(this.state.list);
-		this.setModifica(true);
+		
 	};
 
 
@@ -98,87 +75,88 @@ export default class PannelloRimuoviCliente extends Component {
 			<div className="ez sfondo" style={{ height: "100%" }}>
 				<NavbarDipendente />
 				<div className="row h-100 justify-content-md-center boxpannel">
-					
+
 					<div className="d-flex flex-column pannell-amministratore ">
 						<div className="title">Modifica dati utente</div>
 						{/*ptipologia veicolo*/}
 						<div className="col-9">
 
-						<center>
+							<center>
 
-						<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
-							<Button className={this.state.role === "guest" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
-							<Button className={this.state.role === "driver" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
-							<Button className={this.state.role === "valet" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
-							<Button className={this.state.role === "admin" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
-						</ButtonGroup>
+								<ButtonGroup style={{ margin: "10px", flexWrap: "wrap" }}>
+									<Button className={this.state.role === "guest" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("guest")} active={this.state.role === "guest"} >Cliente</Button>
+									<Button className={this.state.role === "driver" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("driver")} active={this.state.role === "driver"} >Autista</Button>
+									<Button className={this.state.role === "valet" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("valet")} active={this.state.role === "valet"} >Parcheggiatore</Button>
+									<Button className={this.state.role === "admin" ? "buttonCyanoGruoupSelected" : "buttonCyanoGruoup"} onClick={() => this.setRSelected("admin")} active={this.state.role === "admin"} >Amministratore</Button>
+								</ButtonGroup>
 
-						</center>
-
-
+							</center>
 
 
-						<AvForm onValidSubmit={this.onValidSubmit}>
-							{/* Riga nome e cognome */}
-							<div className="row">
-								<div className="col-12 col-md-6">
-									<AvField
-										name="nome"
-										type="text"
-										label="Nome"
-										onChange={this.handleChange("name")}
-										style={{ label: { color: "white" } }}
 
-										validate={{
-											required: {
-												value: true,
-												errorMessage: "Il campo è richiesto",
-											},
-										}}
-									/>
+
+							<AvForm onValidSubmit={this.onValidSubmit}>
+								{/* Riga nome e cognome */}
+								<div className="row">
+									<div className="col-12 col-md-6">
+										<AvField
+											name="nome"
+											type="text"
+											label="Nome"
+											onChange={this.handleChange("name")}
+											style={{ label: { color: "white" } }}
+
+											validate={{
+												required: {
+													value: true,
+													errorMessage: "Il campo è richiesto",
+												},
+											}}
+										/>
+									</div>
+
+									<div className="col-12 col-md-6">
+										<AvField
+											name="cognome"
+											type="text"
+											label="Cognome"
+											onChange={this.handleChange("surname")}
+											required
+											validate={{
+												required: {
+													value: true,
+													errorMessage: "Il campo è richiesto.",
+												},
+											}}
+										/>
+									</div>
 								</div>
 
-								<div className="col-12 col-md-6">
-									<AvField
-										name="cognome"
-										type="text"
-										label="Cognome"
-										onChange={this.handleChange("surname")}
-										required
-										validate={{
-											required: {
-												value: true,
-												errorMessage: "Il campo è richiesto.",
-											},
-										}}
-									/>
-								</div>
+
+
+
+								<center>
+									<Button className="buttonCyano" type="submit" style={{ padding: "8px", marginBottom: "30px" }} >
+										cerca
+									</Button>
+								</center>
+							</AvForm>
+
+							{this.state.error && <Alert severity="error">{this.state.string}</Alert>}
+
+
+							<div className="d-flex flex-row flex-wrap justify-content-center">
+									<div className="p-3 col-12">
+
+										{this.state.list.map(((item) => (
+											<CardModificaUtente id={item.id} name={item.name} surname={item.surname} email={item.email} phone={item.phone} birthdate={item.birthdate} />
+										)))}
+									</div>
 							</div>
 
 
 
-
-							<center>
-								<Button className="buttonCyano" type="submit" style={{ padding: "8px", marginBottom: "30px" }} >
-									cerca
-								</Button>
-							</center>
-						</AvForm>
-
-
-						<div className="d-flex flex-row flex-wrap justify-content-center">
-							{this.state.modifica &&
-								<div className="p-3 col-12">
-
-									{this.state.list.map(((item) => (
-										<CardModificaUtente id={item.id} name={item.name} surname={item.surname} email={item.email} phone={item.phone} birthdate={item.birthdate} />
-									)))}
-								</div>}
 						</div>
-
-
-
-					</div>
 					</div>
 				</div >
 			</div>

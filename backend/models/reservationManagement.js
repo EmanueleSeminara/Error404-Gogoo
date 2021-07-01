@@ -82,7 +82,7 @@ exports.getReservationById = (idP) => {
           refParkingR: row.refParkingR,
           refParkingC: row.refParkingC,
           refGuest: row.refGuest,
-          state: row.state
+          state: row.state,
         };
         resolve(reservation);
       }
@@ -281,7 +281,6 @@ exports.addReservation = (reservation, userId) => {
             reject(err);
             return;
           }
-          console.log("ROW: " + row);
           resolve(row.id);
         });
       }
@@ -357,7 +356,8 @@ exports.updateVehicleInReservation = (idOldVehicle, idNewVehicle) => {
 
 exports.isInReservations = (idGuest, idReservation) => {
   return new Promise((resolve, reject) => {
-    const sql = "UPDATE reservations SET state='late delivery' WHERE id = ? AND refGuest= ?";
+    const sql =
+      "UPDATE reservations SET state='late delivery' WHERE id = ? AND refGuest= ?";
     db.run(sql, [idReservation, idGuest], function (err, row) {
       if (err) {
         reject(err);
@@ -374,37 +374,37 @@ exports.canTEditReservation = (refVehicle, id) => {
   return new Promise((resolve, reject) => {
     const sql =
       "SELECT id FROM reservations as r WHERE r.refVehicle = ? AND r.id != ?";
-    db.get(
-      sql,
-      [refVehicle, id],
-      (err, row) => {
-
-        if (err) {
-          reject(err);
-        } 
-        resolve(row ? true : false);
+    db.get(sql, [refVehicle, id], (err, row) => {
+      if (err) {
+        reject(err);
       }
-    );
+      resolve(row ? true : false);
+    });
   });
 };
 
 exports.changeDestinationParking = (reservation) => {
   console.log("RESERVATION: " + reservation);
   return new Promise((resolve, reject) => {
-    const sql = "UPDATE reservations SET refParkingC = ? WHERE id = ?";
-    db.run(sql, [reservation.refParkingC, reservation.id], function (err) {
-      if (err) {
-        reject(err);
-        return;
+    const sql =
+      "UPDATE reservations SET refParkingR = ? AND refParkingC = ? WHERE id = ?";
+    db.run(
+      sql,
+      [reservation.refParkingR, reservation.refParkingC, reservation.id],
+      function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        console.log("CAMBIAMENTI " + this.changes);
+        this.changes === 1 ? resolve(true) : resolve(false);
+        //resolve(row);
       }
-      console.log("CAMBIAMENTI " + this.changes);
-      this.changes === 1 ? resolve(true) : resolve(false);
-      //resolve(row);
-    });
+    );
   });
 };
 
-exports.changeStatus = (reservation) => {
+exports.changeState = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE reservations SET state = ? WHERE id = ?";
     db.run(sql, [reservation.state, reservation.id], function (err) {
@@ -416,5 +416,27 @@ exports.changeStatus = (reservation) => {
       this.changes === 1 ? resolve(true) : resolve(false);
       //resolve(row);
     });
+  });
+};
+
+exports.changeDate = (reservation) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "UPDATE reservations SET dateR = ?, dateC= ? WHERE id = ?";
+    db.run(
+      sql,
+      [
+        reservation.dateR,
+        reservation.dateC,
+        reservation.id
+      ],
+      function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(this.changes);
+      }
+    );
   });
 };
