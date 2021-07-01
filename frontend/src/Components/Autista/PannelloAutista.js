@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import React from "react";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import PannelloRitiraConsegnaAutista from "./PannelloRitiraConsegnaAutista";
 import NavbarDipendente from "../NavbarDipendente";
-import PannelloConfermaPrenotazione from './PannelloConfermaPrenotazione';
+import PannelloConfermaPrenotazione from "./PannelloConfermaPrenotazione";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -39,14 +39,13 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `autista-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-   /*  marginTop: 56, */
-    /* width: 500, */
+    width: 500,
   },
 }));
 
@@ -64,9 +63,8 @@ export default function FullWidthTabs() {
   };
 
   return (
-      
     <div className={classes.root}>
-        <NavbarDipendente/>
+      <NavbarDipendente />
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -76,22 +74,21 @@ export default function FullWidthTabs() {
           variant="fullWidth"
           aria-label="full width tabs example"
           centered
-          
         >
           <Tab label="Confermate" {...a11yProps(0)} />
           <Tab label="Da Confermare" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction} >
-          <PannelloRitiraConsegnaAutista/>
+        <TabPanel value={value} index={0} dir={theme.direction}>
+          <PannelloRitiraConsegnaAutista />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction} >
-         <PannelloConfermaPrenotazione/>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <PannelloConfermaPrenotazione />
         </TabPanel>
       </SwipeableViews>
     </div>
