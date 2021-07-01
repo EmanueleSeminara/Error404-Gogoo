@@ -7,6 +7,7 @@ import faker from 'faker';
 import Axios from 'axios';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import NavbarDipendente from "../../../Components/NavbarDipendente"
+import Footer from "../../Footer";
 
 const data = new Array(10).fill().map((value, index) => ({ id: index, type: faker.lorem.words(1), category: faker.lorem.word(2), refParking: faker.lorem.word(2), state: faker.lorem.word(2) }))
 
@@ -124,6 +125,7 @@ export default class PannelloRimuoviVeicolo extends Component {
                         </div>
                     </div>
                 </div>
+                <Footer/>
             </div>
         );
     }
