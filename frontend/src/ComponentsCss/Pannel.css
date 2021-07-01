@@ -16,7 +16,7 @@ label{
   }
 
   .MuiTypography-root{
-    font-size: 18px!important;
+    font-size: 17px!important;
   } 
 
   .boxRicerca{
@@ -30,9 +30,13 @@ label{
     transform-origin: top center!important;
     border-radius: 0!important;
     margin-top:  0!important;
-    padding-left: 40px!important;
-    padding-right: 40px!important;
+    padding-left: 25px!important;
+    padding-right: 25px!important;
+    
     
 }
+.MuiTypography-root{
+  font-size: 13px!important;
+} 
 
 }
