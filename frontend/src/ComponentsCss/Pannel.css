@@ -16,7 +16,7 @@ label{
   }
 
   .MuiTypography-root{
-    font-size: 18px!important;
+    font-size: 17px!important;
   } 
 
   .boxRicerca{
@@ -25,9 +25,18 @@ label{
 }
 
 @media only screen and (max-width: 1100px) {
-  
   .boxRicerca{
-    transform: scale(0.9)!important;
+    transform: scale(1)!important;
     transform-origin: top center!important;
+    border-radius: 0!important;
+    margin-top:  0!important;
+    padding-left: 25px!important;
+    padding-right: 25px!important;
+    
+    
 }
+.MuiTypography-root{
+  font-size: 13px!important;
+} 
+
 }

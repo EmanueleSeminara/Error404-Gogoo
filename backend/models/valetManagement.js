@@ -1,5 +1,6 @@
 const db = require("../db/db");
 
+// Restituisce tutti i veicoli che hanno come parcheggio di consegna quello in cui si trova il parcheggiatore associato all'id passato come parametro
 exports.listVehiclesByDestination = (idParcheggiatore) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -27,6 +28,7 @@ exports.listVehiclesByDestination = (idParcheggiatore) => {
   });
 };
 
+// Restituisce tutti i veicoli che hanno come parcheggio di ritiro quello in cui si trova il parcheggiatore associato all'id passato come parametro
 exports.listVehiclesInParking = (idParcheggiatore) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -50,123 +52,5 @@ exports.listVehiclesInParking = (idParcheggiatore) => {
       }));
       resolve(reservations);
     });
-  });
-};
-
-exports.deliveryVehicle = (reservation) => {
-  console.log(reservation);
-  return new Promise((resolve, reject) => {
-    date = new Date();
-    const dateNow = new Date(
-      new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
-    );
-    console.log("Data e ora attuale: " + dateNow);
-    const sql = "UPDATE vehicles SET state = 'in use' WHERE id = ?";
-    db.run(sql, [reservation.refVehicle], function (err) {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      //resolve(this.lastID);
-      const sql2 = "UPDATE reservations SET state = 'withdrawn' WHERE id = ?";
-      db.run(sql2, [reservation.id], function (err) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(this.lastID);
-      });
-    });
-  });
-};
-
-// exports.deliveryvehicle = (reservation) => {
-//   console.log("SEI DENTRO PIRLA!");
-//   return new Promise((resolve, reject) => {
-//     date = new Date();
-//     const dateNow =
-//       date.getFullYear() +
-//       "-" +
-//       (date.getMonth() + 1) +
-//       "-" +
-//       date.getDate() +
-//       " " +
-//       date.getHours() +
-//       ":" +
-//       date.getMinutes();
-//     console.log("Data e ora attuale: " + dateNow);
-//     const sql =
-//       "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateR<= DATE(?) AND p.refValet = ?)";
-//     db.run(
-//       sql,
-//       [
-//         reservation.refVehicle,
-//         reservation.refVehicle,
-//         dateNow,
-//         reservation.idValet,
-//       ],
-//       function (err) {
-//         if (err) {
-//           reject(err);
-//           return;
-//         }
-//         //resolve(this.lastID);
-//         const sql2 =
-//           "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.dateR<= DATE(?) AND p.refValet = ?)";
-//         db.run(
-//           sql2,
-//           [
-//             reservation.id,
-//             reservation.refVehicle,
-//             dateNow,
-//             reservation.idValet,
-//           ],
-//           function (err) {
-//             if (err) {
-//               reject(err);
-//               return;
-//             }
-//             resolve(this.lastID);
-//           }
-//         );
-//       }
-//     );
-//   });
-// };
-
-exports.retirevehicle = (reservation) => {
-  console.log(
-    "RESERVATION: " + reservation.id,
-    reservation.refVehicle,
-    reservation.idValet
-  );
-  return new Promise((resolve, reject) => {
-    const sql =
-      "UPDATE vehicles SET state = 'available' WHERE id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingC=p.position WHERE r.refVehicle = ? AND r.state = 'withdrawn' AND p.refValet = ?)";
-    db.run(
-      sql,
-      [reservation.refVehicle, reservation.refVehicle, reservation.idValet],
-      function (err) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        // resolve(this.lastID);
-        const sql2 =
-          "DELETE FROM reservations WHERE id = ? AND EXISTS (SELECT 1 FROM reservations AS r JOIN parkings AS p ON r.refParkingR=p.position WHERE r.refVehicle = ? AND r.state = 'withdrawn' AND p.refValet = ?)";
-        db.run(
-          sql2,
-          [reservation.id, reservation.refVehicle, reservation.idValet],
-          function (err) {
-            if (err) {
-              reject(err);
-              return;
-            }
-            resolve(this.lastID);
-          }
-        );
-      }
-    );
   });
 };

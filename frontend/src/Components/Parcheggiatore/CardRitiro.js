@@ -1,21 +1,6 @@
 import React, { Component } from "react";
 import * as moment from "moment";
-import {
-  Button,
-  ListGroup,
-  Jumbotron,
-  Label,
-  Input,
-  Col,
-  ListGroupItem,
-  Row,
-} from "reactstrap";
-import {
-  AvForm,
-  AvField,
-  AvRadio,
-  AvRadioGroup,
-} from "availity-reactstrap-validation";
+import { Button } from "reactstrap";
 
 export default class CardRitira extends Component {
   state = {

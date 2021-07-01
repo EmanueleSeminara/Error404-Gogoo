@@ -30,35 +30,15 @@ router.get("/reservationsnotconfirmed/", isDriver, async (req, res) => {
   }
 });
 
-// Ritiro macchina
-// router.put("/retirecar/", isDriver, async (req, res) => {
-//   console.log("RITIRO: " + req.body.refVehicle, req.body.id);
-//   const reservation = {
-//     refDriver: req.user.id,
-//     refVehicle: req.body.refVehicle,
-//     id: req.body.id,
-//   };
-//   try {
-//     await driverManagement.retireCar(reservation);
-//     res.status(201).end();
-//   } catch (err) {
-//     res.status(503).json({
-//       error: "Database error when requesting unconfirmed reservations - " + err,
-//     });
-//   }
-// });
-
+// Ritiro della macchina dall'autista
 router.put("/retirecar", isDriver, async (req, res) => {
-  console.log(req.body.id, req.body.refVehicle);
   try {
     const reservation = await reservationManagement.getReservationById(
       req.body.id
     );
-    console.log(reservation);
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    console.log(new Date(reservation.dateR) <= dateNow);
     if (
       reservation.refDriver === req.user.id &&
       reservation.refVehicle === req.body.refVehicle &&
@@ -81,39 +61,15 @@ router.put("/retirecar", isDriver, async (req, res) => {
   }
 });
 
-// Consegna macchina
-// router.delete("/cardelivery/", isDriver, async (req, res) => {
-//   console.log("CONSEGNA: " + req.query.refVehicle, req.query.id);
-//   const reservation = {
-//     refDriver: req.user.id,
-//     refVehicle: req.query.refVehicle,
-//     id: req.query.id,
-//   };
-//   try {
-//     await driverManagement.carDelivery(reservation);
-//     res.status(201).end();
-//   } catch (err) {
-//     res.status(503).json({
-//       error: "Database error while canceling the reservation - " + err,
-//     });
-//   }
-// });
-
+// Consegna della macchina dall'autista
 router.delete("/cardelivery", isDriver, async (req, res) => {
   try {
-    console.log(req.query.id, req.user.id, req.query.refVehicle);
     const reservation = await reservationManagement.getReservationById(
       req.query.id
-    );
-    console.log(
-      reservation.refDriver == req.user.id,
-      reservation.refVehicle == req.body.refVehicle,
-      reservation.state == "withdrawn"
     );
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    console.log(reservation);
     if (
       reservation.refDriver == req.user.id &&
       reservation.refVehicle == req.query.refVehicle &&

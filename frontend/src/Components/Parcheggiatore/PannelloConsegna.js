@@ -1,20 +1,9 @@
 import React, { Component } from "react";
-
-import { Jumbotron, Button } from "reactstrap";
-import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
-import faker from "faker";
 import CardConsegna from "./CardConsegna";
 import Axios from "axios";
 import { Alert } from "@material-ui/lab";
 
-const data = new Array(10)
-  .fill()
-  .map((value, index) => ({
-    id: index,
-    type: faker.lorem.words(1),
-    category: faker.lorem.word(1),
-  }));
 
 export default class PannelloConsegna extends Component {
   state = {

@@ -1,6 +1,6 @@
 const db = require("../db/db");
 
-// Restituisce tutte le prenotazioni dell'autista
+// Restituisce tutte le prenotazioni prese in carico dall'autista associa all'id passato come parametro
 exports.myReservation = (id) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -30,6 +30,7 @@ exports.myReservation = (id) => {
   });
 };
 
+// Restituisce tutte le prenotazioni ancora non confermate da nessun autista
 exports.reservationNotConfirmed = () => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -58,101 +59,9 @@ exports.reservationNotConfirmed = () => {
   });
 };
 
-exports.retireCar = (reservation) => {
-  return new Promise((resolve, reject) => {
-    date = new Date();
-    const dateNow =
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1) +
-      "-" +
-      date.getDate() +
-      " " +
-      date.getHours() +
-      ":" +
-      date.getMinutes();
-    console.log("Data e ora attuale: " + dateNow);
-    const sql =
-      "UPDATE vehicles AS v SET state ='in use' WHERE v.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR<= ? AND refDriver = ?)";
-    db.run(
-      sql,
-      [
-        reservation.refVehicle,
-        reservation.refVehicle,
-        dateNow,
-        reservation.refDriver,
-      ],
-      function (err) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        //resolve(this.lastID);
-        const sql2 =
-          "UPDATE reservations AS r SET state = 'withdrawn' WHERE r.id = ? AND EXISTS ( SELECT 1 FROM reservations AS r WHERE refVehicle = ? AND dateR<= ? AND refDriver = ?)";
-        db.run(
-          sql2,
-          [
-            reservation.id,
-            reservation.refVehicle,
-            dateNow,
-            reservation.refDriver,
-          ],
-          function (err) {
-            if (err) {
-              reject(err);
-              return;
-            }
-            resolve(this.lastID);
-          }
-        );
-      }
-    );
-  });
-};
-
-exports.carDelivery = (reservation) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      "UPDATE vehicles SET state ='available' WHERE id = ? AND EXISTS ( SELECT 1 FROM reservations WHERE refVehicle = ? AND state = 'withdrawn' AND refDriver = ?)";
-    db.run(
-      sql,
-      [
-        reservation.refVehicle,
-        reservation.refVehicle,
-        reservation.refDriver
-      ],
-      function (err) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        //resolve(this.lastID);
-        const sql2 =
-          "DELETE FROM reservations WHERE id = ? AND EXISTS ( SELECT 1 FROM reservations WHERE refVehicle = ? AND state = 'withdrawn' AND refDriver = ?)";
-        db.run(
-          sql2,
-          [
-            reservation.id,
-            reservation.refVehicle,
-            reservation.refDriver
-          ],
-          function (err) {
-            if (err) {
-              reject(err);
-              return;
-            }
-            resolve(this.lastID);
-          }
-        );
-      }
-    );
-  });
-};
-
-// Conferma la prenotazione
+// Conferma la prenotazione associata ad idReservation e inserisce idDriver come autista alla stessa
 exports.confirmationOfReservation = (idDriver, idReservation) => {
-  console.log("PRENOTAZIONE DA CONFERMARE: " + idDriver, idReservation)
+  console.log("PRENOTAZIONE DA CONFERMARE: " + idDriver, idReservation);
   return new Promise((resolve, reject) => {
     const sql =
       "UPDATE reservations SET refDriver = ?, state = 'confirmed' WHERE state = 'not confirmed' AND id = ?";
@@ -166,7 +75,7 @@ exports.confirmationOfReservation = (idDriver, idReservation) => {
   });
 };
 
-
+// Restituisce il cliente associato alla prenotazione corrispondente all'id passato come parametro
 exports.getUserByReservation = (id) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -178,8 +87,8 @@ exports.getUserByReservation = (id) => {
       }
       const user = {
         email: row.email,
-        name: row.name
-      }
+        name: row.name,
+      };
       resolve(user);
     });
   });

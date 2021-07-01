@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-
-import { Jumbotron, Button } from "reactstrap";
-import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../ComponentsCss/Pannel.css";
 import CardRitiro from "./CardRitiro";
 import Axios from "axios";

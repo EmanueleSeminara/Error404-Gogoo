@@ -1,5 +1,6 @@
 const db = require("../db/db");
 
+// Elimina la prenotazione associata all'id passto come parametro
 exports.deleteReservationById = (id) => {
   return new Promise((resolve, reject) => {
     const sql = "DELETE FROM reservations WHERE id = ?";
@@ -12,58 +13,7 @@ exports.deleteReservationById = (id) => {
   });
 };
 
-//  5.2 PRENOTAZIONI EFFETTUATE: (ADMIN)
-
-// get elenco prenotazioni by name, surname, type, date in questo formato '2021-06-19 00:00'-'2021-06-19 23:59'
-
-exports.listReservations = (name, surname, type, dateS, dateE) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      "SELECT users.name, users.surname, reservations.id, reservations.dateR, reservations.dateC FROM users JOIN reservations ON users.id = reservations.refGuest JOIN vehicles ON reservations.refVehicles = vehicles.id WHERE vehicles.type = ? AND users.name = ? AND users.surname= ? AND ((dateR >= ? AND dateR <= ?) OR (dateC >= ? AND dateC <= ?))";
-    db.all(
-      sql,
-      [type, name, surname, dateS, dateE, dateS, dateE],
-      (err, rows) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        const res = rows.map((r) => ({
-          name: r.name,
-          surname: r.surname,
-          id: r.id,
-          dateR: r.dateR,
-          dateC: r.dateC,
-        }));
-        resolve(res);
-      }
-    );
-  });
-};
-
-exports.listReservations = (idV) => {
-  return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM reservations WHERE refVehicle = ?";
-    db.all(sql, [idV], (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      const res = rows.map((r) => ({
-        id: r.id,
-        refGuest: r.refGuest,
-        dateR: r.dateR,
-        dateC: r.dateC,
-      }));
-      resolve(res);
-    });
-  });
-};
-
-//  5.3 MODIFICA PRENOTAZIONE:
-
-// get dati prenotazione by id
-
+// Restituisce la prenotazione associata all'id passato come parametro
 exports.getReservationById = (idP) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -95,22 +45,7 @@ exports.getReservationById = (idP) => {
   });
 };
 
-exports.retireVehicle = (id) => {
-  return new Promise((resolve, reject) => {
-    const sql = 'UPDATE vehicles SET state = "in use" WHERE id = ?';
-    db.run(sql, [id], function (err) {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(this.lastID);
-    });
-  });
-};
-
-// verifica possibilità di modifica ed eventualmente modifica
-
-// update an existing reservation
+// Aggiorna la prenotazione corrispondente con le nuove informazioni passate come parametro
 exports.updateReservation = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -137,9 +72,7 @@ exports.updateReservation = (reservation) => {
   });
 };
 
-//  5.4 VISUALIZZA MIE PRENOTAZIONI: (GUEST)
-
-// get reservations by userId
+// Restituisce tutte le prenotazioni associate al cliente con id passato come parametro
 exports.getMyReservations = (userId) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -168,6 +101,7 @@ exports.getMyReservations = (userId) => {
   });
 };
 
+// Restituisce tutte le prenotazioni non ritirare dall'utente con id passato come parametro
 exports.getMyReservationsNotWithdrawn = (userId) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -196,19 +130,7 @@ exports.getMyReservationsNotWithdrawn = (userId) => {
   });
 };
 
-exports.deliveryVehicle = (id) => {
-  return new Promise((resolve, reject) => {
-    const sql = 'UPDATE vehicles SET state = "available" WHERE id = ?';
-    db.run(sql, [id], function (err) {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(this.lastID);
-    });
-  });
-};
-
+// Imposta lo stato del veicolo associato all'id passato come parametro a danneggiato e inserisce la posizione in cui è stato lasciato dal cliente
 exports.damagedVehicle = (id, posizione) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -223,41 +145,7 @@ exports.damagedVehicle = (id, posizione) => {
   });
 };
 
-exports.getVehicleWithoutReservation = (type, category, position) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      'SELECT * FROM vehicles WHERE type = ? AND category = ? AND position = ? AND state = "available" AND id NOT IN(SELECT refVehicles FROM reservations)';
-    db.all(sql, [type, category, position], (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      if (row == undefined) {
-        resolve({ error: "Vehicle not found." });
-      } else {
-        const vehicles = rows.map({
-          id: vehicles.id,
-          position: vehicles.position,
-        });
-        resolve(v);
-      }
-    });
-  });
-};
-
-exports.updateVehicleInReservations = (idV, newIdV) => {
-  return new Promise((resolve, reject) => {
-    const sql = "UPDATE reservations SET refVehicles = ? WHERE refVehicles = ?";
-    db.run(sql, [newIdV, idV], function (err) {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(this.lastID); //dovrei capire a che cazzo serve
-    });
-  });
-};
-
+// Aggiunge una nuova prenotazione al cliente associato all'id passato come parametro
 exports.addReservation = (reservation, userId) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -293,19 +181,7 @@ exports.addReservation = (reservation, userId) => {
   });
 };
 
-exports.retireVehicle = (id) => {
-  return new Promise((resolve, reject) => {
-    const sql = "UPDATE vehicles SET state = 'in use' WHERE id = ?";
-    db.run(sql, [id], function (err) {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(this.lastID);
-    });
-  });
-};
-
+// Aggiunge una nuova prenotazione con autista con stato non confermato poichè in attesa di presa in carica da parte di un autista
 exports.addReservationWithDriver = (reservation, userId) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -333,19 +209,7 @@ exports.addReservationWithDriver = (reservation, userId) => {
   });
 };
 
-exports.retireVehicle = (id) => {
-  return new Promise((resolve, reject) => {
-    const sql = "UPDATE vehicles SET state = 'in use' WHERE id = ?";
-    db.run(sql, [id], function (err) {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(this.lastID);
-    });
-  });
-};
-
+// Modifica il veicolo associato alla prenotazione a tutte le prenotazioni che contengono idOldVehcile
 exports.updateVehicleInReservation = (idOldVehicle, idNewVehicle) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE reservations SET refVehicle = ? WHERE refVehicle = ?";
@@ -359,6 +223,7 @@ exports.updateVehicleInReservation = (idOldVehicle, idNewVehicle) => {
   });
 };
 
+// Modifica lo stato della prenotazione a ritardo consegna e restituisce true se esiste la prenotazione, false altrimenti
 exports.isInReservations = (idGuest, idReservation) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -368,13 +233,12 @@ exports.isInReservations = (idGuest, idReservation) => {
         reject(err);
         return;
       }
-      console.log("CAMBIAMENTI " + this.changes);
       this.changes === 1 ? resolve(true) : resolve(false);
-      //resolve(row);
     });
   });
 };
 
+// Restituisce true se non è possibile modificare la prenotazion, false altrimenti
 exports.canTEditReservation = (refVehicle, id) => {
   return new Promise((resolve, reject) => {
     const sql =
@@ -388,8 +252,8 @@ exports.canTEditReservation = (refVehicle, id) => {
   });
 };
 
-exports.changeDestinationParking = (reservation) => {
-  console.log("RESERVATION: " + reservation);
+// Modifica i parcheggi di partenza e destinazione alla prenotazione
+exports.changeParking = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql =
       "UPDATE reservations SET refParkingR = ? AND refParkingC = ? WHERE id = ?";
@@ -401,14 +265,13 @@ exports.changeDestinationParking = (reservation) => {
           reject(err);
           return;
         }
-        console.log("CAMBIAMENTI " + this.changes);
         this.changes === 1 ? resolve(true) : resolve(false);
-        //resolve(row);
       }
     );
   });
 };
 
+// Modifica lo stato della prenotazione corrispondente all'id passato come parametro
 exports.changeState = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE reservations SET state = ? WHERE id = ?";
@@ -417,13 +280,12 @@ exports.changeState = (reservation) => {
         reject(err);
         return;
       }
-      console.log("CAMBIAMENTI " + this.changes);
       this.changes === 1 ? resolve(true) : resolve(false);
-      //resolve(row);
     });
   });
 };
 
+// Modifica la data di ritiro e consegna alla prenotazioen con id passto come parametro
 exports.changeDate = (reservation) => {
   return new Promise((resolve, reject) => {
     const sql = "UPDATE reservations SET dateR = ?, dateC= ? WHERE id = ?";
@@ -438,5 +300,22 @@ exports.changeDate = (reservation) => {
         resolve(this.changes);
       }
     );
+  });
+};
+
+exports.getConfirmedReservations = () => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM reservations  WHERE state = 'confirmed'";
+    db.all(sql, [userId], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const reservations = rows.map((r) => ({
+        id: r.id,
+        dateC: r.dateC,
+      }));
+      resolve(reservations);
+    });
   });
 };

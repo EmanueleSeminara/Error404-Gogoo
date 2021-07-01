@@ -1,18 +1,19 @@
 "use strict";
-// Imported modules
+// Moduli importati
 const express = require("express");
 const morgan = require("morgan");
 const passport = require("passport");
 const session = require("express-session");
 require("dotenv").config({ path: "./.env" });
 
-const initializePassport = require('./models/passport-config');
+const initializePassport = require("./models/passport-config");
 initializePassport(passport);
-
 
 const BASEURL = "/api";
 
-// Imported routes
+const reservationManagement = require("./models/reservationManagement");
+
+// Routes importate
 const usersRoutes = require("./routes/user");
 const adminsRoutes = require("./routes/admin");
 const guestsRoutes = require("./routes/guest");
@@ -22,7 +23,6 @@ const reservationRoutes = require("./routes/reservation");
 const driverRoutes = require("./routes/driver");
 const valetRoutes = require("./routes/valet");
 
-
 // init express
 const app = express();
 const port = 3001;
@@ -31,24 +31,19 @@ const port = 3001;
 app.use(morgan("dev"));
 app.use(express.json());
 
-
 app.use(
   session({
-      // by default, Passport uses a MemoryStore to keep track of the sessions
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: false,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
   })
 );
 
-// then, init passport
+// init passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 // Routes
-
 app.use(BASEURL + "/user/", usersRoutes);
 app.use(BASEURL + "/admin/", adminsRoutes);
 app.use(BASEURL + "/guest/", guestsRoutes);
@@ -57,8 +52,6 @@ app.use(BASEURL + "/search/", searchRoutes);
 app.use(BASEURL + "/reservation/", reservationRoutes);
 app.use(BASEURL + "/driver/", driverRoutes);
 app.use(BASEURL + "/valet/", valetRoutes);
-
-
 
 app.get("/", (req, res) => {
   res.send("CIAO");
@@ -71,7 +64,6 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
@@ -80,4 +72,21 @@ app.use(function (err, req, res, next) {
 });
 
 // Active the server//
-app.listen(port, () => console.log('App listening on port ' + port));
+app.listen(port, () => {
+  console.log("App listening on port " + port);
+  setInterval(() => {
+    console.log("Deleting expired reservations...");
+    const dateNow = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
+    );
+    const reservations = reservationManagement.getConfirmedReservations();
+    reservations.forEach((reservation) => {
+      if (
+        new Date(new Date(reservation.dateC).getTime() + 86400000) < dateNow
+      ) {
+        reservationManagement.deleteReservationById(reservation.id);
+      }
+    });
+    console.log("Expired reservations deleted!");
+  }, 86400000);
+});

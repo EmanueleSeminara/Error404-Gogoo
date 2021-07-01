@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Jumbotron, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
 import Axios from "axios";
-import { Alert, AlertTitle } from "@material-ui/lab";
+import { Alert} from "@material-ui/lab";
 import NavbarCliente from "../../NavbarCliente";
 
 export default class PannelloModifcaDati extends Component {

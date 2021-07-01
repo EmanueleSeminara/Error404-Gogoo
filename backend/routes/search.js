@@ -8,29 +8,7 @@ const vehicleManagement = require("../models/vehicleManagement");
 
 const isGuest = require("../middleware/isGuest");
 
-// router.post("/searchvehicles/", isGuest, async (req, res) => {
-//   try {
-//     console.log(
-//       "DATI DI REQ: " + req.body.type,
-//       req.body.dateR,
-//       req.body.dateC,
-//       req.body.refParkingR
-//     );
-//     res.json(
-//       await searchManagement.searchVehicles(
-//         req.body.type,
-//         req.body.dateR,
-//         req.body.dateC,
-//         req.body.refParkingR
-//       )
-//     );
-//   } catch (err) {
-//     res.status(503).json({
-//       error: "Database error during the creation of user - " + err,
-//     });
-//   }
-// });
-
+// Ricerca i veicoli disponibili per una prenotazione in base ai valori inseriti
 router.post("/searchvehicles/", isGuest, async (req, res) => {
   try {
     console.log(
@@ -76,6 +54,7 @@ router.post("/searchvehicles/", isGuest, async (req, res) => {
   }
 });
 
+// Verifica la presenza di un autista disponibile e restituisce i veicoli che possono essere prenotati con autista
 router.post("/searchcarwithdriver", isGuest, async (req, res) => {
   try {
     if (await searchManagement.searchDrivers(req.body.dateR, req.body.dateC)) {
@@ -93,6 +72,7 @@ router.post("/searchcarwithdriver", isGuest, async (req, res) => {
   }
 });
 
+// Ricerca tra i veicoli fuori stallo
 router.get("/vehiclesoutofstall/", isGuest, async (req, res) => {
   try {
     vehiclesOutOfStall = await searchManagement.searchVehiclesOutOfStall(
