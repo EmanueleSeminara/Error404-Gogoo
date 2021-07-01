@@ -1,20 +1,5 @@
 import React, { Component } from "react";
-import {
-  Button,
-  ListGroup,
-  Jumbotron,
-  Label,
-  Input,
-  Col,
-  ListGroupItem,
-  Row,
-} from "reactstrap";
-import {
-  AvForm,
-  AvField,
-  AvRadio,
-  AvRadioGroup,
-} from "availity-reactstrap-validation";
+import { Button } from "reactstrap";
 import * as moment from "moment";
 import Axios from "axios";
 

@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "../src/pages/Login";

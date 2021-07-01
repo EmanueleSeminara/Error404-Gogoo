@@ -1,20 +1,5 @@
 import React, { Component } from "react";
-import {
-  Button,
-  ListGroup,
-  Jumbotron,
-  Label,
-  Input,
-  Col,
-  ListGroupItem,
-  Row,
-} from "reactstrap";
-import {
-  AvForm,
-  AvField,
-  AvRadio,
-  AvRadioGroup,
-} from "availity-reactstrap-validation";
+import { Button } from "reactstrap";
 
 export default class CardConsegna extends Component {
   state = {
