@@ -51,16 +51,15 @@ router.get("/reservationsnotconfirmed/", isDriver, async (req, res) => {
 router.put("/retirecar", isDriver, async (req, res) => {
   try {
     const reservation =
-      await reservationManagement.getReservationByIdAndRefDriver(
-        req.body.id,
-        req.user.id
+      await reservationManagement.getReservationById(
+        req.body.id
       );
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    if (reservation && new Date(reservation.dateR) <= dateNow) {
+    if (reservation.refDriver === req.user.id && reservation.refVehicle === req.body.refVehicle && new Date(reservation.dateR) <= dateNow) {
       reservation.state = "withdrawn";
-      await vehicleManagement.updateState("in use", reservation.refVehicle);
+      await vehicleManagement.updateState(reservation.refVehicle, "in use");
       await reservationManagement.changeState(reservation);
       res.status(200).end();
     } else {
@@ -96,15 +95,16 @@ router.put("/retirecar", isDriver, async (req, res) => {
 
 router.delete("/cardelivery", isDriver, async (req, res) => {
   try {
+    console.log(req.query.id, req.user.id);
     const reservation =
-      await reservationManagement.getReservationByIdAndRefDriver(
-        req.body.id,
-        req.user.id
+      await reservationManagement.getReservationById(
+        req.query.id
       );
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    if (reservation.state === "withdrawn") {
+    console.log(reservation)
+    if (reservation.refDriver === req.user.id && reservation.refVehicle === req.body.refVehicle && reservation.state == "withdrawn") {
       await vehicleManagement.updateState("available", reservation.refVehicle);
       await reservationManagement.deleteReservationById(reservation.id);
       res.status(200).end();

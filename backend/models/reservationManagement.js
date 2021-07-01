@@ -66,7 +66,7 @@ exports.listReservations = (idV) => {
 
 exports.getReservationById = (idP) => {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM reservations WHERE id=?";
+    const sql = "SELECT r.id, r.dateR, r.dateC, r.refParkingR, r.refParkingC, r.refGuest, r.refVehicle, r.state, pr.refValet AS refValetR, pc.refValet AS refValetC  FROM (reservations AS r JOIN parkings AS pr ON pr.position = r.refParkingR )JOIN parkings AS pc ON pc.position = r.refParkingC WHERE r.id = ?";
     db.get(sql, [idP], (err, row) => {
       if (err) {
         reject(err);
@@ -82,7 +82,10 @@ exports.getReservationById = (idP) => {
           refParkingR: row.refParkingR,
           refParkingC: row.refParkingC,
           refGuest: row.refGuest,
+          refVehicle: row.refVehicle,
           state: row.state,
+          refValetR: row.refValetR,
+          refValetC: row.refValetC
         };
         resolve(reservation);
       }
@@ -438,31 +441,5 @@ exports.changeDate = (reservation) => {
         resolve(this.changes);
       }
     );
-  });
-};
-
-exports.getReservationByIdAndRefDriver = (id, refDriver) => {
-  return new Promise((resolve, reject) => {
-    const sql = "SELECT * FROM reservations WHERE id=? AND refDriver = ?";
-    db.get(sql, [id, refDriver], (err, row) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      if (row == undefined) {
-        resolve({ error: "Reservation not found." });
-      } else {
-        const reservation = {
-          id: row.id,
-          dateR: row.dateR,
-          dateC: row.dateC,
-          refParkingR: row.refParkingR,
-          refParkingC: row.refParkingC,
-          refGuest: row.refGuest,
-          state: row.state,
-        };
-        resolve(reservation);
-      }
-    });
   });
 };

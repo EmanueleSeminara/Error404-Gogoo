@@ -243,91 +243,91 @@ router.post(
   }
 );
 
-router.put("/retirevehicle", isGuest, async (req, res) => {
-  const reservation = {
-    refGuest: req.user.id,
-    refVehicle: req.body.refVehicle,
-    id: req.body.id,
-    dateC: req.body.dateC,
-  };
-  try {
-    await guestManagement.retireVehicle(reservation);
-    const deliveryDate = new Date(reservation.dateC).getTime();
-    const nowDate = new Date(
-      new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
-    ).getTime();
-    const timerDatetime = deliveryDate - nowDate;
-    console.log(
-      "DATA TIMER CALCOLATA: " +
-        new Date(timerDatetime) +
-        "DATA IN MILLI: " +
-        timerDatetime
-    );
-    // Scadenza orario di consegna
-    setTimeout(async () => {
-      try {
-        const isInReservations = await reservationManagement.isInReservations(
-          req.user.id,
-          reservation.id
-        );
-        console.log("isInReservation: " + isInReservations);
-        if (isInReservations) {
-          mail.sendExpiredDeliveryMail(
-            req.user.email,
-            req.user.name,
-            reservation.id
-          );
-          const admins = await userManagement.getAllAdmins();
-          admins.forEach((admin) => {
-            mail.sendExpiredDeliveryMail(admin.email, "Admin", reservation.id);
-          });
-          console.log("MANDA EMAIL!!");
-        }
-      } catch (err) {
-        console.log(err);
-      }
+// router.put("/retirevehicle", isGuest, async (req, res) => {
+//   const reservation = {
+//     refGuest: req.user.id,
+//     refVehicle: req.body.refVehicle,
+//     id: req.body.id,
+//     dateC: req.body.dateC,
+//   };
+//   try {
+//     await guestManagement.retireVehicle(reservation);
+//     const deliveryDate = new Date(reservation.dateC).getTime();
+//     const nowDate = new Date(
+//       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
+//     ).getTime();
+//     const timerDatetime = deliveryDate - nowDate;
+//     console.log(
+//       "DATA TIMER CALCOLATA: " +
+//         new Date(timerDatetime) +
+//         "DATA IN MILLI: " +
+//         timerDatetime
+//     );
+//     // Scadenza orario di consegna
+//     setTimeout(async () => {
+//       try {
+//         const isInReservations = await reservationManagement.isInReservations(
+//           req.user.id,
+//           reservation.id
+//         );
+//         console.log("isInReservation: " + isInReservations);
+//         if (isInReservations) {
+//           mail.sendExpiredDeliveryMail(
+//             req.user.email,
+//             req.user.name,
+//             reservation.id
+//           );
+//           const admins = await userManagement.getAllAdmins();
+//           admins.forEach((admin) => {
+//             mail.sendExpiredDeliveryMail(admin.email, "Admin", reservation.id);
+//           });
+//           console.log("MANDA EMAIL!!");
+//         }
+//       } catch (err) {
+//         console.log(err);
+//       }
 
-      //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-    }, timerDatetime);
+//       //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
+//     }, timerDatetime);
 
-    // Mancata consegna
-    setTimeout(async () => {
-      try {
-        const isInReservations = await reservationManagement.isInReservations(
-          req.user.id,
-          reservation.id
-        );
-        console.log("isInReservation: " + isInReservations);
-        if (isInReservations) {
-          mail.sendDeliveryFailureyMail(
-            req.user.email,
-            req.user.name,
-            reservation.id
-          );
-          const admins = await userManagement.getAllAdmins();
-          admins.forEach((admin) => {
-            mail.sendDeliveryFailureyMailAdmin(
-              admin.email,
-              req.user.name,
-              reservation.id,
-              req.user.email
-            );
-          });
-          console.log("MANDA EMAIL!!");
-        }
-      } catch (err) {
-        console.log(err);
-      }
+//     // Mancata consegna
+//     setTimeout(async () => {
+//       try {
+//         const isInReservations = await reservationManagement.isInReservations(
+//           req.user.id,
+//           reservation.id
+//         );
+//         console.log("isInReservation: " + isInReservations);
+//         if (isInReservations) {
+//           mail.sendDeliveryFailureyMail(
+//             req.user.email,
+//             req.user.name,
+//             reservation.id
+//           );
+//           const admins = await userManagement.getAllAdmins();
+//           admins.forEach((admin) => {
+//             mail.sendDeliveryFailureyMailAdmin(
+//               admin.email,
+//               req.user.name,
+//               reservation.id,
+//               req.user.email
+//             );
+//           });
+//           console.log("MANDA EMAIL!!");
+//         }
+//       } catch (err) {
+//         console.log(err);
+//       }
 
-      //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
-    }, timerDatetime + 14400000);
-    res.status(201).end();
-  } catch (err) {
-    res.status(503).json({
-      error: "Database error when requesting vehicle collection - " + err,
-    });
-  }
-});
+//       //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
+//     }, timerDatetime + 14400000);
+//     res.status(201).end();
+//   } catch (err) {
+//     res.status(503).json({
+//       error: "Database error when requesting vehicle collection - " + err,
+//     });
+//   }
+// });
 
 router.put(
   "/damagedvehicle",
@@ -518,5 +518,139 @@ router.put(
     }
   }
 );
+
+
+
+
+
+
+
+
+
+
+router.put("/retirevehicle", isGuest, async (req, res) => {
+  try {
+    const reservation =
+      await reservationManagement.getReservationById(
+        req.body.id
+      );
+    const dateNow = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
+    );
+    if (reservation.refVehicle === req.body.refVehicle && reservation.refGuest === req.user.id && new Date(reservation.dateR) <= dateNow) {
+      reservation.state = "withdrawn";
+      await vehicleManagement.updateState(reservation.refVehicle, "in use");
+      await reservationManagement.changeState(reservation);
+      const deliveryDate = new Date(reservation.dateC).getTime();
+    const nowDate = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
+    ).getTime();
+    const timerDatetime = deliveryDate - nowDate;
+    console.log(
+      "DATA TIMER CALCOLATA: " +
+        new Date(timerDatetime) +
+        "DATA IN MILLI: " +
+        timerDatetime
+    );
+    // Scadenza orario di consegna
+    setTimeout(async () => {
+      try {
+        const isInReservations = await reservationManagement.isInReservations(
+          req.user.id,
+          reservation.id
+        );
+        console.log("isInReservation: " + isInReservations);
+        if (isInReservations) {
+          mail.sendExpiredDeliveryMail(
+            req.user.email,
+            req.user.name,
+            reservation.id
+          );
+          const admins = await userManagement.getAllAdmins();
+          admins.forEach((admin) => {
+            mail.sendExpiredDeliveryMail(admin.email, "Admin", reservation.id);
+          });
+          console.log("MANDA EMAIL!!");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+      //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
+    }, timerDatetime);
+
+    // Mancata consegna
+    setTimeout(async () => {
+      try {
+        const isInReservations = await reservationManagement.isInReservations(
+          req.user.id,
+          reservation.id
+        );
+        console.log("isInReservation: " + isInReservations);
+        if (isInReservations) {
+          mail.sendDeliveryFailureyMail(
+            req.user.email,
+            req.user.name,
+            reservation.id
+          );
+          const admins = await userManagement.getAllAdmins();
+          admins.forEach((admin) => {
+            mail.sendDeliveryFailureyMailAdmin(
+              admin.email,
+              req.user.name,
+              reservation.id,
+              req.user.email
+            );
+          });
+          console.log("MANDA EMAIL!!");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+      //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
+    }, timerDatetime + 14400000);
+      res.status(200).end();
+    } else {
+      res.status(513).json({
+        error: "Unable to collect the vehicle",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(503).json({
+      error: "Database error while collecting the vehicle - " + err,
+    });
+  }
+});
+
+
+router.delete("/deliveryvehicle", isGuest, async (req, res) => {
+  try {
+    console.log(req.query.id, req.user.id);
+    const reservation =
+      await reservationManagement.getReservationById(
+        req.query.id,
+      );
+    const dateNow = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
+    );
+    console.log(reservation)
+    if (reservation.refVehicle === req.query.refVehicle && reservation.refGuest === req.user.id && reservation.state == "withdrawn") {
+      await vehicleManagement.updateState("available", reservation.refVehicle);
+      await reservationManagement.deleteReservationById(reservation.id);
+      res.status(200).end();
+    } else {
+      res.status(513).json({
+        error: "Unable to delivery the vehicle",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(503).json({
+      error: "Database error while delivering the vehicle - " + err,
+    });
+  }
+});
 
 module.exports = router;

@@ -95,7 +95,6 @@ exports.getSimilarVehicle = (refParking, type, category) => {
 };
 
 exports.updateState = (id, state) => {
-  console.log(vehicle);
   return new Promise((resolve, reject) => {
     const sql = "UPDATE vehicles SET state = ? WHERE id = ?";
     db.run(sql, [state, id], function (err) {
@@ -104,6 +103,19 @@ exports.updateState = (id, state) => {
         return;
       }
       resolve(this.changes);
+    });
+  });
+};
+
+exports.getVehiclesAndReservation = (type) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT v.id, v.type, v.category, r.id AS idReservation, r.dateR, r.dateC FROM vehicles AS v LEFT JOIN reservations AS r ON v.id=r.refVehicle WHERE v.type = ? AND v.state != 'damage' AND refParking != 'NULL'";
+    db.all(sql, [type], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(rows);
     });
   });
 };
