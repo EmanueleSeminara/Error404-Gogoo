@@ -17,8 +17,6 @@ function CardPagamento(props) {
 				</div>
 			</center>
 		</div>
-
-
 	);
 };
 
