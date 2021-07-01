@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-import { Jumbotron, Button, Form, FormGroup, Label, Input, } from "reactstrap";
+import { Button} from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
 import Axios from 'axios';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 import NavbarCliente from "../../NavbarCliente";
 
-export default class Registrazione extends Component {
+export default class PannelloInserimentoCarta extends Component {
 
 	state = {
 		name: "",
@@ -39,10 +39,6 @@ export default class Registrazione extends Component {
 		this.setState({ [input]: e.target.value });
 	};
 
-	stampa = () => {
-		console.log(this.state);
-	}
-
 	addpaymentmethod = () => {
 		Axios.post('/api/guest/addpaymentmethod', this.state)
 			.then((res) => {
@@ -50,13 +46,13 @@ export default class Registrazione extends Component {
 				this.setState({ success: true });
 			}).catch((err) => {
 				if (err.response.status === 513) {
-					this.setState({ string: "hai già inserito una patente" });
+					this.setState({ string: "hai già inserito questo metodo fi pagamento" });
 					this.setState({ error: true });
 				} else if (err.response.status === 422) {
 					this.setState({ string: "errore nell'inserimento dei dati" });
 					this.setState({ error: true });
 				} else if (err.response.status === 503) {
-					this.setState({ string: "impossibile inserie la patente al momento, riprova più tardi" });
+					this.setState({ string: "impossibile inserie il metodo di pagamento al momento, riprova più tardi" });
 					this.setState({ error: true });
 				} else {
 					window.location.href = "/serverError"
@@ -67,7 +63,6 @@ export default class Registrazione extends Component {
 	onValidSubmit = (event) => {
 		event.preventDefault();
 		this.addpaymentmethod();
-		console.log(this.state);
 	};
 
 

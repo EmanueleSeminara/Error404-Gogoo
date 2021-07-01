@@ -2,8 +2,6 @@ import React from 'react';
 
 
 function CardEliminaCarta(props) {
-	//funzione rimuovi dal db
-
 
 	return (
 		<div className="card ">

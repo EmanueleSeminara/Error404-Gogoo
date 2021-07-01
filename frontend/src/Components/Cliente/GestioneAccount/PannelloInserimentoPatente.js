@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-
-import { Jumbotron, Button, Form, FormGroup, Label, Input, } from "reactstrap";
+import { Button, Form, FormGroup, Label } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
-import "../../../ComponentsCss/Pannel.css";
 import Axios from 'axios';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
+import Checkbox from '@material-ui/core/Checkbox';
+import "../../../ComponentsCss/Pannel.css";
 import "../../../ComponentsCss/PannelloInserimentoPatente.css"
 import NavbarCliente from "../../NavbarCliente";
-import Checkbox from '@material-ui/core/Checkbox';
 
-export default class Registrazione extends Component {
+export default class PannelloInserimentoPatente extends Component {
 
 	state = {
 		number: "",
@@ -23,6 +22,7 @@ export default class Registrazione extends Component {
 		success: false,
 		string: ""
 	};
+
 	componentDidMount() {
 		if (localStorage.getItem("utente") === null) {
 			window.location.href = '/'
@@ -41,10 +41,6 @@ export default class Registrazione extends Component {
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
 	};
-
-	stampa = () => {
-		console.log(this.state);
-	}
 
 	change = (input) => (e) => {
 		this.setState({ [input]: !this.state[input] })

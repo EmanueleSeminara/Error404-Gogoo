@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-
-
-import { Jumbotron, Button, Form, FormGroup, Label, Input, } from "reactstrap";
+import { Button, Form, FormGroup, Label } from "reactstrap";
 import { AvForm, AvField } from "availity-reactstrap-validation";
 import "../../../ComponentsCss/Pannel.css";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert} from '@material-ui/lab';
 import Axios from 'axios'
 import NavbarCliente from "../../NavbarCliente";
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-export default class Registrazione extends Component {
+export default class PannelloModificaPatente extends Component {
 
 	state = {
 		number: "",
@@ -66,12 +64,8 @@ export default class Registrazione extends Component {
 		this.setState({ [input]: e.target.value });
 	};
 
-	stampa = () => {
-		console.log(this.state);
-	}
-
 	change = (input) => (e) => {
-		this.setState({ [input]: e.target.checked/* !this.state[input] */ })
+		this.setState({ [input]: e.target.checked })
 	}
 
 	updatecarlicense = () => {
@@ -94,7 +88,6 @@ export default class Registrazione extends Component {
 
 	onValidSubmit = (event) => {
 		event.preventDefault();
-		console.log(this.state);
 		this.updatecarlicense();
 	};
 
