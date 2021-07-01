@@ -51,7 +51,8 @@ export default class PannelloRitiroConsegna extends Component {
                     this.setState({ error: true });
                 }
                 else{
-                    window.location.href = '/errorServer';
+                    console.log(err)
+                    //window.location.href = '/errorServer';
                 }
             });
     };
