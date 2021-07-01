@@ -30,6 +30,7 @@ import PannelloRimuoviVeicolo from '../src/Components/Amministratore/GestioneVei
 import PannelloAggiungiVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloAggiungiVeicolo';
 import PannelloModificaVeicolo from '../src/Components/Amministratore/GestioneVeicoli/PannelloModificaVeicolo';
 import Errorpage from '../src/pages/Errorpage'
+import notFound from "../src/pages/404"
 import "bootstrap/dist/js/bootstrap.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -76,7 +77,7 @@ class App extends Component {
           <Route exact path="/modificaVeicolo" component={PannelloModificaVeicolo} />
          
           <Route exact path="/errorServer" component={Errorpage} />
-          <Route exact path="*" component={Errorpage} />
+          <Route exact path="*" component={notFound} />
 
         </Switch>
       </Router>
