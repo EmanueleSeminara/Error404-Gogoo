@@ -5,42 +5,15 @@ import * as moment from 'moment';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Alert, AlertTitle } from '@material-ui/lab';
-
-
-import {
-	DatePicker,
-	TimePicker,
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
-
-import {
-	ListGroup,
-	ListGroupItem,
-	Button,
-	Input,
-	Jumbotron,
-	FormGroup,
-	Label,
-	Col,
-	Form,
-	ButtonGroup,
-} from "reactstrap";
-
-import {
-	AvForm,
-	AvGroup,
-	AvField,
-	AvRadio,
-	AvRadioGroup,
-} from "availity-reactstrap-validation";
+import { Alert } from '@material-ui/lab';
+import {DateTimePicker,MuiPickersUtilsProvider,} from '@material-ui/pickers';
+import {Button,Label} from "reactstrap";
+import {AvForm,AvField} from "availity-reactstrap-validation";
 import CardPrenotaVeicolo from './CardPrenotaVeicolo';
 import Axios from 'axios';
 
 
-export default class FormRicerca extends Component {
+export default class RicercaConAutista extends Component {
 	state = {
 		list: [],
 		type: "car",
@@ -74,12 +47,11 @@ export default class FormRicerca extends Component {
 			.then((res) => {
 				this.setState({ list: res.data });
 				console.log(res.data);
-				if (res.data.length == 0) {
+				if (res.data.length === 0) {
 					this.setState({errorList: true})
 				}
 			}).catch((err) => {
-				console.log(err);
-				
+				window.location.href = '/errorServer'
 			})
 	}
 
@@ -122,8 +94,7 @@ export default class FormRicerca extends Component {
 					}
 
 				}).catch((err) => {
-					console.log(err);
-					//window.location.href = '/errorServer';
+					window.location.href = '/errorServer';
 				});
 		}
 	};

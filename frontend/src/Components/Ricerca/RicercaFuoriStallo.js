@@ -2,42 +2,15 @@ import React, { Component } from "react";
 import DateFnsUtils from '@date-io/date-fns';
 import "../../ComponentsCss/Pannel.css";
 import * as moment from 'moment';
-import { Alert, AlertTitle } from '@material-ui/lab';
-
-
-import {
-	DatePicker,
-	TimePicker,
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
-
-import {
-	ListGroup,
-	ListGroupItem,
-	Button,
-	Input,
-	Jumbotron,
-	FormGroup,
-	Label,
-	Col,
-	Form,
-	ButtonGroup,
-} from "reactstrap";
-
-import {
-	AvForm,
-	AvGroup,
-	AvField,
-	AvRadio,
-	AvRadioGroup,
-} from "availity-reactstrap-validation";
+import { Alert } from '@material-ui/lab';
+import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { Button, Label } from "reactstrap";
+import { AvForm, AvField } from "availity-reactstrap-validation";
 import CardPrenotaVeicolo from './CardPrenotaVeicolo';
 import Axios from 'axios';
 
 
-export default class FormRicerca extends Component {
+export default class RicercaFuoriStallo extends Component {
 	state = {
 		list: [],
 		refParkingC: "Via Libertà",
@@ -67,19 +40,19 @@ export default class FormRicerca extends Component {
 	search = () => {
 		Axios.get('/api/search/vehiclesoutofstall?dateR=' + this.state.dateR + '&dateC=' + this.state.dateC + '&start=' + this.state.start)
 			.then((res) => {
-				if(res.data.length !== 0){
+				if (res.data.length !== 0) {
 					this.setState({ list: res.data });
 					this.setState({ cerca: true });
 				}
 				else {
-					this.setState({errorList: true})
+					this.setState({ errorList: true })
 				}
 
 			}).catch((err) => {
-				console.log(err);
+				window.location.href = '/errosServer'
 			})
 	}
-	
+
 
 	onValidSubmit = (event) => {
 		event.preventDefault();
@@ -113,15 +86,14 @@ export default class FormRicerca extends Component {
 						};
 						window.localStorage.setItem("reservation", JSON.stringify(reservation));
 					} else {
-						this.setState({errorPayment: true})
+						this.setState({ errorPayment: true })
 					}
 
 				}).catch((err) => {
-					console.log(err);
-					//window.location.href = '/errorServer';
+					window.location.href = '/errorServer';
 				});
 		}
-		
+
 	};
 
 	render() {
@@ -130,36 +102,34 @@ export default class FormRicerca extends Component {
 				{this.state.errorPayment && <Alert severity="error">Non hai un metodo di pagamento</Alert>}
 				{this.state.errorList && <Alert severity="error">Non ci sono veicoli</Alert>}
 				<AvForm onValidSubmit={this.onValidSubmit} >
-					
-						
 
-							<div style={{ paddingBottom: "20px" }}>
-								<AvField
-									name="Partenza"
-									type="text"
-									label="Dove ti trovi?"
-									placeholder="inserisci la via in cui ti trovi"
-									onChange={this.handleChange("start")}
-									errorMessage="Non sembra tu abbia inserito una via"
-									validate={{
-										required: {
-											value: true,
-											errorMessage: "Il campo è richiesto",
-										},
-									}}
-									required
-								/>
-							</div>
+					<div style={{ paddingBottom: "20px" }}>
+						<AvField
+							name="Partenza"
+							type="text"
+							label="Dove ti trovi?"
+							placeholder="inserisci la via in cui ti trovi"
+							onChange={this.handleChange("start")}
+							errorMessage="Non sembra tu abbia inserito una via"
+							validate={{
+								required: {
+									value: true,
+									errorMessage: "Il campo è richiesto",
+								},
+							}}
+							required
+						/>
+					</div>
 
-							<div style={{ paddingBottom: "30px" }}>
-								<AvField type="select" name="parcheggioConsegna" label="Consegna" onClick={this.handleChange("refParkingC")}>
-									<option>Via Libertà</option>
-									<option>Via Roma</option>
-									<option>Via Ernesto Basile</option>
-									<option>Viale Regione</option>
-									<option>Via Tersicore</option>
-								</AvField>
-							</div>
+					<div style={{ paddingBottom: "30px" }}>
+						<AvField type="select" name="parcheggioConsegna" label="Consegna" onClick={this.handleChange("refParkingC")}>
+							<option>Via Libertà</option>
+							<option>Via Roma</option>
+							<option>Via Ernesto Basile</option>
+							<option>Viale Regione</option>
+							<option>Via Tersicore</option>
+						</AvField>
+					</div>
 
 					<center>
 						<div className="row " style={{ paddingBottom: "20px" }}>
@@ -187,7 +157,7 @@ export default class FormRicerca extends Component {
 						</div>
 
 					</center>
-				
+
 				</AvForm>
 
 				{<div>

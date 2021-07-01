@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import {
-	Card, CardImg, CardText, CardBody,
-	CardTitle, CardSubtitle, Button
-} from 'reactstrap';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import Axios from 'axios';
 
-export default class CardVeicolo extends Component {
+export default class CardPrenotaVeicolo extends Component {
 	state = {
 		error: false,
 	};
@@ -18,11 +14,9 @@ export default class CardVeicolo extends Component {
 	}
 
 	setting = () => {
-		console.log(this.props.type)
 		let license = true;
 		Axios.get('/api/guest/getdatacarlicense')
 			.then((res) => {
-				console.log(1)
 				if (this.props.driver) {
 					license = true
 				} else if (this.props.type === "car") {
@@ -32,27 +26,22 @@ export default class CardVeicolo extends Component {
 					console.log("sono dentro scouter")
 					license = (res.data.b || res.data.a2 || res.data.a1 || res.data.am || res.data.a);
 				}
-				console.log(2)
-				console.log(license)
 
 				if (license) {
-					console.log(3)
 					const reservation = JSON.parse(localStorage.getItem("reservation"))
 					reservation.refVehicle = this.props.id
 					if (this.props.type === "car") {
 						reservation.category = this.props.category
 					}
-					console.log(4)
 					window.localStorage.setItem("reservation", JSON.stringify(reservation));
 					console.log(JSON.parse(localStorage.getItem("reservation")));
 					window.location.href = "/riepilogoPrenotazione";
-					console.log(5)
 				} else {
 					this.setState({ error: true })
 				}
 
 			}).catch((err) => {
-				//window.location.href = "/serverError"
+				window.location.href = "/serverError"
 			})
 	};
 

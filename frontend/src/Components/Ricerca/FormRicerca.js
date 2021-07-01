@@ -1,30 +1,6 @@
 import React, { Component } from "react";
-import DateFnsUtils from '@date-io/date-fns';
 import "../../ComponentsCss/Pannel.css";
-import * as moment from 'moment';
-
-
-import {
-	DatePicker,
-	TimePicker,
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
-
-import {
-	ListGroup,
-	ListGroupItem,
-	Button,
-	Input,
-	Jumbotron,
-	FormGroup,
-	Label,
-	Col,
-	Form,
-	ButtonGroup,
-} from "reactstrap";
-
+import {Button,ButtonGroup} from "reactstrap";
 import NavbarCliente from "../NavbarCliente";
 import RicercaVeicoli from './RicercaVeicoli';
 import RicercaFuoriStallo from './RicercaFuoriStallo';

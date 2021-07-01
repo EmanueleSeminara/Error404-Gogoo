@@ -178,7 +178,7 @@ export default class PannelloModifcaDati extends Component {
 											validate={{
 												minLength: { value: 10 },
 												maxLength: { value: 10 },
-												tel: { pattern: /^((38[{0-9}])|(34[{1-9}])|(36[6|8|0])|(33[{0-9}])|(32[{0-9}]))([\d]{7})$/ }
+												tel: { pattern: /^((3[{1-9}][{0-9}]))([\d]{7})$/ }
 											}}
 											errorMessage="il numero di telefono non è valido"
 											onChange={this.handleChange("phone")}

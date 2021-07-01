@@ -5,45 +5,14 @@ import * as moment from 'moment';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import { Alert, AlertTitle } from '@material-ui/lab';
-
-
-import {
-	DatePicker,
-	TimePicker,
-	DateTimePicker,
-	MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-
-
-import {
-	ListGroup,
-	ListGroupItem,
-	Button,
-	Input,
-	Jumbotron,
-	FormGroup,
-	Label,
-	Col,
-	Form,
-	ButtonGroup,
-} from "reactstrap";
-
-import {
-	AvForm,
-	AvGroup,
-	AvField,
-	AvRadio,
-	AvRadioGroup,
-} from "availity-reactstrap-validation";
-
-
+import { Alert } from '@material-ui/lab';
+import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { Button, Label } from "reactstrap";
+import { AvForm, AvField } from "availity-reactstrap-validation";
 import CardPrenotaVeicolo from './CardPrenotaVeicolo';
 import Axios from 'axios';
 
-export default class FormRicerca extends Component {
+export default class RicercaVeicoli extends Component {
 	state = {
 		list: [],
 		type: "car",
@@ -61,7 +30,6 @@ export default class FormRicerca extends Component {
 			window.location.href = '/login';
 		}
 	}
-
 
 	handleChange = (input) => (e) => {
 		this.setState({ [input]: e.target.value });
@@ -81,15 +49,15 @@ export default class FormRicerca extends Component {
 		Axios.post('/api/search/searchvehicles', this.state)
 			.then((res) => {
 				this.setState({ list: res.data });
-				if (res.data.length == 0) {
-					this.setState({errorList: true})
+				if (res.data.length === 0) {
+					this.setState({ errorList: true })
 				}
 			}).catch((err) => {
-				console.log(err);
+				window.location.href = '/errorServer'
 			})
 	}
 
-	onValidSubmit =  (event) => {
+	onValidSubmit = (event) => {
 		event.preventDefault();
 		if (moment(this.state.dateR).add(15, 'minutes') > moment(this.state.dateC)) {
 			this.setState({ errorTime: true })
@@ -121,12 +89,11 @@ export default class FormRicerca extends Component {
 						};
 						window.localStorage.setItem("reservation", JSON.stringify(reservation));
 					} else {
-						this.setState({errorPayment: true})
+						this.setState({ errorPayment: true })
 					}
 
 				}).catch((err) => {
-					console.log(err);
-					//window.location.href = '/errorServer';
+					window.location.href = '/errorServer';
 				});
 		}
 	};
@@ -137,13 +104,13 @@ export default class FormRicerca extends Component {
 			<div>
 				{this.state.errorPayment && <Alert severity="error">Non hai un metodo di pagamento</Alert>}
 				{this.state.errorList && <Alert severity="error">Non ci sono veicoli</Alert>}
-				
+
 
 				<AvForm onValidSubmit={this.onValidSubmit} >
 
 
 					<div>
-						<div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: "20px" }}>				
+						<div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: "20px" }}>
 							<RadioGroup
 								row
 								name="TipoVeicolo"
@@ -189,13 +156,13 @@ export default class FormRicerca extends Component {
 							<div className="col">
 								<MuiPickersUtilsProvider utils={DateFnsUtils}>
 									<Label sm={12} >Consegna</Label>
-									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={this.state.dateR} maxDate={moment(this.state.dateR).add(7, 'days') }inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
+									<DateTimePicker format={"dd/MM/yyyy HH:mm"} minDate={this.state.dateR} maxDate={moment(this.state.dateR).add(7, 'days')} inputVariant="outlined" value={this.state.dateC} selected={this.state.dateC} onChange={this.handleChangeDataArrivo} />
 								</MuiPickersUtilsProvider>
 							</div>
 						</div>
-							{this.state.errorTime &&
-							<h6 style={{ color: "#ef462c"}}>Prenotazione minima consentita 15 minuti </h6>
-							}
+						{this.state.errorTime &&
+							<h6 style={{ color: "#ef462c" }}>Prenotazione minima consentita 15 minuti </h6>
+						}
 
 						<div style={{ paddingBottom: "20px" }}>
 							<Button className="buttonCyano" type="submit" size="lg"  >
