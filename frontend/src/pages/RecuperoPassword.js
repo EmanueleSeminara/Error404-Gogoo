@@ -48,16 +48,12 @@ export default class recuperoPassword extends Component {
                 }
             });
     }
-
-
-
     render() {
         return (
             <div className="ez sfondo">
                 <Navbar />
                 {this.state.error && <Alert severity="error">{this.state.string}</Alert>}
                 {this.state.success && <Alert severity="success">Nuova password inviata per email</Alert>}
-
                 <div
                     className="row "
 
@@ -66,11 +62,6 @@ export default class recuperoPassword extends Component {
                         <div className="row pannelRecuperoPassword">
                             <div className="col-9">
                                 <div className="title-password">Recovery password</div>
-
-
-
-
-
                                 <AvForm className="formEmail" onValidSubmit={this.onValidSubmit}>
                                     <AvField
                                         name="emailRecovery"
@@ -85,21 +76,12 @@ export default class recuperoPassword extends Component {
                                             },
                                         }}
                                     />
-
-
                                     <center>
                                         <Button className="buttonRecovery" type="submit">Recovery</Button>
                                     </center>
-
-
-
                                 </AvForm>
-
                             </div>
                         </div>
-
-
-                        <Footer />
                     </div>
                 </div>
             </div>
