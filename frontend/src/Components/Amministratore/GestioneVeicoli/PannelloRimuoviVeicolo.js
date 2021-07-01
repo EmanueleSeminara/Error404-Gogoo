@@ -121,11 +121,9 @@ export default class PannelloRimuoviVeicolo extends Component {
                         </div>
                     </div>
                 </div>
-                <Footer/>
             </div>
         );
     }
-
 
 }
 
