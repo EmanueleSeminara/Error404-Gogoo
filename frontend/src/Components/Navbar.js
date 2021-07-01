@@ -15,7 +15,7 @@ export default class Navbar extends Component {
           href="/"
           style={{ fontSize: "20px" }}
         >
-          GoGoo!
+          dropcar!
         </a>
       </nav>
     );
