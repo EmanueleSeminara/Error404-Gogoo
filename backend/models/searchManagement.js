@@ -33,7 +33,7 @@ exports.searchDrivers = (dateR, dateC) => {
         return;
       }
       const drivers = rows.map((d) => ({ id: d.id, email: d.email }));
-      resolve(drivers);
+      drivers.length > 0 ? resolve(drivers) : resolve(false)
     });
   });
 };

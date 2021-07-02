@@ -11,12 +11,6 @@ const isGuest = require("../middleware/isGuest");
 // Ricerca i veicoli disponibili per una prenotazione in base ai valori inseriti
 router.post("/searchvehicles/", isGuest, async (req, res) => {
   try {
-    console.log(
-      "DATI DI REQ: " + req.body.type,
-      req.body.dateR,
-      req.body.dateC,
-      req.body.refParkingR
-    );
     const vehicles = await vehicleManagement.getVehiclesAndReservation(
       req.body.type
     );
@@ -58,12 +52,11 @@ router.post("/searchvehicles/", isGuest, async (req, res) => {
 router.post("/searchcarwithdriver", isGuest, async (req, res) => {
   try {
     if (await searchManagement.searchDrivers(req.body.dateR, req.body.dateC)) {
-      console.log("CATEGORY: " + req.body.category);
       res.json(
         await searchManagement.searchVehiclesForDrivers(req.body.category)
       );
     } else {
-      res.status(514).json({ error: "No driver available" });
+      res.status(513).json({ error: "No driver available" });
     }
   } catch (err) {
     res.status(503).json({
@@ -97,7 +90,6 @@ router.get("/vehiclesoutofstall/", isGuest, async (req, res) => {
         }
       })
     ).then((data) => {
-      console.log(data);
       res.json(
         data.sort((first, second) => first.distanceValue - second.distanceValue)
       );
