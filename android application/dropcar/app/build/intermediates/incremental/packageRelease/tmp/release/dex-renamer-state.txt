@@ -1,0 +1,4 @@
+#Thu Jul 01 16:00:52 CEST 2021
+base.0=/Users/emanueleseminara/AndroidStudioProjects/dropcar/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
