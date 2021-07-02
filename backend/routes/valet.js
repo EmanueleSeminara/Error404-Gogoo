@@ -21,7 +21,6 @@ router.get("/reservationsinmyparking/", isValet, async (req, res) => {
 
 // Prenotazioni che arriveranno nel parcheggio del parcheggiatore che fa la chiamata
 router.get("/vehiclesgoingtomyparking/", isValet, async (req, res) => {
-  console.log("Veicoli che arriveranno nel mio parcheggio");
   try {
     res.json(await valetManagement.listVehiclesByDestination(req.user.id));
   } catch (err) {
@@ -53,12 +52,7 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
         new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
       ).getTime();
       const timerDatetime = deliveryDate - nowDate;
-      console.log(
-        "DATA TIMER CALCOLATA: " +
-          new Date(timerDatetime) +
-          "DATA IN MILLI: " +
-          timerDatetime
-      );
+ 
       // Scadenza orario di consegna
       setTimeout(async () => {
         try {
@@ -66,7 +60,6 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
             req.user.id,
             reservation.id
           );
-          console.log("isInReservation: " + isInReservations);
           if (isInReservations) {
             mail.sendExpiredDeliveryMail(
               req.user.email,
@@ -81,7 +74,6 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
                 reservation.id
               );
             });
-            console.log("MANDA EMAIL!!");
           }
         } catch (err) {
           console.log(err);
@@ -95,7 +87,6 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
             req.user.id,
             reservation.id
           );
-          console.log("isInReservation: " + isInReservations);
           if (isInReservations) {
             mail.sendDeliveryFailureyMail(
               req.user.email,
@@ -111,13 +102,11 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
                 req.user.email
               );
             });
-            console.log("MANDA EMAIL!!");
           }
         } catch (err) {
           console.log(err);
         }
 
-        //console.log("Nome: " + req.user.name + " Cognome: " + req.user.surname);
       }, timerDatetime + 14400000);
       res.status(200).end();
     } else {
@@ -136,14 +125,12 @@ router.put("/deliveryvehicle", isValet, async (req, res) => {
 // Ritiro del veicolo dal cliente
 router.delete("/retirevehicle", isValet, async (req, res) => {
   try {
-    console.log(req.query.id, req.user.id);
     const reservation = await reservationManagement.getReservationById(
       req.query.id
     );
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    console.log(reservation);
     if (
       reservation.refValetC == req.user.id &&
       reservation.refVehicle == req.query.refVehicle &&

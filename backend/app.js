@@ -53,11 +53,6 @@ app.use(BASEURL + "/reservation/", reservationRoutes);
 app.use(BASEURL + "/driver/", driverRoutes);
 app.use(BASEURL + "/valet/", valetRoutes);
 
-app.get("/", (req, res) => {
-  res.send("CIAO");
-  console.log(req.isAuthenticated());
-});
-
 app.use(function (req, res, next) {
   next(createError(404));
 });

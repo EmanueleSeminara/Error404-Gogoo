@@ -22,10 +22,31 @@ Nota: il pagamento non va implementato ma solo progettato
   - Autenticazione e Registrazione: Funzionalità che permette agli utenti di creare il proprio account e autenticarsi. Ciò è necessario per accedere alle funzionalità principali del sistema (Ricercare un veicolo disponibile, effettuare una prenotazione)
   - Modifica dei dati personali: Attività di aggiornamento e/o inserimento delle informazioni relative all’utente che ha effettuato l’accesso.
 - Servizi offerti ai Clienti
-  - Inserimento e rimozione dei metodi di pagamento: Il sistema permette all’utente che ha effettuato l’accesso di memorizzare uno o più metodi di pagamenti per poterli poi utilizzare rapidamente quando necessario. L'utente può rimuovere il metodo di pagamento precedentemente inserito.
+  - Inserimento e rimozione dei metodi di pagamento: Il sistema permette al cliente che ha effettuato l’accesso di memorizzare uno o più metodi di pagamenti per poterli poi utilizzare rapidamente quando necessario. Il cliente può rimuovere il metodo di pagamento precedentemente inserito.
+  - Inserimento e aggiornamento della patente di guida: Il sistema permette al cliente che ha effettuato l'accesso di memorizzare una patente per verificare che sia abilitato alla guida del mezzo che desidera prenotare. Il cliente può aggiornare la patente precedentemente inserita.
+  - Ricerca dei veicoli: Il cliente ha la possibilità di eseguire una ricerca tra tutti i veicoli registrati, visualizzando solo quelli che rispondono alle sue esigenze.
+  - Modifica della prenotazione: Il cliente può, nella propria area personale, accedere alle proprie prenotazioni e modificarne alcune delle informazioni precedentemente inserite.
+  - Ritiro e consegna: Il cliente, nella propria area personale, ha la possibilità di effettuare il ritiro del veicolo precedentemente prenotato. Il cliente, al termine della prenotazione, ha la possibilità di effettuare la consegna del veicolo precedentemente prenotato.
+  - Consegna fuori dallo stallo: Il cliente, qualora lo desideri, ha la possibilità di consegnare il veicolo precedentemente prenotato nel luogo che preferisce.
+  - Segnala guasto: Il cliente, qualora dovesse verificarsi un mal funzionamento del mezzo prenotato, può segnalarlo nella propria area personale.
+  - Ritardo consegna: Il cliente, qualora dovesse superare la data e l'ora stabilita nella prenotazione per la consegna, può notificare un nuovo orario o un nuovo luogo di consegna nella propria area personale.
 - Servizi offerti agli Amministratori
+  - Aggiungi veicolo: L'amministratore, nella propria area personale, ha la possiblità di aggiungere un nuovo veicolo a quelli registrati.
+  - Rimuovi veicolo: L'amministratore, nella propria area personale, ha la possibilità di rimuovere un veicolo tra quelli precedentemente registrati.
+  - Modifica stato veicolo: L'amministratore, nella propria area personale, ha la possibilità di modificare lo stato di un veicolo tra quelli precedentemente registrati.
+  - Prenotazioni effetuate: L'amministratore, nella propria area personale, ha la possibilità di cercare le prenotazioni effettuate dai clienti inserendo l'email del cliente desiderato.
+  - Aggiungi utente: L'amministratore, nella propria area personale, ha la possbilità di aggiungere un nuovo utente alla piattaforma.
+  - Rimuovi utente: L'amministratore, nella propria area personale, ha la possiblità di rimuovere un utente dalla piattaforma.
+  - Modifica dati utente: L'amministratore, nella propria area personale, ha la possiblità di modificare i dati di un utente della piattaforma.
 - Servizi offerti agli Autisti
-- Servizi offerti ai Posteggiatori
+  - Conferma prenotazione: L'autista, nella propria area personale, ha la possibilità di prendere in carico una nuova prenotazione che richiede un autista.
+  - Visualizza prenotazioni: L'autista, nella propria area personale, ha la possibilità di visualizzare tutte le prenotazioni prese in carico.
+  - Ritiro e consegna: L'autista, nella propria area personale, ha la possibilità di effettuare il ritiro del veicolo precedentemente prenotato da un cliente che ha richiesto un autista. Al termine della prenotazione, ha la possibilità di effettuare la consegna del veicolo precedentemente prelevato.
+- Servizi offerti ai Parcheggiatori
+  - Veicoli nel parcheggio: Il parcheggiatore, nella propria area personale, può visualizzare tutti i veicoli presenti nel suo parcheggio che hanno una prenotazione.
+  - Veicoli che arriveranno al parcheggio: Il parcheggiatore, nella propria area personale, può visualizzare tutti i veicoli che verranno consegnati dai clienti nel suo parcheggio.
+  - Ritiro e consegna: Il parcheggiatore, nella propria area personale, ha la possibilità di effettuare il ritiro del veicolo precedentemente prenotato da un cliente. Al termine della prenotazione, ha la possibilità di effettuare la consegna del veicolo precedentemente prelevato.
+
   
 
 
@@ -33,8 +54,49 @@ Nota: il pagamento non va implementato ma solo progettato
 Per la realizzazione di questa applicazione web è stato scelto di utilizzare come gestore di pacchetti JavaScript NPM.
 Si è deciso di utilizzare il framework ExpressJS e la libreria di JavaScript ReactJS poiché entrambi semplificano lo sviluppo di applicazioni web e mobile.  
 Per la realizzazione delle interfacce grafiche, si è scelto di utilizzare il framework reactstrap. 
-Per gestire le richieste HTTP POST e GET tra client e server, si è utilizzata la libreria “axios”.  
-SQLite, Express, React, NodeJS
+Per gestire le richieste HTTP POST e GET tra client e server, si è utilizzata la libreria “axios”, SQLite, Express, React, NodeJS.
+
+## Organizzazione del codice
+
+All'interno del download troverai la cartella backend organizzata in questa maniera:
+
+```
+backend/
+└── db/
+    ├── db.js
+    └── dropcar.sqlite
+    middleware/
+    ├── isAdmin.js
+    ├── isDriver.js
+    ├── isGuest.js
+    ├── isLoggedIn.js
+    ├── JFilePicker.js
+    └── isValet.js
+    models/
+    ├── adminManagement.js
+    ├── distance.js
+    ├── driverManagement.js
+    ├── guestManagement.js
+    ├── mail.js
+    ├── passport-config.js
+    ├── reservationManagement.js
+    ├── searchManagement.js
+    ├── userManagement.js
+    ├── valetManagement.js
+    └── vahicleManagement.js
+    routes/
+    ├── admin.js
+    ├── driver.js
+    ├── guest.js
+    ├── reservation.js
+    ├── search.js
+    ├── user.js
+    ├── valet.js
+    └── vahicle.js
+    app.js
+    package-lock.json
+    package.json
+```
 
 ## Come avviare dropcar
 

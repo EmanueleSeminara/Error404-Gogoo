@@ -419,22 +419,13 @@ router.put("/deliverydelay", isGuest, async (req, res) => {
 // Ritira il veicolo
 router.put("/retirevehicle", isGuest, async (req, res) => {
   try {
-    console.log("ID: " + req.body.id)
     const reservation = await reservationManagement.getReservationById(
       req.body.id
     );
-    console.log("RESERVATION: " + reservation.refVehicle, reservation.refGuest, reservation.dateR + " ----------");
     const dateNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
-    console.log(
-      dateNow,
-      req.body.refVehicle,
-      req.user.id,
-      reservation.refVehicle == req.body.refVehicle,
-      reservation.refGuest == req.user.id,
-      new Date(reservation.dateR) <= dateNow
-    );
+
     if (
       reservation.refVehicle === req.body.refVehicle &&
       reservation.refGuest === req.user.id &&
