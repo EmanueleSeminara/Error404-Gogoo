@@ -108,7 +108,7 @@ export default class CardRitardoConsegna extends Component {
                       </p>
                     </div>
                     <div className="col-md-6">
-                      <p className="infoCard"></p>
+                      <p style={{visibility: "hidden"}}>-</p>
                       <p className="infoCard">
                         <strong>parcheggio consegna:</strong>{" "}
                         {this.state.refParkingC}

@@ -45,7 +45,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 500,
+    whidth: 100,
   },
 }));
 

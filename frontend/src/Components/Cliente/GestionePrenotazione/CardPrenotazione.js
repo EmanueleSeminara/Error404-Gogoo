@@ -146,20 +146,20 @@ export default class CardPrenotazione extends Component {
                     </div>
                     <div className="col-md-6">
                       {this.props.state === "not confirmed" && (
-                        <p className="infoCard">
-                          <strong>Autista: </strong> in attesa di conferma{" "}
-                        </p>
-                      )}
+                          <p className="infoCard" style={{ visibility: (this.props.type === "car" ? "visible" : "hidden")}}>
+                            <strong >Autista: </strong> in attesa di conferma{" "}
+                          </p>
+                        )}
                       {this.props.state === "confirmed" && (
-                        <p className="infoCard">
-                          <strong>Autista: </strong>{" "}
-                          {this.props.refDriver != null ? (
-                            <>{this.props.refDriver}</>
-                          ) : (
-                            <> no </>
-                          )}{" "}
-                        </p>
-                      )}
+                          <p className="infoCard" style={{ visibility: (this.props.type === "car" ? "visible" : "hidden")}}>
+                            <strong>Autista: </strong>{" "}
+                            {this.props.refDriver != null ? (
+                              <>{this.props.refDriver}</>
+                            ) : (
+                              <> no </>
+                            )}{" "}
+                          </p>
+                        )}
                       {this.props.refParkingC != null && (
                         <p className="infoCard">
                           <strong>Parcheggio consegna: </strong>{" "}
@@ -209,26 +209,6 @@ export default class CardPrenotazione extends Component {
             {this.state.modifica && (
               <center>
                 <AvForm>
-                  {this.props.positionR == null && (
-                    <Row>
-                      <Col>
-                        <FormGroup>
-                          <Label for="exampleSelect">Tipo veicolo</Label>
-                          <Input
-                            type="select"
-                            name="select"
-                            id="type"
-                            onClick={this.handleChange("type")}
-                          >
-                            <option>Auto</option>
-                            <option>Moto</option>
-                            <option>Monopattino</option>
-                            <option>Bicicletta</option>
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  )}
                   <Row>
                     <Col>
                       <Label sm={12}>Destinazione</Label>
@@ -333,6 +313,11 @@ export default class CardPrenotazione extends Component {
                 {this.state.errore && (
                   <Alert severity="error">
                     This is an error alert — check it out!
+                  </Alert>
+                )}
+                {this.state.success && (
+                  <Alert severity="success">
+                    Modifica avvenuta correttamente
                   </Alert>
                 )}
               </center>

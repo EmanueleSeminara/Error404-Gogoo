@@ -95,7 +95,9 @@ export default class Login extends Component {
             <div className="row pannelLogin">
               <div className="col-10">
                 <div className="titleLogin">Login</div>
-                <p style={{ color: "grey" }}>Per favore accedi per continuare</p>
+                <p style={{ color: "grey" }}>
+                  Per favore accedi per continuare
+                </p>
 
                 <AvForm
                   className="formEmail"
@@ -140,7 +142,7 @@ export default class Login extends Component {
                 </center>
 
                 <center style={{ color: "#554774", marginTop: "80px" }}>
-                Non hai un account?{" "}
+                  Non hai un account?{" "}
                   <a
                     href="/registrazione"
                     style={{ color: "#9dffe8", textDecoration: "none" }}
