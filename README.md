@@ -54,8 +54,49 @@ Nota: il pagamento non va implementato ma solo progettato
 Per la realizzazione di questa applicazione web è stato scelto di utilizzare come gestore di pacchetti JavaScript NPM.
 Si è deciso di utilizzare il framework ExpressJS e la libreria di JavaScript ReactJS poiché entrambi semplificano lo sviluppo di applicazioni web e mobile.  
 Per la realizzazione delle interfacce grafiche, si è scelto di utilizzare il framework reactstrap. 
-Per gestire le richieste HTTP POST e GET tra client e server, si è utilizzata la libreria “axios”.  
-SQLite, Express, React, NodeJS
+Per gestire le richieste HTTP POST e GET tra client e server, si è utilizzata la libreria “axios”, SQLite, Express, React, NodeJS.
+
+## Organizzazione del codice
+
+All'interno del download troverai la cartella backend organizzata in questa maniera:
+
+```
+backend/
+└── db/
+    ├── db.js
+    └── dropcar.sqlite
+    middleware/
+    ├── isAdmin.js
+    ├── isDriver.js
+    ├── isGuest.js
+    ├── isLoggedIn.js
+    ├── JFilePicker.js
+    └── isValet.js
+    models/
+    ├── adminManagement.js
+    ├── distance.js
+    ├── driverManagement.js
+    ├── guestManagement.js
+    ├── mail.js
+    ├── passport-config.js
+    ├── reservationManagement.js
+    ├── searchManagement.js
+    ├── userManagement.js
+    ├── valetManagement.js
+    └── vahicleManagement.js
+    routes/
+    ├── admin.js
+    ├── driver.js
+    ├── guest.js
+    ├── reservation.js
+    ├── search.js
+    ├── user.js
+    ├── valet.js
+    └── vahicle.js
+    app.js
+    package-lock.json
+    package.json
+```
 
 ## Come avviare dropcar
 
