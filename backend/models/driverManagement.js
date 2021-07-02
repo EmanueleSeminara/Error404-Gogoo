@@ -61,7 +61,6 @@ exports.reservationNotConfirmed = () => {
 
 // Conferma la prenotazione associata ad idReservation e inserisce idDriver come autista alla stessa
 exports.confirmationOfReservation = (idDriver, idReservation) => {
-  console.log("PRENOTAZIONE DA CONFERMARE: " + idDriver, idReservation);
   return new Promise((resolve, reject) => {
     const sql =
       "UPDATE reservations SET refDriver = ?, state = 'confirmed' WHERE state = 'not confirmed' AND id = ?";
