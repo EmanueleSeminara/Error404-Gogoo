@@ -83,25 +83,12 @@ export default class Registrazione extends Component {
     return (
       <div className="ez sfondo no-scrollable">
         <Navbar />
-
+        {this.state.error && (
+          <Alert severity="error">{this.state.string}</Alert>
+        )}
         <AvForm onValidSubmit={this.onValidSubmit}>
           <div className="row justify-content-md-center boxpannell">
-            <center>
-              {this.state.error && (
-                <Alert
-                  severity="error"
-                  style={{
-                    position: "absolute",
-                    top: "0",
-                    zIndex: "3",
-                    width: "100%",
-                    left: "0",
-                  }}
-                >
-                  {this.state.string}
-                </Alert>
-              )}
-            </center>
+            <center></center>
 
             <div
               className="pannell-registrazione"

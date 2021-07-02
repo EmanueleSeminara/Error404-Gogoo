@@ -54,6 +54,18 @@ export default class NavbarCliente extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+            <NavItem>
+                <NavLink
+                  href="/ricerca"
+                  style={{
+                    color: "white",
+                    backgroundColor: "transparent",
+                    border: "none",
+                  }}
+                >
+                  Ricerca
+                </NavLink>
+              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav style={{ color: "white" }}>
                   Gestione Accout
@@ -153,18 +165,6 @@ export default class NavbarCliente extends Component {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <NavItem>
-                <NavLink
-                  href="/ricerca"
-                  style={{
-                    color: "white",
-                    backgroundColor: "transparent",
-                    border: "none",
-                  }}
-                >
-                  Home
-                </NavLink>
-              </NavItem>
               <NavItem
                 style={{
                   display: "flex",

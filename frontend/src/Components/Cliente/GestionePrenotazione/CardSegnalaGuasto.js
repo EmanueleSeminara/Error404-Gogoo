@@ -93,7 +93,7 @@ export default class CardSegnalaGuasto extends Component {
                       </p>
                     </div>
                     <div className="col-md-6">
-                      <p className="infoCard">
+                      <p className="infoCard" style={{ visibility: (this.props.type === "car" ? "visible" : "hidden")}}>
                         <strong>Autista:</strong>{" "}
                         {this.props.refDriver != null ? (
                           <>{this.props.refDriver}</>
