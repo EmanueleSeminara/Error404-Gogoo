@@ -356,7 +356,4 @@ All'interno del download troverai la cartella frontend organizzata in questa man
     │   └── Registrazione.js
     ├── reportWebVitals.js
     └── setupTests.js
-
-28 directories, 185 files
-
 ```
