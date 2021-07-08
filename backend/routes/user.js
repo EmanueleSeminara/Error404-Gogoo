@@ -104,7 +104,7 @@ router.post("/forgotpassword", [check("email").isEmail()], async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
+    res.status(422).json({ errors: errors.array() });
   }
   try {
     var password = generator.generate({
@@ -123,11 +123,9 @@ router.post("/forgotpassword", [check("email").isEmail()], async (req, res) => {
         .status(513)
         .json({ error: "The email is not associated with any account." });
     } else {
-      res
-        .status(503)
-        .json({
-          error: "Database error during the creation of user - " + user,
-        });
+      res.status(503).json({
+        error: "Database error during the creation of user - " + user,
+      });
     }
   }
 });

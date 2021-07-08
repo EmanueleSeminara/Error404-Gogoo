@@ -17,12 +17,17 @@ export default class CardRitiroConsegna extends Component {
       this.setState({ ritiro: false });
       this.setState({ consegna: true });
     } else {
-      let dateNow = moment(new Date());
-      let dateR = moment(this.props.dateR);
-      console.log(dateNow + " " + dateR);
-      if (dateNow > dateR) {
-        console.log("sono dentro");
-        this.setState({ ritiro: true });
+      if (this.props.state === "confirmed") {
+        let dateNow = moment(new Date());
+        let dateR = moment(this.props.dateR);
+        console.log(dateNow + " " + dateR);
+        if (dateNow > dateR) {
+          console.log("sono dentro");
+          this.setState({ ritiro: true });
+          this.setState({ consegna: false });
+        }
+      } else {
+        this.setState({ ritiro: false });
         this.setState({ consegna: false });
       }
     }
@@ -107,14 +112,21 @@ export default class CardRitiroConsegna extends Component {
                     </p>
                   </div>
                   <div className="col-md-6">
-                    <p className="infoCard" style={{ visibility: (this.props.type === "car" ? "visible" : "hidden")}}>
-                      <strong>Autista:</strong>{" "}
-                      {this.props.refDriver != null ? (
-                        <>{this.props.refDriver}</>
-                      ) : (
-                        <> no </>
-                      )}{" "}
-                    </p>
+                    {this.props.state === "not confirmed" && (
+                      <p className="infoCard" style={{ visibility: (this.props.type === "car" ? "visible" : "hidden") }}>
+                        <strong >Autista: </strong> in attesa di conferma{" "}
+                      </p>
+                    )}
+                    {this.props.state === "confirmed" && (
+                      <p className="infoCard" style={{ visibility: (this.props.type === "car" ? "visible" : "hidden") }}>
+                        <strong>Autista: </strong>{" "}
+                        {this.props.refDriver != null ? (
+                          <>{this.props.refDriver}</>
+                        ) : (
+                          <> no </>
+                        )}{" "}
+                      </p>
+                    )}
                     {this.props.refParkingC != null && (
                       <p className="infoCard">
                         <strong>Parcheggio consegna:</strong>{" "}

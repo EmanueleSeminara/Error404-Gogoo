@@ -23,7 +23,7 @@ export default class CardPrenotaVeicolo extends Component {
           console.log("sono dentro car");
           license = res.data.b;
         } else if (this.props.type === "scooter") {
-          console.log("sono dentro scouter");
+          console.log("sono dentro scooter");
           license =
             res.data.b ||
             res.data.a2 ||

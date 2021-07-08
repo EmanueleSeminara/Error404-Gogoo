@@ -194,6 +194,7 @@ export default class RicercaFuoriStallo extends Component {
           <div>
             {this.state.cerca &&
               this.state.list.map((item) => (
+                <div className="p-3 ">
                 <CardPrenotaVeicolo
                   id={item.id}
                   type={item.type}
@@ -203,6 +204,7 @@ export default class RicercaFuoriStallo extends Component {
                   duration={item.duration}
                   position={item.position}
                 />
+                </div>
               ))}
           </div>
         }

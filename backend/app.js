@@ -75,13 +75,16 @@ app.listen(port, () => {
       new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" })
     );
     const reservations = reservationManagement.getConfirmedReservations();
-    reservations.forEach((reservation) => {
-      if (
-        new Date(new Date(reservation.dateC).getTime() + 86400000) < dateNow
-      ) {
-        reservationManagement.deleteReservationById(reservation.id);
-      }
-    });
+    if(reservations.length > 0){
+      reservations.forEach((reservation) => {
+        if (
+          new Date(new Date(reservation.dateC).getTime() + 86400000) < dateNow
+        ) {
+          reservationManagement.deleteReservationById(reservation.id);
+        }
+      });
+    }
+    
     console.log("Expired reservations deleted!");
   }, 86400000);
 });
